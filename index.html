@@ -79,6 +79,14 @@ footer { padding:2rem 4rem; border-top:1px solid var(--border); display:flex; al
 .reveal.visible { opacity:1; transform:none; }
 .reveal-delay-1 { transition-delay:0.15s; }
 .reveal-delay-2 { transition-delay:0.3s; }
+.friends-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; background:var(--border); }
+.friend-card { background:var(--bg); padding:2.5rem; text-decoration:none; display:block; transition:background 0.3s; }
+.friend-card:hover { background:#0D1810; }
+.friend-tag { font-family:'Space Mono',monospace; font-size:0.55rem; letter-spacing:0.2em; color:var(--lime); text-transform:uppercase; display:block; margin-bottom:1rem; }
+.friend-name { font-family:'Syne',sans-serif; font-weight:800; font-size:1.4rem; color:var(--cream); display:block; margin-bottom:1rem; line-height:1.1; }
+.friend-card p { color:var(--muted); font-size:0.95rem; line-height:1.7; margin-bottom:1.5rem; }
+.friend-link { font-family:'Syne',sans-serif; font-size:0.7rem; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:var(--lime); }
+@media(max-width:768px){ .friends-grid { grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
@@ -116,9 +124,9 @@ footer { padding:2rem 4rem; border-top:1px solid var(--border); display:flex; al
       <h2>A nexus is a<br/><em>central link.</em><br/>That's us.</h2>
     </div>
     <div class="reveal reveal-delay-1">
-      <p>Nexus Lab Space is a hands-on innovation hub where ideas come to life through prototyping, play, and real-world tools. From Legos to lasers, we use physical materials and immersive experimentation to spark bold thinking and tangible outcomes.</p>
+      <p>I'm Genell Zuciya, an Innovation Strategist with nearly two decades of experience designing immersive experiences, building with emerging technology, and applying nature-inspired thinking to complex problems. Nexus Lab Space is my independent lab where those threads come together.</p>
       <div class="quote-box"><p>"Science, creativity, and community meet here to create systems-level change through hands-on prototyping."</p></div>
-      <p style="margin-top:1.5rem">We're a powerful central link where disciplines collide, where the serious becomes playful, and where nature's own blueprint guides how we solve problems that actually matter.</p>
+      <p style="margin-top:1.5rem">The work is hands-on and collaborative. From Legos to lasers, we use physical materials and immersive experimentation to spark bold thinking and tangible outcomes for organizations, communities, and individuals ready to move ideas forward.</p>
     </div>
   </div>
 </section>

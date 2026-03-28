@@ -11,7 +11,7 @@
   --bg:#060C08; --bg2:#0D1810; --cream:#F2EDDF; --muted:#8A8478;
   --lime:#B6FF4A; --sage:#4A7A55; --border:rgba(182,255,74,0.18); --glow:rgba(182,255,74,0.07);
 }
-body { background:var(--bg); color:var(--cream); font-family:'Instrument Serif',Georgia,serif; font-size:18px; line-height:1.6; overflow-x:hidden; }
+body { background:var(--bg); color:var(--cream); cursor:none; font-family:'Instrument Serif',Georgia,serif; font-size:18px; line-height:1.6; overflow-x:hidden; }
 nav { display:flex; align-items:center; justify-content:space-between; padding:1.4rem 4rem; background:rgba(6,12,8,0.95); border-bottom:1px solid var(--border); position:sticky; top:0; z-index:10; }
 .logo { font-family:'Syne',sans-serif; font-weight:800; font-size:1rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--cream); display:flex; align-items:center; gap:0.5rem; }
 .logo-dot { width:7px; height:7px; background:var(--lime); border-radius:50%; animation:nlsblink 2s infinite; display:inline-block; }
@@ -71,9 +71,15 @@ footer { padding:2rem 4rem; border-top:1px solid var(--border); display:flex; al
   .cards{grid-template-columns:1fr;}
   .focus-item{grid-template-columns:2.5rem 1fr;}
 }
+/* ── CURSOR ── */
+.cur { position:fixed; width:10px; height:10px; background:var(--lime); border-radius:50%; pointer-events:none; z-index:99999; transform:translate(-50%,-50%); transition:transform 0.15s; mix-blend-mode:difference; }
+.cur-ring { position:fixed; width:36px; height:36px; border:1px solid var(--lime); border-radius:50%; pointer-events:none; z-index:99998; transform:translate(-50%,-50%); opacity:0.4; transition:all 0.12s; }
 </style>
 </head>
 <body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="curRing"></div>
 
 <nav>
   <div class="logo"><span class="logo-dot"></span>Nexus Lab Space</div>
@@ -232,6 +238,16 @@ footer { padding:2rem 4rem; border-top:1px solid var(--border); display:flex; al
 </footer>
 
 <script>
+/* ── CURSOR ── */
+var cur=document.getElementById('cur'),curRing=document.getElementById('curRing');
+var cx=0,cy=0,rx=0,ry=0;
+document.addEventListener('mousemove',function(e){cx=e.clientX;cy=e.clientY;cur.style.left=cx+'px';cur.style.top=cy+'px';});
+(function animRing(){rx+=(cx-rx)*.12;ry+=(cy-ry)*.12;curRing.style.left=rx+'px';curRing.style.top=ry+'px';requestAnimationFrame(animRing);})();
+document.querySelectorAll('a,button,.focus-item,.card').forEach(function(el){
+  el.addEventListener('mouseenter',function(){cur.style.transform='translate(-50%,-50%) scale(2.5)';curRing.style.opacity='0';});
+  el.addEventListener('mouseleave',function(){cur.style.transform='translate(-50%,-50%) scale(1)';curRing.style.opacity='0.4';});
+});
+
 (function(){
   var canvas = document.getElementById('nlsCanvas');
   if(!canvas) return;

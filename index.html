@@ -1,6 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Nexus Lab Space</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
-
-<div id="nls">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:#060C08; --bg2:#0D1810; --cream:#F2EDDF; --muted:#8A8478;
+  --lime:#B6FF4A; --sage:#4A7A55; --border:rgba(182,255,74,0.18); --glow:rgba(182,255,74,0.07);
+}
+body { background:var(--bg); color:var(--cream); font-family:'Instrument Serif',Georgia,serif; font-size:18px; line-height:1.6; overflow-x:hidden; }
+nav { display:flex; align-items:center; justify-content:space-between; padding:1.4rem 4rem; background:rgba(6,12,8,0.95); border-bottom:1px solid var(--border); position:sticky; top:0; z-index:10; }
+.logo { font-family:'Syne',sans-serif; font-weight:800; font-size:1rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--cream); display:flex; align-items:center; gap:0.5rem; }
+.logo-dot { width:7px; height:7px; background:var(--lime); border-radius:50%; animation:nlsblink 2s infinite; display:inline-block; }
+.nav-links { display:flex; gap:2.5rem; list-style:none; }
+.nav-links a { font-family:'Syne',sans-serif; font-size:0.72rem; font-weight:600; letter-spacing:0.22em; text-transform:uppercase; color:var(--muted); text-decoration:none; }
+.nav-links a:hover { color:var(--lime); }
+.hero { position:relative; min-height:100vh; display:flex; flex-direction:column; justify-content:flex-end; padding:0 4rem 5rem; overflow:hidden; background:var(--bg); }
+canvas { position:absolute; top:0; left:0; width:100%; height:100%; z-index:0; display:block; }
+.hero-content { position:relative; z-index:1; }
+.hero-tag { font-family:'Space Mono',monospace; font-size:0.68rem; letter-spacing:0.28em; color:var(--lime); text-transform:uppercase; margin-bottom:1.2rem; display:block; }
+h1 { font-family:'Syne',sans-serif; font-weight:800; font-size:clamp(3.2rem,7.5vw,7rem); line-height:0.95; letter-spacing:-0.02em; color:var(--cream); max-width:850px; margin-bottom:2rem; }
+h1 em { font-style:italic; font-family:'Instrument Serif',serif; color:var(--lime); }
+.hero-sub { font-family:'Instrument Serif',serif; font-size:1.1rem; color:var(--muted); max-width:500px; line-height:1.75; margin-bottom:2.5rem; display:block; }
+.btn-row { display:flex; align-items:center; gap:2rem; flex-wrap:wrap; }
+.btn-lime { font-family:'Syne',sans-serif; font-size:0.72rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--bg); background:var(--lime); padding:0.95rem 2rem; text-decoration:none; display:inline-block; }
+.btn-ghost { font-family:'Syne',sans-serif; font-size:0.72rem; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); text-decoration:none; }
+section { padding:7rem 4rem; }
+.label { font-family:'Space Mono',monospace; font-size:0.65rem; letter-spacing:0.3em; color:var(--lime); text-transform:uppercase; display:block; margin-bottom:1.2rem; }
+h2 { font-family:'Syne',sans-serif; font-weight:800; font-size:clamp(2rem,4vw,3.2rem); line-height:1.05; letter-spacing:-0.02em; color:var(--cream); margin-bottom:1.8rem; }
+h2 em { font-style:italic; font-family:'Instrument Serif',serif; color:var(--lime); }
+p { font-family:'Instrument Serif',serif; font-size:1rem; color:var(--muted); line-height:1.8; }
+.divider { display:flex; align-items:center; gap:1rem; margin-bottom:4rem; }
+.divider-line { flex:1; height:1px; background:var(--border); }
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start; }
+.quote-box { border-left:3px solid var(--lime); background:var(--glow); padding:1.8rem 2rem; margin-top:2rem; }
+.quote-box p { font-style:italic; color:var(--cream); font-size:1.15rem; }
+.cards { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; background:var(--border); margin-top:4rem; }
+.card { background:var(--bg2); padding:2.2rem 1.8rem; transition:background 0.3s; }
+.card:hover { background:#162a1c; }
+.card-icon { display:block; margin-bottom:1.2rem; }
+.card-title { font-family:'Syne',sans-serif; font-weight:700; font-size:0.95rem; color:var(--cream); display:block; margin-bottom:0.6rem; }
+.card-tag { font-family:'Space Mono',monospace; font-size:0.55rem; letter-spacing:0.2em; color:var(--lime); text-transform:uppercase; display:block; margin-bottom:0.8rem; }
+.focus-list { display:flex; flex-direction:column; gap:1px; background:var(--border); margin-top:3rem; }
+.focus-item { background:var(--bg); display:grid; grid-template-columns:3.5rem 1fr auto; align-items:center; gap:1.5rem; padding:1.8rem 2.5rem; transition:background 0.2s; }
+.focus-item:hover { background:var(--bg2); }
+.focus-num { font-family:'Space Mono',monospace; font-size:0.68rem; color:var(--lime); }
+.focus-name { font-family:'Syne',sans-serif; font-weight:700; font-size:1.1rem; color:var(--cream); }
+.focus-arrow { color:var(--lime); font-size:1.1rem; opacity:0; transition:opacity 0.2s; }
+.focus-item:hover .focus-arrow { opacity:1; }
+.manifesto { padding:5rem 4rem; background:linear-gradient(135deg,var(--bg2),rgba(74,122,85,0.08)); border-top:1px solid var(--border); border-bottom:1px solid var(--border); text-align:center; }
+.manifesto p { font-family:'Instrument Serif',serif; font-size:clamp(1.6rem,3vw,2.6rem); line-height:1.4; max-width:850px; margin:0 auto; color:var(--cream); }
+.manifesto em { color:var(--lime); font-style:italic; }
+.contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start; }
+.form-field { display:flex; flex-direction:column; gap:0.4rem; margin-bottom:1.2rem; }
+.form-label { font-family:'Space Mono',monospace; font-size:0.62rem; letter-spacing:0.22em; color:var(--lime); text-transform:uppercase; display:block; }
+.form-input,.form-textarea,.form-select { all:unset; display:block; width:100%; background:var(--bg2); border:1px solid var(--border); color:var(--cream); font-family:'Instrument Serif',serif; font-size:1rem; padding:0.75rem 1rem; box-sizing:border-box; }
+.form-textarea { min-height:100px; resize:vertical; }
+.btn-submit { all:unset; display:inline-block; font-family:'Syne',sans-serif; font-size:0.72rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--bg); background:var(--lime); padding:1rem 2.2rem; cursor:pointer; margin-top:0.5rem; }
+footer { padding:2rem 4rem; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; }
+.footer-logo { font-family:'Syne',sans-serif; font-weight:800; font-size:0.85rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); }
+.footer-copy { font-family:'Space Mono',monospace; font-size:0.58rem; color:var(--sage); letter-spacing:0.1em; }
+@keyframes nlsblink { 0%,100%{opacity:1}50%{opacity:0.3} }
+@media(max-width:768px){
+  nav,section,footer,.manifesto,.hero{padding-left:1.5rem;padding-right:1.5rem;}
+  .hero{padding-bottom:3rem;}
+  .two-col,.contact-grid{grid-template-columns:1fr;gap:3rem;}
+  .cards{grid-template-columns:1fr;}
+  .focus-item{grid-template-columns:2.5rem 1fr;}
+}
+</style>
+</head>
+<body>
 
 <nav>
   <div class="logo"><span class="logo-dot"></span>Nexus Lab Space</div>
@@ -53,7 +126,6 @@
       <span class="card-tag">Layer 01</span>
       <span class="card-icon">
         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Leaf / biomimicry -->
           <path d="M20 36C20 36 8 28 8 16C8 9.4 13.4 4 20 4C26.6 4 32 9.4 32 16C32 28 20 36 20 36Z" stroke="#B6FF4A" stroke-width="1.5" fill="none"/>
           <path d="M20 36V16" stroke="#B6FF4A" stroke-width="1.5"/>
           <path d="M20 22C20 22 14 18 12 12" stroke="#B6FF4A" stroke-width="1.2" stroke-linecap="round"/>
@@ -68,7 +140,6 @@
       <span class="card-tag">Layer 02</span>
       <span class="card-icon">
         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Laser / tech beam -->
           <circle cx="20" cy="20" r="4" stroke="#B6FF4A" stroke-width="1.5" fill="none"/>
           <circle cx="20" cy="20" r="1.5" fill="#B6FF4A"/>
           <line x1="20" y1="4" x2="20" y2="12" stroke="#B6FF4A" stroke-width="1.5" stroke-linecap="round"/>
@@ -88,7 +159,6 @@
       <span class="card-tag">Layer 03</span>
       <span class="card-icon">
         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Network / systems thinking -->
           <circle cx="20" cy="10" r="3" stroke="#B6FF4A" stroke-width="1.5" fill="none"/>
           <circle cx="8" cy="30" r="3" stroke="#B6FF4A" stroke-width="1.5" fill="none"/>
           <circle cx="32" cy="30" r="3" stroke="#B6FF4A" stroke-width="1.5" fill="none"/>
@@ -161,39 +231,24 @@
   <div class="footer-copy">© 2025 Nexus Lab Space · Santa Fe, NM</div>
 </footer>
 
-</div>
-
 <script>
 (function(){
   var canvas = document.getElementById('nlsCanvas');
   if(!canvas) return;
   var ctx = canvas.getContext('2d');
   var W=0, H=0, nodes=[], raf;
-
-  function size(){
-    W = canvas.width  = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-    var hero = canvas.parentElement;
-    if(hero) hero.style.minHeight = H + 'px';
-  }
-
+  function size(){ W=canvas.width=window.innerWidth; H=canvas.height=window.innerHeight; }
   function spawn(){
     nodes=[];
-    var n = Math.max(60, Math.floor(W*H/11000));
-    for(var i=0;i<n;i++) nodes.push({
-      x:Math.random()*W, y:Math.random()*H,
-      vx:(Math.random()-.5)*.5, vy:(Math.random()-.5)*.5,
-      r:Math.random()*2+1
-    });
+    var n=Math.max(60,Math.floor(W*H/11000));
+    for(var i=0;i<n;i++) nodes.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.5,vy:(Math.random()-.5)*.5,r:Math.random()*2+1});
   }
-
-  var mx=null, my=null;
+  var mx=null,my=null;
   document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;});
-
   function frame(){
-    raf = requestAnimationFrame(frame);
+    raf=requestAnimationFrame(frame);
     ctx.clearRect(0,0,W,H);
-    var g = ctx.createRadialGradient(W*.35,H*.4,0,W*.5,H*.5,W*.65);
+    var g=ctx.createRadialGradient(W*.35,H*.4,0,W*.5,H*.5,W*.65);
     g.addColorStop(0,'rgba(40,80,45,0.55)');
     g.addColorStop(1,'rgba(6,12,8,0)');
     ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
@@ -202,45 +257,24 @@
       n.x+=n.vx; n.y+=n.vy;
       if(n.x<0||n.x>W)n.vx*=-1;
       if(n.y<0||n.y>H)n.vy*=-1;
-      if(mx!==null){
-        var dx=mx-n.x, dy=my-n.y, d=Math.sqrt(dx*dx+dy*dy);
-        if(d<200){n.vx+=dx*.00004; n.vy+=dy*.00004;}
-      }
+      if(mx!==null){var dx=mx-n.x,dy=my-n.y,d=Math.sqrt(dx*dx+dy*dy);if(d<200){n.vx+=dx*.00004;n.vy+=dy*.00004;}}
     });
     for(var i=0;i<nodes.length;i++){
       for(var j=i+1;j<nodes.length;j++){
-        var a=nodes[i], b=nodes[j];
-        var dx=a.x-b.x, dy=a.y-b.y, d=Math.sqrt(dx*dx+dy*dy);
-        if(d<D){
-          ctx.beginPath();
-          ctx.strokeStyle='rgba(182,255,74,'+(1-d/D)*.7+')';
-          ctx.lineWidth=(1-d/D)*1.6;
-          ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
-        }
+        var a=nodes[i],b=nodes[j],dx=a.x-b.x,dy=a.y-b.y,d=Math.sqrt(dx*dx+dy*dy);
+        if(d<D){ctx.beginPath();ctx.strokeStyle='rgba(182,255,74,'+(1-d/D)*.7+')';ctx.lineWidth=(1-d/D)*1.6;ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}
       }
     }
     nodes.forEach(function(n){
-      ctx.beginPath(); ctx.arc(n.x,n.y,n.r*4,0,Math.PI*2);
-      ctx.fillStyle='rgba(182,255,74,0.07)'; ctx.fill();
-      ctx.beginPath(); ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
-      ctx.fillStyle='rgba(182,255,74,0.9)'; ctx.fill();
+      ctx.beginPath();ctx.arc(n.x,n.y,n.r*4,0,Math.PI*2);ctx.fillStyle='rgba(182,255,74,0.07)';ctx.fill();
+      ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);ctx.fillStyle='rgba(182,255,74,0.9)';ctx.fill();
     });
   }
-
-  function boot(){
-    if(raf) cancelAnimationFrame(raf);
-    size(); spawn(); frame();
-  }
-
-  boot();
-  setTimeout(boot, 300);
-  setTimeout(boot, 800);
-  window.addEventListener('resize', boot);
-
-  window.nlsSubmit = function(btn){
-    btn.textContent='✓ Sent!';
-    btn.style.background='#7EC431';
-    setTimeout(function(){btn.textContent='Send It →'; btn.style.background='';},3000);
-  };
+  function boot(){ if(raf)cancelAnimationFrame(raf); size(); spawn(); frame(); }
+  boot(); setTimeout(boot,300); setTimeout(boot,800);
+  window.addEventListener('resize',boot);
+  window.nlsSubmit=function(btn){btn.textContent='✓ Sent!';btn.style.background='#7EC431';setTimeout(function(){btn.textContent='Send It →';btn.style.background='';},3000);};
 })();
 </script>
+</body>
+</html>

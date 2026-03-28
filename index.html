@@ -1,206 +1,5 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
 
-<style>
-#nls { all: initial; display: block; }
-#nls *, #nls *::before, #nls *::after { box-sizing: border-box; margin: 0; padding: 0; }
-#nls {
-  --bg:     #060C08;
-  --bg2:    #0D1810;
-  --cream:  #F2EDDF;
-  --muted:  #8A8478;
-  --lime:   #B6FF4A;
-  --sage:   #4A7A55;
-  --border: rgba(182,255,74,0.18);
-  --glow:   rgba(182,255,74,0.07);
-  background: var(--bg);
-  color: var(--cream);
-  width: 100%;
-  overflow-x: hidden;
-  font-family: 'Instrument Serif', Georgia, serif;
-  font-size: 18px;
-  line-height: 1.6;
-}
-#nls nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.4rem 4rem;
-  background: rgba(6,12,8,0.95);
-  border-bottom: 1px solid var(--border);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-#nls .logo {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: 1rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--cream);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-#nls .logo-dot {
-  width: 7px; height: 7px;
-  background: var(--lime);
-  border-radius: 50%;
-  animation: nlsblink 2s infinite;
-  display: inline-block;
-  flex-shrink: 0;
-}
-#nls .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-#nls .nav-links a {
-  font-family: 'Syne', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--muted);
-  text-decoration: none;
-}
-#nls .nav-links a:hover { color: var(--lime); }
-#nls .hero {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 0 4rem 5rem;
-  overflow: hidden;
-  background: var(--bg);
-}
-#nls canvas {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  z-index: 0;
-  display: block;
-}
-#nls .hero-content { position: relative; z-index: 1; }
-#nls .hero-tag {
-  font-family: 'Space Mono', monospace;
-  font-size: 0.68rem;
-  letter-spacing: 0.28em;
-  color: var(--lime);
-  text-transform: uppercase;
-  margin-bottom: 1.2rem;
-  display: block;
-}
-#nls h1 {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: clamp(3.2rem, 7.5vw, 7rem);
-  line-height: 0.95;
-  letter-spacing: -0.02em;
-  color: var(--cream);
-  max-width: 850px;
-  margin-bottom: 2rem;
-}
-#nls h1 em { font-style: italic; font-family: 'Instrument Serif', serif; color: var(--lime); }
-#nls .hero-sub {
-  font-family: 'Instrument Serif', serif;
-  font-size: 1.1rem;
-  color: var(--muted);
-  max-width: 500px;
-  line-height: 1.75;
-  margin-bottom: 2.5rem;
-  display: block;
-}
-#nls .btn-row { display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; }
-#nls .btn-lime {
-  font-family: 'Syne', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--bg);
-  background: var(--lime);
-  padding: 0.95rem 2rem;
-  text-decoration: none;
-  display: inline-block;
-}
-#nls .btn-ghost {
-  font-family: 'Syne', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--muted);
-  text-decoration: none;
-}
-#nls section { padding: 7rem 4rem; }
-#nls .label {
-  font-family: 'Space Mono', monospace;
-  font-size: 0.65rem;
-  letter-spacing: 0.3em;
-  color: var(--lime);
-  text-transform: uppercase;
-  display: block;
-  margin-bottom: 1.2rem;
-}
-#nls h2 {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  color: var(--cream);
-  margin-bottom: 1.8rem;
-}
-#nls h2 em { font-style: italic; font-family: 'Instrument Serif', serif; color: var(--lime); }
-#nls p { font-family: 'Instrument Serif', serif; font-size: 1rem; color: var(--muted); line-height: 1.8; }
-#nls .divider { display: flex; align-items: center; gap: 1rem; margin-bottom: 4rem; }
-#nls .divider-line { flex: 1; height: 1px; background: var(--border); }
-#nls .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-#nls .quote-box { border-left: 3px solid var(--lime); background: var(--glow); padding: 1.8rem 2rem; margin-top: 2rem; }
-#nls .quote-box p { font-style: italic; color: var(--cream); font-size: 1.15rem; }
-#nls .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--border); margin-top: 4rem; }
-#nls .card { background: var(--bg2); padding: 2.2rem 1.8rem; transition: background 0.3s; }
-#nls .card:hover { background: #162a1c; }
-#nls .card-icon { font-size: 1.8rem; display: block; margin-bottom: 1.2rem; }
-#nls .card-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; color: var(--cream); display: block; margin-bottom: 0.6rem; }
-#nls .card-tag { font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.2em; color: var(--lime); text-transform: uppercase; display: block; margin-bottom: 0.8rem; }
-#nls .focus-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); margin-top: 3rem; }
-#nls .focus-item { background: var(--bg); display: grid; grid-template-columns: 3.5rem 1fr auto; align-items: center; gap: 1.5rem; padding: 1.8rem 2.5rem; transition: background 0.2s; }
-#nls .focus-item:hover { background: var(--bg2); }
-#nls .focus-num { font-family: 'Space Mono', monospace; font-size: 0.68rem; color: var(--lime); }
-#nls .focus-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--cream); }
-#nls .focus-arrow { color: var(--lime); font-size: 1.1rem; opacity: 0; transition: opacity 0.2s; }
-#nls .focus-item:hover .focus-arrow { opacity: 1; }
-#nls .manifesto { padding: 5rem 4rem; background: linear-gradient(135deg, var(--bg2), rgba(74,122,85,0.08)); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); text-align: center; }
-#nls .manifesto p { font-family: 'Instrument Serif', serif; font-size: clamp(1.6rem, 3vw, 2.6rem); line-height: 1.4; max-width: 850px; margin: 0 auto; color: var(--cream); }
-#nls .manifesto em { color: var(--lime); font-style: italic; }
-#nls .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-#nls .form-field { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.2rem; }
-#nls .form-label { font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.22em; color: var(--lime); text-transform: uppercase; display: block; }
-#nls .form-input, #nls .form-textarea, #nls .form-select {
-  all: unset;
-  display: block;
-  width: 100%;
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  color: var(--cream);
-  font-family: 'Instrument Serif', serif;
-  font-size: 1rem;
-  padding: 0.75rem 1rem;
-  box-sizing: border-box;
-}
-#nls .form-textarea { min-height: 100px; resize: vertical; }
-#nls .btn-submit { all: unset; display: inline-block; font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--bg); background: var(--lime); padding: 1rem 2.2rem; cursor: pointer; margin-top: 0.5rem; }
-#nls footer { padding: 2rem 4rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
-#nls .footer-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.85rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
-#nls .footer-copy { font-family: 'Space Mono', monospace; font-size: 0.58rem; color: var(--sage); letter-spacing: 0.1em; }
-@keyframes nlsblink { 0%,100%{opacity:1}50%{opacity:0.3} }
-@media(max-width:768px){
-  #nls nav,#nls .hero,#nls section,#nls footer,#nls .manifesto{padding-left:1.5rem;padding-right:1.5rem}
-  #nls .two-col,#nls .contact-grid{grid-template-columns:1fr;gap:3rem}
-  #nls .cards{grid-template-columns:1fr}
-  #nls .focus-item{grid-template-columns:2.5rem 1fr}
-}
-</style>
-
 <div id="nls">
 
 <nav>
@@ -240,7 +39,7 @@
   </div>
 </section>
 
-<section style="background:var(--bg2)">
+<section style="background:#0D1810">
   <div class="divider"><span class="label">02 / How We Work</span><div class="divider-line"></div></div>
   <div class="two-col">
     <div>
@@ -252,19 +51,55 @@
   <div class="cards">
     <div class="card">
       <span class="card-tag">Layer 01</span>
-      <span class="card-icon">🌿</span>
+      <span class="card-icon">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Leaf / biomimicry -->
+          <path d="M20 36C20 36 8 28 8 16C8 9.4 13.4 4 20 4C26.6 4 32 9.4 32 16C32 28 20 36 20 36Z" stroke="#B6FF4A" stroke-width="1.5" fill="none"/>
+          <path d="M20 36V16" stroke="#B6FF4A" stroke-width="1.5"/>
+          <path d="M20 22C20 22 14 18 12 12" stroke="#B6FF4A" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M20 28C20 28 26 24 28 18" stroke="#B6FF4A" stroke-width="1.2" stroke-linecap="round"/>
+          <circle cx="20" cy="16" r="2" fill="#B6FF4A" opacity="0.4"/>
+        </svg>
+      </span>
       <span class="card-title">Biomimicry & Nature-Inspired Design</span>
       <p>We look to 3.8 billion years of R&D. Nature has already solved most of the problems we're trying to crack.</p>
     </div>
     <div class="card">
       <span class="card-tag">Layer 02</span>
-      <span class="card-icon">⚡</span>
+      <span class="card-icon">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Laser / tech beam -->
+          <circle cx="20" cy="20" r="4" stroke="#B6FF4A" stroke-width="1.5" fill="none"/>
+          <circle cx="20" cy="20" r="1.5" fill="#B6FF4A"/>
+          <line x1="20" y1="4" x2="20" y2="12" stroke="#B6FF4A" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="20" y1="28" x2="20" y2="36" stroke="#B6FF4A" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="4" y1="20" x2="12" y2="20" stroke="#B6FF4A" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="28" y1="20" x2="36" y2="20" stroke="#B6FF4A" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="8.7" y1="8.7" x2="14.5" y2="14.5" stroke="#B6FF4A" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
+          <line x1="25.5" y1="25.5" x2="31.3" y2="31.3" stroke="#B6FF4A" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
+          <line x1="31.3" y1="8.7" x2="25.5" y2="14.5" stroke="#B6FF4A" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
+          <line x1="14.5" y1="25.5" x2="8.7" y2="31.3" stroke="#B6FF4A" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
+        </svg>
+      </span>
       <span class="card-title">Emerging Technology & Tools</span>
       <p>Laser cutters, 3D printers, AR/VR rigs — we bring the full toolkit. Innovation needs materials, not just ideas.</p>
     </div>
     <div class="card">
       <span class="card-tag">Layer 03</span>
-      <span class="card-icon">🔗</span>
+      <span class="card-icon">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Network / systems thinking -->
+          <circle cx="20" cy="10" r="3" stroke="#B6FF4A" stroke-width="1.5" fill="none"/>
+          <circle cx="8" cy="30" r="3" stroke="#B6FF4A" stroke-width="1.5" fill="none"/>
+          <circle cx="32" cy="30" r="3" stroke="#B6FF4A" stroke-width="1.5" fill="none"/>
+          <circle cx="20" cy="22" r="2" fill="#B6FF4A" opacity="0.5"/>
+          <line x1="20" y1="13" x2="20" y2="20" stroke="#B6FF4A" stroke-width="1.2"/>
+          <line x1="18" y1="22" x2="10" y2="27" stroke="#B6FF4A" stroke-width="1.2"/>
+          <line x1="22" y1="22" x2="30" y2="27" stroke="#B6FF4A" stroke-width="1.2"/>
+          <line x1="11" y1="30" x2="17" y2="30" stroke="#B6FF4A" stroke-width="1" opacity="0.4" stroke-dasharray="2 2"/>
+          <line x1="23" y1="30" x2="29" y2="30" stroke="#B6FF4A" stroke-width="1" opacity="0.4" stroke-dasharray="2 2"/>
+        </svg>
+      </span>
       <span class="card-title">Systems Thinking & Social Impact</span>
       <p>We map connections, find leverage points, and design for second- and third-order effects.</p>
     </div>

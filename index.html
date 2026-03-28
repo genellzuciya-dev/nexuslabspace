@@ -74,6 +74,11 @@ footer { padding:2rem 4rem; border-top:1px solid var(--border); display:flex; al
 /* ── CURSOR ── */
 .cur { position:fixed; width:10px; height:10px; background:var(--lime); border-radius:50%; pointer-events:none; z-index:99999; transform:translate(-50%,-50%); transition:transform 0.15s; mix-blend-mode:difference; }
 .cur-ring { position:fixed; width:36px; height:36px; border:1px solid var(--lime); border-radius:50%; pointer-events:none; z-index:99998; transform:translate(-50%,-50%); opacity:0.4; transition:all 0.12s; }
+.manifesto-label { font-family:'Space Mono',monospace; font-size:0.65rem; letter-spacing:0.3em; color:var(--lime); text-transform:uppercase; display:block; margin-bottom:1.5rem; }
+.reveal { opacity:0; transform:translateY(40px); transition:opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity:1; transform:none; }
+.reveal-delay-1 { transition-delay:0.15s; }
+.reveal-delay-2 { transition-delay:0.3s; }
 </style>
 </head>
 <body>
@@ -95,7 +100,7 @@ footer { padding:2rem 4rem; border-top:1px solid var(--border); display:flex; al
   <div class="hero-content">
     <span class="hero-tag">Santa Fe, NM · Innovation Lab · Est. 2025</span>
     <h1>Where ideas<br/>come <em>to life</em></h1>
-    <span class="hero-sub">A hands-on innovation hub where toys, games, and systems thinking converge — from Legos to lasers, prototyping bold futures through play.</span>
+    <span class="hero-sub">A hands-on innovation hub where toys, games, and systems thinking converge. From Legos to lasers, prototyping bold futures through play.</span>
     <div class="btn-row">
       <a href="#focus" class="btn-lime">Explore Lab Focus</a>
       <a href="#about" class="btn-ghost">Learn our approach →</a>
@@ -104,30 +109,30 @@ footer { padding:2rem 4rem; border-top:1px solid var(--border); display:flex; al
 </div>
 
 <section id="about">
-  <div class="divider"><span class="label">01 / What We Are</span><div class="divider-line"></div></div>
+  <div class="divider reveal"><span class="label">01 / What We Are</span><div class="divider-line"></div></div>
   <div class="two-col">
-    <div>
+    <div class="reveal">
       <span class="label">The Lab</span>
       <h2>A nexus is a<br/><em>central link.</em><br/>That's us.</h2>
     </div>
-    <div>
+    <div class="reveal reveal-delay-1">
       <p>Nexus Lab Space is a hands-on innovation hub where ideas come to life through prototyping, play, and real-world tools. From Legos to lasers, we use physical materials and immersive experimentation to spark bold thinking and tangible outcomes.</p>
       <div class="quote-box"><p>"Science, creativity, and community meet here to create systems-level change through hands-on prototyping."</p></div>
-      <p style="margin-top:1.5rem">We're a powerful central link — where disciplines collide, where the serious becomes playful, and where nature's own blueprint guides how we solve problems that actually matter.</p>
+      <p style="margin-top:1.5rem">We're a powerful central link where disciplines collide, where the serious becomes playful, and where nature's own blueprint guides how we solve problems that actually matter.</p>
     </div>
   </div>
 </section>
 
 <section style="background:#0D1810">
-  <div class="divider"><span class="label">02 / How We Work</span><div class="divider-line"></div></div>
+  <div class="divider reveal"><span class="label">02 / How We Work</span><div class="divider-line"></div></div>
   <div class="two-col">
-    <div>
+    <div class="reveal">
       <span class="label">Our Approach</span>
       <h2>Nature-inspired.<br/>Tech-enabled.<br/><em>Community-driven.</em></h2>
     </div>
-    <p>We combine nature-inspired ideas, emerging technologies, and social impact strategies to design solutions that are both innovative and practical. Every challenge is a system. Every system has a pattern. Nature has already solved most of the problems we're trying to crack.</p>
+    <p class="reveal reveal-delay-1">We combine nature-inspired ideas, emerging technologies, and social impact strategies to design solutions that are both innovative and practical. Every challenge is a system. Every system has a pattern. Nature has already solved most of the problems we're trying to crack.</p>
   </div>
-  <div class="cards">
+  <div class="cards reveal reveal-delay-2">
     <div class="card">
       <span class="card-tag">Layer 01</span>
       <span class="card-icon">
@@ -159,7 +164,7 @@ footer { padding:2rem 4rem; border-top:1px solid var(--border); display:flex; al
         </svg>
       </span>
       <span class="card-title">Emerging Technology & Tools</span>
-      <p>Laser cutters, 3D printers, AR/VR rigs — we bring the full toolkit. Innovation needs materials, not just ideas.</p>
+      <p>Laser cutters, 3D printers, AR/VR rigs. We bring the full toolkit. Innovation needs materials, not just ideas.</p>
     </div>
     <div class="card">
       <span class="card-tag">Layer 03</span>
@@ -177,21 +182,21 @@ footer { padding:2rem 4rem; border-top:1px solid var(--border); display:flex; al
         </svg>
       </span>
       <span class="card-title">Systems Thinking & Social Impact</span>
-      <p>We map connections, find leverage points, and design for second- and third-order effects.</p>
+      <p>We map connections, find leverage points, and design for second and third order effects.</p>
     </div>
   </div>
 </section>
 
 <section id="focus">
-  <div class="divider"><span class="label">03 / Lab Focus</span><div class="divider-line"></div></div>
-  <div class="two-col" style="margin-bottom:3rem">
+  <div class="divider reveal"><span class="label">03 / Lab Focus</span><div class="divider-line"></div></div>
+  <div class="two-col reveal" style="margin-bottom:3rem">
     <div>
       <span class="label">Innovation Areas</span>
       <h2>What we make here<br/>matters <em>everywhere.</em></h2>
     </div>
-    <p>Nexus Lab Space guides organizations, communities, and individuals in turning bold ideas into purposeful action — shaping sustainable and regenerative futures through hands-on prototyping.</p>
+    <p>Nexus Lab Space guides organizations, communities, and individuals in turning bold ideas into purposeful action shaping sustainable and regenerative futures through hands-on prototyping.</p>
   </div>
-  <div class="focus-list">
+  <div class="focus-list reveal reveal-delay-1">
     <div class="focus-item"><span class="focus-num">001</span><span class="focus-name">Toys & Games Design</span><span class="focus-arrow">→</span></div>
     <div class="focus-item"><span class="focus-num">002</span><span class="focus-name">Systems Thinking Workshops</span><span class="focus-arrow">→</span></div>
     <div class="focus-item"><span class="focus-num">003</span><span class="focus-name">Hands-On Prototyping</span><span class="focus-arrow">→</span></div>
@@ -200,18 +205,19 @@ footer { padding:2rem 4rem; border-top:1px solid var(--border); display:flex; al
   </div>
 </section>
 
-<div class="manifesto">
-  <p>"To be a nexus — a powerful central link — where <em>science, creativity, and community</em> meet to create systems-level change through hands-on prototyping."</p>
+<div class="manifesto reveal">
+  <div class="manifesto-label">Our Mission</div>
+  <p>To be a nexus. A powerful central link where <em>science, creativity, and community</em> meet to create systems-level change through hands-on prototyping.</p>
 </div>
 
 <section id="contact">
-  <div class="divider"><span class="label">04 / Reach Out</span><div class="divider-line"></div></div>
+  <div class="divider reveal"><span class="label">04 / Reach Out</span><div class="divider-line"></div></div>
   <div class="contact-grid">
-    <div>
+    <div class="reveal">
       <h2>Let's build<br/>something<br/><em>together.</em></h2>
-      <p style="margin-top:1.5rem;max-width:340px">Whether you're an organization, community group, or curious individual — if you have a bold idea, we want to hear it.</p>
+      <p style="margin-top:1.5rem;max-width:340px">Whether you're an organization, community group, or curious individual, if you have a bold idea, we want to hear it.</p>
     </div>
-    <div>
+    <div class="reveal reveal-delay-1">
       <div class="form-field"><span class="form-label">Your Name</span><input class="form-input" type="text" placeholder="Your name" /></div>
       <div class="form-field"><span class="form-label">Email</span><input class="form-input" type="email" placeholder="your@email.com" /></div>
       <div class="form-field">
@@ -239,6 +245,17 @@ footer { padding:2rem 4rem; border-top:1px solid var(--border); display:flex; al
 
 <script>
 /* ── CURSOR ── */
+/* ── SCROLL REVEAL ── */
+var revealEls = document.querySelectorAll('.reveal');
+function checkReveals(){
+  revealEls.forEach(function(el){
+    var rect = el.getBoundingClientRect();
+    if(rect.top < window.innerHeight - 80) el.classList.add('visible');
+  });
+}
+window.addEventListener('scroll', checkReveals);
+setTimeout(checkReveals, 200);
+
 var cur=document.getElementById('cur'),curRing=document.getElementById('curRing');
 var cx=0,cy=0,rx=0,ry=0;
 document.addEventListener('mousemove',function(e){cx=e.clientX;cy=e.clientY;cur.style.left=cx+'px';cur.style.top=cy+'px';});

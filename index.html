@@ -539,12 +539,12 @@ footer { padding:2rem 4rem; border-top:1px solid var(--border); display:flex; al
       <p style="margin-top:1.5rem;max-width:340px">Whether you're an organization, community group, or curious individual, if you have a bold idea, we want to hear it.</p>
     </div>
     <div id="nls-form-area" class="reveal reveal-delay-1">
-      <form id="nls-form">
-      <div class="form-field"><span class="form-label">Your Name</span><input name="name" id="nls-name" class="form-input" type="text" placeholder="Your name" required /></div>
-      <div class="form-field"><span class="form-label">Email</span><input name="email" id="nls-email" class="form-input" type="email" placeholder="your@email.com" required /></div>
+      <form action="https://formspree.io/f/xlgojdgy" method="POST">
+      <div class="form-field"><span class="form-label">Your Name</span><input name="name" class="form-input" type="text" placeholder="Your name" required /></div>
+      <div class="form-field"><span class="form-label">Email</span><input name="email" class="form-input" type="email" placeholder="your@email.com" required /></div>
       <div class="form-field">
         <span class="form-label">I'm interested in</span>
-        <select name="interest" id="nls-interest" class="form-select">
+        <select name="interest" class="form-select">
           <option value="">Choose a focus area…</option>
           <option>Toys & Games Design</option>
           <option>Systems Thinking Workshop</option>
@@ -554,8 +554,9 @@ footer { padding:2rem 4rem; border-top:1px solid var(--border); display:flex; al
           <option>Something else entirely</option>
         </select>
       </div>
-      <div class="form-field"><span class="form-label">Tell us about your idea</span><textarea name="message" id="nls-message" class="form-textarea" placeholder="The boldest thinking starts with a single sentence…" required></textarea></div>
-      <button type="button" class="btn-submit" onclick="nlsSubmit(this)">Send It →</button>
+      <div class="form-field"><span class="form-label">Tell us about your idea</span><textarea name="message" class="form-textarea" placeholder="The boldest thinking starts with a single sentence…" required></textarea></div>
+      <input type="hidden" name="_next" value="https://genellzuciya-dev.github.io/nexuslabspace/thanks.html" />
+      <button type="submit" class="btn-submit">Send It →</button>
       </form>
     </div>
   </div>

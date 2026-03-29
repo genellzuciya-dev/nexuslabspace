@@ -591,9 +591,8 @@ window.nlsSubmit = function(btn) {
     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
     body: JSON.stringify({ name: name, email: email, interest: interest, message: message })
   })
-  .then(function(r){ return r.json(); })
-  .then(function(data){
-    if(data.ok){
+  .then(function(r){
+    if(r.ok){
       var formArea = document.getElementById('nls-form-area');
       formArea.innerHTML = [
         '<div style="border:1px solid var(--lime);padding:3rem 2rem;text-align:center;">',
@@ -603,12 +602,12 @@ window.nlsSubmit = function(btn) {
         '</div>'
       ].join('');
     } else {
-      btn.textContent = 'Something went wrong — try again';
+      btn.textContent = 'Something went wrong. Try again.';
       btn.disabled = false;
     }
   })
   .catch(function(){
-    btn.textContent = 'Something went wrong — try again';
+    btn.textContent = 'Something went wrong. Try again.';
     btn.disabled = false;
   });
 };

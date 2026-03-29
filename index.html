@@ -539,12 +539,12 @@ footer { padding:2rem 4rem; border-top:1px solid var(--border); display:flex; al
       <p style="margin-top:1.5rem;max-width:340px">Whether you're an organization, community group, or curious individual, if you have a bold idea, we want to hear it.</p>
     </div>
     <div id="nls-form-area" class="reveal reveal-delay-1">
-      <form action="https://formspree.io/f/xlgojdgy" method="POST">
-      <div class="form-field"><span class="form-label">Your Name</span><input name="name" class="form-input" type="text" placeholder="Your name" required /></div>
-      <div class="form-field"><span class="form-label">Email</span><input name="email" class="form-input" type="email" placeholder="your@email.com" required /></div>
+      <form id="nls-form">
+      <div class="form-field"><span class="form-label">Your Name</span><input name="name" id="nls-name" class="form-input" type="text" placeholder="Your name" required /></div>
+      <div class="form-field"><span class="form-label">Email</span><input name="email" id="nls-email" class="form-input" type="email" placeholder="your@email.com" required /></div>
       <div class="form-field">
         <span class="form-label">I'm interested in</span>
-        <select name="interest" class="form-select">
+        <select name="interest" id="nls-interest" class="form-select">
           <option value="">Choose a focus area…</option>
           <option>Toys & Games Design</option>
           <option>Systems Thinking Workshop</option>
@@ -554,9 +554,8 @@ footer { padding:2rem 4rem; border-top:1px solid var(--border); display:flex; al
           <option>Something else entirely</option>
         </select>
       </div>
-      <div class="form-field"><span class="form-label">Tell us about your idea</span><textarea name="message" class="form-textarea" placeholder="The boldest thinking starts with a single sentence…" required></textarea></div>
-      <input type="hidden" name="_next" value="https://genellzuciya-dev.github.io/nexuslabspace/thanks.html" />
-      <button type="submit" class="btn-submit">Send It →</button>
+      <div class="form-field"><span class="form-label">Tell us about your idea</span><textarea name="message" id="nls-message" class="form-textarea" placeholder="The boldest thinking starts with a single sentence…" required></textarea></div>
+      <button type="button" class="btn-submit" onclick="nlsSubmit(this)">Send It →</button>
       </form>
     </div>
   </div>
@@ -578,10 +577,10 @@ window.toggleFocus = function(el) {
 
 /* ── CONTACT FORM ── */
 window.nlsSubmit = function(btn) {
-  var name    = document.getElementById('nls-name').value.trim();
-  var email   = document.getElementById('nls-email').value.trim();
-  var interest= document.getElementById('nls-interest').value;
-  var message = document.getElementById('nls-message').value.trim();
+  var name     = document.getElementById('nls-name').value.trim();
+  var email    = document.getElementById('nls-email').value.trim();
+  var interest = document.getElementById('nls-interest').value;
+  var message  = document.getElementById('nls-message').value.trim();
   if(!name || !email || !message){
     btn.textContent = 'Please fill all fields';
     setTimeout(function(){ btn.textContent = 'Send It →'; }, 2500);
@@ -589,18 +588,17 @@ window.nlsSubmit = function(btn) {
   }
   btn.textContent = 'Sending…';
   btn.disabled = true;
-  fetch('https://formspree.io/f/xlgojdgy', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-    body: JSON.stringify({ name: name, email: email, interest: interest, message: message })
-  })
-  .then(function(r){
-    if(r.ok){
-      var formArea = document.getElementById('nls-form-area');
-      formArea.innerHTML = [
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', 'https://formspree.io/f/xlgojdgy');
+  xhr.setRequestHeader('Accept', 'application/json');
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.onreadystatechange = function(){
+    if(xhr.readyState !== XMLHttpRequest.DONE) return;
+    if(xhr.status === 200){
+      document.getElementById('nls-form-area').innerHTML = [
         '<div style="border:1px solid var(--lime);padding:3rem 2rem;text-align:center;">',
-        '<span style="font-family:Space Mono,monospace;font-size:0.65rem;letter-spacing:0.3em;color:var(--lime);text-transform:uppercase;display:block;margin-bottom:1.5rem;">Message received</span>',
-        '<p style="font-family:Instrument Serif,serif;font-size:1.4rem;font-style:italic;color:var(--cream);line-height:1.6;margin-bottom:1rem;">Thank you. We\'ll be in touch soon.</p>',
+        '<span style="font-family:Space Mono,monospace;font-size:0.65rem;letter-spacing:0.3em;color:var(--lime);text-transform:uppercase;display:block;margin-bottom:1.5rem;">Message Received</span>',
+        '<p style="font-family:Instrument Serif,serif;font-size:1.4rem;font-style:italic;color:var(--cream);line-height:1.6;margin-bottom:1.5rem;">Thank you. We\'ll be in touch soon.</p>',
         '<p style="font-family:Space Mono,monospace;font-size:0.65rem;color:var(--muted);letter-spacing:0.1em;">Every system shifts with a single first move.</p>',
         '</div>'
       ].join('');
@@ -608,11 +606,8 @@ window.nlsSubmit = function(btn) {
       btn.textContent = 'Something went wrong. Try again.';
       btn.disabled = false;
     }
-  })
-  .catch(function(){
-    btn.textContent = 'Something went wrong. Try again.';
-    btn.disabled = false;
-  });
+  };
+  xhr.send(JSON.stringify({ name: name, email: email, interest: interest, message: message }));
 };
 
 /* ── SCROLL REVEAL ── */

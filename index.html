@@ -538,8 +538,7 @@ footer { padding:2rem 4rem; border-top:1px solid var(--border); display:flex; al
       <h2>Let's build<br/>something<br/><em>together.</em></h2>
       <p style="margin-top:1.5rem;max-width:340px">Whether you're an organization, community group, or curious individual, if you have a bold idea, we want to hear it.</p>
     </div>
-    <div class="reveal reveal-delay-1">
-      <div class="form-field"><span class="form-label">Your Name</span><input id="nls-name" class="form-input" type="text" placeholder="Your name" /></div>
+    <div id="nls-form-area" class="reveal reveal-delay-1"> class="form-input" type="text" placeholder="Your name" /></div>
       <div class="form-field"><span class="form-label">Email</span><input id="nls-email" class="form-input" type="email" placeholder="your@email.com" /></div>
       <div class="form-field">
         <span class="form-label">I'm interested in</span>
@@ -594,12 +593,14 @@ window.nlsSubmit = function(btn) {
   .then(function(r){ return r.json(); })
   .then(function(data){
     if(data.ok){
-      btn.textContent = '✓ Message sent!';
-      btn.style.background = '#4A7A55';
-      document.getElementById('nls-name').value = '';
-      document.getElementById('nls-email').value = '';
-      document.getElementById('nls-interest').value = '';
-      document.getElementById('nls-message').value = '';
+      var formArea = document.getElementById('nls-form-area');
+      formArea.innerHTML = [
+        '<div style="border:1px solid var(--lime);padding:3rem 2rem;text-align:center;">',
+        '<span style="font-family:Space Mono,monospace;font-size:0.65rem;letter-spacing:0.3em;color:var(--lime);text-transform:uppercase;display:block;margin-bottom:1.5rem;">Message received</span>',
+        '<p style="font-family:Instrument Serif,serif;font-size:1.4rem;font-style:italic;color:var(--cream);line-height:1.6;margin-bottom:1rem;">Thank you. We\'ll be in touch soon.</p>',
+        '<p style="font-family:Space Mono,monospace;font-size:0.65rem;color:var(--muted);letter-spacing:0.1em;">Every system shifts with a single first move.</p>',
+        '</div>'
+      ].join('');
     } else {
       btn.textContent = 'Something went wrong — try again';
       btn.disabled = false;

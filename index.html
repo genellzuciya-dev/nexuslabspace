@@ -539,11 +539,11 @@ footer { padding:2rem 4rem; border-top:1px solid var(--border); display:flex; al
       <p style="margin-top:1.5rem;max-width:340px">Whether you're an organization, community group, or curious individual, if you have a bold idea, we want to hear it.</p>
     </div>
     <div class="reveal reveal-delay-1">
-      <div class="form-field"><span class="form-label">Your Name</span><input class="form-input" type="text" placeholder="Your name" /></div>
-      <div class="form-field"><span class="form-label">Email</span><input class="form-input" type="email" placeholder="your@email.com" /></div>
+      <div class="form-field"><span class="form-label">Your Name</span><input id="nls-name" class="form-input" type="text" placeholder="Your name" /></div>
+      <div class="form-field"><span class="form-label">Email</span><input id="nls-email" class="form-input" type="email" placeholder="your@email.com" /></div>
       <div class="form-field">
         <span class="form-label">I'm interested in</span>
-        <select class="form-select">
+        <select id="nls-interest" class="form-select">
           <option value="">Choose a focus area…</option>
           <option>Toys & Games Design</option>
           <option>Systems Thinking Workshop</option>
@@ -553,7 +553,7 @@ footer { padding:2rem 4rem; border-top:1px solid var(--border); display:flex; al
           <option>Something else entirely</option>
         </select>
       </div>
-      <div class="form-field"><span class="form-label">Tell us about your idea</span><textarea class="form-textarea" placeholder="The boldest thinking starts with a single sentence…"></textarea></div>
+      <div class="form-field"><span class="form-label">Tell us about your idea</span><textarea id="nls-message" class="form-textarea" placeholder="The boldest thinking starts with a single sentence…"></textarea></div>
       <button class="btn-submit" onclick="nlsSubmit(this)">Send It →</button>
     </div>
   </div>
@@ -571,6 +571,44 @@ window.toggleFocus = function(el) {
   var isOpen = el.classList.contains('open');
   document.querySelectorAll('.focus-item').forEach(function(item){ item.classList.remove('open'); });
   if(!isOpen) el.classList.add('open');
+};
+
+/* ── CONTACT FORM ── */
+window.nlsSubmit = function(btn) {
+  var name    = document.getElementById('nls-name').value.trim();
+  var email   = document.getElementById('nls-email').value.trim();
+  var interest= document.getElementById('nls-interest').value;
+  var message = document.getElementById('nls-message').value.trim();
+  if(!name || !email || !message){
+    btn.textContent = 'Please fill all fields';
+    setTimeout(function(){ btn.textContent = 'Send It →'; }, 2500);
+    return;
+  }
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+  fetch('https://formspree.io/f/xlgojdgy', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({ name: name, email: email, interest: interest, message: message })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    if(data.ok){
+      btn.textContent = '✓ Message sent!';
+      btn.style.background = '#4A7A55';
+      document.getElementById('nls-name').value = '';
+      document.getElementById('nls-email').value = '';
+      document.getElementById('nls-interest').value = '';
+      document.getElementById('nls-message').value = '';
+    } else {
+      btn.textContent = 'Something went wrong — try again';
+      btn.disabled = false;
+    }
+  })
+  .catch(function(){
+    btn.textContent = 'Something went wrong — try again';
+    btn.disabled = false;
+  });
 };
 
 /* ── SCROLL REVEAL ── */

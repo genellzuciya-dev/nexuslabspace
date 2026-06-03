@@ -759,8 +759,65 @@
     color: var(--green);
     text-align: center;
   }
+  /* Two specimen photo pockets below the microscope, side by side */
+  .specimen-photos {
+    margin-top: 2.4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.4rem;
+    width: 100%;
+  }
+  /* When the practiced-as row appears as the final beat in Section 07,
+     give it more breathing room above so it doesn't crowd the three takeaway practices. */
+  .close-practice-row {
+    margin-top: 4rem;
+    padding-top: 3.2rem;
+    border-top: 1px solid var(--green-faint);
+  }
+  .specimen-photo {
+    display: flex; flex-direction: column;
+    gap: 0.8rem;
+  }
+  .specimen-pocket {
+    aspect-ratio: 3 / 2;
+    background: linear-gradient(135deg,
+      rgba(30, 60, 35, 0.4) 0%,
+      rgba(6, 12, 8, 0.85) 100%);
+    border: 1px solid var(--green-faint);
+    overflow: hidden;
+    position: relative;
+    transition: border-color 0.4s, transform 0.5s, box-shadow 0.4s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .specimen-photo:hover .specimen-pocket {
+    border-color: var(--green-dim);
+    transform: translateY(-3px);
+    box-shadow: 0 0 28px var(--green-faint);
+  }
+  .specimen-pocket img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%; object-fit: cover;
+    filter: brightness(0.78) contrast(1.05);
+    transition: filter 0.5s, transform 0.6s;
+  }
+  .specimen-photo:hover .specimen-pocket img {
+    filter: brightness(0.92) contrast(1.08);
+    transform: scale(1.04);
+  }
+  .specimen-photo.has-img .specimen-placeholder { display: none; }
+  .specimen-placeholder {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--text-faint);
+  }
+  .specimen-caption {
+    font-family: var(--serif); font-style: italic;
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    color: var(--text);
+    text-align: center;
+  }
   @media (max-width: 800px) {
     .scope-grid { grid-template-columns: 1fr; gap: 1.8rem; }
+    .specimen-photos { grid-template-columns: 1fr; }
   }
 
   .lens-stage {
@@ -922,6 +979,58 @@
     .practice-cards.three { grid-template-columns: 1fr; }
     .practice-cards.four { grid-template-columns: 1fr; }
     .lens-stage { padding: 1.4rem 1.2rem 2rem; }
+  }
+
+  /* ============================== BIOMIMICRY TRIP PHOTOS ============================== */
+  /* Three quiet photo pockets between the lens band and the depths-of-attention beat.
+     No labels, no captions — just images. Same restrained photo treatment as the
+     Trained-in cards so they read as visual companions. */
+  .trip-photos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.1rem;
+    width: 100%;
+    margin: 0 0 4rem;
+  }
+  .trip-photo {
+    aspect-ratio: 3 / 2;
+    background: linear-gradient(135deg,
+      rgba(30, 60, 35, 0.4) 0%,
+      rgba(6, 12, 8, 0.85) 100%);
+    border: 1px solid var(--green-faint);
+    overflow: hidden;
+    position: relative;
+    transition: border-color 0.4s, transform 0.5s, box-shadow 0.4s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .trip-photo:hover {
+    border-color: var(--green-dim);
+    transform: translateY(-3px);
+    box-shadow: 0 0 28px var(--green-faint);
+  }
+  .trip-photo img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%; object-fit: cover;
+    filter: brightness(0.78) contrast(1.05);
+    transition: filter 0.5s, transform 0.6s;
+  }
+  .trip-photo:hover img {
+    filter: brightness(0.92) contrast(1.08);
+    transform: scale(1.04);
+  }
+  .trip-photo.has-img .trip-placeholder { display: none; }
+  .trip-placeholder {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--text-faint);
+  }
+
+  @media (max-width: 1100px) {
+    .trip-photos { grid-template-columns: repeat(2, 1fr); }
+    .trip-photo-3 { grid-column: 1 / -1; max-width: 50%; margin: 0 auto; width: 100%; }
+  }
+  @media (max-width: 800px) {
+    .trip-photos { grid-template-columns: 1fr; }
+    .trip-photo-3 { max-width: none; }
   }
 
   /* ============================== DEPTHS OF ATTENTION ============================== */
@@ -4352,6 +4461,21 @@
       </div>
     </div>
 
+    <!-- ============================ BIOMIMICRY TRIP PHOTOS ============================ -->
+    <!-- Three photo pockets sitting quietly between the lens band and the depths-of-attention
+         beat. No labels, no captions — just images. The photos themselves do the work. -->
+    <div class="trip-photos reveal">
+      <div class="trip-photo trip-photo-1 has-img" data-img-slot="trip1">
+        <img src="biomimicry1.jpg" alt="Biomimicry fieldwork">
+      </div>
+      <div class="trip-photo trip-photo-2 has-img" data-img-slot="trip2">
+        <img src="biomimicry2.jpg" alt="Biomimicry fieldwork">
+      </div>
+      <div class="trip-photo trip-photo-3 has-img" data-img-slot="trip3">
+        <img src="biomimicry3.jpg" alt="Biomimicry fieldwork">
+      </div>
+    </div>
+
     <!-- ============================ DEPTHS OF ATTENTION ============================ -->
     <!-- A brief beat between the lens and the case study. Three icons (form, process, system)
          in a row at increasing depth, with converging lines pulling down into the shared
@@ -5093,61 +5217,6 @@
       </div>
     </div>
 
-    <!-- Row 3 — Current practice: asking nature functional questions + live scope -->
-    <div class="practice-row row-practice reveal">
-      <div class="row-eyebrow">Practiced as</div>
-      <h3 class="practice-headline">Asking nature basic functional questions.</h3>
-
-      <div class="scope-grid">
-        <!-- LEFT: the functional questions -->
-        <div class="scope-questions">
-          <ul class="fn-questions">
-            <li><span class="fn-dot"></span>How does nature distribute water?</li>
-            <li><span class="fn-dot"></span>How does nature respond to disturbance?</li>
-            <li><span class="fn-dot"></span>How does nature store energy?</li>
-            <li><span class="fn-dot"></span>How does nature regulate temperature?</li>
-            <li><span class="fn-dot"></span>How does nature self-organize?</li>
-            <li><span class="fn-dot"></span>How does nature recycle waste?</li>
-          </ul>
-        </div>
-
-        <!-- RIGHT: the live microscope panel -->
-        <div class="scope-panel" id="scopePanel" data-state="idle">
-          <div class="scope-frame">
-            <video id="scopeVideo" class="scope-video" autoplay playsinline muted></video>
-
-            <!-- Idle placeholder (before going live) -->
-            <div class="scope-placeholder" id="scopePlaceholder">
-              <div class="scope-reticle">
-                <span class="reticle-line reticle-h"></span>
-                <span class="reticle-line reticle-v"></span>
-                <span class="reticle-ring"></span>
-              </div>
-              <button class="scope-golive" id="scopeGoLive">
-                <span class="scope-live-dot"></span>
-                Go live · under the scope
-              </button>
-              <p class="scope-hint">specimens from the desert</p>
-            </div>
-
-            <!-- Live overlay (while feeding) -->
-            <div class="scope-overlay" id="scopeOverlay">
-              <span class="scope-live-badge"><span class="scope-live-dot"></span>LIVE · UNDER THE SCOPE</span>
-              <button class="scope-stop" id="scopeStop">stop</button>
-            </div>
-          </div>
-
-          <!-- Camera device picker (appears once permission granted & multiple cams) -->
-          <div class="scope-picker" id="scopePicker" style="display:none;">
-            <label class="scope-picker-label">Camera</label>
-            <select id="scopeDeviceSelect" class="scope-select"></select>
-          </div>
-
-          <p class="scope-caption">under the scope</p>
-        </div>
-      </div>
-    </div>
-
     <!-- Closing sentence with entangled intelligence portal -->
     <div class="pivot reveal">
       <p>
@@ -5879,6 +5948,79 @@
             shaped what you can perceive. They are also not the whole world. The license
             you inherited is real. So is your capacity to widen it.
           </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================ FINAL BEAT — practiced as: questions + scope + two specimens ============================ -->
+    <!-- The practice enacted live. Sits after the three takeaway practices so the audience
+         can SEE the first practice ("Look at things up close") happen in real time. -->
+    <div class="practice-row row-practice close-practice-row reveal">
+      <div class="row-eyebrow">Practiced as</div>
+      <h3 class="practice-headline">Asking nature basic functional questions.</h3>
+
+      <div class="scope-grid">
+        <!-- LEFT: the functional questions -->
+        <div class="scope-questions">
+          <ul class="fn-questions">
+            <li><span class="fn-dot"></span>How does nature distribute water?</li>
+            <li><span class="fn-dot"></span>How does nature respond to disturbance?</li>
+            <li><span class="fn-dot"></span>How does nature store energy?</li>
+            <li><span class="fn-dot"></span>How does nature regulate temperature?</li>
+            <li><span class="fn-dot"></span>How does nature self-organize?</li>
+            <li><span class="fn-dot"></span>How does nature recycle waste?</li>
+          </ul>
+        </div>
+
+        <!-- RIGHT: the live microscope panel -->
+        <div class="scope-panel" id="scopePanel" data-state="idle">
+          <div class="scope-frame">
+            <video id="scopeVideo" class="scope-video" autoplay playsinline muted></video>
+
+            <!-- Idle placeholder (before going live) -->
+            <div class="scope-placeholder" id="scopePlaceholder">
+              <div class="scope-reticle">
+                <span class="reticle-line reticle-h"></span>
+                <span class="reticle-line reticle-v"></span>
+                <span class="reticle-ring"></span>
+              </div>
+              <button class="scope-golive" id="scopeGoLive">
+                <span class="scope-live-dot"></span>
+                Go live · under the scope
+              </button>
+              <p class="scope-hint">specimens from the desert</p>
+            </div>
+
+            <!-- Live overlay (while feeding) -->
+            <div class="scope-overlay" id="scopeOverlay">
+              <span class="scope-live-badge"><span class="scope-live-dot"></span>LIVE · UNDER THE SCOPE</span>
+              <button class="scope-stop" id="scopeStop">stop</button>
+            </div>
+          </div>
+
+          <!-- Camera device picker (appears once permission granted & multiple cams) -->
+          <div class="scope-picker" id="scopePicker" style="display:none;">
+            <label class="scope-picker-label">Camera</label>
+            <select id="scopeDeviceSelect" class="scope-select"></select>
+          </div>
+
+          <p class="scope-caption">under the scope</p>
+        </div>
+      </div>
+
+      <!-- Two specimen photo pockets beneath the microscope view -->
+      <div class="specimen-photos">
+        <div class="specimen-photo" data-img-slot="opposite">
+          <div class="specimen-pocket">
+            <span class="specimen-placeholder">image pocket</span>
+          </div>
+          <p class="specimen-caption">opposite</p>
+        </div>
+        <div class="specimen-photo" data-img-slot="other">
+          <div class="specimen-pocket">
+            <span class="specimen-placeholder">image pocket</span>
+          </div>
+          <p class="specimen-caption">other</p>
         </div>
       </div>
     </div>

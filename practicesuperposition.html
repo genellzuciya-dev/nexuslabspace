@@ -1330,6 +1330,174 @@
     .lp-list { grid-template-columns: 1fr; }
   }
 
+  /* ============================== PHOTONICS OF COLOR BAND ============================== */
+  /* Three-mechanism beat between Life's Principles and the fairy circle case study.
+     Shows how color emerges in nature: chromatophores (pigment, mechanical), iridophores
+     (stacked thin-film reflectors), photonic crystals (3D periodic lattices). Only one
+     uses pigment. The other two are physics — credentialing the photonics lens at work. */
+  .photonics-band {
+    width: 100%;
+    margin: 0 0 4rem;
+    display: flex; justify-content: center;
+  }
+  .ph-frame {
+    width: 100%;
+    max-width: 1000px;
+    padding: 2.6rem 2.4rem 2.4rem;
+    background: rgba(182, 255, 74, 0.03);
+    border: 1px solid var(--green-dim);
+    position: relative;
+    display: flex; flex-direction: column;
+    align-items: center;
+  }
+  /* Corner ticks — same visual language as the other framed beats */
+  .ph-frame::before,
+  .ph-frame::after {
+    content: '';
+    position: absolute;
+    width: 14px; height: 14px;
+    border: 1px solid var(--green);
+    opacity: 0.55;
+  }
+  .ph-frame::before {
+    top: -1px; left: -1px;
+    border-right: none; border-bottom: none;
+  }
+  .ph-frame::after {
+    bottom: -1px; right: -1px;
+    border-left: none; border-top: none;
+  }
+  .ph-eyebrow {
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 2.2rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .ph-eyebrow::before, .ph-eyebrow::after {
+    content: ''; width: 36px; height: 1px; background: var(--green-faint);
+  }
+
+  /* Three-icon row */
+  .ph-triad {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2.2rem;
+    width: 100%;
+    max-width: 880px;
+    margin-bottom: 2.2rem;
+  }
+  .ph-mechanism {
+    display: flex; flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.8rem 0.6rem;
+    transition: background 0.4s;
+  }
+  .ph-mechanism:hover {
+    background: rgba(182, 255, 74, 0.03);
+  }
+  .ph-icon {
+    width: 120px; height: 120px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ph-icon svg {
+    width: 100%; height: 100%;
+  }
+  .ph-label {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(1.15rem, 1.7vw, 1.4rem);
+    color: var(--text);
+    letter-spacing: -0.01em;
+    margin-top: 0.4rem;
+  }
+  .ph-def {
+    font-family: var(--sans); font-size: 0.82rem; line-height: 1.5;
+    color: var(--text-dim);
+    text-align: center;
+    max-width: 240px;
+  }
+
+  /* CHROMATOPHORES — the pigment mass pulses, mimicking expansion/contraction
+     under mechanical (radial muscle) control */
+  .ph-chromato-pigment {
+    transform-box: fill-box; transform-origin: center;
+    animation: phChromatoBreathe 3.6s ease-in-out infinite;
+  }
+  @keyframes phChromatoBreathe {
+    0%, 100% { transform: scale(0.65); opacity: 0.75; }
+    50% { transform: scale(1); opacity: 1; }
+  }
+  /* Radial muscle arms fade gently in counter-phase, suggesting tension and release */
+  .ph-chromato-arms {
+    animation: phChromatoArms 3.6s ease-in-out infinite;
+  }
+  @keyframes phChromatoArms {
+    0%, 100% { opacity: 0.85; }
+    50% { opacity: 0.45; }
+  }
+
+  /* IRIDOPHORES — the reflected beam shifts hue, mimicking iridescent angle-dependence */
+  .ph-irido-reflected {
+    animation: phIridoShimmer 4s ease-in-out infinite;
+  }
+  @keyframes phIridoShimmer {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+  }
+  /* The stack itself shimmers in opacity to suggest light interacting at multiple layers */
+  .ph-irido-stack line {
+    animation: phIridoStack 3.2s ease-in-out infinite;
+  }
+  .ph-irido-stack line:nth-child(1) { animation-delay: 0s; }
+  .ph-irido-stack line:nth-child(2) { animation-delay: 0.2s; }
+  .ph-irido-stack line:nth-child(3) { animation-delay: 0.4s; }
+  .ph-irido-stack line:nth-child(4) { animation-delay: 0.6s; }
+  .ph-irido-stack line:nth-child(5) { animation-delay: 0.8s; }
+  @keyframes phIridoStack {
+    0%, 100% { opacity: 0.55; }
+    50% { opacity: 0.95; }
+  }
+
+  /* PHOTONIC CRYSTALS — the lattice gently breathes; the center dot pulses
+     to convey wavelength-selection emerging from the geometry */
+  .ph-crystal-lattice {
+    transform-box: fill-box; transform-origin: center;
+    animation: phCrystalBreathe 4.4s ease-in-out infinite;
+  }
+  @keyframes phCrystalBreathe {
+    0%, 100% { transform: scale(1); opacity: 0.85; }
+    50% { transform: scale(1.04); opacity: 1; }
+  }
+  .ph-crystal-center {
+    animation: phCrystalCenter 2.6s ease-in-out infinite;
+  }
+  @keyframes phCrystalCenter {
+    0%, 100% { r: 6; opacity: 0.4; }
+    50% { r: 12; opacity: 0.85; }
+  }
+
+  /* Closing line */
+  .ph-closing {
+    margin-top: 0.8rem;
+    padding-top: 1.6rem;
+    border-top: 1px solid var(--green-faint);
+    width: 100%;
+    text-align: center;
+    font-family: var(--serif); font-style: italic;
+    font-size: clamp(1.05rem, 1.55vw, 1.3rem);
+    color: var(--text);
+    line-height: 1.4;
+  }
+  .ph-closing em {
+    color: var(--green);
+    font-style: italic;
+  }
+
+  @media (max-width: 800px) {
+    .ph-triad { grid-template-columns: 1fr; gap: 1.6rem; }
+    .ph-frame { padding: 1.8rem 1.4rem 1.6rem; }
+  }
+
   /* FAIRY CIRCLES BAND — the lens in action.
      A worked example of scalar-physics biomimicry, placed between
      the lens row and the practice cards. Live Gray-Scott canvas on
@@ -4683,6 +4851,153 @@
       </div>
     </div>
 
+    <!-- ============================ PHOTONICS OF COLOR BAND ============================ -->
+    <!-- A story beat. Three biological mechanisms by which color emerges in nature —
+         only one involves pigment. The other two are physics: stacked reflectors and
+         3D periodic lattices. This beat is the photonics lens at work in nature —
+         credentialing the way of seeing without literally documenting the past. -->
+    <div class="photonics-band reveal">
+      <div class="ph-frame">
+
+        <p class="ph-eyebrow">How nature makes color</p>
+
+        <div class="ph-triad">
+
+          <!-- ============== CHROMATOPHORES — pigment-based, mechanically controlled ============== -->
+          <div class="ph-mechanism ph-chromato" id="phChromato">
+            <div class="ph-icon">
+              <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <radialGradient id="phChromaPigment" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="rgba(255, 130, 90, 0.95)"/>
+                    <stop offset="60%" stop-color="rgba(220, 100, 70, 0.7)"/>
+                    <stop offset="100%" stop-color="rgba(180, 70, 50, 0.2)"/>
+                  </radialGradient>
+                </defs>
+                <!-- Outer cell membrane (lime, faint) -->
+                <circle cx="70" cy="70" r="52" fill="rgba(182, 255, 74, 0.05)"
+                        stroke="rgba(182, 255, 74, 0.75)" stroke-width="1.4"/>
+                <!-- Pigment mass — animated: expands and contracts to convey mechanical control -->
+                <g class="ph-chromato-pigment">
+                  <circle cx="70" cy="70" r="28" fill="url(#phChromaPigment)"/>
+                  <!-- Small pigment granules clustered inside -->
+                  <circle cx="62" cy="64" r="3" fill="rgba(255, 100, 70, 0.95)"/>
+                  <circle cx="78" cy="66" r="2.5" fill="rgba(255, 100, 70, 0.9)"/>
+                  <circle cx="68" cy="76" r="3" fill="rgba(255, 100, 70, 0.95)"/>
+                  <circle cx="76" cy="78" r="2.5" fill="rgba(255, 100, 70, 0.9)"/>
+                  <circle cx="60" cy="72" r="2" fill="rgba(255, 100, 70, 0.85)"/>
+                </g>
+                <!-- Radial muscle arms — the mechanical control mechanism -->
+                <g class="ph-chromato-arms">
+                  <line x1="70" y1="30" x2="70" y2="42" stroke="rgba(182, 255, 74, 0.55)" stroke-width="1.2" stroke-linecap="round"/>
+                  <line x1="110" y1="70" x2="98" y2="70" stroke="rgba(182, 255, 74, 0.55)" stroke-width="1.2" stroke-linecap="round"/>
+                  <line x1="70" y1="110" x2="70" y2="98" stroke="rgba(182, 255, 74, 0.55)" stroke-width="1.2" stroke-linecap="round"/>
+                  <line x1="30" y1="70" x2="42" y2="70" stroke="rgba(182, 255, 74, 0.55)" stroke-width="1.2" stroke-linecap="round"/>
+                  <line x1="98" y1="42" x2="92" y2="48" stroke="rgba(182, 255, 74, 0.4)" stroke-width="1" stroke-linecap="round"/>
+                  <line x1="98" y1="98" x2="92" y2="92" stroke="rgba(182, 255, 74, 0.4)" stroke-width="1" stroke-linecap="round"/>
+                  <line x1="42" y1="98" x2="48" y2="92" stroke="rgba(182, 255, 74, 0.4)" stroke-width="1" stroke-linecap="round"/>
+                  <line x1="42" y1="42" x2="48" y2="48" stroke="rgba(182, 255, 74, 0.4)" stroke-width="1" stroke-linecap="round"/>
+                </g>
+              </svg>
+            </div>
+            <p class="ph-label">Chromatophores</p>
+            <p class="ph-def">Pigment-based color. Cells mechanically expand or contract to reveal or hide the dye.</p>
+          </div>
+
+          <!-- ============== IRIDOPHORES — stacked thin-film reflectors ============== -->
+          <div class="ph-mechanism ph-irido" id="phIrido">
+            <div class="ph-icon">
+              <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="phIridoSheen" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="rgba(120, 220, 255, 0.95)"/>
+                    <stop offset="50%" stop-color="rgba(180, 130, 255, 0.85)"/>
+                    <stop offset="100%" stop-color="rgba(255, 130, 200, 0.8)"/>
+                  </linearGradient>
+                </defs>
+                <!-- Six stacked thin-film platelets — guanine crystals in a real iridophore -->
+                <g class="ph-irido-stack">
+                  <line x1="30" y1="48" x2="110" y2="48" stroke="rgba(182, 255, 74, 0.85)" stroke-width="1.6"/>
+                  <line x1="30" y1="60" x2="110" y2="60" stroke="rgba(182, 255, 74, 0.85)" stroke-width="1.6"/>
+                  <line x1="30" y1="72" x2="110" y2="72" stroke="rgba(182, 255, 74, 0.85)" stroke-width="1.6"/>
+                  <line x1="30" y1="84" x2="110" y2="84" stroke="rgba(182, 255, 74, 0.85)" stroke-width="1.6"/>
+                  <line x1="30" y1="96" x2="110" y2="96" stroke="rgba(182, 255, 74, 0.85)" stroke-width="1.6"/>
+                </g>
+                <!-- Incoming light beam (white-ish, from upper left) -->
+                <line class="ph-irido-incident" x1="10" y1="14" x2="60" y2="48"
+                      stroke="rgba(240, 255, 220, 0.85)" stroke-width="1.4" stroke-linecap="round"/>
+                <!-- Reflected beam (color emerges — shifts hue during animation) -->
+                <line class="ph-irido-reflected" x1="60" y1="48" x2="110" y2="14"
+                      stroke="url(#phIridoSheen)" stroke-width="2" stroke-linecap="round"/>
+                <!-- Hit point dot -->
+                <circle cx="60" cy="48" r="3" fill="rgba(220, 255, 130, 0.95)"/>
+                <!-- Tiny faint secondary reflections at deeper layers -->
+                <line x1="60" y1="60" x2="105" y2="22" stroke="rgba(180, 130, 255, 0.4)" stroke-width="1" stroke-linecap="round"/>
+                <line x1="60" y1="72" x2="100" y2="32" stroke="rgba(255, 130, 200, 0.3)" stroke-width="0.8" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <p class="ph-label">Iridophores</p>
+            <p class="ph-def">Structural color from stacked thin-film reflectors. Wavelengths interfere; shimmer emerges.</p>
+          </div>
+
+          <!-- ============== PHOTONIC CRYSTALS — 3D periodic lattice ============== -->
+          <div class="ph-mechanism ph-crystal" id="phCrystal">
+            <div class="ph-icon">
+              <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+                <!-- 3D periodic lattice — small dots arranged in a regular grid that breathes -->
+                <g class="ph-crystal-lattice">
+                  <!-- Row 1 -->
+                  <circle cx="40" cy="42" r="4" fill="rgba(120, 220, 255, 0.85)"/>
+                  <circle cx="60" cy="42" r="4" fill="rgba(120, 220, 255, 0.85)"/>
+                  <circle cx="80" cy="42" r="4" fill="rgba(120, 220, 255, 0.85)"/>
+                  <circle cx="100" cy="42" r="4" fill="rgba(120, 220, 255, 0.85)"/>
+                  <!-- Row 2 (offset for 3D depth feel) -->
+                  <circle cx="50" cy="62" r="4" fill="rgba(140, 200, 255, 0.78)"/>
+                  <circle cx="70" cy="62" r="4" fill="rgba(140, 200, 255, 0.78)"/>
+                  <circle cx="90" cy="62" r="4" fill="rgba(140, 200, 255, 0.78)"/>
+                  <!-- Row 3 -->
+                  <circle cx="40" cy="82" r="4" fill="rgba(120, 220, 255, 0.85)"/>
+                  <circle cx="60" cy="82" r="4" fill="rgba(120, 220, 255, 0.85)"/>
+                  <circle cx="80" cy="82" r="4" fill="rgba(120, 220, 255, 0.85)"/>
+                  <circle cx="100" cy="82" r="4" fill="rgba(120, 220, 255, 0.85)"/>
+                  <!-- Row 4 (offset) -->
+                  <circle cx="50" cy="102" r="4" fill="rgba(140, 200, 255, 0.78)"/>
+                  <circle cx="70" cy="102" r="4" fill="rgba(140, 200, 255, 0.78)"/>
+                  <circle cx="90" cy="102" r="4" fill="rgba(140, 200, 255, 0.78)"/>
+                  <!-- Connecting lines (faint) to imply 3D structure -->
+                  <line x1="40" y1="42" x2="60" y2="42" stroke="rgba(182, 255, 74, 0.18)" stroke-width="1"/>
+                  <line x1="60" y1="42" x2="80" y2="42" stroke="rgba(182, 255, 74, 0.18)" stroke-width="1"/>
+                  <line x1="80" y1="42" x2="100" y2="42" stroke="rgba(182, 255, 74, 0.18)" stroke-width="1"/>
+                  <line x1="40" y1="42" x2="40" y2="82" stroke="rgba(182, 255, 74, 0.18)" stroke-width="1"/>
+                  <line x1="60" y1="42" x2="60" y2="82" stroke="rgba(182, 255, 74, 0.18)" stroke-width="1"/>
+                  <line x1="80" y1="42" x2="80" y2="82" stroke="rgba(182, 255, 74, 0.18)" stroke-width="1"/>
+                  <line x1="100" y1="42" x2="100" y2="82" stroke="rgba(182, 255, 74, 0.18)" stroke-width="1"/>
+                  <line x1="40" y1="82" x2="60" y2="82" stroke="rgba(182, 255, 74, 0.18)" stroke-width="1"/>
+                  <line x1="60" y1="82" x2="80" y2="82" stroke="rgba(182, 255, 74, 0.18)" stroke-width="1"/>
+                  <line x1="80" y1="82" x2="100" y2="82" stroke="rgba(182, 255, 74, 0.18)" stroke-width="1"/>
+                </g>
+                <!-- Incoming white light from above -->
+                <line class="ph-crystal-incident" x1="70" y1="14" x2="70" y2="32"
+                      stroke="rgba(240, 255, 220, 0.85)" stroke-width="1.4" stroke-linecap="round"/>
+                <!-- Emerging color beam from the lattice — pure blue, no hue shift -->
+                <line class="ph-crystal-emerging" x1="70" y1="124" x2="70" y2="124"
+                      stroke="rgba(120, 220, 255, 0.95)" stroke-width="2.4" stroke-linecap="round"
+                      style="visibility:hidden"/>
+                <!-- Light dot pulsing at center, suggesting wavelength selection -->
+                <circle class="ph-crystal-center" cx="70" cy="72" r="6" fill="rgba(120, 220, 255, 0.18)"/>
+              </svg>
+            </div>
+            <p class="ph-label">Photonic crystals</p>
+            <p class="ph-def">Color from 3D periodic nanostructures. Wavelengths reflect from geometry — pure, angle-independent.</p>
+          </div>
+        </div>
+
+        <p class="ph-closing">
+          Three mechanisms. <em>Only one uses pigment.</em>
+        </p>
+      </div>
+    </div>
+
     <!-- The lens in action — a worked example of scalar-physics biomimicry -->
     <div class="fairycircle-band reveal">
       <div class="fc-grid">
@@ -7383,7 +7698,7 @@ function animateCursor() {
 }
 animateCursor();
 function bindHover() {
-  document.querySelectorAll('a, button, .mm-node, .practice-card, .portal, .continue-cue, .blue-swatch, .field-continue, .pattern-continue, .pattern-square, .pattern-group, .spore-continue, .translate-cell, .lens-slider, .emotion-cell, .practice-prompt, .cultures-continue, .story-continue, .scope-select, .fc-pill, .loop-card, .loop-example, .lev-rung, .depth, .lp-principle').forEach(el => {
+  document.querySelectorAll('a, button, .mm-node, .practice-card, .portal, .continue-cue, .blue-swatch, .field-continue, .pattern-continue, .pattern-square, .pattern-group, .spore-continue, .translate-cell, .lens-slider, .emotion-cell, .practice-prompt, .cultures-continue, .story-continue, .scope-select, .fc-pill, .loop-card, .loop-example, .lev-rung, .depth, .lp-principle, .ph-mechanism').forEach(el => {
     el.addEventListener('mouseenter', () => document.body.classList.add('hover-active'));
     el.addEventListener('mouseleave', () => document.body.classList.remove('hover-active'));
   });

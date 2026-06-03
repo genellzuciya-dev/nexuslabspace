@@ -529,6 +529,10 @@
   .practice-cards.three {
     grid-template-columns: repeat(3, 1fr);
   }
+  .practice-cards.four {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.1rem;
+  }
   .practice-card {
     background: rgba(10, 20, 13, 0.45);
     border: 1px solid var(--green-faint);
@@ -911,8 +915,12 @@
     50% { opacity: 1; }
   }
 
+  @media (max-width: 1100px) {
+    .practice-cards.four { grid-template-columns: repeat(2, 1fr); gap: 1.4rem; }
+  }
   @media (max-width: 800px) {
     .practice-cards.three { grid-template-columns: 1fr; }
+    .practice-cards.four { grid-template-columns: 1fr; }
     .lens-stage { padding: 1.4rem 1.2rem 2rem; }
   }
 
@@ -4191,29 +4199,47 @@
       <span class="line"></span>
     </div>
 
-    <!-- Row 1 — Technical specialties (trained in) -->
+    <!-- Row 1 — Technical specialties (trained in)
+         Four disciplines, left-to-right tells the career arc:
+         Filmmaking (early work) → SFX (IATSE, Image Engineering) →
+         Themed entertainment (Disney, Meow Wolf, Netflix) → Photonics (the foundation under it all). -->
     <div class="practice-row row-trained reveal">
       <div class="row-eyebrow">Trained in</div>
-      <div class="practice-cards three">
-        <div class="practice-card" data-img-slot="photonics">
-          <div class="card-img-pocket"><span>Image pocket<br>Photonics</span></div>
-          <div class="card-text">
-            <div class="card-title">Photonics</div>
-            <div class="card-sub">Light as a way of thinking</div>
+      <div class="practice-cards four">
+        <div class="practice-card has-img" data-img-slot="filmmaking">
+          <div class="card-img-pocket">
+            <img src="filmmaking.jpg" alt="Filmmaking work" class="card-photo">
           </div>
-        </div>
-        <div class="practice-card" data-img-slot="filmmaking">
-          <div class="card-img-pocket"><span>Image pocket<br>Filmmaking</span></div>
           <div class="card-text">
             <div class="card-title">Filmmaking</div>
             <div class="card-sub">Stories that move through time</div>
           </div>
         </div>
-        <div class="practice-card" data-img-slot="themed">
-          <div class="card-img-pocket"><span>Image pocket<br>Themed entertainment</span></div>
+        <div class="practice-card has-img" data-img-slot="sfx">
+          <div class="card-img-pocket">
+            <img src="pyrotechnics.jpg" alt="Special effects work" class="card-photo">
+          </div>
           <div class="card-text">
-            <div class="card-title">Themed entertainment &amp; special effects</div>
+            <div class="card-title">SFX</div>
+            <div class="card-sub">Engineering the impossible to look inevitable</div>
+          </div>
+        </div>
+        <div class="practice-card has-img" data-img-slot="themed">
+          <div class="card-img-pocket">
+            <img src="themedENT.png" alt="Themed entertainment work" class="card-photo">
+          </div>
+          <div class="card-text">
+            <div class="card-title">Themed entertainment</div>
             <div class="card-sub">Worlds you walk into, wonder engineered</div>
+          </div>
+        </div>
+        <div class="practice-card has-img" data-img-slot="photonics">
+          <div class="card-img-pocket">
+            <img src="PCC-LaserTech-Genell.jpg" alt="Photonics and laser technology work" class="card-photo">
+          </div>
+          <div class="card-text">
+            <div class="card-title">Photonics</div>
+            <div class="card-sub">Light as a way of thinking</div>
           </div>
         </div>
       </div>

@@ -1780,26 +1780,28 @@
     font-style: italic;
   }
 
-  /* Inline glyph row — three icons sit inline within the prose at a large scale */
+  /* Glyph row — now sits on its own line (block), not inline with the prose.
+     Larger icons, generous breathing room, centered horizontally. */
   .fc-why-inline {
-    display: inline-flex; align-items: center;
-    gap: 1rem;
-    vertical-align: middle;
-    margin: 0 0.4rem;
+    display: flex; align-items: center;
+    justify-content: center;
+    gap: 2.4rem;
+    margin: 1.2rem 0;
+    width: 100%;
   }
   .fc-why-glyph {
     display: inline-flex; flex-direction: column;
     align-items: center;
-    gap: 0.32rem;
+    gap: 0.5rem;
     line-height: 1;
   }
   .fc-why-glyph svg {
-    height: 38px;
-    width: 95px;
+    height: 56px;
+    width: 140px;
     display: block;
   }
   .fc-why-glyph-label {
-    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+    font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase;
     color: var(--green);
     font-style: normal;
   }
@@ -1807,12 +1809,16 @@
     color: var(--green-dim);
     font-style: normal;
     font-family: var(--mono);
-    font-size: 1.2em;
+    font-size: 1.4em;
     align-self: center;
+  }
+  /* The follow-up line ("— depending on conditions") gets a little extra space above to feel like a coda */
+  .fc-why-text-followup {
+    margin-top: 0.2rem;
   }
 
   @media (max-width: 800px) {
-    .fc-why-inline { flex-wrap: wrap; }
+    .fc-why-inline { flex-wrap: wrap; gap: 1.4rem; }
   }
 
   /* SECTION EXIT — spans both columns below the grid.
@@ -1914,6 +1920,22 @@
     position: relative;
   }
   .pivot em { color: var(--green); font-style: italic; }
+
+  /* The pivot when it lives OUTSIDE a section (top-level after CAS interstitial).
+     Needs page-side padding since it's no longer inside spine-inner. */
+  .pivot-postframe {
+    margin: 4rem auto 5rem;
+    padding: 2rem 0 2rem 3rem;
+    max-width: 900px;
+    padding-right: 1.5rem;
+    padding-left: 4.5rem;
+  }
+  @media (max-width: 800px) {
+    .pivot-postframe {
+      margin: 3rem 1.2rem 3.5rem;
+      padding: 1.6rem 1rem 1.6rem 2rem;
+    }
+  }
 
   /* Inline portal — clickable phrase inside the spine */
   .portal {
@@ -4600,7 +4622,7 @@
   <div class="spine-inner">
     <div class="section-marker reveal">
       <span class="num">01</span>
-      <span>Plurally</span>
+      <span>About me</span>
       <span class="line"></span>
     </div>
 
@@ -5384,7 +5406,8 @@
             <p class="fc-why-text">
               This pattern emerges from <em>diffusion modeling</em> — math that describes how
               water moves through soil toward thirsty roots. The same math also produces
-              <span class="fc-why-inline">
+            </p>
+            <div class="fc-why-inline">
                 <span class="fc-why-glyph fc-why-glyph-dots">
                   <svg viewBox="0 0 95 38" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="16" cy="19" r="7" fill="rgba(182,255,74,0.9)"/>
@@ -5415,7 +5438,8 @@
                   </svg>
                   <span class="fc-why-glyph-label">hexagons</span>
                 </span>
-              </span>
+            </div>
+            <p class="fc-why-text fc-why-text-followup">
               — depending on conditions.
             </p>
             <p class="fc-why-text">
@@ -5718,13 +5742,6 @@
       </div>
     </div>
 
-    <!-- Closing sentence with entangled intelligence portal -->
-    <div class="pivot reveal">
-      <p>
-        And this has all led me to
-        <span class="portal" data-branch="entangled">entangled intelligence</span>.
-      </p>
-    </div>
   </div>
 </section>
 
@@ -5740,6 +5757,15 @@
     </p>
   </div>
 </aside>
+
+<!-- Entangled-intelligence portal — now sits AFTER the CAS frame, so the audience
+     carries the framing forward as they step through the portal into Section 02. -->
+<div class="pivot pivot-postframe reveal">
+  <p>
+    And this has all led me to
+    <span class="portal" data-branch="entangled">entangled intelligence</span>.
+  </p>
+</div>
 
 <!-- ============================ SECTION 02 — SMELL-AS-LISTENING ============================ -->
 <section class="spine s2-section" id="s2">
@@ -6220,15 +6246,6 @@
           </p>
         </div>
       </div>
-    </div>
-
-    <!-- ============== HINGE — between Meow Wolf and Disney ============== -->
-    <div class="te-hinge reveal">
-      <p class="te-hinge-text">
-        Meow Wolf builds <em>the loop in the space</em>.
-        Disney builds <em>nested loops in the body</em> —
-        one holding belief steady, one amplifying wonder inside each moment.
-      </p>
     </div>
 
     <!-- ============== BEAT 2 — DISNEY (B loop with R sub-loop nested) ============== -->

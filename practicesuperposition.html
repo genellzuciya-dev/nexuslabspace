@@ -4019,6 +4019,72 @@
     margin-left: auto; margin-right: auto;
   }
 
+  /* ============================== SOY-STATES BAND ============================== */
+  /* Two soybean icons — dormant + activated — that introduce the SLO case study visually.
+     Same seed shape, two states. The activated icon gently pulses at its center. */
+  .soy-states {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4.5rem;
+    margin: 0 auto 3rem;
+    max-width: 640px;
+    padding-bottom: 2.6rem;
+    border-bottom: 1px solid var(--green-faint);
+  }
+  .soy-state {
+    display: flex; flex-direction: column;
+    align-items: center;
+    gap: 0.9rem;
+  }
+  .soy-icon-wrap {
+    width: 110px; height: 130px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .soy-icon {
+    width: 100%; height: 100%;
+    display: block;
+    overflow: visible;
+  }
+  .soy-label {
+    font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--green);
+  }
+  .soy-state-dormant .soy-label {
+    color: var(--green-dim);
+  }
+  /* The center glow on the activated icon pulses gently — "the enzyme turning on" */
+  .soy-center-pulse {
+    transform-box: fill-box; transform-origin: center;
+    animation: soyCenterPulse 3s ease-in-out infinite;
+  }
+  @keyframes soyCenterPulse {
+    0%, 100% { opacity: 0.55; transform: scale(0.85); }
+    50% { opacity: 1; transform: scale(1.1); }
+  }
+  /* Subtle shoot vitality — small upward sway */
+  .soy-shoot {
+    transform-box: fill-box; transform-origin: 50px 28px;
+    animation: soyShootBreathe 4s ease-in-out infinite;
+  }
+  @keyframes soyShootBreathe {
+    0%, 100% { transform: rotate(-1deg); }
+    50% { transform: rotate(1deg); }
+  }
+  /* Root grows subtly */
+  .soy-root path {
+    animation: soyRootBreathe 4.5s ease-in-out infinite;
+  }
+  @keyframes soyRootBreathe {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+  }
+
+  @media (max-width: 700px) {
+    .soy-states { gap: 2.4rem; padding-bottom: 1.8rem; }
+    .soy-icon-wrap { width: 90px; height: 108px; }
+  }
+
   /* ============================== SOCIAL INNOVATION / SLO BAND ============================== */
   /* Case study B for Section 01 — paired with the fairy circle as case study A.
      Soybean lipoxygenase quantum tunneling, originally written by Genell Zuciya 2025
@@ -5900,6 +5966,98 @@
           So biomimicry asks a different question:
           <em>how does nature solve the barrier problem?</em>
         </p>
+      </div>
+
+      <!-- Two soybean icons — dormant + activated. Sets up the visual story before the
+           organism is named: this enzyme turns on when a seed sprouts. -->
+      <div class="soy-states reveal">
+        <div class="soy-state soy-state-dormant">
+          <div class="soy-icon-wrap">
+            <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" class="soy-icon soy-icon-dormant">
+              <!-- Outer seed shape — oval, no cracks -->
+              <ellipse cx="50" cy="60" rx="26" ry="34"
+                       fill="rgba(10, 20, 13, 0.6)"
+                       stroke="rgba(182, 255, 74, 0.85)" stroke-width="1.6"/>
+              <!-- Hilum (the small mark where the seed attached to its pod) -->
+              <ellipse cx="50" cy="42" rx="4" ry="1.5"
+                       fill="none" stroke="rgba(182, 255, 74, 0.7)" stroke-width="1"/>
+              <!-- Stored-energy indicators — small dots packed inside, representing lipid reserves -->
+              <g class="soy-reserves" fill="rgba(182, 255, 74, 0.5)">
+                <circle cx="42" cy="55" r="1.8"/>
+                <circle cx="50" cy="58" r="2"/>
+                <circle cx="58" cy="54" r="1.8"/>
+                <circle cx="44" cy="64" r="2"/>
+                <circle cx="54" cy="66" r="1.8"/>
+                <circle cx="50" cy="72" r="2"/>
+                <circle cx="42" cy="76" r="1.6"/>
+                <circle cx="58" cy="78" r="1.6"/>
+                <circle cx="48" cy="82" r="1.8"/>
+              </g>
+            </svg>
+          </div>
+          <p class="soy-label">Dormant</p>
+        </div>
+
+        <div class="soy-state soy-state-activated">
+          <div class="soy-icon-wrap">
+            <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" class="soy-icon soy-icon-activated">
+              <!-- Seed shape, slightly cracked at top and bottom -->
+              <!-- Upper half (left side of crack) -->
+              <path d="M 50 28 Q 24 28, 24 60 Q 24 76, 36 86 L 50 86"
+                    fill="rgba(10, 20, 13, 0.6)"
+                    stroke="rgba(182, 255, 74, 0.95)" stroke-width="1.6"
+                    stroke-linejoin="round"/>
+              <!-- Upper half (right side of crack) -->
+              <path d="M 50 28 Q 76 28, 76 60 Q 76 76, 64 86 L 50 86"
+                    fill="rgba(10, 20, 13, 0.6)"
+                    stroke="rgba(182, 255, 74, 0.95)" stroke-width="1.6"
+                    stroke-linejoin="round"/>
+              <!-- Hilum -->
+              <ellipse cx="50" cy="42" rx="4" ry="1.5"
+                       fill="none" stroke="rgba(182, 255, 74, 0.7)" stroke-width="1"/>
+
+              <!-- Soft activated glow at center — the enzyme turning on -->
+              <circle cx="50" cy="60" r="14" fill="url(#soyActivatedGlow)" class="soy-center-pulse"/>
+              <defs>
+                <radialGradient id="soyActivatedGlow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="rgba(220, 255, 130, 0.65)"/>
+                  <stop offset="60%" stop-color="rgba(182, 255, 74, 0.25)"/>
+                  <stop offset="100%" stop-color="rgba(182, 255, 74, 0)"/>
+                </radialGradient>
+              </defs>
+
+              <!-- Shoot emerging upward — small stem with two tiny cotyledon leaves -->
+              <g class="soy-shoot">
+                <line x1="50" y1="28" x2="50" y2="14"
+                      stroke="rgba(182, 255, 74, 0.95)" stroke-width="1.6" stroke-linecap="round"/>
+                <!-- Tiny cotyledon leaves splaying out -->
+                <path d="M 50 14 Q 42 10, 38 14 Q 42 16, 50 16"
+                      fill="rgba(182, 255, 74, 0.55)"
+                      stroke="rgba(182, 255, 74, 0.95)" stroke-width="1.2"
+                      stroke-linejoin="round"/>
+                <path d="M 50 14 Q 58 10, 62 14 Q 58 16, 50 16"
+                      fill="rgba(182, 255, 74, 0.55)"
+                      stroke="rgba(182, 255, 74, 0.95)" stroke-width="1.2"
+                      stroke-linejoin="round"/>
+              </g>
+
+              <!-- Root descending downward — single line with small offshoots, tapering -->
+              <g class="soy-root">
+                <path d="M 50 86 Q 50 95, 48 104 Q 47 110, 46 116"
+                      fill="none" stroke="rgba(182, 255, 74, 0.9)" stroke-width="1.5"
+                      stroke-linecap="round"/>
+                <!-- Small lateral roots -->
+                <path d="M 48 100 Q 44 102, 41 106"
+                      fill="none" stroke="rgba(182, 255, 74, 0.7)" stroke-width="1"
+                      stroke-linecap="round"/>
+                <path d="M 49 96 Q 53 99, 56 103"
+                      fill="none" stroke="rgba(182, 255, 74, 0.7)" stroke-width="1"
+                      stroke-linecap="round"/>
+              </g>
+            </svg>
+          </div>
+          <p class="soy-label">Activated</p>
+        </div>
       </div>
 
       <!-- Case study B introduction -->

@@ -764,6 +764,94 @@
     font-style: italic;
   }
 
+  /* ============================== BRIDGE PHOTO (Section 02 → trajectory frame) ============================== */
+  /* Single centered square photo. Sits between the Ngũgĩ quote and the personal-trajectory
+     framed statement. Same restrained photo treatment as the trip photos and Trained-in cards. */
+  .bridge-photo {
+    display: flex; justify-content: center;
+    width: 100%;
+    margin: 4rem auto 4rem;
+    padding: 0 1.5rem;
+  }
+  .bridge-photo-pocket {
+    width: 100%;
+    max-width: 400px;
+    aspect-ratio: 1 / 1;
+    background: linear-gradient(135deg,
+      rgba(30, 60, 35, 0.4) 0%,
+      rgba(6, 12, 8, 0.85) 100%);
+    border: 1px solid var(--green-faint);
+    overflow: hidden;
+    position: relative;
+    transition: border-color 0.4s, transform 0.5s, box-shadow 0.4s;
+  }
+  .bridge-photo-pocket:hover {
+    border-color: var(--green-dim);
+    transform: translateY(-3px);
+    box-shadow: 0 0 32px var(--green-faint);
+  }
+  .bridge-photo-pocket img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%; object-fit: cover;
+    filter: brightness(0.82) contrast(1.05);
+    transition: filter 0.5s, transform 0.6s;
+  }
+  .bridge-photo-pocket:hover img {
+    filter: brightness(0.92) contrast(1.08);
+    transform: scale(1.04);
+  }
+  @media (max-width: 700px) {
+    .bridge-photo-pocket { max-width: 320px; }
+  }
+
+  /* ============================== IMMERSIVE DESIGN TITLE BAND — Section 04 ============================== */
+  /* A framed chapter-title block that announces the section's real subject.
+     Same corner-tick aesthetic as the other framed beats, but the typography is
+     LARGER — this is a transition block, not a callout. */
+  .immersive-title-band {
+    width: 100%;
+    display: flex; justify-content: center;
+    margin: 4rem 0 4rem;
+    padding: 0 1.5rem;
+  }
+  .immersive-title-frame {
+    width: 100%;
+    max-width: 1000px;
+    padding: 3.4rem 2.4rem;
+    background: rgba(182, 255, 74, 0.04);
+    border: 1px solid var(--green-dim);
+    position: relative;
+    display: flex; justify-content: center; align-items: center;
+  }
+  .immersive-title-frame::before,
+  .immersive-title-frame::after {
+    content: '';
+    position: absolute;
+    width: 14px; height: 14px;
+    border: 1px solid var(--green);
+    opacity: 0.55;
+  }
+  .immersive-title-frame::before {
+    top: -1px; left: -1px;
+    border-right: none; border-bottom: none;
+  }
+  .immersive-title-frame::after {
+    bottom: -1px; right: -1px;
+    border-left: none; border-top: none;
+  }
+  .immersive-title-text {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(2.4rem, 5.2vw, 4.2rem);
+    line-height: 1.1;
+    color: var(--text);
+    text-align: center;
+    letter-spacing: -0.015em;
+  }
+
+  @media (max-width: 800px) {
+    .immersive-title-frame { padding: 2.2rem 1.4rem; }
+  }
+
   /* ============================== PERSONAL TRAJECTORY BAND ============================== */
   /* Framed statement piece bridging Section 02 (language as conceptual world) into
      Section 03 (Louisiana). Same corner-tick aesthetic as CAS, Life's Principles, HCD-question.
@@ -5218,7 +5306,6 @@
           </div>
           <div class="card-text">
             <div class="card-title">Filmmaking</div>
-            <div class="card-sub">Stories that move through time</div>
           </div>
         </div>
         <div class="practice-card has-img" data-img-slot="sfx">
@@ -5227,7 +5314,6 @@
           </div>
           <div class="card-text">
             <div class="card-title">SFX</div>
-            <div class="card-sub">Engineering the impossible to look inevitable</div>
           </div>
         </div>
         <div class="practice-card has-img" data-img-slot="themed">
@@ -5236,7 +5322,6 @@
           </div>
           <div class="card-text">
             <div class="card-title">Themed entertainment</div>
-            <div class="card-sub">Worlds you walk into, wonder engineered</div>
           </div>
         </div>
         <div class="practice-card has-img" data-img-slot="photonics">
@@ -5245,7 +5330,6 @@
           </div>
           <div class="card-text">
             <div class="card-title">Photonics</div>
-            <div class="card-sub">Light as a way of thinking</div>
           </div>
         </div>
       </div>
@@ -6022,8 +6106,7 @@
               — depending on conditions.
             </p>
             <p class="fc-why-text">
-              Hexagons are what <em>symmetric competition produces in 2D</em> —
-              the same reason honeycombs, bubble rafts, and stacked oranges find their packing.
+              Hexagons are what <em>symmetric competition produces in 2D</em>.
             </p>
           </div>
         </div>
@@ -6473,6 +6556,14 @@
   </div>
 </section>
 
+<!-- Single centered square photo — a work-abroad image that visually bridges Ngũgĩ's claim
+     about language carrying a conceptual world into the personal-trajectory statement that follows. -->
+<div class="bridge-photo reveal">
+  <div class="bridge-photo-pocket">
+    <img src="travel.jpg" alt="Work abroad — engaging language and culture in the field">
+  </div>
+</div>
+
 <!-- ============================ PERSONAL TRAJECTORY — bridge from Section 02 to Section 03 ============================ -->
 <!-- A single framed statement piece between the Ngũgĩ quote and the Louisiana hurricane case study.
      Bridges Ngũgĩ's claim (language carries a conceptual world) into the specific story of how
@@ -6677,7 +6768,7 @@
   <div class="spine-inner">
     <div class="section-marker reveal">
       <span class="num">04</span>
-      <span>The flinch</span>
+      <span>Immersive design</span>
       <span class="line"></span>
     </div>
 
@@ -6692,6 +6783,16 @@
         Categories shape what we approach and what we recoil from.
         And the body knows before the mind does.
       </p>
+    </div>
+
+    <!-- ============== TRANSITION BLOCK: IMMERSIVE DESIGN ==============
+         A framed chapter-title beat that announces the section's real subject.
+         The flinch leadin above it is the opening reflection; everything below
+         (brain in motion, Meow Wolf, mirror coda) sits under this banner. -->
+    <div class="immersive-title-band reveal">
+      <div class="immersive-title-frame">
+        <p class="immersive-title-text">Immersive Design</p>
+      </div>
     </div>
 
     <!-- ============== NEW BEAT: THE BRAIN IN MOTION ============== -->

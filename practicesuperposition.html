@@ -764,6 +764,69 @@
     font-style: italic;
   }
 
+  /* ============================== PERSONAL TRAJECTORY BAND ============================== */
+  /* Framed statement piece bridging Section 02 (language as conceptual world) into
+     Section 03 (Louisiana). Same corner-tick aesthetic as CAS, Life's Principles, HCD-question.
+     Sits at top-level (outside any section) — same structural position as the CAS interstitial. */
+  .trajectory-band {
+    width: 100%;
+    display: flex; justify-content: center;
+    margin: 4rem 0 5rem;
+    padding: 0 1.5rem;
+  }
+  .trajectory-frame {
+    width: 100%;
+    max-width: 1000px;
+    padding: 3rem 2.6rem;
+    background: rgba(182, 255, 74, 0.04);
+    border: 1px solid var(--green-dim);
+    position: relative;
+    display: flex; justify-content: center; align-items: center;
+  }
+  .trajectory-frame::before,
+  .trajectory-frame::after {
+    content: '';
+    position: absolute;
+    width: 14px; height: 14px;
+    border: 1px solid var(--green);
+    opacity: 0.55;
+  }
+  .trajectory-frame::before {
+    top: -1px; left: -1px;
+    border-right: none; border-bottom: none;
+  }
+  .trajectory-frame::after {
+    bottom: -1px; right: -1px;
+    border-left: none; border-top: none;
+  }
+  .trajectory-text {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(1.25rem, 2.1vw, 1.7rem);
+    line-height: 1.45;
+    color: var(--text);
+    text-align: center;
+    letter-spacing: -0.01em;
+    max-width: 880px;
+  }
+  .trajectory-text em {
+    color: var(--green);
+    font-style: italic;
+  }
+  /* The arrows sit in mono, faint, smaller than the prose — the "trajectory marker" between phases */
+  .trajectory-arrow {
+    font-family: var(--mono);
+    font-size: 0.7em;
+    color: var(--green-dim);
+    font-style: normal;
+    margin: 0 0.4rem;
+    letter-spacing: 0.1em;
+    vertical-align: 0.08em;
+  }
+
+  @media (max-width: 800px) {
+    .trajectory-frame { padding: 1.8rem 1.4rem; }
+  }
+
   /* ============================== MASLOW PYRAMID BAND — Section 06 ============================== */
   /* Custom pyramid diagram in talk aesthetic with self-transcendence highlighted. */
   .maslow-band {
@@ -6409,6 +6472,25 @@
     </div>
   </div>
 </section>
+
+<!-- ============================ PERSONAL TRAJECTORY — bridge from Section 02 to Section 03 ============================ -->
+<!-- A single framed statement piece between the Ngũgĩ quote and the Louisiana hurricane case study.
+     Bridges Ngũgĩ's claim (language carries a conceptual world) into the specific story of how
+     Genell's curiosity about language and culture has lived in her life as a trajectory. -->
+<aside class="trajectory-band reveal">
+  <div class="trajectory-frame">
+    <p class="trajectory-text">
+      A desire to understand language and culture better has carried me — from
+      <em>documentary filmmaking</em>
+      <span class="trajectory-arrow">→</span>
+      <em>study abroad</em>
+      <span class="trajectory-arrow">→</span>
+      <em>work abroad</em>
+      <span class="trajectory-arrow">→</span>
+      <em>working with diverse communities</em>.
+    </p>
+  </div>
+</aside>
 
 <!-- ============================ SECTION 03 — A HURRICANE ============================ -->
 <section class="spine s3-section" id="s3">

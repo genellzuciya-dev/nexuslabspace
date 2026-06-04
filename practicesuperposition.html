@@ -466,6 +466,331 @@
     margin-top: 1.4rem;
   }
 
+  /* ============================== BRAIN IN MOTION — Section 04's neural framework ============================== */
+  /* Three layered neural systems that fire when we explore. Each layer has a number, icon,
+     name, attribution, and definition. Closing synthesis below. */
+  .brain-motion-beat {
+    margin: 4rem 0 4rem;
+    max-width: 1100px;
+  }
+  .brain-motion-eyebrow {
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 1.4rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .brain-motion-eyebrow::before, .brain-motion-eyebrow::after {
+    content: ''; height: 1px; background: var(--green-faint); flex: 1;
+    max-width: 36px;
+  }
+  .brain-motion-lead {
+    font-family: var(--serif); font-style: italic;
+    font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+    line-height: 1.4;
+    color: var(--text);
+    margin-bottom: 2.6rem;
+    max-width: 900px;
+  }
+  .brain-motion-triad {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2.4rem;
+  }
+  .brain-layer {
+    display: flex; flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 1.6rem 1.2rem;
+    background: rgba(10, 20, 13, 0.45);
+    border: 1px solid var(--green-faint);
+    border-top-width: 2px;
+    border-top-color: rgba(182, 255, 74, 0.55);
+    transition: border-color 0.4s, background 0.4s;
+  }
+  .brain-layer:hover {
+    border-color: var(--green-dim);
+    border-top-color: var(--green);
+    background: rgba(10, 20, 13, 0.65);
+  }
+  .brain-layer-num {
+    font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.22em;
+    color: var(--green-dim);
+  }
+  .brain-layer-icon {
+    width: 88px; height: 88px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .brain-layer-icon svg {
+    width: 100%; height: 100%;
+  }
+  .brain-layer-name {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    color: var(--text);
+    text-align: center;
+    letter-spacing: -0.01em;
+  }
+  .brain-layer-attr {
+    font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.16em;
+    color: var(--green-dim);
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .brain-layer-def {
+    font-family: var(--sans); font-size: 0.86rem; line-height: 1.5;
+    color: var(--text-dim);
+    text-align: center;
+    margin-top: 0.4rem;
+  }
+  .brain-layer-def em {
+    color: var(--text);
+    font-style: italic;
+  }
+  .brain-motion-close {
+    font-family: var(--serif); font-style: italic;
+    font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+    line-height: 1.5;
+    color: var(--text-dim);
+    text-align: center;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--green-faint);
+    max-width: 880px;
+    margin: 0 auto;
+  }
+  .brain-motion-close em {
+    color: var(--green);
+    font-style: italic;
+  }
+
+  /* Animations for each layer's icon */
+  .brain-seeking-paths path {
+    animation: seekingPulse 3s ease-in-out infinite;
+  }
+  .brain-seeking-paths path:nth-child(1) { animation-delay: 0s; }
+  .brain-seeking-paths path:nth-child(2) { animation-delay: 0.3s; }
+  .brain-seeking-paths path:nth-child(3) { animation-delay: 0.6s; }
+  .brain-seeking-paths path:nth-child(4) { animation-delay: 0.9s; }
+  @keyframes seekingPulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+  .brain-dopa-actual {
+    transform-box: fill-box; transform-origin: bottom;
+    animation: dopaSpike 2.6s ease-in-out infinite;
+  }
+  @keyframes dopaSpike {
+    0%, 100% { transform: scaleY(0.4); opacity: 0.55; }
+    50% { transform: scaleY(1); opacity: 1; }
+  }
+  .brain-awe-rings circle {
+    transform-box: fill-box; transform-origin: center;
+    animation: aweExpand 4s ease-in-out infinite;
+  }
+  .brain-awe-rings circle:nth-child(1) { animation-delay: 0s; }
+  .brain-awe-rings circle:nth-child(2) { animation-delay: 0.3s; }
+  .brain-awe-rings circle:nth-child(3) { animation-delay: 0.6s; }
+  .brain-awe-rings circle:nth-child(4) { animation-delay: 0.9s; }
+  @keyframes aweExpand {
+    0%, 100% { transform: scale(0.96); opacity: 0.4; }
+    50% { transform: scale(1.04); opacity: 1; }
+  }
+
+  /* ============================== MEOW WOLF BEAT (migrated to Section 04) ============================== */
+  .meowwolf-beat {
+    margin: 4rem 0 4rem;
+    padding: 2.4rem 0 0;
+    border-top: 1px solid var(--green-faint);
+  }
+  .meowwolf-eyebrow {
+    font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--green-dim);
+    margin-bottom: 0.6rem;
+  }
+  .meowwolf-title {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(1.7rem, 3.2vw, 2.6rem);
+    line-height: 1.25;
+    color: var(--text);
+    letter-spacing: -0.01em;
+    margin-bottom: 1.8rem;
+  }
+  .meowwolf-title em {
+    color: var(--green);
+    font-style: italic;
+  }
+  .meowwolf-prose {
+    max-width: 820px;
+    display: flex; flex-direction: column;
+    gap: 1.2rem;
+    margin-bottom: 2.4rem;
+  }
+  .meowwolf-prose p {
+    font-family: var(--serif); font-style: italic;
+    font-size: clamp(1rem, 1.55vw, 1.2rem);
+    line-height: 1.6;
+    color: var(--text-dim);
+  }
+  .meowwolf-prose em {
+    color: var(--text);
+    font-style: italic;
+  }
+  .meowwolf-diagram {
+    display: flex; flex-direction: column;
+    align-items: center;
+    margin-top: 1.6rem;
+  }
+  .meowwolf-diagram svg {
+    width: 100%;
+    max-width: 340px;
+    height: auto;
+  }
+  .meowwolf-diagram-caption {
+    font-family: var(--serif); font-style: italic;
+    font-size: 0.95rem;
+    color: var(--text-dim);
+    margin-top: 0.8rem;
+  }
+  .meowwolf-diagram-caption em {
+    color: var(--green);
+    font-style: italic;
+  }
+
+  /* ============================== MIRROR NEURON CODA — Section 04 ============================== */
+  /* Final beat of Section 04: mirror neurons as the amplifier when shared with others. */
+  .mirror-coda {
+    margin: 3rem 0 3rem;
+    padding: 2.4rem 0 0;
+    border-top: 1px solid var(--green-faint);
+  }
+  .mirror-coda-eyebrow {
+    font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--green-dim);
+    margin-bottom: 0.6rem;
+  }
+  .mirror-coda-lead {
+    font-family: var(--serif); font-style: italic;
+    font-size: clamp(1.15rem, 1.9vw, 1.5rem);
+    line-height: 1.4;
+    color: var(--text);
+    max-width: 800px;
+    margin-bottom: 1.6rem;
+  }
+  .mirror-coda-lead em {
+    color: var(--green);
+    font-style: italic;
+  }
+  .mirror-coda-def {
+    font-family: var(--sans); font-size: 0.95rem; line-height: 1.55;
+    color: var(--text-dim);
+    max-width: 760px;
+    margin-top: 1.4rem;
+  }
+  .mirror-coda-def em {
+    color: var(--text);
+    font-style: italic;
+  }
+  .mirror-coda-attr {
+    font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.18em;
+    color: var(--green-dim);
+    text-transform: uppercase;
+    margin-left: 0.4rem;
+  }
+  .mirror-coda-close {
+    font-family: var(--serif); font-style: italic;
+    font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+    line-height: 1.5;
+    color: var(--text);
+    max-width: 800px;
+    margin-top: 1.2rem;
+  }
+  .mirror-coda-close em {
+    color: var(--green);
+    font-style: italic;
+  }
+
+  /* ============================== MASLOW PYRAMID BAND — Section 06 ============================== */
+  /* Custom pyramid diagram in talk aesthetic with self-transcendence highlighted. */
+  .maslow-band {
+    margin: 3rem 0 4rem;
+    display: flex; justify-content: center;
+  }
+  .maslow-frame {
+    width: 100%;
+    max-width: 920px;
+    padding: 2.6rem 2.4rem 2.4rem;
+    background: rgba(182, 255, 74, 0.03);
+    border: 1px solid var(--green-dim);
+    position: relative;
+    display: flex; flex-direction: column;
+    align-items: center;
+  }
+  .maslow-frame::before,
+  .maslow-frame::after {
+    content: '';
+    position: absolute;
+    width: 14px; height: 14px;
+    border: 1px solid var(--green);
+    opacity: 0.55;
+  }
+  .maslow-frame::before {
+    top: -1px; left: -1px;
+    border-right: none; border-bottom: none;
+  }
+  .maslow-frame::after {
+    bottom: -1px; right: -1px;
+    border-left: none; border-top: none;
+  }
+  .maslow-eyebrow {
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 2rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .maslow-eyebrow::before, .maslow-eyebrow::after {
+    content: ''; height: 1px; background: var(--green-faint); flex: 1;
+    max-width: 36px;
+  }
+  .maslow-pyramid-wrap {
+    width: 100%;
+    max-width: 720px;
+    margin-bottom: 1.8rem;
+    overflow: visible;
+  }
+  .maslow-pyramid {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    display: block;
+  }
+  /* Apex tier — subtle glow pulse to draw the eye */
+  .maslow-tier-apex {
+    transform-box: fill-box; transform-origin: center;
+    animation: maslowApexPulse 3.6s ease-in-out infinite;
+  }
+  @keyframes maslowApexPulse {
+    0%, 100% { opacity: 0.85; }
+    50% { opacity: 1; }
+  }
+  .maslow-close {
+    font-family: var(--serif); font-style: italic;
+    font-size: clamp(1.05rem, 1.55vw, 1.3rem);
+    line-height: 1.5;
+    color: var(--text-dim);
+    text-align: center;
+    max-width: 780px;
+  }
+  .maslow-close em {
+    color: var(--green);
+    font-style: italic;
+  }
+
+  @media (max-width: 800px) {
+    .brain-motion-triad { grid-template-columns: 1fr; gap: 1.4rem; }
+    .maslow-frame { padding: 1.8rem 1.2rem 1.6rem; }
+    .maslow-eyebrow { font-size: 0.6rem; }
+  }
+
   /* SECTION 05 — Feedback loops (spine) */
   .loops-leadin {
     margin-bottom: 3rem;
@@ -5980,6 +6305,7 @@
       <span class="line"></span>
     </div>
 
+    <!-- Compressed flinch lead-in — sets up that categories shape what we approach and what we recoil from -->
     <div class="flinch-leadin reveal">
       <p class="flinch-setup">We put things in categories.</p>
       <p class="flinch-examples">
@@ -5987,149 +6313,324 @@
         <span class="flinch-example">Silence is awkward.</span>
       </p>
       <p class="flinch-consequence">
-        And the cultural categories themselves make our
-        <span class="portal" data-branch="mirror">mirror neurons</span>
-        feel like a misfire.
+        Categories shape what we approach and what we recoil from.
+        And the body knows before the mind does.
       </p>
     </div>
 
-    <!-- Mirror neuron icon — two neurons attuning across the synaptic gap -->
-    <div class="mirror-icon-wrap reveal">
-      <svg viewBox="0 0 520 220" xmlns="http://www.w3.org/2000/svg" class="mirror-icon">
-        <defs>
-          <radialGradient id="neuronCoreGlow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="rgba(220, 255, 130, 1)"/>
-            <stop offset="50%" stop-color="rgba(182, 255, 74, 0.6)"/>
-            <stop offset="100%" stop-color="rgba(140, 200, 50, 0)"/>
-          </radialGradient>
-        </defs>
+    <!-- ============== NEW BEAT: THE BRAIN IN MOTION ============== -->
+    <!-- Three layered neural systems that fire when we explore. This reframes the section
+         from "the flinch" (a single response) into "the engineered neurochemistry of exploration"
+         (a layered architecture). Each layer is named with its scientific source. -->
+    <div class="brain-motion-beat reveal">
+      <p class="brain-motion-eyebrow">The brain in motion</p>
+      <p class="brain-motion-lead">
+        When we choose to explore — to push past the flinch — three neural systems fire in layers.
+      </p>
 
-        <!-- LEFT NEURON -->
-        <g class="neuron neuron-left">
-          <!-- Outer dendrite spread (faint) -->
-          <g stroke="rgba(182,255,74,0.4)" stroke-width="0.9" fill="none" stroke-linecap="round" class="dendrites-outer">
-            <path d="M 130 110 Q 90 70, 50 50"/>
-            <path d="M 130 110 Q 80 80, 30 70"/>
-            <path d="M 130 110 Q 75 95, 25 100"/>
-            <path d="M 130 110 Q 80 130, 30 140"/>
-            <path d="M 130 110 Q 90 145, 60 170"/>
-            <path d="M 130 110 Q 110 145, 100 175"/>
-          </g>
-          <!-- Inner dendrite branches (denser) -->
-          <g stroke="rgba(182,255,74,0.7)" stroke-width="1.1" fill="none" stroke-linecap="round">
-            <path d="M 130 110 Q 105 90, 80 78"/>
-            <path d="M 130 110 Q 100 110, 70 108"/>
-            <path d="M 130 110 Q 105 130, 80 140"/>
-          </g>
-          <!-- Soft halo -->
-          <circle cx="130" cy="110" r="22" fill="rgba(182, 255, 74, 0.12)"/>
-          <!-- Cell body -->
-          <circle cx="130" cy="110" r="11"
-                  fill="rgba(10, 20, 13, 0.85)"
-                  stroke="rgba(182, 255, 74, 0.95)" stroke-width="1.5"/>
-          <!-- Nucleus / bright center -->
-          <circle cx="130" cy="110" r="4" fill="rgba(220, 255, 130, 0.92)" class="neuron-nucleus"/>
-          <!-- Axon extending toward right neuron -->
-          <path d="M 141 110 Q 200 100, 230 108"
-                stroke="rgba(182, 255, 74, 0.85)" stroke-width="1.4" fill="none" stroke-linecap="round"/>
-        </g>
+      <div class="brain-motion-triad">
+        <!-- LAYER 1 — SEEKING (Panksepp) -->
+        <div class="brain-layer brain-layer-1">
+          <div class="brain-layer-num">01</div>
+          <div class="brain-layer-icon">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <!-- A figure facing forward into open paths radiating outward -->
+              <!-- Central figure dot -->
+              <circle cx="50" cy="60" r="5" fill="rgba(182,255,74,0.95)"/>
+              <!-- Body line -->
+              <line x1="50" y1="65" x2="50" y2="80" stroke="rgba(182,255,74,0.85)" stroke-width="1.5"/>
+              <!-- Paths fanning outward, animated -->
+              <g class="brain-seeking-paths" stroke="rgba(182,255,74,0.7)" stroke-width="1.2" fill="none" stroke-linecap="round">
+                <path d="M 50 55 L 25 25" stroke-dasharray="3 3"/>
+                <path d="M 50 55 L 40 18" stroke-dasharray="3 3"/>
+                <path d="M 50 55 L 60 18" stroke-dasharray="3 3"/>
+                <path d="M 50 55 L 75 25" stroke-dasharray="3 3"/>
+              </g>
+              <!-- Small destination dots at path ends -->
+              <circle cx="25" cy="25" r="2.5" fill="rgba(182,255,74,0.5)"/>
+              <circle cx="40" cy="18" r="2.5" fill="rgba(182,255,74,0.5)"/>
+              <circle cx="60" cy="18" r="2.5" fill="rgba(182,255,74,0.5)"/>
+              <circle cx="75" cy="25" r="2.5" fill="rgba(182,255,74,0.5)"/>
+            </svg>
+          </div>
+          <p class="brain-layer-name">SEEKING</p>
+          <p class="brain-layer-attr">Jaak Panksepp · affective neuroscience</p>
+          <p class="brain-layer-def">
+            The mammalian drive to explore, investigate, anticipate, learn.
+            <em>You are held in active curiosity — energized, on a quest.</em>
+          </p>
+        </div>
 
-        <!-- RIGHT NEURON (mirror of left, oriented opposite direction) -->
-        <g class="neuron neuron-right">
-          <!-- Outer dendrite spread -->
-          <g stroke="rgba(182,255,74,0.4)" stroke-width="0.9" fill="none" stroke-linecap="round" class="dendrites-outer">
-            <path d="M 390 110 Q 430 70, 470 50"/>
-            <path d="M 390 110 Q 440 80, 490 70"/>
-            <path d="M 390 110 Q 445 95, 495 100"/>
-            <path d="M 390 110 Q 440 130, 490 140"/>
-            <path d="M 390 110 Q 430 145, 460 170"/>
-            <path d="M 390 110 Q 410 145, 420 175"/>
-          </g>
-          <!-- Inner dendrite branches -->
-          <g stroke="rgba(182,255,74,0.7)" stroke-width="1.1" fill="none" stroke-linecap="round">
-            <path d="M 390 110 Q 415 90, 440 78"/>
-            <path d="M 390 110 Q 420 110, 450 108"/>
-            <path d="M 390 110 Q 415 130, 440 140"/>
-          </g>
-          <!-- Soft halo -->
-          <circle cx="390" cy="110" r="22" fill="rgba(182, 255, 74, 0.12)"/>
-          <!-- Cell body -->
-          <circle cx="390" cy="110" r="11"
-                  fill="rgba(10, 20, 13, 0.85)"
-                  stroke="rgba(182, 255, 74, 0.95)" stroke-width="1.5"/>
-          <!-- Nucleus -->
-          <circle cx="390" cy="110" r="4" fill="rgba(220, 255, 130, 0.92)" class="neuron-nucleus"/>
-          <!-- Axon extending toward left neuron -->
-          <path d="M 379 110 Q 320 120, 290 112"
-                stroke="rgba(182, 255, 74, 0.85)" stroke-width="1.4" fill="none" stroke-linecap="round"/>
-        </g>
+        <!-- LAYER 2 — DOPAMINE REWARD PREDICTION ERROR (Schultz) -->
+        <div class="brain-layer brain-layer-2">
+          <div class="brain-layer-num">02</div>
+          <div class="brain-layer-icon">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <!-- Expectation vs reality bars + spike -->
+              <!-- Baseline horizontal line -->
+              <line x1="20" y1="65" x2="80" y2="65" stroke="rgba(182,255,74,0.3)" stroke-width="1" stroke-dasharray="2 3"/>
+              <!-- Expected reward bar (faint) -->
+              <rect x="28" y="50" width="12" height="15" fill="none" stroke="rgba(182,255,74,0.5)" stroke-width="1"/>
+              <!-- Actual reward bar (taller, bright) — the surprise -->
+              <rect x="60" y="28" width="12" height="37" fill="rgba(182,255,74,0.85)" class="brain-dopa-actual"/>
+              <!-- Spike arrow showing prediction error -->
+              <line x1="48" y1="45" x2="60" y2="35" stroke="rgba(220,255,130,0.95)" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M 55 33 L 60 35 L 58 40" fill="none" stroke="rgba(220,255,130,0.95)" stroke-width="1.5" stroke-linecap="round"/>
+              <!-- Labels -->
+              <text x="34" y="78" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" fill="rgba(182,255,74,0.6)">EXPECTED</text>
+              <text x="66" y="78" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" fill="rgba(220,255,130,0.85)">ACTUAL</text>
+            </svg>
+          </div>
+          <p class="brain-layer-name">Dopamine reward prediction error</p>
+          <p class="brain-layer-attr">Wolfram Schultz · neurophysiology</p>
+          <p class="brain-layer-def">
+            Dopamine fires when outcome exceeds expectation. Surprise is the chemical.
+            <em>Every unexpected reward teaches you to keep choosing.</em>
+          </p>
+        </div>
 
-        <!-- SYNAPTIC GAP — pulses traveling back and forth -->
-        <g class="synaptic-pulses">
-          <!-- Left → Right pulse -->
-          <circle r="3" fill="rgba(220, 255, 130, 0.95)" class="pulse pulse-lr">
-            <animateMotion dur="3.2s" repeatCount="indefinite" rotate="auto">
-              <mpath href="#pulsePathLR"/>
-            </animateMotion>
-            <animate attributeName="opacity"
-                     values="0;1;1;1;0"
-                     keyTimes="0;0.1;0.5;0.9;1"
-                     dur="3.2s" repeatCount="indefinite"/>
-          </circle>
-          <!-- Right → Left pulse (offset in time) -->
-          <circle r="3" fill="rgba(220, 255, 130, 0.95)" class="pulse pulse-rl">
-            <animateMotion dur="3.2s" repeatCount="indefinite" rotate="auto" begin="1.6s">
-              <mpath href="#pulsePathRL"/>
-            </animateMotion>
-            <animate attributeName="opacity"
-                     values="0;1;1;1;0"
-                     keyTimes="0;0.1;0.5;0.9;1"
-                     dur="3.2s" repeatCount="indefinite"
-                     begin="1.6s"/>
-          </circle>
-          <!-- Secondary pulses for richness -->
-          <circle r="1.8" fill="rgba(220, 255, 130, 0.7)" class="pulse pulse-lr-2">
-            <animateMotion dur="3.2s" repeatCount="indefinite" begin="0.8s">
-              <mpath href="#pulsePathLR"/>
-            </animateMotion>
-            <animate attributeName="opacity"
-                     values="0;0.8;0.8;0"
-                     keyTimes="0;0.2;0.8;1"
-                     dur="3.2s" repeatCount="indefinite"
-                     begin="0.8s"/>
-          </circle>
-          <circle r="1.8" fill="rgba(220, 255, 130, 0.7)" class="pulse pulse-rl-2">
-            <animateMotion dur="3.2s" repeatCount="indefinite" begin="2.4s">
-              <mpath href="#pulsePathRL"/>
-            </animateMotion>
-            <animate attributeName="opacity"
-                     values="0;0.8;0.8;0"
-                     keyTimes="0;0.2;0.8;1"
-                     dur="3.2s" repeatCount="indefinite"
-                     begin="2.4s"/>
-          </circle>
-        </g>
+        <!-- LAYER 3 — AWE / SELF-TRANSCENDENCE (Keltner) -->
+        <div class="brain-layer brain-layer-3">
+          <div class="brain-layer-num">03</div>
+          <div class="brain-layer-icon">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <!-- A small figure under vast expanding rings -->
+              <!-- Concentric rings expanding outward — animated -->
+              <g class="brain-awe-rings" fill="none">
+                <circle cx="50" cy="60" r="14" stroke="rgba(182,255,74,0.85)" stroke-width="1.2"/>
+                <circle cx="50" cy="60" r="22" stroke="rgba(182,255,74,0.55)" stroke-width="1"/>
+                <circle cx="50" cy="60" r="32" stroke="rgba(182,255,74,0.3)" stroke-width="1"/>
+                <circle cx="50" cy="60" r="42" stroke="rgba(182,255,74,0.15)" stroke-width="1"/>
+              </g>
+              <!-- Small figure at center (smaller than the seeking icon's figure — "small self") -->
+              <circle cx="50" cy="60" r="3" fill="rgba(220,255,130,0.95)"/>
+              <line x1="50" y1="63" x2="50" y2="72" stroke="rgba(182,255,74,0.85)" stroke-width="1.2"/>
+              <!-- Sparkle dots at top (the vastness) -->
+              <circle cx="30" cy="18" r="1" fill="rgba(220,255,130,0.8)"/>
+              <circle cx="60" cy="14" r="1" fill="rgba(220,255,130,0.8)"/>
+              <circle cx="80" cy="22" r="1" fill="rgba(220,255,130,0.8)"/>
+              <circle cx="22" cy="28" r="1" fill="rgba(220,255,130,0.7)"/>
+              <circle cx="72" cy="32" r="1" fill="rgba(220,255,130,0.7)"/>
+            </svg>
+          </div>
+          <p class="brain-layer-name">Awe</p>
+          <p class="brain-layer-attr">Dacher Keltner · UC Berkeley</p>
+          <p class="brain-layer-def">
+            Vagal opening. The default-mode network quiets. The self shrinks.
+            <em>You feel part of something larger.</em>
+          </p>
+        </div>
+      </div>
 
-        <!-- Hidden paths for motion -->
-        <defs>
-          <path id="pulsePathLR" d="M 141 110 Q 200 100, 230 108 L 290 112 Q 350 115, 379 110" fill="none"/>
-          <path id="pulsePathRL" d="M 379 110 Q 320 120, 290 112 L 230 108 Q 170 105, 141 110" fill="none"/>
-        </defs>
-
-        <!-- Mono caption labels -->
-        <text x="130" y="200" text-anchor="middle"
-              font-family="JetBrains Mono, monospace" font-size="7"
-              letter-spacing="2" fill="rgba(182, 255, 74, 0.7)">
-          ONE NERVOUS SYSTEM
-        </text>
-        <text x="390" y="200" text-anchor="middle"
-              font-family="JetBrains Mono, monospace" font-size="7"
-              letter-spacing="2" fill="rgba(182, 255, 74, 0.7)">
-          ANOTHER
-        </text>
-      </svg>
-      <p class="mirror-caption">mirror neurons · attuning across the gap</p>
+      <p class="brain-motion-close">
+        SEEKING holds you in motion. Dopamine rewards each choice. Awe lands the peak.
+        <em>Three systems, layered.</em>
+      </p>
     </div>
+
+    <!-- ============== MIGRATED BEAT: MEOW WOLF AS WORKED EXAMPLE ============== -->
+    <!-- Meow Wolf moved from Section 06 to here. It's the case study for the three-layer
+         architecture: no map (engineering uncertainty), neural-network floorplan (engineering
+         continuous choice), constant reward (engineering dopamine). -->
+    <div class="meowwolf-beat reveal">
+      <p class="meowwolf-eyebrow">A worked example</p>
+      <h3 class="meowwolf-title">Meow Wolf gives you <em>no map</em>.</h3>
+
+      <div class="meowwolf-prose">
+        <p>
+          That is unheard of in themed entertainment. Every other immersive space hands you
+          a wayfinding system. Meow Wolf doesn't.
+        </p>
+        <p>
+          You walk into a fridge. You crawl into a fireplace. You don't know what's behind
+          the next door. You make a choice anyway — because the choice <em>is</em> the experience.
+        </p>
+        <p>
+          The floor plan itself is built like a neural network. Nodes that connect to other
+          nodes. No hierarchy, no center, multiple paths to anywhere. <em>You can't get lost
+          in a graph — only in a tree.</em>
+        </p>
+        <p>
+          And every room is engineered to <em>exceed expectation</em>. That's the dopamine layer.
+          Your reward circuitry learns to keep choosing. SEEKING stays on. Awe lands at the peaks.
+        </p>
+      </div>
+
+      <!-- The R-loop diagram migrated from Section 06 -->
+      <div class="meowwolf-diagram">
+        <svg viewBox="0 0 240 220" xmlns="http://www.w3.org/2000/svg" class="te-loop-svg te-loop-mw">
+          <defs>
+            <marker id="arrowMw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(182,255,74,0.95)"/>
+            </marker>
+          </defs>
+          <!-- Outer faint echoes (the reinforcing growth) -->
+          <circle cx="120" cy="110" r="98" fill="none" stroke="rgba(182,255,74,0.08)" stroke-width="1" stroke-dasharray="3 4"/>
+          <circle cx="120" cy="110" r="115" fill="none" stroke="rgba(182,255,74,0.05)" stroke-width="1" stroke-dasharray="3 5"/>
+          <!-- Clockwise arrows -->
+          <path class="loop-flow loop-flow-r" d="M 120 30 Q 195 50, 195 130" stroke="rgba(182,255,74,0.85)" stroke-width="2" fill="none" stroke-linecap="round" marker-end="url(#arrowMw)"/>
+          <path class="loop-flow loop-flow-r" d="M 195 130 Q 155 200, 65 175" stroke="rgba(182,255,74,0.85)" stroke-width="2" fill="none" stroke-linecap="round" marker-end="url(#arrowMw)"/>
+          <path class="loop-flow loop-flow-r" d="M 65 175 Q 15 130, 75 60" stroke="rgba(182,255,74,0.85)" stroke-width="2" fill="none" stroke-linecap="round" marker-end="url(#arrowMw)"/>
+          <!-- Nodes: internal (outlined) for guest's experience, external (filled) for building -->
+          <circle cx="120" cy="30" r="8" fill="rgba(6,12,8,1)" stroke="rgba(182,255,74,0.9)" stroke-width="2"/>
+          <circle cx="195" cy="130" r="8" fill="rgba(182,255,74,0.9)"/>
+          <circle cx="65" cy="175" r="8" fill="rgba(6,12,8,1)" stroke="rgba(182,255,74,0.9)" stroke-width="2"/>
+          <text x="120" y="16" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="0.5" fill="rgba(220,255,130,0.9)">exploration</text>
+          <text x="195" y="150" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="0.5" fill="rgba(220,255,130,0.9)">spatial payoff</text>
+          <text x="65" y="195" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="0.5" fill="rgba(220,255,130,0.9)">deeper immersion</text>
+          <text x="170" y="58" font-family="JetBrains Mono, monospace" font-size="12" fill="rgba(220,255,130,0.85)" font-weight="bold">+</text>
+          <text x="135" y="195" font-family="JetBrains Mono, monospace" font-size="12" fill="rgba(220,255,130,0.85)" font-weight="bold">+</text>
+          <text x="22" y="118" font-family="JetBrains Mono, monospace" font-size="12" fill="rgba(220,255,130,0.85)" font-weight="bold">+</text>
+          <circle cx="120" cy="110" r="20" fill="rgba(10,20,13,0.85)" stroke="rgba(182,255,74,0.6)" stroke-width="1.2"/>
+          <text x="120" y="116" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" letter-spacing="1" fill="rgba(220,255,130,0.95)" font-weight="bold">R</text>
+        </svg>
+        <p class="meowwolf-diagram-caption">
+          <em>A neural network you can walk through.</em>
+        </p>
+      </div>
+    </div>
+
+    <!-- ============== CODA: MIRROR NEURONS — THE SHARED BODY ============== -->
+    <!-- Mirror neurons as the final beat: the amplifier when the engineered experience
+         happens with other people present. The existing mirror neuron icon is reused here. -->
+    <div class="mirror-coda reveal">
+      <p class="mirror-coda-eyebrow">And one more layer</p>
+      <p class="mirror-coda-lead">
+        When all this happens with others around you, <em>mirror neurons</em> amplify it.
+      </p>
+
+      <!-- Mirror neuron icon — two neurons attuning across the synaptic gap -->
+      <div class="mirror-icon-wrap">
+        <svg viewBox="0 0 520 220" xmlns="http://www.w3.org/2000/svg" class="mirror-icon">
+          <defs>
+            <radialGradient id="neuronCoreGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="rgba(220, 255, 130, 1)"/>
+              <stop offset="50%" stop-color="rgba(182, 255, 74, 0.6)"/>
+              <stop offset="100%" stop-color="rgba(140, 200, 50, 0)"/>
+            </radialGradient>
+          </defs>
+
+          <!-- LEFT NEURON -->
+          <g class="neuron neuron-left">
+            <g stroke="rgba(182,255,74,0.4)" stroke-width="0.9" fill="none" stroke-linecap="round" class="dendrites-outer">
+              <path d="M 130 110 Q 90 70, 50 50"/>
+              <path d="M 130 110 Q 80 80, 30 70"/>
+              <path d="M 130 110 Q 75 95, 25 100"/>
+              <path d="M 130 110 Q 80 130, 30 140"/>
+              <path d="M 130 110 Q 90 145, 60 170"/>
+              <path d="M 130 110 Q 110 145, 100 175"/>
+            </g>
+            <g stroke="rgba(182,255,74,0.7)" stroke-width="1.1" fill="none" stroke-linecap="round">
+              <path d="M 130 110 Q 105 90, 80 78"/>
+              <path d="M 130 110 Q 100 110, 70 108"/>
+              <path d="M 130 110 Q 105 130, 80 140"/>
+            </g>
+            <circle cx="130" cy="110" r="22" fill="rgba(182, 255, 74, 0.12)"/>
+            <circle cx="130" cy="110" r="11"
+                    fill="rgba(10, 20, 13, 0.85)"
+                    stroke="rgba(182, 255, 74, 0.95)" stroke-width="1.5"/>
+            <circle cx="130" cy="110" r="4" fill="rgba(220, 255, 130, 0.92)" class="neuron-nucleus"/>
+            <path d="M 141 110 Q 200 100, 230 108"
+                  stroke="rgba(182, 255, 74, 0.85)" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+          </g>
+
+          <!-- RIGHT NEURON -->
+          <g class="neuron neuron-right">
+            <g stroke="rgba(182,255,74,0.4)" stroke-width="0.9" fill="none" stroke-linecap="round" class="dendrites-outer">
+              <path d="M 390 110 Q 430 70, 470 50"/>
+              <path d="M 390 110 Q 440 80, 490 70"/>
+              <path d="M 390 110 Q 445 95, 495 100"/>
+              <path d="M 390 110 Q 440 130, 490 140"/>
+              <path d="M 390 110 Q 430 145, 460 170"/>
+              <path d="M 390 110 Q 410 145, 420 175"/>
+            </g>
+            <g stroke="rgba(182,255,74,0.7)" stroke-width="1.1" fill="none" stroke-linecap="round">
+              <path d="M 390 110 Q 415 90, 440 78"/>
+              <path d="M 390 110 Q 420 110, 450 108"/>
+              <path d="M 390 110 Q 415 130, 440 140"/>
+            </g>
+            <circle cx="390" cy="110" r="22" fill="rgba(182, 255, 74, 0.12)"/>
+            <circle cx="390" cy="110" r="11"
+                    fill="rgba(10, 20, 13, 0.85)"
+                    stroke="rgba(182, 255, 74, 0.95)" stroke-width="1.5"/>
+            <circle cx="390" cy="110" r="4" fill="rgba(220, 255, 130, 0.92)" class="neuron-nucleus"/>
+            <path d="M 379 110 Q 320 120, 290 112"
+                  stroke="rgba(182, 255, 74, 0.85)" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+          </g>
+
+          <!-- SYNAPTIC GAP — pulses traveling back and forth -->
+          <g class="synaptic-pulses">
+            <circle r="3" fill="rgba(220, 255, 130, 0.95)" class="pulse pulse-lr">
+              <animateMotion dur="3.2s" repeatCount="indefinite" rotate="auto">
+                <mpath href="#pulsePathLR"/>
+              </animateMotion>
+              <animate attributeName="opacity"
+                       values="0;1;1;1;0"
+                       keyTimes="0;0.1;0.5;0.9;1"
+                       dur="3.2s" repeatCount="indefinite"/>
+            </circle>
+            <circle r="3" fill="rgba(220, 255, 130, 0.95)" class="pulse pulse-rl">
+              <animateMotion dur="3.2s" repeatCount="indefinite" rotate="auto" begin="1.6s">
+                <mpath href="#pulsePathRL"/>
+              </animateMotion>
+              <animate attributeName="opacity"
+                       values="0;1;1;1;0"
+                       keyTimes="0;0.1;0.5;0.9;1"
+                       dur="3.2s" repeatCount="indefinite"
+                       begin="1.6s"/>
+            </circle>
+            <circle r="1.8" fill="rgba(220, 255, 130, 0.7)" class="pulse pulse-lr-2">
+              <animateMotion dur="3.2s" repeatCount="indefinite" begin="0.8s">
+                <mpath href="#pulsePathLR"/>
+              </animateMotion>
+              <animate attributeName="opacity"
+                       values="0;0.8;0.8;0"
+                       keyTimes="0;0.2;0.8;1"
+                       dur="3.2s" repeatCount="indefinite"
+                       begin="0.8s"/>
+            </circle>
+            <circle r="1.8" fill="rgba(220, 255, 130, 0.7)" class="pulse pulse-rl-2">
+              <animateMotion dur="3.2s" repeatCount="indefinite" begin="2.4s">
+                <mpath href="#pulsePathRL"/>
+              </animateMotion>
+              <animate attributeName="opacity"
+                       values="0;0.8;0.8;0"
+                       keyTimes="0;0.2;0.8;1"
+                       dur="3.2s" repeatCount="indefinite"
+                       begin="2.4s"/>
+            </circle>
+          </g>
+
+          <defs>
+            <path id="pulsePathLR" d="M 141 110 Q 200 100, 230 108 L 290 112 Q 350 115, 379 110" fill="none"/>
+            <path id="pulsePathRL" d="M 379 110 Q 320 120, 290 112 L 230 108 Q 170 105, 141 110" fill="none"/>
+          </defs>
+
+          <text x="130" y="200" text-anchor="middle"
+                font-family="JetBrains Mono, monospace" font-size="7"
+                letter-spacing="2" fill="rgba(182, 255, 74, 0.7)">
+            ONE NERVOUS SYSTEM
+          </text>
+          <text x="390" y="200" text-anchor="middle"
+                font-family="JetBrains Mono, monospace" font-size="7"
+                letter-spacing="2" fill="rgba(182, 255, 74, 0.7)">
+            ANOTHER
+          </text>
+        </svg>
+        <p class="mirror-caption">mirror neurons · attuning across the gap</p>
+      </div>
+
+      <p class="mirror-coda-def">
+        Mirror neurons fire when you <em>watch someone else perform an action</em> —
+        they let you simulate someone else's motor behavior in your own brain.
+        <span class="mirror-coda-attr">(Rizzolatti, 1990s.)</span>
+      </p>
+      <p class="mirror-coda-close">
+        Their gasp becomes your gasp. Their flinch becomes your flinch.
+        <em>The shared body is the medium.</em>
+      </p>
+    </div>
+
     <p class="flinch-breadcrumb reveal">Same pattern again. The shape will have a name soon.</p>
   </div>
 </section>
@@ -6163,94 +6664,120 @@
   </div>
 </section>
 
-<!-- ============================ SECTION 06 — THEMED ENTERTAINMENT ============================ -->
-<!-- Two-beat spine: Meow Wolf (one R loop in the space) + Disney (nested B+R loops in the body).
-     Section applies the loop vocabulary just taught in Section 05.
-     Both diagrams use the internal/external encoding: filled = external, outlined = internal. -->
+<!-- ============================ SECTION 06 — THEMED ENTERTAINMENT SYSTEMS DESIGN ============================ -->
+<!-- Refocused: from Meow Wolf + Disney comparison to a single principle — engineering for
+     the apex of human need (Maslow's self-transcendence tier). Disney is the worked example.
+     Meow Wolf migrated to Section 04 as the case study for the three-layer neural framework. -->
 <section class="spine s6-section" id="s6">
   <div class="spine-inner">
     <div class="section-marker reveal">
       <span class="num">06</span>
-      <span>Themed entertainment</span>
+      <span>Themed entertainment systems design</span>
       <span class="line"></span>
     </div>
 
-    <h2 class="te-headline reveal">Immersive loops · engineered wonder.</h2>
+    <h2 class="te-headline reveal">Keeping people at the apex.</h2>
     <p class="te-lead reveal">
-      Two crafts. Two ways of engineering the same thing — your willingness to stay.
+      Themed entertainment, done well, has a quiet design goal: <em>hold the guest at the top of
+      Maslow's hierarchy of needs</em> — at self-transcendence — for as long as the experience lasts.
     </p>
 
-    <!-- ============== BEAT 1 — MEOW WOLF (one R loop in the space) ============== -->
-    <div class="te-beat te-beat-meowwolf reveal">
-      <div class="te-beat-eyebrow">Beat one</div>
-      <h3 class="te-beat-title">Meow Wolf — <em>the loop in the space</em>.</h3>
+    <!-- ============== MASLOW PYRAMID BEAT — the design target ============== -->
+    <!-- Custom pyramid in the talk's lime-on-dark aesthetic. Six tiers (Maslow's later
+         expanded model) with self-transcendence highlighted at the apex. -->
+    <div class="maslow-band reveal">
+      <div class="maslow-frame">
+        <p class="maslow-eyebrow">The design target</p>
 
-      <div class="te-beat-grid te-beat-grid-single">
-        <div class="te-prose-col">
-          <p class="te-prose">
-            Walk into <em>The House of Eternal Return</em> and there's no map.
-            No wrong choices. The floor plan itself is a kind of neural network —
-            every room connects to other rooms, and every choice you make
-            <em>rewards curiosity with more space to be curious in</em>.
-          </p>
-          <p class="te-prose">
-            That's a reinforcing loop, and it lives in the architecture.
-            The building is the loop. You're inside it.
-          </p>
-          <p class="te-prose te-prose-quiet">
-            The variable that lives <em>inside you</em> is the exploration itself —
-            your willingness to keep moving. The variable that lives <em>outside you</em>
-            is the spatial payoff the building delivers. The loop runs between you and the room.
-          </p>
-        </div>
-
-        <div class="te-diagram-col">
-          <!-- Meow Wolf R loop: 3 nodes, one internal (exploration), two external (payoff, immersion via building).
-               Actually re-reading my own framing: immersion is the felt state (internal), payoff is the building's response (external).
-               So: exploration = internal (outlined), spatial payoff = external (filled), deeper immersion = internal (outlined).
-               This shows a clearly MIXED loop — the audience and the architecture passing the loop back and forth across the boundary. -->
-          <svg viewBox="0 0 240 220" xmlns="http://www.w3.org/2000/svg" class="te-loop-svg te-loop-mw">
+        <!-- Pyramid SVG in talk aesthetic -->
+        <div class="maslow-pyramid-wrap">
+          <svg viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg" class="maslow-pyramid">
             <defs>
-              <marker id="arrowMw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-                <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(182,255,74,0.95)"/>
-              </marker>
+              <linearGradient id="maslowApex" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="rgba(220, 255, 130, 0.85)"/>
+                <stop offset="100%" stop-color="rgba(182, 255, 74, 0.45)"/>
+              </linearGradient>
             </defs>
-            <!-- Outer faint echoes (the reinforcing growth) -->
-            <circle cx="120" cy="110" r="98" fill="none" stroke="rgba(182,255,74,0.08)" stroke-width="1" stroke-dasharray="3 4"/>
-            <circle cx="120" cy="110" r="115" fill="none" stroke="rgba(182,255,74,0.05)" stroke-width="1" stroke-dasharray="3 5"/>
-            <!-- Clockwise arrows -->
-            <path class="loop-flow loop-flow-r" d="M 120 30 Q 195 50, 195 130" stroke="rgba(182,255,74,0.85)" stroke-width="2" fill="none" stroke-linecap="round" marker-end="url(#arrowMw)"/>
-            <path class="loop-flow loop-flow-r" d="M 195 130 Q 155 200, 65 175" stroke="rgba(182,255,74,0.85)" stroke-width="2" fill="none" stroke-linecap="round" marker-end="url(#arrowMw)"/>
-            <path class="loop-flow loop-flow-r" d="M 65 175 Q 15 130, 75 60" stroke="rgba(182,255,74,0.85)" stroke-width="2" fill="none" stroke-linecap="round" marker-end="url(#arrowMw)"/>
-            <!-- Nodes: internal (outlined) for guest's experience, external (filled) for building -->
-            <!-- exploration — INTERNAL (outlined) -->
-            <circle cx="120" cy="30" r="8" fill="rgba(6,12,8,1)" stroke="rgba(182,255,74,0.9)" stroke-width="2"/>
-            <!-- spatial payoff — EXTERNAL (filled) -->
-            <circle cx="195" cy="130" r="8" fill="rgba(182,255,74,0.9)"/>
-            <!-- deeper immersion — INTERNAL (outlined) -->
-            <circle cx="65" cy="175" r="8" fill="rgba(6,12,8,1)" stroke="rgba(182,255,74,0.9)" stroke-width="2"/>
-            <!-- Labels -->
-            <text x="120" y="16" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="0.5" fill="rgba(220,255,130,0.9)">exploration</text>
-            <text x="195" y="150" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="0.5" fill="rgba(220,255,130,0.9)">spatial payoff</text>
-            <text x="65" y="195" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="0.5" fill="rgba(220,255,130,0.9)">deeper immersion</text>
-            <!-- + signs -->
-            <text x="170" y="58" font-family="JetBrains Mono, monospace" font-size="12" fill="rgba(220,255,130,0.85)" font-weight="bold">+</text>
-            <text x="135" y="195" font-family="JetBrains Mono, monospace" font-size="12" fill="rgba(220,255,130,0.85)" font-weight="bold">+</text>
-            <text x="22" y="118" font-family="JetBrains Mono, monospace" font-size="12" fill="rgba(220,255,130,0.85)" font-weight="bold">+</text>
-            <!-- R center icon -->
-            <circle cx="120" cy="110" r="20" fill="rgba(10,20,13,0.85)" stroke="rgba(182,255,74,0.6)" stroke-width="1.2"/>
-            <text x="120" y="116" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" letter-spacing="1" fill="rgba(220,255,130,0.95)" font-weight="bold">R</text>
+
+            <!-- Tier 6 — Self-transcendence (apex, highlighted) -->
+            <polygon points="240,20 200,60 280,60"
+                     fill="url(#maslowApex)"
+                     stroke="rgba(220, 255, 130, 1)" stroke-width="2"
+                     class="maslow-tier maslow-tier-apex"/>
+
+            <!-- Tier 5 — Self-actualization -->
+            <polygon points="200,60 160,110 320,110 280,60"
+                     fill="rgba(182, 255, 74, 0.18)"
+                     stroke="rgba(182, 255, 74, 0.7)" stroke-width="1.4"
+                     class="maslow-tier"/>
+
+            <!-- Tier 4 — Esteem -->
+            <polygon points="160,110 120,160 360,160 320,110"
+                     fill="rgba(182, 255, 74, 0.1)"
+                     stroke="rgba(182, 255, 74, 0.55)" stroke-width="1.2"
+                     class="maslow-tier"/>
+
+            <!-- Tier 3 — Love & belonging -->
+            <polygon points="120,160 80,210 400,210 360,160"
+                     fill="rgba(182, 255, 74, 0.06)"
+                     stroke="rgba(182, 255, 74, 0.45)" stroke-width="1.2"
+                     class="maslow-tier"/>
+
+            <!-- Tier 2 — Safety -->
+            <polygon points="80,210 40,260 440,260 400,210"
+                     fill="rgba(182, 255, 74, 0.04)"
+                     stroke="rgba(182, 255, 74, 0.35)" stroke-width="1.2"
+                     class="maslow-tier"/>
+
+            <!-- Tier 1 — Physiological (base) -->
+            <polygon points="40,260 10,310 470,310 440,260"
+                     fill="rgba(182, 255, 74, 0.02)"
+                     stroke="rgba(182, 255, 74, 0.28)" stroke-width="1.2"
+                     class="maslow-tier"/>
+
+            <!-- Labels — outside the pyramid, right side, with leader lines -->
+            <!-- Tier 6 label (apex - emphasized) -->
+            <line x1="282" y1="40" x2="340" y2="40" stroke="rgba(220, 255, 130, 0.85)" stroke-width="1"/>
+            <text x="345" y="38" font-family="Cormorant Garamond, serif" font-style="italic" font-size="18" fill="rgba(220, 255, 130, 1)">Self-transcendence</text>
+            <text x="345" y="52" font-family="JetBrains Mono, monospace" font-size="8" letter-spacing="1.5" fill="rgba(220, 255, 130, 0.7)">THE APEX</text>
+
+            <!-- Tier 5 label -->
+            <line x1="305" y1="85" x2="340" y2="85" stroke="rgba(182, 255, 74, 0.5)" stroke-width="1"/>
+            <text x="345" y="88" font-family="Cormorant Garamond, serif" font-style="italic" font-size="14" fill="rgba(220, 255, 130, 0.85)">Self-actualization</text>
+
+            <!-- Tier 4 label -->
+            <line x1="345" y1="135" x2="370" y2="135" stroke="rgba(182, 255, 74, 0.5)" stroke-width="1"/>
+            <text x="375" y="138" font-family="Cormorant Garamond, serif" font-style="italic" font-size="13" fill="rgba(220, 255, 130, 0.7)">Esteem</text>
+
+            <!-- Tier 3 label -->
+            <line x1="385" y1="185" x2="405" y2="185" stroke="rgba(182, 255, 74, 0.5)" stroke-width="1"/>
+            <text x="410" y="188" font-family="Cormorant Garamond, serif" font-style="italic" font-size="13" fill="rgba(220, 255, 130, 0.7)">Love &amp; belonging</text>
+
+            <!-- Tier 2 label (left side to balance) -->
+            <line x1="55" y1="235" x2="30" y2="235" stroke="rgba(182, 255, 74, 0.5)" stroke-width="1"/>
+            <text x="25" y="238" text-anchor="end" font-family="Cormorant Garamond, serif" font-style="italic" font-size="13" fill="rgba(220, 255, 130, 0.6)">Safety</text>
+
+            <!-- Tier 1 label (left side) -->
+            <line x1="25" y1="285" x2="0" y2="285" stroke="rgba(182, 255, 74, 0.5)" stroke-width="1"/>
+            <text x="-5" y="288" text-anchor="end" font-family="Cormorant Garamond, serif" font-style="italic" font-size="13" fill="rgba(220, 255, 130, 0.5)">Physiological</text>
+
+            <!-- Footnote attribution -->
+            <text x="240" y="350" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" letter-spacing="1.5" fill="rgba(182, 255, 74, 0.5)">
+              AFTER MASLOW · USED AS HEURISTIC
+            </text>
           </svg>
-          <p class="te-diagram-caption">
-            <em>A neural network you can walk through.</em>
-          </p>
         </div>
+
+        <p class="maslow-close">
+          Most design optimizes for the lower tiers — meeting needs, providing safety, enabling
+          function. <em>Themed entertainment optimizes for the top.</em>
+        </p>
       </div>
     </div>
 
-    <!-- ============== BEAT 2 — DISNEY (B loop with R sub-loop nested) ============== -->
+    <!-- ============== WORKED EXAMPLE — DISNEY (nested B+R loops in the body) ============== -->
     <div class="te-beat te-beat-disney reveal">
-      <div class="te-beat-eyebrow">Beat two</div>
+      <div class="te-beat-eyebrow">A worked example</div>
       <h3 class="te-beat-title">Disney Imagineering — <em>the loop in the body</em>.</h3>
 
       <div class="te-beat-grid te-beat-grid-disney">
@@ -7915,7 +8442,7 @@ function animateCursor() {
 }
 animateCursor();
 function bindHover() {
-  document.querySelectorAll('a, button, .mm-node, .practice-card, .portal, .continue-cue, .blue-swatch, .field-continue, .pattern-continue, .pattern-square, .pattern-group, .spore-continue, .translate-cell, .lens-slider, .emotion-cell, .practice-prompt, .cultures-continue, .story-continue, .scope-select, .fc-pill, .loop-card, .loop-example, .lev-rung, .depth, .lp-principle, .ph-mechanism').forEach(el => {
+  document.querySelectorAll('a, button, .mm-node, .practice-card, .portal, .continue-cue, .blue-swatch, .field-continue, .pattern-continue, .pattern-square, .pattern-group, .spore-continue, .translate-cell, .lens-slider, .emotion-cell, .practice-prompt, .cultures-continue, .story-continue, .scope-select, .fc-pill, .loop-card, .loop-example, .lev-rung, .depth, .lp-principle, .ph-mechanism, .brain-layer').forEach(el => {
     el.addEventListener('mouseenter', () => document.body.classList.add('hover-active'));
     el.addEventListener('mouseleave', () => document.body.classList.remove('hover-active'));
   });

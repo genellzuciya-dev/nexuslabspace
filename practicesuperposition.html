@@ -6420,7 +6420,7 @@
           <!-- Baseline -->
           <line x1="40" y1="170" x2="520" y2="170" stroke="rgba(182, 255, 74, 0.3)" stroke-width="1" stroke-dasharray="2 4"/>
 
-          <!-- Assumed barrier zone — the pink/magenta curve, taller, "what we assume blocks us" -->
+          <!-- Assumed barrier zone — the pink/magenta curve, wide and tall, "what we assume blocks us" -->
           <path d="M 40 170 C 160 170, 200 30, 280 30 C 360 30, 400 170, 520 170"
                 stroke="rgba(255, 100, 170, 0.85)" stroke-width="2.2"
                 fill="none" stroke-linecap="round"/>
@@ -6428,20 +6428,24 @@
                 font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="0.8"
                 fill="rgba(255, 150, 200, 0.95)">ASSUMED BARRIER ZONE</text>
 
-          <!-- Actual barrier zone — the blue curve, smaller, "what's really there" -->
-          <path d="M 100 170 C 180 170, 220 70, 280 70 C 340 70, 380 170, 460 170"
+          <!-- Actual barrier zone — narrow, sharp blue curve.
+               Tunneling probability falls off exponentially with barrier width, so the
+               actual barrier MUST be thin for tunneling to work. Skinnier hump = focused,
+               quick traversal. Same height (similar energy required) but much narrower base. -->
+          <path d="M 200 170 C 240 170, 250 70, 280 70 C 310 70, 320 170, 360 170"
                 stroke="rgba(120, 220, 255, 0.85)" stroke-width="2.2"
                 fill="none" stroke-linecap="round"/>
-          <text x="420" y="60" text-anchor="middle"
+          <text x="430" y="60" text-anchor="middle"
                 font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="0.8"
                 fill="rgba(180, 235, 255, 0.95)">ACTUAL BARRIER ZONE</text>
 
-          <!-- The tunnel — horizontal channel cutting through both barriers -->
-          <rect x="170" y="125" width="220" height="14" rx="7"
+          <!-- The tunnel — short focused channel crossing the narrow blue barrier.
+               Spans only the actual barrier width (x=205 to x=355). Quick, focused. -->
+          <rect x="205" y="125" width="150" height="14" rx="7"
                 fill="url(#sloTunnelChannel)"
                 stroke="rgba(255, 240, 130, 0.6)" stroke-width="1.2"/>
-          <!-- Tunnel arrow -->
-          <line class="slo-tunnel-flow" x1="185" y1="132" x2="375" y2="132"
+          <!-- Tunnel arrow — short focused traversal -->
+          <line class="slo-tunnel-flow" x1="218" y1="132" x2="340" y2="132"
                 stroke="rgba(255, 240, 130, 0.85)" stroke-width="1.5"
                 stroke-dasharray="4 3" marker-end="url(#sloPrincipleArrow)"/>
           <defs>
@@ -6450,24 +6454,24 @@
             </marker>
           </defs>
 
-          <!-- Energy burst at entry -->
+          <!-- Energy burst at entry to the narrow barrier -->
           <g class="slo-energy-burst">
-            <circle cx="170" cy="132" r="14" fill="rgba(255, 240, 130, 0.3)"/>
-            <circle cx="170" cy="132" r="8" fill="rgba(255, 240, 130, 0.85)"/>
+            <circle cx="205" cy="132" r="14" fill="rgba(255, 240, 130, 0.3)"/>
+            <circle cx="205" cy="132" r="8" fill="rgba(255, 240, 130, 0.85)"/>
           </g>
-          <text x="170" y="195" text-anchor="middle"
+          <text x="205" y="195" text-anchor="middle"
                 font-family="JetBrains Mono, monospace" font-size="8" letter-spacing="0.8"
                 fill="rgba(255, 220, 130, 0.9)">FOCUSED &amp; FLEXIBLE</text>
-          <text x="170" y="207" text-anchor="middle"
+          <text x="205" y="207" text-anchor="middle"
                 font-family="JetBrains Mono, monospace" font-size="8" letter-spacing="0.8"
                 fill="rgba(255, 220, 130, 0.9)">ALIGNMENT</text>
 
-          <!-- Destination star at the right end -->
-          <g class="slo-destination" transform="translate(395, 132)">
+          <!-- Destination star at the exit of the narrow barrier -->
+          <g class="slo-destination" transform="translate(360, 132)">
             <polygon points="0,-14 4,-4 14,-4 6,3 9,13 0,7 -9,13 -6,3 -14,-4 -4,-4"
                      fill="rgba(182, 255, 74, 0.95)" stroke="rgba(220, 255, 130, 1)" stroke-width="1"/>
           </g>
-          <text x="395" y="195" text-anchor="middle"
+          <text x="360" y="195" text-anchor="middle"
                 font-family="JetBrains Mono, monospace" font-size="8" letter-spacing="1"
                 fill="rgba(220, 255, 130, 0.95)">DESTINATION</text>
         </svg>
@@ -7176,7 +7180,7 @@
       <span class="line"></span>
     </div>
 
-    <h2 class="te-headline reveal">Keeping people at the apex.</h2>
+    <h2 class="te-headline reveal">Removing barriers to self-actualization and transcendence — and keeping people there.</h2>
     <p class="te-lead reveal">
       Themed entertainment, done well, has a quiet design goal: <em>hold the guest at the top of
       Maslow's hierarchy of needs</em> — at self-transcendence — for as long as the experience lasts.

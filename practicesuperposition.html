@@ -4380,6 +4380,43 @@
     margin-bottom: 0;
   }
 
+  /* The four key terms as bullets — each on its own line, in our aesthetic.
+     Custom dot bullet (lime), serif italic terms (emphasized words green). */
+  .slo-applications-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.6rem 1.2rem;
+    display: flex; flex-direction: column;
+    gap: 0.55rem;
+  }
+  .slo-applications-list li {
+    font-family: var(--serif); font-style: italic;
+    font-size: clamp(1.1rem, 1.65vw, 1.35rem);
+    line-height: 1.5;
+    color: var(--text);
+    position: relative;
+    padding-left: 1.4rem;
+  }
+  .slo-applications-list li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0.7em;
+    width: 6px; height: 6px;
+    background: var(--green);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--green-faint);
+  }
+  .slo-applications-list li em {
+    color: var(--green);
+    font-style: italic;
+  }
+  /* Slight separation for the closing coda line below the bullets */
+  .slo-applications-coda {
+    margin-top: 0.4rem;
+    font-size: clamp(0.95rem, 1.45vw, 1.2rem);
+    color: var(--text-faint);
+  }
+
   /* Closing line — ties back into Section 01's arc */
   .slo-close {
     margin-top: 3rem;
@@ -6296,15 +6333,20 @@
       <div class="slo-applications">
         <div class="slo-applications-eyebrow">What might this look like in human systems?</div>
         <p class="slo-applications-prompt">
-          <em>That's the question I'd like to leave open for you.</em>
+          <em>The question I'd like to leave open for you.</em>
           When you encounter a barrier that diffusion can't cross — in your work,
-          your community, your craft — what would it mean to find the
-          <em>tunnel-ready state</em>? Where is the focused energy?
-          What needs to come into alignment? Where is the matched vibration?
+          your community, your craft — what would it mean to find:
         </p>
-        <p class="slo-applications-prompt">
-          I've sketched five possibilities at the bottom of this page,
-          drawn from my own work on this enzyme. They're prompts, not prescriptions.
+
+        <ul class="slo-applications-list">
+          <li>the <em>tunnel-ready state</em></li>
+          <li>the <em>focused energy</em></li>
+          <li>the <em>alignment</em></li>
+          <li>the <em>matched vibration</em></li>
+        </ul>
+
+        <p class="slo-applications-prompt slo-applications-coda">
+          Five possibilities at the bottom of this page. Prompts, not prescriptions.
         </p>
       </div>
 

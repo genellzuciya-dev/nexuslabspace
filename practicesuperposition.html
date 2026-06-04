@@ -635,6 +635,61 @@
     color: var(--text);
     font-style: italic;
   }
+
+  /* Photo pair — two Kate Russell images of House of Eternal Return installations.
+     Side-by-side at meaningful size, with shared credit line below. */
+  .meowwolf-photos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.4rem;
+    margin: 1rem 0 0.8rem;
+    max-width: 880px;
+  }
+  .meowwolf-photo {
+    margin: 0;
+    display: flex; flex-direction: column;
+    gap: 0.7rem;
+  }
+  .meowwolf-photo-pocket {
+    aspect-ratio: 3 / 2;
+    background: linear-gradient(135deg,
+      rgba(30, 60, 35, 0.4) 0%,
+      rgba(6, 12, 8, 0.85) 100%);
+    border: 1px solid var(--green-faint);
+    overflow: hidden;
+    position: relative;
+    transition: border-color 0.4s, transform 0.5s, box-shadow 0.4s;
+  }
+  .meowwolf-photo:hover .meowwolf-photo-pocket {
+    border-color: var(--green-dim);
+    transform: translateY(-3px);
+    box-shadow: 0 0 28px var(--green-faint);
+  }
+  .meowwolf-photo-pocket img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%; object-fit: cover;
+    filter: brightness(0.85) contrast(1.05);
+    transition: filter 0.5s, transform 0.6s;
+  }
+  .meowwolf-photo:hover .meowwolf-photo-pocket img {
+    filter: brightness(0.95) contrast(1.08);
+    transform: scale(1.03);
+  }
+  .meowwolf-photo-caption {
+    font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--green);
+    text-align: center;
+  }
+  .meowwolf-photo-credit {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--text-faint);
+    text-align: center;
+    max-width: 880px;
+    margin: 0 0 2rem;
+  }
+  @media (max-width: 700px) {
+    .meowwolf-photos { grid-template-columns: 1fr; }
+  }
   .meowwolf-diagram {
     display: flex; flex-direction: column;
     align-items: center;
@@ -6442,9 +6497,32 @@
           a wayfinding system. Meow Wolf doesn't.
         </p>
         <p>
-          You walk into a fridge. You crawl into a fireplace. You don't know what's behind
+          You walk into a fridge. You slide down into the dryer. You don't know what's behind
           the next door. You make a choice anyway — because the choice <em>is</em> the experience.
         </p>
+      </div>
+
+      <!-- Two photographs by Kate Russell of House of Eternal Return installations.
+           Visual evidence of the absurdly-named entrances the prose just described. -->
+      <div class="meowwolf-photos reveal">
+        <figure class="meowwolf-photo">
+          <div class="meowwolf-photo-pocket">
+            <img src="Fridge.jpg" alt="The fridge entrance — House of Eternal Return, Meow Wolf">
+          </div>
+          <figcaption class="meowwolf-photo-caption">the fridge</figcaption>
+        </figure>
+        <figure class="meowwolf-photo">
+          <div class="meowwolf-photo-pocket">
+            <img src="Laundry.jpg" alt="The laundry / dryer passage — House of Eternal Return, Meow Wolf">
+          </div>
+          <figcaption class="meowwolf-photo-caption">the dryer</figcaption>
+        </figure>
+      </div>
+      <p class="meowwolf-photo-credit">
+        photo · Kate Russell · House of Eternal Return, Meow Wolf
+      </p>
+
+      <div class="meowwolf-prose">
         <p>
           The floor plan itself is built like a neural network. Nodes that connect to other
           nodes. No hierarchy, no center, multiple paths to anywhere. <em>You can't get lost

@@ -55,6 +55,10 @@ p { font-family:'Instrument Serif',serif; font-size:1rem; color:var(--muted); li
 .focus-detail-text { font-family:'Instrument Serif',serif; font-size:0.95rem; color:var(--muted); line-height:1.8; }
 .focus-arrow { color:var(--lime); font-size:1.4rem; font-weight:300; margin-left:auto; transition:transform 0.3s; line-height:1; }
 .focus-item.open .focus-arrow { transform:rotate(45deg); }
+.cred-list { display:flex; flex-direction:column; gap:1px; background:var(--border); margin-top:3.5rem; }
+.cred-item { background:var(--bg); display:grid; grid-template-columns:11rem 1fr; align-items:baseline; gap:1.5rem; padding:1.3rem 2.5rem; }
+.cred-key { font-family:'Space Mono',monospace; font-size:0.62rem; letter-spacing:0.22em; color:var(--lime); text-transform:uppercase; }
+.cred-val { font-family:'Instrument Serif',serif; font-size:1rem; color:var(--cream); line-height:1.5; }
 @media(max-width:768px){ .focus-detail-inner { grid-template-columns:1fr; gap:1.5rem; } }
 
 .manifesto { padding:5rem 4rem; background:linear-gradient(135deg,var(--bg2),rgba(74,122,85,0.08)); border-top:1px solid var(--border); border-bottom:1px solid var(--border); text-align:center; }
@@ -76,6 +80,7 @@ footer { padding:2rem 4rem; border-top:1px solid var(--border); display:flex; al
   .two-col,.contact-grid{grid-template-columns:1fr;gap:3rem;}
   .cards{grid-template-columns:1fr;}
   .focus-item{grid-template-columns:2.5rem 1fr;}
+  .cred-item{grid-template-columns:1fr;gap:0.4rem;padding:1.3rem 1.5rem;}
 }
 /* ── CURSOR ── */
 .cur { position:fixed; width:10px; height:10px; background:var(--lime); border-radius:50%; pointer-events:none; z-index:99999; transform:translate(-50%,-50%); transition:transform 0.15s; mix-blend-mode:difference; }
@@ -105,6 +110,7 @@ footer { padding:2rem 4rem; border-top:1px solid var(--border); display:flex; al
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#focus">Lab Focus</a></li>
+    <li><a href="#founder">Founder</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
@@ -531,8 +537,34 @@ footer { padding:2rem 4rem; border-top:1px solid var(--border); display:flex; al
   <p>To be a nexus. A powerful central link where <em>science, creativity, and community</em> meet to create systems-level change through hands-on prototyping.</p>
 </div>
 
+<section id="founder" style="background:#0D1810">
+  <div class="divider reveal"><span class="label">04 / Who Builds Here</span><div class="divider-line"></div></div>
+  <div class="two-col">
+    <div class="reveal">
+      <span class="label">The Founder</span>
+      <h2>Eighteen years of<br/>following passion and<br/>connecting the dots later.<br/>A life of <em>systems design</em>.</h2>
+    </div>
+    <div class="reveal reveal-delay-1">
+      <p>My career runs from Walt Disney Imagineering to Meow Wolf to Netflix Experiences — Star Wars: Galaxy's Edge, Avatar: Flight of Passage, House of Eternal Return. Different worlds, same thread: understanding a system deeply enough to design an experience that changes the people inside it.</p>
+      <p style="margin-top:1.5rem">Along the way I earned an M.S. in Biomimicry and a U.S. patent for a scanning-laser 3D display system — a body of work built on the conviction that nature's 3.8 billion years of R&amp;D is the best design brief ever written, and that play is how humans do their most serious thinking.</p>
+      <p style="margin-top:1.5rem">Off the clock, I document the living world the same way I design for it: closely, patiently, and with a field camera in hand.</p>
+      <div class="btn-row" style="margin-top:2.5rem">
+        <a href="PORTFOLIO_URL_HERE" class="btn-lime">Field Notes &amp; Documentary Work</a>
+        <a href="https://www.ilovephotons.com/" class="btn-ghost">Design Portfolio →</a>
+      </div>
+    </div>
+  </div>
+  <div class="cred-list reveal reveal-delay-2">
+    <div class="cred-item"><span class="cred-key">Recognition</span><span class="cred-val">5 THEA Awards · 2 VES Awards · IAAPA Honors 2025 · ILDA First Place</span></div>
+    <div class="cred-item"><span class="cred-key">Invention</span><span class="cred-val">U.S. Patent, scanning-laser 3D display system · provisional patents pending</span></div>
+    <div class="cred-item"><span class="cred-key">Education</span><span class="cred-val">M.S. Biomimicry, Arizona State University · B.S. Video Production, Drexel University</span></div>
+    <div class="cred-item"><span class="cred-key">Service</span><span class="cred-val">Board, International Spy Museum · SEGD Sustainability Committee Chair</span></div>
+    <div class="cred-item"><span class="cred-key">Field Practice</span><span class="cred-val">Documentarian &amp; citizen scientist — landscapes where the climate record is written in rock</span></div>
+  </div>
+</section>
+
 <section id="contact">
-  <div class="divider reveal"><span class="label">04 / Reach Out</span><div class="divider-line"></div></div>
+  <div class="divider reveal"><span class="label">05 / Reach Out</span><div class="divider-line"></div></div>
   <div class="contact-grid">
     <div class="reveal">
       <h2>Let's build<br/>something<br/><em>together.</em></h2>

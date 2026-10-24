@@ -1,29 +1,91 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Message Received — Nexus Lab Space</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Message received · Nexus Lab Space</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#060C08;--lime:#B6FF4A;--cream:#F2EDDF;--muted:#8A8478;--border:rgba(182,255,74,0.18)}
-body{background:var(--bg);color:var(--cream);font-family:'Instrument Serif',serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center}
-.tag{font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.3em;color:var(--lime);text-transform:uppercase;display:block;margin-bottom:2rem}
-h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2rem,5vw,4rem);line-height:1;letter-spacing:-0.02em;color:var(--cream);margin-bottom:1.5rem}
-h1 em{font-style:italic;font-family:'Instrument Serif',serif;color:var(--lime)}
-p{font-size:1.1rem;color:var(--muted);line-height:1.8;max-width:480px;margin:0 auto 3rem}
-.box{border:1px solid var(--border);padding:4rem 3rem;max-width:560px;width:100%}
-.mono{font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--muted);letter-spacing:0.1em;margin-top:1rem}
-a{font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--bg);background:var(--lime);padding:0.95rem 2rem;text-decoration:none;display:inline-block;margin-top:2rem}
+:root{
+  --paper:#f4f6f1;--plate:#e2e8e1;--ink:#122a27;--ink-soft:#4b5f5a;--rule:#c3cdc5;
+  --accent:#0d6f63;--flash:#8a2f6b;--on-accent:#f3f7f4;--hero-mid:#c3d6c8;--hero-deep:#1c3a32;
+  --display:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+  --body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0e1817;--plate:#162523;--ink:#e3ebe6;--ink-soft:#9fb1ab;--rule:#2b3d3a;
+  --accent:#4cc2b0;--flash:#e07bbd;--on-accent:#06201c;--hero-mid:#12231f;--hero-deep:#07110e;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0e1817;--plate:#162523;--ink:#e3ebe6;--ink-soft:#9fb1ab;--rule:#2b3d3a;
+  --accent:#4cc2b0;--flash:#e07bbd;--on-accent:#06201c;--hero-mid:#12231f;--hero-deep:#07110e;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;min-height:100vh;display:flex;flex-direction:column;color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased;position:relative;isolation:isolate;overflow-x:hidden;
+  background:
+    radial-gradient(90% 140px at 50% 100%,color-mix(in srgb,var(--hero-deep) 85%,#0d6f63) 0%,transparent 100%),
+    linear-gradient(180deg,var(--paper) 0%,var(--paper) 40%,color-mix(in srgb,var(--paper) 50%,var(--hero-mid)) 62%,var(--hero-mid) calc(100% - 200px),
+      color-mix(in srgb,var(--hero-mid) 45%,var(--hero-deep)) calc(100% - 100px),var(--hero-deep) 100%)}
+#net{position:fixed;inset:0;width:100%;height:100%;z-index:-1;display:block}
+header{padding:1.2rem clamp(1rem,4vw,2.5rem)}
+.brand{display:inline-flex;align-items:center;gap:.55rem;font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--ink);text-decoration:none}
+main{flex:1;display:grid;place-items:center;padding:1rem clamp(1rem,4vw,2.5rem) 9rem}
+.card{width:100%;max-width:38rem;background:color-mix(in srgb,var(--paper) 90%,transparent);border:1px solid var(--rule);padding:clamp(2rem,6vw,3.6rem);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);box-shadow:0 24px 60px -40px rgba(18,42,39,.55)}
+.label{font-family:var(--mono);font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:.55rem}
+.label::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 22%,transparent)}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(2.5rem,1.8rem + 3.6vw,4.4rem);line-height:.98;letter-spacing:-.03em;margin:1.1rem 0 1.3rem}
+h1 em{font-style:normal;color:var(--flash);display:block}
+p{font-size:clamp(1.05rem,1rem + .3vw,1.2rem);line-height:1.6;color:var(--ink-soft);margin:0 0 .6rem;max-width:34ch}
+.small{font-family:var(--mono);font-size:.82rem;color:var(--ink-soft);margin-top:1.4rem}
+.actions{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}
+.btn{display:inline-flex;align-items:center;font-family:var(--display);font-weight:600;font-size:1rem;text-decoration:none;padding:.85em 1.3em;border-radius:2px;border:1.5px solid var(--ink);color:var(--ink);transition:background .2s,color .2s}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn-primary:hover,.btn:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 </style>
 </head>
 <body>
-<div class="box">
-  <span class="tag">Message Received</span>
-  <h1>Thank you.<br/><em>We'll be in touch.</em></h1>
-  <p>Every system shifts with a single first move.</p>
-  <a href="https://genellzuciya-dev.github.io/nexuslabspace/">Back to Nexus</a>
-</div>
+<canvas id="net" aria-hidden="true"></canvas>
+<header>
+  <a class="brand" href="./" aria-label="Nexus Lab Space home">
+    <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="3.2" fill="var(--accent)"/><circle cx="4" cy="6" r="2" fill="var(--ink)"/><circle cx="22" cy="5" r="2" fill="var(--ink)"/><circle cx="21" cy="21" r="2" fill="var(--ink)"/><circle cx="5" cy="20" r="2" fill="var(--ink)"/><path d="M4 6 13 13 22 5M13 13 21 21M13 13 5 20" stroke="var(--ink)" stroke-width="1.2" fill="none"/></svg>
+    Nexus Lab Space
+  </a>
+</header>
+<main>
+  <section class="card" aria-labelledby="t">
+    <span class="label">Message received</span>
+    <h1 id="t">Thank you. <em>We'll be in touch.</em></h1>
+    <p>Every system shifts with a single first move. Yours just landed in our inbox.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="./">Back to Nexus Lab Space</a>
+      <a class="btn" href="./#work">See the work</a>
+    </div>
+  </section>
+</main>
+<script>
+/* a quieter version of the homepage network */
+(function(){
+  var c=document.getElementById('net'); if(!c||!c.getContext) return;
+  var x=c.getContext('2d'), W, H, n=[], reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var POP=['16,185,150','44,150,230','122,92,214','214,58,150','30,200,120'];
+  function size(){ var d=Math.min(window.devicePixelRatio||1,2); W=innerWidth; H=innerHeight; c.width=W*d; c.height=H*d; x.setTransform(d,0,0,d,0,0);
+    n=[]; var k=Math.max(28,Math.min(90,Math.floor(W*H/16000))); for(var i=0;i<k;i++) n.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,r:Math.random()*1.6+1,f:0,col:POP[i%5]}); }
+  function deep(y){ var k=(y-(H-200))/180; return k<0?0:k>1?1:k; }
+  function draw(){ x.clearRect(0,0,W,H); var D=140;
+    for(var i=0;i<n.length;i++) for(var j=i+1;j<n.length;j++){ var a=n[i],b=n[j],dx=a.x-b.x,dy=a.y-b.y,d=Math.sqrt(dx*dx+dy*dy);
+      if(d<D){ var k=deep((a.y+b.y)/2); x.strokeStyle='rgba('+(k>.5?'207,236,222':'13,111,99')+','+(1-d/D)*.55+')'; x.lineWidth=(1-d/D)*1.3; x.beginPath(); x.moveTo(a.x,a.y); x.lineTo(b.x,b.y); x.stroke(); } }
+    n.forEach(function(p){ if(p.f>0){ var R=8+18*p.f,g=x.createRadialGradient(p.x,p.y,0,p.x,p.y,R); g.addColorStop(0,'rgba('+p.col+','+.7*p.f+')'); g.addColorStop(1,'rgba('+p.col+',0)'); x.fillStyle=g; x.beginPath(); x.arc(p.x,p.y,R,0,7); x.fill(); }
+      x.fillStyle=p.f>.05?'rgba('+p.col+',1)':(deep(p.y)>.5?'rgba(207,236,222,.85)':'rgba(18,42,39,.7)'); x.beginPath(); x.arc(p.x,p.y,p.r,0,7); x.fill(); }); }
+  function step(){ n.forEach(function(p){ p.x+=p.vx; p.y+=p.vy; if(p.x<0||p.x>W)p.vx*=-1; if(p.y<0||p.y>H)p.vy*=-1; p.f=Math.max(0,p.f-.02); });
+    if(Math.random()<.06) n[Math.floor(Math.random()*n.length)].f=1; draw(); requestAnimationFrame(step); }
+  size(); addEventListener('resize',size);
+  if(reduce){ for(var i=0;i<4;i++) n[i].f=.8; draw(); } else step();
+})();
+</script>
 </body>
 </html>

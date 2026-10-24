@@ -716,7 +716,7 @@ footer{border-top:1px solid var(--rule);padding-block:2rem}
 .tag-on-warm{color:#f6efe6!important;text-shadow:0 1px 3px rgba(0,0,0,.6)}
 .inset-video{width:34%!important}
 .iv-box{position:relative;aspect-ratio:16/9;width:100%;overflow:hidden;background:radial-gradient(ellipse at 50% 0%,#2f7f8f,#0b2d36 70%);border:1px solid rgba(207,224,218,.35)}
-.iv-box img,.iv-box iframe{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;display:block}
+.iv-box img,.iv-box iframe,.iv-box video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;display:block}
 .iv-fallback{position:absolute;left:.4rem;bottom:.3rem;font-family:var(--mono);font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:#cfe7ea}
 
 /* process intro: headline + three article columns */
@@ -899,8 +899,8 @@ html.cur-text .cur,html.cur-text .cur-ring,html.cur-out .cur,html.cur-out .cur-r
         <div class="specimen sim" id="ws-sim" aria-label="Live simulation of crossflow filtration. Plankton and water flow over a filter mesh; the flow angle decides whether the mesh stays clear or clogs.">
           <canvas></canvas>
           <span class="tag"><i></i>03b · Modeled live</span>
-          <figure class="inset inset-video" id="ws-video" data-yt="6d1T8AQb5Ok">
-            <div class="iv-box"><img src="https://i.ytimg.com/vi/6d1T8AQb5Ok/mqdefault.jpg" alt="Whale shark feeding near La Paz, Mexico." loading="lazy" onerror="this.remove()"><span class="iv-fallback">Field video</span></div>
+          <figure class="inset inset-video" id="ws-video">
+            <div class="iv-box"><video id="ws-clip" src="img/whaleshark.mp4" poster="img/whaleshark-poster.jpg" muted loop playsinline preload="metadata" aria-label="Video of a whale shark feeding near La Paz, Mexico."></video></div>
             <span>03a · Observed</span>
           </figure>
           <div class="readout"><span>θ <b id="ws-ro-a">15°</b></span><span>mesh open <b id="ws-ro-o">100%</b></span><span>to throat <b id="ws-ro-c">0</b></span></div>
@@ -1994,11 +1994,9 @@ html.cur-text .cur,html.cur-text .cur-ring,html.cur-out .cur,html.cur-out .cur-r
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches, MS=reduce?14000:8000, cur=0, timer=null, hold=false, stopped=false;
   var pb=document.getElementById('deck-pause');
   deck.style.setProperty('--deck-ms',MS+'ms'); if(reduce) deck.classList.add('no-fade');
-  var wsBox=document.getElementById('ws-video'), wsOn=false, hosted=/^https?:$/.test(location.protocol)&&window.origin&&window.origin!=='null';
-  function ws(on){ if(!wsBox||!hosted) return; if(on&&!wsOn){ var f=document.createElement('div'); f.className='ws-frame';
-      var id=wsBox.getAttribute('data-yt'); f.innerHTML='<iframe title="Whale shark feeding near La Paz" tabindex="-1" allow="autoplay; encrypted-media" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&mute=1&loop=1&playlist='+id+'&controls=0&playsinline=1&rel=0&disablekb=1&origin='+encodeURIComponent(location.origin)+'"></iframe>';
-      (wsBox.querySelector('.iv-box')||wsBox).appendChild(f); wsOn=true; }
-    else if(!on&&wsOn){ var fr=wsBox.querySelector('.ws-frame'); if(fr) fr.remove(); wsOn=false; } }
+  var wsClip=document.getElementById('ws-clip');
+  // the field clip plays only while its card is showing, and never for reduced-motion visitors
+  function ws(on){ if(!wsClip) return; if(on&&!reduce){ var pr=wsClip.play(); if(pr&&pr.catch) pr.catch(function(){}); } else wsClip.pause(); }
   function show(i){cur=(i+cards.length)%cards.length;
     cards.forEach(function(c,k){c.classList.toggle('is-off',k!==cur);c.setAttribute('aria-hidden',k!==cur?'true':'false');});
     tabs.forEach(function(t,k){t.setAttribute('aria-selected',k===cur?'true':'false');});

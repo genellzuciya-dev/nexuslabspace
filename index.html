@@ -427,21 +427,21 @@ footer{border-top:1px solid var(--rule);padding-block:2rem}
 @media (min-width:860px){.ol-grid{grid-template-columns:.9fr 1.1fr;gap:4rem}}
 .ol-figure svg{width:100%;max-width:360px;height:auto;display:block;margin-inline:auto}
 .ring{cursor:pointer}
-.ring circle{stroke:var(--accent);stroke-width:1.2;transition:fill .5s,opacity .5s,stroke-width .3s}
+.ring .shape{stroke:var(--accent);stroke-width:1.2;transition:fill .5s,opacity .5s,stroke-width .3s}
 .ring text{font-family:var(--mono);font-size:11px;fill:var(--ink-soft);pointer-events:none;transition:opacity .5s}
-.ring[data-i="0"] circle{fill:color-mix(in srgb,var(--accent) 8%,var(--paper))}
-.ring[data-i="1"] circle{fill:color-mix(in srgb,var(--accent) 14%,var(--paper))}
-.ring[data-i="2"] circle{fill:color-mix(in srgb,var(--accent) 20%,var(--paper))}
-.ring[data-i="3"] circle{fill:color-mix(in srgb,var(--accent) 27%,var(--paper))}
-.ring[data-i="4"] circle{fill:color-mix(in srgb,var(--accent) 35%,var(--paper))}
-.ring[data-i="5"] circle{fill:var(--accent)}
+.ring[data-i="0"] .shape{fill:color-mix(in srgb,var(--accent) 8%,var(--paper))}
+.ring[data-i="1"] .shape{fill:color-mix(in srgb,var(--accent) 14%,var(--paper))}
+.ring[data-i="2"] .shape{fill:color-mix(in srgb,var(--accent) 20%,var(--paper))}
+.ring[data-i="3"] .shape{fill:color-mix(in srgb,var(--accent) 27%,var(--paper))}
+.ring[data-i="4"] .shape{fill:color-mix(in srgb,var(--accent) 35%,var(--paper))}
+.ring[data-i="5"] .shape{fill:var(--accent)}
 .ring[data-i="5"] text{fill:var(--on-accent);font-size:12px;letter-spacing:.06em}
-.ring.peeled circle{fill:transparent;stroke-dasharray:3 4;opacity:.45}
+.ring.peeled .shape{fill:transparent;stroke-dasharray:3 4;opacity:.45}
 .ring.peeled text{opacity:.35}
-.ring.current circle{stroke-width:2.6}
+.ring.current .shape{stroke-width:2.6}
 .ring.current text{fill:var(--ink);font-weight:500}
 .ring[data-i="5"].current text{fill:var(--on-accent)}
-.ol-sprout,.ol-roots{fill:none;stroke:var(--accent);stroke-width:1.6;stroke-linecap:round}
+.ol-sprout,.ol-roots{fill:none;stroke:var(--accent);stroke-width:1.8;stroke-linecap:round}
 .ol-panel{display:grid;gap:1.2rem;min-width:0}
 .ol-layer{display:grid;gap:.7rem;min-height:11rem;align-content:start}
 .ol-layer h3{font-size:var(--step-2)}
@@ -746,7 +746,17 @@ details.phase summary::-webkit-details-marker{display:none}
 @media (max-width:599px){details.phase summary{grid-template-columns:3.6rem 1fr auto;gap:.6rem 1rem}}
 details.phase .ph-sum h3{margin-bottom:.2rem}
 details.phase .question{margin:0}
-details.phase summary:hover h3{color:var(--accent)}
+details.phase summary{margin-inline:-.75rem;padding-inline:.75rem;border-radius:12px;transition:background-color .3s ease,box-shadow .3s ease}
+details.phase .code strong,details.phase .ph-sum h3,details.phase .question{transition:transform .3s cubic-bezier(.2,.7,.2,1),color .3s ease}
+details.phase .code strong{transform-origin:left center}
+details.phase .jx-toggle{border-radius:50%;transition:background-color .3s ease,transform .3s ease}
+details.phase summary:hover{background:color-mix(in srgb,var(--paper) 62%,transparent);box-shadow:0 10px 30px -18px rgba(18,42,39,.45)}
+details.phase summary:hover .code strong{color:var(--accent);transform:scale(1.14)}
+details.phase summary:hover h3{color:var(--accent);transform:translateX(6px)}
+details.phase summary:hover .question{transform:translateX(6px);color:var(--ink)}
+details.phase summary:hover .jx-toggle{background:color-mix(in srgb,var(--accent) 14%,transparent);transform:scale(1.25)}
+details.phase[open] summary{background:color-mix(in srgb,var(--paper) 40%,transparent)}
+@media (prefers-reduced-motion: reduce){details.phase summary:hover .code strong,details.phase summary:hover h3,details.phase summary:hover .question,details.phase summary:hover .jx-toggle{transform:none}}
 details.phase summary:hover .jx-toggle::before,details.phase summary:hover .jx-toggle::after{background:var(--accent)}
 details.phase[open] .jx-toggle::after{transform:translate(-50%,-50%) rotate(0)}
 details.phase .body{padding:0 0 2.4rem;animation:olin .35s ease both}
@@ -804,6 +814,16 @@ details.phase .body{padding:0 0 2.4rem;animation:olin .35s ease both}
 .phases-head{margin-bottom:clamp(1.4rem,3vw,2rem);padding-top:clamp(1.6rem,4vw,2.6rem);border-top:1px solid var(--rule)}
 .tp-h{fill:none;stroke:var(--ink);stroke-width:1.6}
 .tp-s{fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round}
+/* bullseye cursor, carried over from the original site: a dot with a trailing ring (mouse and trackpad only) */
+.cur,.cur-ring{position:fixed;left:0;top:0;pointer-events:none;border-radius:50%;opacity:0;transform:translate(-50%,-50%)}
+.cur{width:9px;height:9px;background:var(--accent);box-shadow:0 0 0 1.5px var(--paper);z-index:100000;transition:width .18s,height .18s,opacity .2s}
+.cur-ring{width:36px;height:36px;border:1.5px solid var(--accent);z-index:99999;transition:width .2s,height .2s,opacity .2s,border-color .2s}
+html.has-cur .cur{opacity:1}html.has-cur .cur-ring{opacity:.75}
+html.has-cur,html.has-cur *{cursor:none!important}
+html.has-cur input,html.has-cur textarea,html.has-cur select{cursor:auto!important}
+html.cur-hover .cur{width:20px;height:20px}
+html.cur-hover .cur-ring{width:54px;height:54px;opacity:.3}
+html.cur-text .cur,html.cur-text .cur-ring,html.cur-out .cur,html.cur-out .cur-ring{opacity:0}
 </style>
 </head>
 <body>
@@ -1133,10 +1153,10 @@ details.phase .body{padding:0 0 2.4rem;animation:olin .35s ease both}
         </div>
         <div class="ol-grid">
           <div class="ol-figure">
-            <svg viewBox="0 0 320 330" role="group" aria-label="An onion cross-section with six layers. Select a layer to read it.">
-              <path class="ol-sprout" d="M160 22 C 156 10, 150 4, 142 0 M160 22 C 162 8, 168 2, 178 0 M160 22 V 30"/>
-              <g class="ring" data-i="0"><circle cx="160" cy="172" r="150"/><text x="160" y="36" text-anchor="middle">1</text></g><g class="ring" data-i="1"><circle cx="160" cy="172" r="128"/><text x="160" y="58" text-anchor="middle">2</text></g><g class="ring" data-i="2"><circle cx="160" cy="172" r="106"/><text x="160" y="80" text-anchor="middle">3</text></g><g class="ring" data-i="3"><circle cx="160" cy="172" r="84"/><text x="160" y="102" text-anchor="middle">4</text></g><g class="ring" data-i="4"><circle cx="160" cy="172" r="62"/><text x="160" y="124" text-anchor="middle">5</text></g><g class="ring" data-i="5"><circle cx="160" cy="172" r="38"/><text x="160" y="177" text-anchor="middle">core</text></g>
-              <path class="ol-roots" d="M150 322 l-6 6 M160 322 v7 M170 322 l6 6"/>
+            <svg viewBox="0 0 320 404" role="group" aria-label="An onion cross-section with six layers. Select a layer to read it.">
+              <path class="ol-sprout" d="M160 45 C158 28, 150 14, 136 4 M160 45 C160 26, 162 12, 170 1 M160 45 C164 30, 176 20, 192 15 M160 45 C156 34, 144 28, 128 26 M160 45 C162 36, 172 32, 186 33"/>
+              <g class="ring" data-i="0"><path class="shape" d="M160 45.0 C178.0 102.0 310.0 129.0 310.0 234.0 C310.0 315.0 223.0 369.0 160 369.0 C97.0 369.0 10.0 315.0 10.0 234.0 C10.0 129.0 142.0 102.0 160 45.0 Z"/><text x="160" y="64" text-anchor="middle">1</text></g><g class="ring" data-i="1"><path class="shape" d="M160 71.0 C175.4 119.6 288.0 142.6 288.0 232.2 C288.0 301.4 213.8 347.4 160 347.4 C106.2 347.4 32.0 301.4 32.0 232.2 C32.0 142.6 144.6 119.6 160 71.0 Z"/><text x="160" y="90" text-anchor="middle">2</text></g><g class="ring" data-i="2"><path class="shape" d="M160 96.9 C172.7 137.2 266.0 156.3 266.0 230.5 C266.0 287.7 204.5 325.9 160 325.9 C115.5 325.9 54.0 287.7 54.0 230.5 C54.0 156.3 147.3 137.2 160 96.9 Z"/><text x="160" y="116" text-anchor="middle">3</text></g><g class="ring" data-i="3"><path class="shape" d="M160 122.9 C170.1 154.8 244.0 169.9 244.0 228.7 C244.0 274.1 195.3 304.3 160 304.3 C124.7 304.3 76.0 274.1 76.0 228.7 C76.0 169.9 149.9 154.8 160 122.9 Z"/><text x="160" y="142" text-anchor="middle">4</text></g><g class="ring" data-i="4"><path class="shape" d="M160 148.8 C167.4 172.4 222.0 183.6 222.0 227.0 C222.0 260.4 186.0 282.8 160 282.8 C134.0 282.8 98.0 260.4 98.0 227.0 C98.0 183.6 152.6 172.4 160 148.8 Z"/><text x="160" y="168" text-anchor="middle">5</text></g><g class="ring" data-i="5"><path class="shape" d="M160 177.2 C164.6 191.6 198.0 198.4 198.0 225.0 C198.0 245.6 176.0 259.2 160 259.2 C144.0 259.2 122.0 245.6 122.0 225.0 C122.0 198.4 155.4 191.6 160 177.2 Z"/><text x="160" y="226" text-anchor="middle">core</text></g>
+              <path class="ol-roots" d="M160 369 c-4 8 -12 13 -22 21 M160 369 c-2 10 -5 17 -9 26 M160 369 v28 M160 369 c2 10 6 17 10 26 M160 369 c4 8 12 13 23 20 M155 368 c-8 6 -19 9 -30 10 M165 368 c8 6 19 9 30 10"/>
             </svg>
           </div>
           <div class="ol-panel" aria-live="polite">
@@ -1230,7 +1250,7 @@ details.phase .body{padding:0 0 2.4rem;animation:olin .35s ease both}
         <article class="project pj-flip">
           <div class="pj-visual lq-visual">
           <figure class="lq-sketch">
-            <div class="lq-3d" id="lq3d" aria-label="3D model of the LeafQuest play device: a two-tone shell with two card trays, two reader rings, and a round-selector dial set to Venation. A Sweetgum card rests in the left tray with its ring glowing green. A hand places a Goodding's Willow card in the right tray, and its ring blinks red because palmate and pinnate venation do not match." role="img">
+            <div class="lq-3d" id="lq3d" aria-label="3D model of the LeafQuest play device: a two-tone shell with two card trays, two reader rings, and a round-selector dial with four rounds (Shape, Margin, Venation, Match all) set to Venation. A Sweetgum card rests in the left tray with its ring glowing green. A hand places a Goodding's Willow card in the right tray, and its ring blinks red because palmate and pinnate venation do not match." role="img">
               <canvas></canvas>
               <span class="lq-3d-hint" aria-hidden="true">Drag to rotate</span>
             </div>
@@ -1261,7 +1281,7 @@ details.phase .body{padding:0 0 2.4rem;animation:olin .35s ease both}
           </div>
           <div class="pj-body">
             <p>LeafQuest teaches kids systems design and evolution through something small and accessible: a leaf. By reading its shape, margin, and venation, players start to see why leaves in different ecosystems evolved the way they did, and how form follows function.</p>
-            <p>Kids collect ecosystem decks, starting with the Eastern temperate forest and Southwestern riparian corridors, then mix and match decks during play to compare how different places shape the plants that live there.</p>
+            <p>Kids collect ecosystem decks like the Eastern temperate forest and Southwestern riparian corridors, then mix and match decks during play to compare how different places shape the plants that live there.</p>
             <p class="pj-note">NFC-enabled play. Two provisional patents pending. The play hardware is still in development, shown here as a 3D concept model alongside the card decks.</p>
             <span class="tags">Systems design · Evolution · Ecosystems · NFC</span>
           </div>
@@ -2123,7 +2143,7 @@ details.phase .body{padding:0 0 2.4rem;animation:olin .35s ease both}
   }
   reader(-1.0,-.45,.15); reader(1.0,-.45,.15);
   // round selector: knurled aluminum dial, pointer set to the venation round
-  var ROUND_ANG=35*Math.PI/180;
+  var ROUND_ANG=62*Math.PI/180, DIAL_Z=-.03;
   (function(){ var g=new THREE.Group();
     var well=new THREE.Mesh(new THREE.CylinderGeometry(.27,.27,.008,72),matGlass); well.position.y=.004; g.add(well);
     var alu=new Phys({color:0xc3ccc9,roughness:.26,metalness:.9,clearcoat:.4});
@@ -2136,37 +2156,39 @@ details.phase .body{padding:0 0 2.4rem;animation:olin .35s ease both}
     var dotMat=new THREE.MeshStandardMaterial({color:0x1c9e3a,emissive:0x2bd94f,emissiveIntensity:1.1,toneMapped:false}); rings.push(dotMat);
     var dot=new THREE.Mesh(new THREE.CylinderGeometry(.022,.022,.008,32),dotMat); dot.position.set(Math.cos(ROUND_ANG)*.15,.082,Math.sin(ROUND_ANG)*.15); g.add(dot);
     halo(dot,.11,.006);
-    g.position.set(0,TOP,.12); group.add(g); })();
-  // printed round scale around the dial: Shape, Margin, Venation (lit)
-  (function(){ var W=1106,Hc=758, cv=document.createElement('canvas'); cv.width=W; cv.height=Hc; var x=cv.getContext('2d');
-    var cx=553, cy=(.12+.22)*1024;
-    var marks=[['SHAPE',145],['MARGIN',90],['VENATION',35]];
-    function draw(){ x.clearRect(0,0,W,Hc); x.textAlign='center'; x.textBaseline='middle'; x.lineCap='round';
-      x.strokeStyle='rgba(240,248,236,.35)'; x.lineWidth=5; x.beginPath(); x.arc(cx,cy,300,Math.PI*.14,Math.PI*.86); x.stroke();
-      marks.forEach(function(m){ var a=m[1]*Math.PI/180, on=m[0]==='VENATION', c=Math.cos(a), sn=Math.sin(a);
-        x.strokeStyle=on?'#6dff8e':'rgba(240,248,236,.6)'; x.lineWidth=on?10:7; x.beginPath(); x.moveTo(cx+c*288,cy+sn*288); x.lineTo(cx+c*328,cy+sn*328); x.stroke();
-        x.font=(on?'800 ':'700 ')+'52px "IBM Plex Mono", "Helvetica Neue", Arial, sans-serif';
-        if(on){ x.shadowColor='rgba(40,230,90,.95)'; x.shadowBlur=22; x.fillStyle='#3ff06e'; } else { x.shadowBlur=0; x.fillStyle='rgba(240,248,236,.62)'; }
-        x.textAlign=m[1]>100?'right':m[1]<80?'left':'center'; x.fillText(m[0],cx+c*(m[1]===90?372:320),cy+sn*(m[1]===90?372:320)+(m[1]===90?0:34)); x.shadowBlur=0; });
+    g.position.set(0,TOP,DIAL_Z); group.add(g); })();
+  // printed round scale around the dial: Shape, Margin, Venation (lit), Match all
+  (function(){ var PX=1024, PW=1.1, PZ0=-.28, PH=.82, W=Math.round(PW*PX), Hc=Math.round(PH*PX), cv=document.createElement('canvas'); cv.width=W; cv.height=Hc; var x=cv.getContext('2d');
+    var cx=W/2, cy=(DIAL_Z-PZ0)*PX;
+    // [label lines, angle (0 = right, 90 = toward the player), anchor radius, alignment]
+    var marks=[[['SHAPE'],165,330,'right'],[['MARGIN'],118,372,'center'],[['VENATION'],62,372,'center'],[['MATCH','ALL'],15,330,'left']];
+    function draw(){ x.clearRect(0,0,W,Hc); x.textBaseline='middle'; x.lineCap='round';
+      x.strokeStyle='rgba(240,248,236,.35)'; x.lineWidth=5; x.beginPath(); x.arc(cx,cy,300,Math.PI*.04,Math.PI*.96); x.stroke();
+      marks.forEach(function(m){ var a=m[1]*Math.PI/180, on=m[0][0]==='VENATION', c=Math.cos(a), sn=Math.sin(a);
+        x.strokeStyle=on?'#6dff8e':'rgba(240,248,236,.62)'; x.lineWidth=on?11:7; x.beginPath(); x.moveTo(cx+c*286,cy+sn*286); x.lineTo(cx+c*318,cy+sn*318); x.stroke();
+        x.font=(on?'800 ':'700 ')+'62px "IBM Plex Mono", "Helvetica Neue", Arial, sans-serif'; x.textAlign=m[3];
+        if(on){ x.shadowColor='rgba(40,230,90,.95)'; x.shadowBlur=24; x.fillStyle='#3ff06e'; } else { x.shadowBlur=0; x.fillStyle='rgba(240,248,236,.72)'; }
+        var ax=cx+c*m[2], ay=cy+sn*m[2]+(m[3]==='center'?30:20), lh=64;
+        m[0].forEach(function(t,k){ x.fillText(t,ax,ay+(k-(m[0].length-1)/2)*lh); }); x.shadowBlur=0; });
       tex.needsUpdate=true; }
     var tex=new THREE.CanvasTexture(cv); tex.encoding=THREE.sRGBEncoding; tex.anisotropy=8;
-    var m=new THREE.Mesh(new THREE.PlaneGeometry(1.08,.74),new THREE.MeshStandardMaterial({map:tex,transparent:true,roughness:.5,depthWrite:false,emissive:0xffffff,emissiveMap:tex,emissiveIntensity:.12}));
-    m.rotation.x=-Math.PI/2; m.position.set(0,TOP+.002,-.22+.37); group.add(m); draw();
+    var m=new THREE.Mesh(new THREE.PlaneGeometry(PW,PH),new THREE.MeshStandardMaterial({map:tex,transparent:true,roughness:.5,depthWrite:false,emissive:0xffffff,emissiveMap:tex,emissiveIntensity:.12}));
+    m.rotation.x=-Math.PI/2; m.position.set(0,TOP+.002,PZ0+PH/2); group.add(m); draw();
     if(document.fonts&&document.fonts.ready) document.fonts.ready.then(function(){ draw(); if(reduceNow()) renderer.render(scene,camera); }); })();
   // LeafQuest wordmark printed between the lobes
   (function(){ var cv=document.createElement('canvas'); cv.width=512; cv.height=128; var x=cv.getContext('2d');
     function draw(){ x.clearRect(0,0,512,128); x.fillStyle='rgba(246,250,240,.92)'; x.textAlign='center'; x.textBaseline='middle';
       x.font='800 74px "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif'; x.fillText('LeafQuest',256,66); tex.needsUpdate=true; }
     var tex=new THREE.CanvasTexture(cv); tex.encoding=THREE.sRGBEncoding; tex.anisotropy=8;
-    var m=new THREE.Mesh(new THREE.PlaneGeometry(.64,.16),new THREE.MeshStandardMaterial({map:tex,transparent:true,roughness:.5,depthWrite:false}));
-    m.rotation.x=-Math.PI/2; m.position.set(0,TOP+.002,-.38); group.add(m); draw();
+    var m=new THREE.Mesh(new THREE.PlaneGeometry(.96,.24),new THREE.MeshStandardMaterial({map:tex,transparent:true,roughness:.5,depthWrite:false}));
+    m.rotation.x=-Math.PI/2; m.position.set(0,TOP+.002,-.42); group.add(m); draw();
     if(document.fonts&&document.fonts.ready) document.fonts.ready.then(function(){ draw(); if(reduceNow()) renderer.render(scene,camera); }); })();
   // second card and a generic hand that places it in the right tray
   var face2=new THREE.MeshStandardMaterial({color:0xf6eedc,roughness:.6}), card2=new THREE.Mesh(cardGeo,[face2,edge]);
   (function(){ var im=new Image(); im.onload=function(){ var t=new THREE.Texture(im); t.encoding=THREE.sRGBEncoding; t.anisotropy=8; t.needsUpdate=true;
       face2.map=t; face2.color.set(0xffffff); face2.needsUpdate=true; if(reduceNow()) renderer.render(scene,camera); }; im.src=CARD2_SRC; })();
   card2.castShadow=true; card2.receiveShadow=true; tR.add(card2);
-  var skin=new THREE.MeshStandardMaterial({color:0xffc83d,roughness:.42,emissive:0xb07400,emissiveIntensity:.22,transparent:true}), hand=new THREE.Group(), grip=new THREE.Group();
+  var skin=new THREE.MeshStandardMaterial({color:0xf2a60c,roughness:.45,emissive:0x8a5200,emissiveIntensity:.14,transparent:true}), hand=new THREE.Group(), grip=new THREE.Group();
   function capsule(r,len,mat){ var g=new THREE.Group(), cyl=new THREE.Mesh(new THREE.CylinderGeometry(r,r,len,20),mat); g.add(cyl);
     [len/2,-len/2].forEach(function(y){ var sp=new THREE.Mesh(new THREE.SphereGeometry(r,20,12),mat); sp.position.y=y; g.add(sp); }); g.traverse(function(o){o.castShadow=true;}); return g; }
   // palm-down hand, fingertips resting on the card, wrist trailing back toward the viewer's lower right
@@ -2482,6 +2504,24 @@ details.phase .body{padding:0 0 2.4rem;animation:olin .35s ease both}
     });
   },{rootMargin:'-40% 0px -55% 0px'});
   document.querySelectorAll('.phase').forEach(function(p){io.observe(p)});
+})();
+</script>
+
+<div class="cur" id="cur" aria-hidden="true"></div><div class="cur-ring" id="curRing" aria-hidden="true"></div>
+<script>
+/* bullseye cursor: only for devices with a precise pointer */
+(function(){
+  if(!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  var root=document.documentElement, cur=document.getElementById('cur'), ring=document.getElementById('curRing');
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches, cx=-100, cy=-100, rx=-100, ry=-100, on=false;
+  var HOT='a,button,summary,label,[role="tab"],input[type="range"],.lq-3d,.deck-card canvas,.yt-btn';
+  document.addEventListener('mousemove',function(e){ cx=e.clientX; cy=e.clientY; cur.style.transform='translate('+cx+'px,'+cy+'px) translate(-50%,-50%)';
+    if(!on){ on=true; rx=cx; ry=cy; root.classList.add('has-cur'); } root.classList.remove('cur-out');
+    var t=e.target;
+    root.classList.toggle('cur-text',!!(t.closest&&t.closest('input:not([type="range"]),textarea,select,iframe')));
+    root.classList.toggle('cur-hover',!!(t.closest&&t.closest(HOT))); },{passive:true});
+  document.addEventListener('mouseleave',function(){ root.classList.add('cur-out'); });
+  (function loop(){ var k=reduce?1:.16; rx+=(cx-rx)*k; ry+=(cy-ry)*k; ring.style.transform='translate('+rx+'px,'+ry+'px) translate(-50%,-50%)'; requestAnimationFrame(loop); })();
 })();
 </script>
 </body>

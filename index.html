@@ -619,6 +619,20 @@ footer{border-top:1px solid var(--rule);padding-block:2rem}
 .tr-in{display:flex;flex-wrap:wrap;gap:.5rem}
 @media (min-width:900px){.tr-in{display:grid;gap:1.4rem}}
 .tr-chip{font-family:var(--mono);font-size:var(--step--1);border:1px solid var(--accent);color:var(--accent);padding:.35rem .7rem;border-radius:99px;white-space:nowrap}
+.tr-chip{transition:background-color .3s,color .3s,opacity .3s,box-shadow .3s}
+.tr-flow.hl-a .tr-chip:nth-child(1),.tr-flow.hl-b .tr-chip:nth-child(2){background:var(--accent);color:var(--on-accent);box-shadow:0 6px 18px -8px color-mix(in srgb,var(--accent) 80%,transparent)}
+.tr-flow.hl-a .tr-chip:nth-child(2),.tr-flow.hl-b .tr-chip:nth-child(1){opacity:.35}
+.tr-join path{transition:opacity .3s,stroke-width .3s}
+.tr-flow.hl-a .jb,.tr-flow.hl-b .ja{opacity:.2}
+.tr-flow.hl-a .ja,.tr-flow.hl-b .jb{stroke-width:2.4;stroke-dasharray:80;animation:trdraw .5s ease both}
+@keyframes trdraw{from{stroke-dashoffset:80}to{stroke-dashoffset:0}}
+.tr-flow.run .tr-steps a{animation:trstep .55s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(.35s + var(--i) * .16s)}
+@keyframes trstep{0%{transform:none}45%{transform:translateY(-5px);background:var(--accent);color:var(--on-accent);border-color:var(--accent)}100%{transform:none;background:color-mix(in srgb,var(--accent) 12%,var(--paper));border-color:var(--accent)}}
+.tr-flow.run .tr-steps a span{animation:trnum .55s both;animation-delay:calc(.35s + var(--i) * .16s)}
+@keyframes trnum{45%{color:var(--on-accent)}}
+.ot{transition:border-color .3s,box-shadow .3s}
+.ot.is-hl{border-color:var(--accent);box-shadow:0 14px 34px -22px color-mix(in srgb,var(--accent) 70%,transparent)}
+@media (prefers-reduced-motion: reduce){.tr-flow.run .tr-steps a{animation:none;background:color-mix(in srgb,var(--accent) 12%,var(--paper));border-color:var(--accent)}.tr-flow.run .tr-steps a span{animation:none}.tr-flow.hl-a .ja,.tr-flow.hl-b .jb{animation:none}}
 .tr-join{display:none;width:60px;height:80px}
 @media (min-width:900px){.tr-join{display:block}}
 .tr-join path{fill:none;stroke:var(--accent);stroke-width:1.6}
@@ -985,8 +999,8 @@ html.cur-text .cur,html.cur-text .cur-ring,html.cur-out .cur,html.cur-out .cur-r
         </div>
       <div class="tr-flow" aria-label="Both tracks follow the same five phases">
         <div class="tr-in"><span class="tr-chip">Track A · Products</span><span class="tr-chip">Track B · Social innovation</span></div>
-        <svg class="tr-join" viewBox="0 0 60 80" aria-hidden="true"><path d="M2 20 C 30 20, 30 40, 56 40 M2 60 C 30 60, 30 40, 56 40"/><path class="h" d="M50 34 L58 40 L50 46"/></svg>
-        <ol class="tr-steps"><li><a href="#p1"><span>01</span>Frame the system</a></li><li><a href="#p2"><span>02</span>Ask nature</a></li><li><a href="#p3"><span>03</span>Prototype in hand</a></li><li><a href="#p4"><span>04</span>Test in context</a></li><li><a href="#p5"><span>05</span>Hand off and steward</a></li></ol>
+        <svg class="tr-join" viewBox="0 0 60 80" aria-hidden="true"><path class="ja" d="M2 20 C 30 20, 30 40, 56 40"/><path class="jb" d="M2 60 C 30 60, 30 40, 56 40"/><path class="h" d="M50 34 L58 40 L50 46"/></svg>
+        <ol class="tr-steps"><li style="--i:0"><a href="#p1"><span>01</span>Frame the system</a></li><li style="--i:1"><a href="#p2"><span>02</span>Ask nature</a></li><li style="--i:2"><a href="#p3"><span>03</span>Prototype in hand</a></li><li style="--i:3"><a href="#p4"><span>04</span>Test in context</a></li><li style="--i:4"><a href="#p5"><span>05</span>Hand off and steward</a></li></ol>
       </div>
         <div class="proc-cols">
           <div class="proc-col"><span class="proc-k">Grounded</span><p>Our process follows the established biomimicry design process, taught through Biomimicry 3.8 and Arizona State University, applied to your challenge.</p></div>
@@ -2520,6 +2534,22 @@ html.cur-text .cur,html.cur-text .cur-ring,html.cur-out .cur,html.cur-out .cur-r
     root.classList.toggle('cur-hover',!!(t.closest&&t.closest(HOT))); },{passive:true});
   document.addEventListener('mouseleave',function(){ root.classList.add('cur-out'); });
   (function loop(){ var k=reduce?1:.16; rx+=(cx-rx)*k; ry+=(cy-ry)*k; ring.style.transform='translate('+rx+'px,'+ry+'px) translate(-50%,-50%)'; requestAnimationFrame(loop); })();
+})();
+</script>
+<script>
+/* hovering a track card lights its pill and runs the five phases in sequence */
+(function(){
+  var flow=document.querySelector('.tr-flow'), cards=[].slice.call(document.querySelectorAll('.offer-tracks .ot')), chips=flow?[].slice.call(flow.querySelectorAll('.tr-chip')):[];
+  if(!flow||cards.length<2) return;
+  var cur=null;
+  function on(k){ if(cur===k) return; off(); cur=k; cards[k].classList.add('is-hl'); flow.classList.add(k?'hl-b':'hl-a');
+    void flow.offsetWidth; flow.classList.add('run'); }
+  function off(){ cur=null; flow.classList.remove('hl-a','hl-b','run'); cards.forEach(function(c){c.classList.remove('is-hl');}); }
+  [cards,chips].forEach(function(set){ set.forEach(function(el,k){
+    el.addEventListener('mouseenter',function(){on(k);}); el.addEventListener('mouseleave',off);
+    el.addEventListener('focusin',function(){on(k);}); el.addEventListener('focusout',off);
+    el.addEventListener('click',function(e){ if(e.target.closest('a')) return; if(cur===k) off(); else on(k); });
+  }); });
 })();
 </script>
 </body>

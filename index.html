@@ -612,6 +612,7 @@ footer{border-top:1px solid var(--rule);padding-block:2rem}
 .jn-map-btn:hover .pj-play{transform:translate(-50%,-50%) scale(1.08)}
 .jn-skills{font-family:var(--mono);font-size:var(--step--1);line-height:1.6;color:var(--ink-soft);border-top:1px solid var(--rule);padding-top:1rem}
 .jn-skills b{display:block;color:var(--ink);font-weight:500;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.2rem}
+.jn-refs{margin:0;padding-left:1.2rem;display:grid;gap:.5rem;color:var(--ink-soft);font-size:.95rem;line-height:1.5}
 
 /* both tracks, one process */
 .tr-flow{display:grid;gap:1rem;align-items:center;margin-top:clamp(2rem,5vw,3rem);grid-template-columns:1fr}
@@ -851,7 +852,7 @@ html.cur-text .cur,html.cur-text .cur-ring,html.cur-out .cur,html.cur-out .cur-r
     <ul>
       <li><a href="#method">How we work</a></li>
       
-      <li><a href="#work">Work</a></li><!-- journal link hidden until entries are ready: <li><a href="#journal">Journal</a></li> -->
+      <li><a href="#work">Work</a></li><li><a href="#journal">Case studies</a></li>
       <li><a href="#founder">Founder</a></li>
       <li><a href="#engage">Engagements</a></li>
     </ul>
@@ -1417,17 +1418,17 @@ html.cur-text .cur,html.cur-text .cur-ring,html.cur-out .cur,html.cur-out .cur-r
     </div>
   </section>
 
-  <section id="journal" hidden>
+  <section id="journal">
     <div class="wrap">
       <div class="sec-head">
         <div>
-          <span class="label">Field journal</span>
+          <span class="label">Case studies</span>
           <h2 style="margin-top:.7rem">Notes from the lab.</h2>
         </div>
-        <p>Essays and field studies, published with their data and their corrections. This is where we practice looking closely, in the open.</p>
+        <p>Book studies, field studies and essays, published with their data and their corrections. This is where we practice looking closely, in the open.</p>
       </div>
       <ul class="studies">
-        <li class="study">
+        <li class="study" hidden>
           <details class="jx">
             <summary>
               <span class="phaseTag">Essay · Behavior</span>
@@ -1459,7 +1460,7 @@ html.cur-text .cur,html.cur-text .cur-ring,html.cur-out .cur,html.cur-out .cur-r
             </div>
           </details>
         </li>
-        <li class="study">
+        <li class="study" hidden>
           <details class="jx">
             <summary>
               <span class="phaseTag">Field study · Habitat</span>
@@ -1531,7 +1532,7 @@ html.cur-text .cur,html.cur-text .cur-ring,html.cur-out .cur,html.cur-out .cur-r
             </div>
           </details>
         </li>
-        <li class="study">
+        <li class="study" hidden>
           <details class="jx">
             <summary>
               <span class="phaseTag">Field study · Morphology</span>
@@ -1602,6 +1603,94 @@ html.cur-text .cur,html.cur-text .cur-ring,html.cur-out .cur,html.cur-out .cur-r
               </section>
 
               <p class="jn-skills"><b>Skills applied</b> Macro documentation · comparative morphology · manipulation testing · structure-function mapping · optical mechanism · design translation. Literature cross-referenced with AoB PLANTS, Proc. R. Soc. B, J. Forestry Research, and Frontiers in Plant Science.</p>
+            </div>
+          </details>
+        </li>
+        <li class="study">
+          <details class="jx">
+            <summary>
+              <span class="phaseTag">Book study · Self-organization</span>
+              <div><h3>Fairy circles: self-organized spacing of a scarce resource</h3><p>Fairy circles in Namibia and Australia form the same near-hexagonal pattern through two different water-transport mechanisms. A review of the published evidence, and the design principle it suggests for distributing scarce shared resources.</p></div>
+              <span class="tags">Pattern formation · Ecohydrology · Literature review</span>
+              <span class="jx-toggle" aria-hidden="true"></span>
+            </summary>
+            <div class="jn">
+              <p class="jn-lede">Two grasslands on opposite sides of the Indian Ocean, with different soils and different grasses, produce the same regularly spaced gaps. The pattern converges even though the mechanism does not.</p>
+              <p class="jn-meta">Namib Desert margin, Namibia and Pilbara, Western Australia · <i>Stipagrostis</i> spp. and <i>Triodia basedowii</i> · Book study, literature-based</p>
+
+              <figure class="jf-fig">
+                <img src="img/fc-hero-aerial-namibia.jpg" alt="Aerial photograph of grassland dotted with evenly spaced, bare circular patches." loading="lazy" width="2000" height="1324">
+                <figcaption>Fairy circles in Namib-Naukluft National Park, Namibia, 2017. Photo: Olga Ernst and Hp.Baumeler, <a href="https://commons.wikimedia.org/wiki/File:Aerial_view_of_Fairy_circles,_Namibia_(2017).jpg">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.</figcaption>
+              </figure>
+
+              <section class="jn-sec">
+                <span class="jn-kicker">01 · Observation</span>
+                <h4>The same lattice on two continents.</h4>
+                <p>Fairy circles are regularly spaced, roughly circular gaps in otherwise continuous arid grassland. They were first described in Namibia, where perennial <i>Stipagrostis</i> grasses (including <i>S. ciliata</i>, <i>S. giessii</i>, <i>S. obtusa</i> and <i>S. uniplumis</i>) ring each bare patch. In 2016, Getzin and colleagues reported a comparable pattern in <i>Triodia basedowii</i> (spinifex) grassland near Newman, Western Australia (Getzin et al. 2016).</p>
+                <p>Spatial analysis of aerial imagery shows the two systems share nearly identical geometry. The pair-correlation function g(r) is zero at the smallest distances, peaks at a radius of about 10 m (the approximate mean nearest-neighbor distance between circles) and oscillates with damping around complete spatial randomness, indicating strong regularity. Most circles have six nearest neighbors, approximating a hexagonal lattice (Getzin et al. 2016).</p>
+                <figure class="jf-fig">
+                  <img src="img/fc-photo-australia-newhaven.jpg" alt="Photograph of fairy circles in grassland at Newhaven Wildlife Sanctuary, Northern Territory, Australia." loading="lazy" width="1600" height="900">
+                  <figcaption>Australian fairy circles, Newhaven Wildlife Sanctuary, Northern Territory, 2024. Photo: B 897, <a href="https://commons.wikimedia.org/wiki/File:Fairy_circles,_Newhaven_Wildlife_Sanctuary.jpg">Wikimedia Commons</a>, CC0.</figcaption>
+                </figure>
+              </section>
+
+              <section class="jn-sec">
+                <span class="jn-kicker">02 · Mechanism</span>
+                <h4>Same pattern, opposite water pathways.</h4>
+                <p>Getzin et al. (2016) attribute both patterns to scale-dependent feedback between plant biomass and water. The water-transport pathway, however, differs between the two sites.</p>
+                <div class="jn-table"><table><thead><tr><th scope="col">Measure</th><th scope="col">Namibia</th><th scope="col">Western Australia</th></tr></thead><tbody><tr><th scope="row">Substrate</th><td>porous sand</td><td>hard clay pan</td></tr><tr><th scope="row">Water transport</th><td>soil-water diffusion</td><td>overland flow</td></tr><tr><th scope="row">Wetter zone</th><td>gap</td><td>vegetation</td></tr><tr><th scope="row">Gap infiltration</th><td>high</td><td>0.07 to 0.03 mm/min</td></tr><tr><th scope="row">Nearest-neighbor spacing</th><td>about 10 m</td><td>about 10 m</td></tr></tbody></table></div><p class="jn-note">Values from Getzin et al. (2016) and Cramer and Barger (2013).</p>
+                <p><b>Namibia: soil-water diffusion.</b> Water that infiltrates the sandy gaps forms a below-ground reservoir. Soil-water content is higher in the gaps than under the surrounding vegetation, and peripheral grasses draw on this water as it diffuses laterally through the soil (Cramer and Barger 2013; Getzin et al. 2016).</p>
+                <p><b>Australia: overland flow.</b> Measured infiltration in the clay-pan gaps fell from an initial 0.07 mm/min to a final 0.03 mm/min, so rainfall exceeding 0.03 mm/min runs off the gap surface toward the surrounding vegetation. Because <i>T. basedowii</i> has confined root zones, lateral root uptake and soil-water diffusion are unlikely transport routes. Soil-water content is higher under vegetation than in the gaps, the reverse of the Namibian case (Getzin et al. 2016).</p>
+                <figure class="jf-fig">
+                  <img src="img/fc-fig-01-two-mechanisms.jpg" alt="Illustration comparing water movement in Namibian and Australian fairy circles." loading="lazy" width="1551" height="1600">
+                  <figcaption>Fig. 1. Water transport in Namibian and Australian fairy circles. Illustration: Genell Zuciya, 2025.</figcaption>
+                </figure>
+                <figure class="jf-fig">
+                  <img src="img/fc-fig-02-namibia-diffusion.jpg" alt="Sketch of a Namibian fairy circle showing water held beneath the sandy gap and grasses at its edge." loading="lazy" width="1600" height="1173">
+                  <figcaption>Fig. 2. Namibia: infiltrated water in the sandy gap diffuses laterally to the peripheral grasses. Illustration: Genell Zuciya, 2025.</figcaption>
+                </figure>
+                <figure class="jf-fig">
+                  <img src="img/fc-fig-03-australia-runoff.jpg" alt="Sketch of an Australian fairy circle showing rain running off the clay gap toward the surrounding grass." loading="lazy" width="1600" height="1002">
+                  <figcaption>Fig. 3. Australia: low-infiltration clay pans shed runoff toward the surrounding <i>Triodia basedowii</i>. Illustration: Genell Zuciya, 2025.</figcaption>
+                </figure>
+                <p>In both systems, positive feedback concentrates water where biomass already exists, while competition for water limits biomass at greater distances. Models indicate that this combination produces a Turing-like instability which, in two dimensions, yields periodic hexagonal patterns. The convergence of two different mechanisms on the same pattern is consistent with the universality principle of pattern-formation theory (Getzin et al. 2016).</p>
+              </section>
+
+              <section class="jn-sec">
+                <span class="jn-kicker">03 · Status of the evidence</span>
+                <h4>Better supported in Australia than in Namibia.</h4>
+                <p>The cause of Namibian fairy circles remains contested. Juergens (2013) attributed them to root herbivory by the sand termite <i>Psammotermes allocerus</i>. Getzin et al. (2022) found that grasses dying inside circles had roots as long as or longer than those of living grasses outside, with no evidence of termite feeding, and attributed the die-off to plant water stress. Self-organization is best supported for the Australian circles; for the Namibian circles it is a leading but unresolved hypothesis.</p>
+              </section>
+
+              <section class="jn-sec">
+                <span class="jn-kicker">04 · Abstracted design principle</span>
+                <h4>Space access points by how far the resource travels.</h4>
+                <p>Distribute access points to a scarce, spatially limited resource at a spacing set by the resource's effective transport distance, and allow local feedback on supply and demand to adjust that spacing.</p>
+                <p><b>Testable prediction.</b> Compared with clustered placement, spacing access points at the resource's effective reach should reduce the variance in distance-to-access across users and reduce the share of users outside reach.</p>
+                <figure class="jf-fig">
+                  <img src="img/fc-fig-04-design-principle.jpg" alt="Diagram of access points arranged in a hexagonal pattern, each with evenly spaced neighbors." loading="lazy" width="1600" height="572">
+                  <figcaption>Fig. 4. Abstracted design principle: access points spaced at the resource's effective reach. Illustration: Genell Zuciya, 2025.</figcaption>
+                </figure>
+              </section>
+
+              <section class="jn-sec">
+                <span class="jn-kicker">05 · Potential application</span>
+                <h4>An untested design hypothesis.</h4>
+                <p><b>Community resource hubs.</b> Siting cooling centers, food distribution points or seed libraries by measured travel reach rather than existing clustering, with tighter spacing where demand is higher. This application is derived by analogy from the biological mechanism and has not been tested.</p>
+              </section>
+
+              <section class="jn-sec">
+                <span class="jn-kicker">Sources</span>
+                <h4>Literature cited.</h4>
+                <ol class="jn-refs">
+                  <li>Cramer MD, Barger NN. 2013. Are Namibian "fairy circles" the consequence of self-organizing spatial vegetation patterning? <i>PLoS ONE</i> 8(8):e70876. <a href="https://doi.org/10.1371/journal.pone.0070876">doi:10.1371/journal.pone.0070876</a></li>
+                  <li>Getzin S, Yizhaq H, Bell B, Erickson TE, Postle AC, Katra I, Tzuk O, Zelnik YR, Wiegand K, Meron E. 2016. Discovery of fairy circles in Australia supports self-organization theory. <i>PNAS</i> 113(13):3551&ndash;3556. <a href="https://doi.org/10.1073/pnas.1522130113">doi:10.1073/pnas.1522130113</a></li>
+                  <li>Juergens N. 2013. The biological underpinnings of Namib Desert fairy circles. <i>Science</i> 339:1618&ndash;1621.</li>
+                  <li>Getzin S, Holch S, Yizhaq H, Wiegand K. 2022. Plant water stress, not termite herbivory, causes Namibia's fairy circles. <i>Perspectives in Plant Ecology, Evolution and Systematics</i> 125698. <a href="https://doi.org/10.1016/j.ppees.2022.125698">doi:10.1016/j.ppees.2022.125698</a></li>
+                </ol>
+              </section>
+
+              <p class="jn-skills"><b>Skills applied</b> Literature review · spatial pattern analysis · mechanism comparison · evidence grading · design abstraction · scientific illustration.</p>
             </div>
           </details>
         </li>

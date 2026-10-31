@@ -896,18 +896,14 @@ html.cur-text .cur,html.cur-text .cur-ring,html.cur-out .cur,html.cur-out .cur-r
 /* Two-font system (Oct 31): Montserrat for display and text, IBM Plex Mono for labels and data */
 h1,h2,h3{font-weight:700;letter-spacing:-.015em;line-height:1.08}
 h1{font-size:calc(var(--step-4) * .86);letter-spacing:-.025em}
-/* Dark sage menu bar with the logo and type inverted */
-header.top{background:#2f4b3f;border-bottom:1px solid #243a31;--logo:#e9f1ec}
-header.top .brand-name{color:#e9f1ec}
-header.top .brand-tag{color:#bfd2c8}
-header.top .nav ul a{color:#dde8e2}
-header.top .nav ul a:hover{color:#fff;background:rgba(255,255,255,.08)}
-header.top .nav ul a::after{background:#9fdcbe}
-header.top .nav ul a[aria-current="true"]{color:#fff}
-header.top .btn-primary{background:transparent;border:1px solid rgba(233,241,236,.55);color:#e9f1ec;font-weight:500;font-size:.82rem;padding:.5em .95em;border-radius:99px}
-header.top .btn-primary:hover{background:#e9f1ec;border-color:#e9f1ec;color:#1f3a30}
+/* Light menu bar: clean paper background, green logo, quiet outline button */
 header.top .brand-mark{width:46px}
 @media (max-width:520px){header.top .brand-mark{width:34px}}
+header.top .btn-primary{background:transparent;border:1px solid color-mix(in srgb,var(--ink) 35%,transparent);color:var(--ink);font-weight:500;font-size:.82rem;padding:.5em .95em;border-radius:99px}
+header.top .btn-primary:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.15)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) header.top{box-shadow:0 1px 0 #4cc2b0, 0 2px 0 rgba(76,194,176,.15)}}
+:root[data-theme="dark"] header.top{box-shadow:0 1px 0 #4cc2b0, 0 2px 0 rgba(76,194,176,.15)}
 </style>
 </head>
 <body>

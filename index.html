@@ -874,6 +874,7 @@ html.cur-text .cur,html.cur-text .cur-ring,html.cur-out .cur,html.cur-out .cur-r
 .fc-abstraction{display:grid;gap:.5rem}
 .fc-abstraction .jn-kicker{color:var(--on-accent);opacity:.8;margin:0}
 .fc-abstraction p{max-width:52ch}
+.fc-apps{margin:0;padding-left:1.2rem;display:grid;gap:.6rem;max-width:68ch}
 /* Fig. 2 fairy circles: redrawn in the hand-inked style of the original sketch */
 .fc2h{width:100%;height:auto;display:block;border:1px solid var(--rule)}
 </style>
@@ -1455,7 +1456,7 @@ html.cur-text .cur,html.cur-text .cur-ring,html.cur-out .cur,html.cur-out .cur-r
     </div>
   </section>
 
-  <section id="journal">
+  <section id="journal" hidden>
     <div class="wrap">
       <div class="sec-head">
         <div>
@@ -1647,8 +1648,8 @@ html.cur-text .cur,html.cur-text .cur-ring,html.cur-out .cur,html.cur-out .cur-r
           <details class="jx">
             <summary>
               <span class="phaseTag">Book study · Self-organization</span>
-              <div><h3>Fairy circles: self-organized spacing of a scarce resource</h3><p>Grasslands in Namibia and Australia open the same near-hexagonal gaps through two different water pathways. What the evidence shows, and the spacing principle it suggests.</p></div>
-              <span class="tags">Distribution · Pattern formation · Ecohydrology</span>
+              <div><h3>Fairy circles: self-organized spacing of a scarce resource</h3><p>Fairy circles are self-organizing vegetation patterns where simple local interactions generate complex, repeating, scaling patterns.</p></div>
+              <span class="tags">Self-organization · Pattern formation · Ecohydrology</span>
               <span class="jx-toggle" aria-hidden="true"></span>
             </summary>
             <div class="jn fc">
@@ -1667,24 +1668,21 @@ html.cur-text .cur,html.cur-text .cur-ring,html.cur-out .cur,html.cur-out .cur-r
                 <figcaption>
                   <b>Fig. 1a</b><span>Fairy circles in Namib-Naukluft National Park, Namibia. Bare gaps sit about 10 m apart, most with six neighbors. Photo: Olga Ernst and Hp.Baumeler, <a href="https://commons.wikimedia.org/wiki/File:Aerial_view_of_Fairy_circles,_Namibia_(2017).jpg">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.</span>
                   <b>Fig. 1b</b><span>The same pattern, computed with a simplified grass and water model (after Klausmeier 1999). Grass draws water in nearby and competes for it farther away, so bare gaps open at a regular spacing, each ringed by taller grass. Less rain widens the gaps; more rain closes them. Move across the plate to change the rainfall.</span>
-                  <b class="fn-label">Function</b><span class="fn-text">Distribute scarce water across space.</span>
+                  <b class="fn-label">Function</b><span class="fn-text">To self-organize.</span>
                 </figcaption>
               </figure>
 
               <section class="jn-sec">
-                <span class="jn-kicker">01 · Observation</span>
-                <h4>The same lattice on two continents.</h4>
-                <p><b>Fairy circles are bare, roughly round patches spaced evenly across dry grassland.</b> They were first described in Namibia, where each patch is ringed by <i>Stipagrostis</i> grasses. In 2016, Getzin and colleagues reported the same pattern in <i>Triodia basedowii</i> (spinifex) grassland near Newman, Western Australia (Getzin et al. 2016).</p>
-                <p>Aerial images show the two sites share almost the same layout. Circles sit about 10 m apart, and <b>most have six nearest neighbors, close to a hexagonal grid</b> (Getzin et al. 2016).</p>
+                <span class="jn-kicker">01 · Strategy</span>
+                <h4>Scale, patterning and abiotic context.</h4>
+                <p>Fairy circles are self-organizing vegetation patterns where simple local interactions generate complex, repeating, scaling patterns. In arid grasslands, uniform vegetation on flat terrain destabilizes into regularly spaced bare patches due to water scarcity. Scientists use the Neighborhood Density Function g(r) to analyze circle spacing to see if it is random or homogenous. In Australia, a strong g(r) peak at 10 meters with 6 neighbors confirms hexagonal spacing and the (role of scale-dependent feedback). Pattern form at landscape scale, depend on soil type (porous sand vs. hard clay), water transport (diffusion vs. overland flow), and mean annual precipitation.</p>
               </section>
 
               <section class="jn-sec">
                 <span class="jn-kicker">02 · Mechanism</span>
-                <h4>Two water routes, one pattern.</h4>
-                <p>In both places, the spacing comes from competition for water: grass grows where water collects and thins where it runs short (Getzin et al. 2016). What differs is how the water moves.</p>
-                <p><b>Namibia: water moves through sand.</b> Rain soaks into the sandy bare patch and is stored below ground. The surrounding grasses draw on it as it seeps sideways through the soil (Cramer and Barger 2013; Getzin et al. 2016).</p>
-                <p><b>Australia: water runs over clay.</b> The bare patches are hard clay that absorbs very little. Rain runs off the surface toward the surrounding grass, so the soil under the grass is wetter than the patch (Getzin et al. 2016).</p>
-                <p>Two different water routes produce the same pattern. Models show that when plants gain water close by but compete for it farther away, <b>evenly spaced hexagonal patterns form</b> (Getzin et al. 2016).</p>
+                <h4>Two mechanisms, one pattern.</h4>
+                <p><b>Namibian mechanism (resource competition and facilitation).</b> Peripheral grasses compete for water by extending roots into center gap sands with high infiltration rates. Center gaps retain moisture acting as a reservoir to surrounding vegetation matrix. A positive feedback loop of soil-water diffusion maintains the anti-phase distribution of biomass and water.</p>
+                <p><b>Australian mechanism (infiltration feedback and overland water flow).</b> Fairy circles form on hard clay pans with low infiltration. Center gap runoff nourishes surrounding grasses with confined roots able to quickly take in water. A positive feedback loop with overland water flow maintains the in-phase distribution of biomass and water.</p>
                 <figure class="jf-fig">
                   <svg class="fc2h" viewBox="0 0 1200 875" role="img" aria-labelledby="fc2-t fc2-d" xmlns="http://www.w3.org/2000/svg">
 <title id="fc2-t">How water reaches the grass in Australian and Namibian fairy circles, and the resulting hexagonal pattern</title>
@@ -1701,20 +1699,26 @@ html.cur-text .cur,html.cur-text .cur-ring,html.cur-out .cur,html.cur-out .cur-r
                 </figure>
               </section>
 
-              <aside class="fc-callout fc-evidence">
-                <span class="jn-kicker">03 · What is still debated</span>
-                <p>The cause in Namibia is contested. Juergens (2013) proposed that sand termites kill the grass by eating its roots. Getzin et al. (2022) found that dying grasses inside circles had long, undamaged roots and no sign of termite feeding, and linked the die-off to water stress. <b>The water explanation is best supported in Australia and is a leading but unresolved idea for Namibia.</b></p>
-              </aside>
+              <section class="jn-sec">
+                <span class="jn-kicker">03 · Abstracted design principle illustration</span>
+                <h4>Equal Access To and Equitable Distribution of Scarce Shared Resources</h4>
+                <p>Hub-and-spoke/hexagonal spacing based on available resources and local resonance.</p>
+                <p>In a hexagonal pattern, each node (or element, like a grass clump, person, or resource hub) is surrounded by six equidistant neighbors. This even spacing reduces competition because no receiving agent/element is closer to the resource than any other receiving agent; each receiver shares the same buffer zone. In social systems, this could mean fairer access to healthcare, food, clean water, or transportation, because no single community dominates the central node.</p>
+              </section>
 
               <section class="jn-sec">
-                <span class="jn-kicker">04 · Potential application (untested)</span>
-                <h4>Community resource hubs.</h4>
-                <p>Place cooling centers, food distribution points or seed libraries based on how far people can actually travel, not where existing sites happen to cluster, with closer spacing where need is higher. Compared with clustered placement, this should leave fewer people out of reach and make travel distances more even. The idea comes from analogy with the biology and has not been tested.</p>
+                <span class="jn-kicker">04 · Application ideas</span>
+                <ul class="fc-apps">
+                  <li><b>Adaptive Job Network for Public Good:</b> A digital gig platform for social services (e.g., tutoring, caregiving, translation) that auto-balances worker availability and community needs through local + regional data.</li>
+                  <li><b>Dynamic Zoning and Land Use System:</b> A zoning system that flexes based on feedback from ecological health, population density, or housing needs. Local data (e.g., water stress, income shifts) guides how neighborhoods self-organize land use (community gardens, shared housing, etc.) to respond in real time.</li>
+                  <li><b>Seed Libraries &amp; Native Plant Hubs:</b> Unstaffed kiosk or garden that stores locally adapted seeds and tools. Gardeners use seeds and compost from the central node and restore soil in the surrounding community. Positive feedback being Soil health, pollinator activity, neighborhood participation.</li>
+                  <li><b>Silence Nodes/Mutual Aid Hubs:</b> Community Conflict Dissipation Spaces would Install small, minimally designed public micro-retreats across high-conflict or overstimulated urban zones. Strategically spaced “quiet voids” reduce emotional overheating in the social matrix and help prevent flare-ups. Heatmaps of noise, incident reports, or digital sentiment cues spacing decisions.</li>
+                </ul>
               </section>
 
               <div class="fc-principle fc-abstraction">
                 <span class="jn-kicker">Abstracted design principle</span>
-                <p>Space access points to a scarce shared resource by how far that resource can reach, and let local supply and demand adjust the spacing.</p>
+                <p>Analyze feedback loops at both local and system-wide scales to guide the stable distribution pattern of agents and resource pools or pulses based on supply, demand and capacity to absorb supply. Enable self-organization that balances individual needs with collective resource availability.</p>
               </div>
 
               <section class="jn-sec">
@@ -1723,8 +1727,6 @@ html.cur-text .cur,html.cur-text .cur-ring,html.cur-out .cur,html.cur-out .cur-r
 
                   <li>Cramer MD, Barger NN. 2013. Are Namibian "fairy circles" the consequence of self-organizing spatial vegetation patterning? <i>PLoS ONE</i> 8(8):e70876. <a href="https://doi.org/10.1371/journal.pone.0070876">doi:10.1371/journal.pone.0070876</a></li>
                   <li>Getzin S, Yizhaq H, Bell B, Erickson TE, Postle AC, Katra I, Tzuk O, Zelnik YR, Wiegand K, Meron E. 2016. Discovery of fairy circles in Australia supports self-organization theory. <i>PNAS</i> 113(13):3551&ndash;3556. <a href="https://doi.org/10.1073/pnas.1522130113">doi:10.1073/pnas.1522130113</a></li>
-                  <li>Getzin S, Holch S, Yizhaq H, Wiegand K. 2022. Plant water stress, not termite herbivory, causes Namibia's fairy circles. <i>Perspectives in Plant Ecology, Evolution and Systematics</i> 125698. <a href="https://doi.org/10.1016/j.ppees.2022.125698">doi:10.1016/j.ppees.2022.125698</a></li>
-                  <li>Juergens N. 2013. The biological underpinnings of Namib Desert fairy circles. <i>Science</i> 339:1618&ndash;1621.</li>
                   <li>Klausmeier CA. 1999. Regular and irregular patterns in semiarid vegetation. <i>Science</i> 284(5421):1826–1828. <a href="https://doi.org/10.1126/science.284.5421.1826">doi:10.1126/science.284.5421.1826</a></li>
                 </ol>
               </section>

@@ -904,6 +904,23 @@ header.top .btn-primary:hover{background:var(--ink);border-color:var(--ink);colo
 header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.15)}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) header.top{box-shadow:0 1px 0 #4cc2b0, 0 2px 0 rgba(76,194,176,.15)}}
 :root[data-theme="dark"] header.top{box-shadow:0 1px 0 #4cc2b0, 0 2px 0 rgba(76,194,176,.15)}
+
+/* split ending: 05A hand off / 05B steward (Oct 31) */
+@media (min-width:900px){.tr-flow{grid-template-columns:auto 60px 1fr 60px auto}}
+@media (min-width:600px){.tr-steps{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.tr-split{display:none;width:60px;height:80px}
+@media (min-width:900px){.tr-split{display:block}}
+.tr-split path{fill:none;stroke:var(--accent);stroke-width:1.6;transition:opacity .3s,stroke-width .3s}
+.tr-end{display:grid;gap:.5rem;grid-template-columns:1fr 1fr}
+@media (min-width:900px){.tr-end{grid-template-columns:1fr;gap:1.1rem}}
+.tr-end a{display:grid;gap:.15rem;text-decoration:none;background:var(--plate);border:1px solid var(--rule);border-radius:3px;padding:.6rem .8rem;font-family:var(--display);font-weight:700;font-size:.95rem;color:var(--ink);white-space:nowrap;transition:border-color .2s,background .2s,opacity .3s}
+.tr-end a span{font-family:var(--mono);font-weight:400;font-size:var(--step--1);color:var(--accent)}
+.tr-end a:hover{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,var(--paper))}
+.tr-flow.hl-a .sb,.tr-flow.hl-b .sa{opacity:.2}
+.tr-flow.hl-a .sa,.tr-flow.hl-b .sb{stroke-width:2.4}
+.tr-flow.hl-a .te-b,.tr-flow.hl-b .te-a{opacity:.35}
+.tr-flow.hl-a .te-a,.tr-flow.hl-b .te-b{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,var(--paper))}
+.ph-track{display:block;font-family:var(--mono);font-size:var(--step--1);color:var(--accent);letter-spacing:.04em;margin-bottom:.2rem}
 </style>
 </head>
 <body>
@@ -932,7 +949,7 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
     <div class="hero-grid">
       <div>
         <h1>Living systems already solved it. <em>We help you build it.</em></h1>
-        <p class="lede">Nexus Lab Space takes one hard challenge, for a product or a community, and looks to nature for the answer, often in the most unlikely places. Then we prototype it, test it in the real world, and hand it off ready to run.</p>
+        <p class="lede">Nexus Lab Space takes one hard challenge, for a product or a community, and looks to nature for the answer, often in the most unlikely places. Then we prototype it, test it in the real world, and either hand it off ready to run or stay on as a long-term partner.</p>
         <div class="actions">
           <a class="btn btn-primary" href="#contact">Book a framing call</a>
           <a class="btn btn-quiet" href="#method">See how we work</a>
@@ -1035,7 +1052,7 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
         <div class="offer-head">
           <span class="label">What we offer</span>
           <h2>One process, two kinds of challenges.</h2>
-          <p class="offer-lede">Whether the challenge is a product or a social system, the work moves through the same five phases, from question to working system. What changes is what counts as success.</p>
+          <p class="offer-lede">Whether the challenge is a product or a social system, the work moves through the same four phases, from question to tested system. Then the path splits: products are usually handed off, and social systems are usually stewarded over time. What changes is what counts as success.</p>
         </div>
         <div class="offer-tracks">
           <article class="ot">
@@ -1063,10 +1080,12 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
             </div>
           </article>
         </div>
-      <div class="tr-flow" aria-label="Both tracks follow the same five phases">
+      <div class="tr-flow" aria-label="Both tracks share four phases, then split: hand off, or steward over time">
         <div class="tr-in"><span class="tr-chip">Track A · Products</span><span class="tr-chip">Track B · Social innovation</span></div>
         <svg class="tr-join" viewBox="0 0 60 80" aria-hidden="true"><path class="ja" d="M2 20 C 30 20, 30 40, 56 40"/><path class="jb" d="M2 60 C 30 60, 30 40, 56 40"/><path class="h" d="M50 34 L58 40 L50 46"/></svg>
-        <ol class="tr-steps"><li style="--i:0"><a href="#p1"><span>01</span>Frame the system</a></li><li style="--i:1"><a href="#p2"><span>02</span>Ask nature</a></li><li style="--i:2"><a href="#p3"><span>03</span>Prototype in hand</a></li><li style="--i:3"><a href="#p4"><span>04</span>Test in context</a></li><li style="--i:4"><a href="#p5"><span>05</span>Hand off and steward</a></li></ol>
+        <ol class="tr-steps"><li style="--i:0"><a href="#p1"><span>01</span>Frame the system</a></li><li style="--i:1"><a href="#p2"><span>02</span>Ask nature</a></li><li style="--i:2"><a href="#p3"><span>03</span>Prototype in hand</a></li><li style="--i:3"><a href="#p4"><span>04</span>Test in context</a></li></ol>
+        <svg class="tr-split" viewBox="0 0 60 80" aria-hidden="true"><path class="sa" d="M2 40 C 30 40, 30 20, 56 20"/><path class="sb" d="M2 40 C 30 40, 30 60, 56 60"/></svg>
+        <div class="tr-end"><a class="te-a" href="#p5" style="--i:4"><span>05A · Track A</span>Hand off</a><a class="te-b" href="#p5b" style="--i:4"><span>05B · Track B</span>Steward and iterate</a></div>
       </div>
         <div class="proc-cols">
           <div class="proc-col"><span class="proc-k">Grounded</span><p>Our process follows the established biomimicry design process, taught through Biomimicry 3.8 and Arizona State University, applied to your challenge.</p></div>
@@ -1076,9 +1095,9 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
       </div>
 
       <div class="offer-head phases-head" id="process">
-        <span class="label">The five phases</span>
-        <h2>From first question to handoff, with nature in the loop.</h2>
-        <p class="offer-lede">Frame the system, ask nature, prototype, test in context, then hand it off. Tap any phase to see what happens inside it.</p>
+        <span class="label">The phases</span>
+        <h2>From first question to a working system, with nature in the loop.</h2>
+        <p class="offer-lede">Frame the system, ask nature, prototype, and test in context. Then the work either goes home with your team or we stay on to steward it over time. Tap any phase to see what happens inside it.</p>
       </div>
       <div class="method">
 
@@ -1189,15 +1208,15 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
 
           <details class="phase" id="p5">
             <summary>
-              <div class="code">Phase<strong>05</strong></div>
-              <div class="ph-sum"><h3>Hand off and steward</h3><p class="question">Who keeps this alive after we leave?</p></div>
+              <div class="code">Phase<strong>05A</strong></div>
+              <div class="ph-sum"><span class="ph-track">Usually Track A · Products</span><h3>Hand off</h3><p class="question">Who keeps this alive after we leave?</p></div>
               <span class="jx-toggle" aria-hidden="true"></span>
             </summary>
             <div class="body">
               
               <p>Healthy ecosystems do not depend on one species. We package the work so your team or community can build, run, and adapt it: specifications, facilitation guides, and training. What we learned feeds a shared library for your next challenge.</p>
               <div class="two">
-                <div><h4>What we do</h4><ul><li>Specifications and production support</li><li>Training for staff or facilitators</li><li>Stewardship and roadmap planning</li></ul></div>
+                <div><h4>What we do</h4><ul><li>Specifications and production support</li><li>Training for staff or facilitators</li><li>Roadmap planning</li></ul></div>
                 <div class="outputs"><h4>You get</h4><ul><li>Build-ready specs and a success plan for implementation and training</li><li>Trained internal owners</li><li>A reusable library of strategies</li></ul></div>
               </div>
               <figure class="ph-fig">
@@ -1215,6 +1234,37 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
                   <text class="d-small" x="560" y="286" text-anchor="middle">keeps growing</text>
                 </svg>
                 <figcaption>Like a healthy ecosystem, the work should not depend on one species. We hand it to the people who will run it, and it keeps growing.</figcaption>
+              </figure>
+            </div>
+          </details>
+
+          <details class="phase" id="p5b">
+            <summary>
+              <div class="code">Phase<strong>05B</strong></div>
+              <div class="ph-sum"><span class="ph-track">Usually Track B · Social innovation</span><h3>Steward and iterate</h3><p class="question">What needs to change as the system grows?</p></div>
+              <span class="jx-toggle" aria-hidden="true"></span>
+            </summary>
+            <div class="body">
+              <p>Social systems keep changing after a pilot, so some partnerships should not end at a handoff. Nexus Lab Space stays on under a longer agreement, often one to five years, as the outside eye. From a zoomed-out view we watch how the system responds, find the leverage points, and guide each round of iteration with your team.</p>
+              <div class="two">
+                <div><h4>What we do</h4><ul><li>Regular field reviews and check-ins</li><li>Leverage point mapping as the system shifts</li><li>Iteration cycles run with your team</li></ul></div>
+                <div class="outputs"><h4>You get</h4><ul><li>A long-term partner with a zoomed-out view</li><li>An updated systems map each cycle</li><li>Progress measured against shared goals</li></ul></div>
+              </div>
+              <figure class="ph-fig">
+                <svg viewBox="0 0 640 300" role="img" aria-label="Stewardship: the work moves through repeating cycles of observe, find leverage points, and iterate, year after year, with the studio alongside the team.">
+                  <path class="d-flow" d="M40 150 H 600"/><path class="d-head" transform="translate(604 150)" d="M-6 -6 L6 0 L-6 6 Z"/>
+                  <text class="d-small" x="600" y="176" text-anchor="end">time</text>
+                  <path class="d-loop" d="M70 150 C 70 80, 190 80, 190 150"/><path class="d-loop" d="M190 150 C 190 220, 310 220, 310 150"/>
+                  <path class="d-loop" d="M310 150 C 310 80, 430 80, 430 150"/><path class="d-loop" d="M430 150 C 430 220, 550 220, 550 150"/>
+                  <g class="d-node"><circle cx="130" cy="96" r="16"/><circle cx="250" cy="204" r="16"/><circle cx="370" cy="96" r="16"/><circle cx="490" cy="204" r="16"/></g>
+                  <g class="d-seed"><circle cx="70" cy="150" r="6"/><circle cx="190" cy="150" r="6"/><circle cx="310" cy="150" r="6"/><circle cx="430" cy="150" r="6"/><circle cx="550" cy="150" r="6"/></g>
+                  <text class="d-small" x="130" y="62" text-anchor="middle">observe</text>
+                  <text class="d-small" x="250" y="246" text-anchor="middle">find leverage points</text>
+                  <text class="d-small" x="370" y="62" text-anchor="middle">iterate</text>
+                  <text class="d-small" x="490" y="246" text-anchor="middle">observe again</text>
+                  <text class="d-small" x="70" y="282" text-anchor="middle">year 1</text><text class="d-small" x="550" y="282" text-anchor="middle">year 3 to 5</text>
+                </svg>
+                <figcaption>Some systems need a steady outside eye. We stay alongside your team, cycle after cycle, and adjust where the leverage is.</figcaption>
               </figure>
             </div>
           </details>

@@ -928,6 +928,18 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
 .ph-key p{margin:0}
 
 .ph-key-end{margin:1.3rem 0 0}
+
+.ph-key .pk-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem 1.6rem}
+@media (max-width:640px){.ph-key .pk-two{grid-template-columns:1fr}}
+.ph-key-end{max-width:none}
+.ph-key .pk-two{margin-top:.35rem}
+.ph-key-end > p{padding-top:.7rem;border-top:1px solid color-mix(in srgb,var(--accent) 25%,transparent)}
+
+.ph-key .pk-three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem 1.6rem;margin-top:.35rem}
+@media (max-width:860px){.ph-key .pk-three{grid-template-columns:1fr}}
+
+.ph-key .pk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1rem 1.4rem;margin-top:.35rem}
+.ph-key .pk-grid p{font-size:.95rem}
 </style>
 </head>
 <body>
@@ -1177,7 +1189,14 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
                 <div class="outputs"><h4>You get</h4><ul><li>Working prototype</li><li>Concept comparison against your criteria</li><li>Test plan for the next phase</li></ul></div>
               </div>
               <figure><img src="img/bench.jpg" alt="Genell adjusting components on an optical bench in a lab." loading="lazy" width="1395" height="822"><figcaption>Optical bench alignment. Laser optics has been part of the practice since the patent.</figcaption></figure>
-              <div class="ph-key ph-key-end"><p>When a challenge calls for it, we build <b>custom AI tool sets and trackable dashboards</b>, so your data works toward the answer instead of piling up.</p></div>
+              <div class="ph-key ph-key-end">
+                <span class="label">What your prototype looks like</span>
+                <div class="pk-two">
+                  <div><span class="ph-track">Track A · Products</span><p><b>Something you can hold.</b> A quick 3D print, a working electronics build, a material sample, or a playable tabletop version. If it is a product, it will be in your hands.</p></div>
+                  <div><span class="ph-track">Track B · Social systems</span><p><b>Something you can see.</b> An easy-to-read visual or dashboard that shows the leverage points, where to iterate, and the data you need to track.</p></div>
+                </div>
+                <p>When a challenge calls for it, we build <b>custom AI tool sets and trackable dashboards</b>, so your data works toward the answer instead of piling up.</p>
+              </div>
             </div>
           </details>
 
@@ -1215,6 +1234,18 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
                 </svg>
                 <figcaption>The prototype goes where it has to live. Results are measured against the criteria set at the start, and the data decides what happens next.</figcaption>
               </figure>
+              <div class="ph-key ph-key-end">
+                <span class="label">What testing in context can look like</span>
+                <div class="pk-grid">
+                  <div><span class="ph-track">With a target group</span><p><b>A product in real hands.</b> Students, players or customers use it while we watch.</p></div>
+                  <div><span class="ph-track">In the environment</span><p><b>A field test on site.</b> We measure where nature does the work, like water flow across a site.</p></div>
+                  <div><span class="ph-track">Across an organization</span><p><b>A new way of working.</b> A process or team structure piloted across several groups at once.</p></div>
+                  <div><span class="ph-track">In public space</span><p><b>A pilot where people gather.</b> A street, plaza or festival, watching how people move and respond.</p></div>
+                  <div><span class="ph-track">As a soft launch</span><p><b>A small first audience.</b> An exhibit or experience opened to a few visitors before the full opening.</p></div>
+                  <div><span class="ph-track">With data and AI tools</span><p><b>A tool in daily use.</b> Staff try the dashboard or AI tool, or we check a model against past data.</p></div>
+                  <div><span class="ph-track">On the bench first</span><p><b>A controlled stress test.</b> Durability and materials tested before anything goes into the field.</p></div>
+                </div>
+              </div>
             </div>
           </details>
 

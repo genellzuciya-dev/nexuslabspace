@@ -963,6 +963,23 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
 .mosaic .m-orb img{object-position:50% 35%}
 .mosaic .m-hum img{object-position:50% 0%}
 @media (max-width:640px){.mosaic{grid-template-columns:1fr 1fr}.mosaic figure:nth-child(3){grid-column:span 2}}
+
+/* Phase 02: observed video + abstracted principle */
+.ws-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:1rem;align-items:start}
+.ws-row figure{margin:0}
+.ws-vid video{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:6px;background:#0b2730}
+.ws-dp svg{width:100%;height:auto;display:block;background:var(--paper);border:1px solid var(--rule);border-radius:6px}
+.dp-mesh line{stroke:var(--ink);stroke-width:3;stroke-linecap:round}
+.dp-arrow path{fill:none;stroke:var(--accent);stroke-width:2.2}
+.dp-head path{fill:var(--accent)}
+.dp-p circle{fill:#b8862f}
+.dp-clean path{stroke:#4cc2b0;stroke-width:2;stroke-dasharray:3 4}
+.dp-t{font-family:var(--display);font-weight:700;font-size:15px;fill:var(--ink)}
+.dp-s{font-family:var(--display);font-size:12.5px;fill:var(--ink-soft)}
+.dp-k{font-family:var(--mono);font-size:11px;letter-spacing:.14em;fill:#a2475e}
+.dp-k.ok{fill:var(--accent)}
+.dp-div{stroke:var(--rule);stroke-width:1}
+@media (max-width:760px){.ws-row{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -1197,6 +1214,27 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
                   <li><span class="ex-k">What nature does</span><p>Filter-feeding fish like whale sharks let water sweep across the filter, so particles roll along instead of jamming the holes.</p></li>
                   <li><span class="ex-k">The principle</span><p>Angle the flow across the screen, not straight into it.</p></li>
                 </ol>
+              </div>
+              <div class="ws-row">
+                <figure class="ws-vid"><video src="img/whaleshark.mp4" poster="img/whaleshark-poster.jpg" muted loop playsinline autoplay preload="metadata" aria-label="Video of a whale shark feeding near La Paz, Mexico."></video><figcaption>Observed: a whale shark feeding near La Paz, Mexico. Filmed by Nicholas Heier.</figcaption></figure>
+                <figure class="ws-dp"><svg viewBox="0 0 560 300" role="img" aria-label="Design principle diagram. Left: flow aimed straight into a screen, particles pile up and the screen clogs. Right: flow sweeps across the screen, particles roll along to a collection point and clean water passes through.">
+                    <g class="dp-mesh"><line x1="30" y1="170" x2="39" y2="170"/><line x1="44" y1="170" x2="53" y2="170"/><line x1="58" y1="170" x2="67" y2="170"/><line x1="72" y1="170" x2="81" y2="170"/><line x1="86" y1="170" x2="95" y2="170"/><line x1="100" y1="170" x2="109" y2="170"/><line x1="114" y1="170" x2="123" y2="170"/><line x1="128" y1="170" x2="137" y2="170"/><line x1="142" y1="170" x2="151" y2="170"/><line x1="156" y1="170" x2="165" y2="170"/><line x1="170" y1="170" x2="179" y2="170"/><line x1="184" y1="170" x2="193" y2="170"/><line x1="198" y1="170" x2="207" y2="170"/><line x1="212" y1="170" x2="221" y2="170"/><line x1="226" y1="170" x2="235" y2="170"/><line x1="240" y1="170" x2="249" y2="170"/><line x1="310" y1="170" x2="319" y2="170"/><line x1="324" y1="170" x2="333" y2="170"/><line x1="338" y1="170" x2="347" y2="170"/><line x1="352" y1="170" x2="361" y2="170"/><line x1="366" y1="170" x2="375" y2="170"/><line x1="380" y1="170" x2="389" y2="170"/><line x1="394" y1="170" x2="403" y2="170"/><line x1="408" y1="170" x2="417" y2="170"/><line x1="422" y1="170" x2="431" y2="170"/><line x1="436" y1="170" x2="445" y2="170"/><line x1="450" y1="170" x2="459" y2="170"/><line x1="464" y1="170" x2="473" y2="170"/><line x1="478" y1="170" x2="487" y2="170"/><line x1="492" y1="170" x2="501" y2="170"/><line x1="506" y1="170" x2="515" y2="170"/><line x1="520" y1="170" x2="529" y2="170"/></g>
+                    <g class="dp-arrow"><path d="M70 60 V150"/><path d="M140 60 V150"/><path d="M210 60 V150"/></g>
+                    <g class="dp-head"><path d="M64 146 L70 156 L76 146Z"/><path d="M134 146 L140 156 L146 146Z"/><path d="M204 146 L210 156 L216 146Z"/></g>
+                    <g class="dp-p"><circle cx="50" cy="162" r="5"/><circle cx="62" cy="161" r="5"/><circle cx="74" cy="162" r="5"/><circle cx="86" cy="161" r="5"/><circle cx="98" cy="162" r="5"/><circle cx="110" cy="161" r="5"/><circle cx="122" cy="162" r="5"/><circle cx="134" cy="161" r="5"/><circle cx="146" cy="162" r="5"/><circle cx="158" cy="161" r="5"/><circle cx="170" cy="162" r="5"/><circle cx="182" cy="161" r="5"/><circle cx="194" cy="162" r="5"/><circle cx="206" cy="161" r="5"/><circle cx="218" cy="162" r="5"/><circle cx="230" cy="161" r="5"/><circle cx="68" cy="151" r="5"/><circle cx="104" cy="151" r="5"/><circle cx="152" cy="151" r="5"/><circle cx="196" cy="151" r="5"/></g>
+                    <text class="dp-t" x="140" y="34" text-anchor="middle">Straight into the screen</text>
+                    <text class="dp-s" x="140" y="205" text-anchor="middle">Particles pile up.</text>
+                    <text class="dp-s" x="140" y="224" text-anchor="middle">The screen clogs.</text>
+                    <g class="dp-arrow"><path d="M320 90 C 380 120, 440 140, 520 150"/><path d="M320 120 C 380 140, 440 152, 520 158"/></g>
+                    <g class="dp-head"><path d="M514 144 L526 151 L514 157Z"/><path d="M514 152 L526 158 L514 164Z"/></g>
+                    <g class="dp-p"><circle cx="360" cy="150" r="5"/><circle cx="410" cy="155" r="5"/><circle cx="460" cy="158" r="5"/><circle cx="505" cy="160" r="5"/></g>
+                    <g class="dp-clean"><path d="M350 182 V204"/><path d="M400 182 V204"/><path d="M450 182 V204"/><path d="M500 182 V204"/></g>
+                    <text class="dp-t" x="420" y="34" text-anchor="middle">Across the screen</text>
+                    <text class="dp-s" x="420" y="236" text-anchor="middle">Particles roll along to be collected.</text>
+                    <text class="dp-s" x="420" y="255" text-anchor="middle">Clean water passes through.</text>
+                    <line class="dp-div" x1="280" y1="20" x2="280" y2="270"/>
+                    <text class="dp-k" x="140" y="288" text-anchor="middle">CLOGS</text><text class="dp-k ok" x="420" y="288" text-anchor="middle">STAYS CLEAR</text>
+                  </svg><figcaption>Abstracted design principle: let the flow sweep across the filter, not straight into it.</figcaption></figure>
               </div>
             </div>
           </details>

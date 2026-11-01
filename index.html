@@ -960,7 +960,8 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
 .mosaic{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem}
 .mosaic figure{margin:0}
 .mosaic img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:6px}
-.mosaic figure:nth-child(1) img{object-position:50% 35%}
+.mosaic .m-orb img{object-position:50% 35%}
+.mosaic .m-hum img{object-position:50% 0%}
 @media (max-width:640px){.mosaic{grid-template-columns:1fr 1fr}.mosaic figure:nth-child(3){grid-column:span 2}}
 </style>
 </head>
@@ -1185,9 +1186,9 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
                 <div class="outputs"><h4>You get</h4><ul><li>Biological strategy dossier with citations</li><li>Shortlist of design principles</li><li>Field documentation you can reuse</li></ul></div>
               </div>
               <div class="mosaic">
-                <figure><img src="img/ask-nature-orbweaver.jpg" alt="Golden silk orb-weaver spider at the center of its web." loading="lazy" width="800" height="1200"><figcaption>Golden silk orb-weaver, Costa Rica.</figcaption></figure>
-                <figure><img src="img/ask-nature-hummingbird.jpg" alt="Iridescent green hummingbird perched on a branch." loading="lazy" width="1200" height="800"><figcaption>Hummingbird, Costa Rica.</figcaption></figure>
+                <figure class="m-hum"><img src="img/ask-nature-hummingbird.jpg" alt="Iridescent green hummingbird perched on a branch." loading="lazy" width="1200" height="800"><figcaption>Hummingbird, Costa Rica.</figcaption></figure>
                 <figure><img src="img/field.jpg" alt="Two naturalists in a forest laughing as one holds out a large bracket fungus." loading="lazy" width="1600" height="1200"><figcaption>Field observation, Pacific Northwest.</figcaption></figure>
+                <figure class="m-orb"><img src="img/ask-nature-orbweaver.jpg" alt="Golden silk orb-weaver spider at the center of its web." loading="lazy" width="800" height="1200"><figcaption>Golden silk orb-weaver, Costa Rica.</figcaption></figure>
               </div>
               <div class="ex-strip" role="group" aria-label="Example">
                 <span class="ex-label">Example · A storm drain that does not clog (illustrative)</span>

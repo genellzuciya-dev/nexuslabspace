@@ -921,6 +921,13 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
 .tr-flow.hl-a .te-b,.tr-flow.hl-b .te-a{opacity:.35}
 .tr-flow.hl-a .te-a,.tr-flow.hl-b .te-b{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,var(--paper))}
 .ph-track{display:block;font-family:var(--mono);font-size:var(--step--1);color:var(--accent);letter-spacing:.04em;margin-bottom:.2rem}
+
+/* Phase 01 emphasis */
+.ph-key{border-left:0;background:color-mix(in srgb,var(--accent) 9%,var(--paper));border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);border-radius:6px;padding:1.1rem 1.25rem;margin:0 0 1.3rem;display:grid;gap:.6rem;max-width:68ch}
+.ph-key .label{color:var(--accent)}
+.ph-key p{margin:0}
+
+.ph-key-end{margin:1.3rem 0 0}
 </style>
 </head>
 <body>
@@ -1105,11 +1112,15 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
           <details class="phase" id="p1">
             <summary>
               <div class="code">Phase<strong>01</strong></div>
-              <div class="ph-sum"><h3>Frame the system</h3><p class="question">What does this really need to do, and for whom?</p></div>
+              <div class="ph-sum"><span class="ph-track">The step that matters most</span><h3>Frame the system</h3><p class="question">What does this really need to do, and for whom?</p></div>
               <span class="jx-toggle" aria-hidden="true"></span>
             </summary>
             <div class="body">
               
+              <div class="ph-key">
+                <span class="label">Why this phase comes first</span>
+                <p><b>No one today is short on data. What is rare is the right question.</b> This phase is what sets Nexus Lab Space apart. Before we ideate anything, we look at your system in context to find the points of tension and the leverage points, and make sure we are asking the right question with the right approach.</p>
+              </div>
               <p>We restate your challenge as a function (shed heat, hold attention, move people, share resources) and map the system around it: who is involved, where the feedback loops are, and which constraints are fixed. A precise frame is what makes the biology useful later.</p>
               <div class="two">
                 <div><h4>What we do</h4><ul><li>Functional diagnosis of the challenge</li><li>Systems and stakeholder mapping workshop</li><li>Constraint lock: materials, cost, regulation, timeline</li></ul></div>
@@ -1166,6 +1177,7 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
                 <div class="outputs"><h4>You get</h4><ul><li>Working prototype</li><li>Concept comparison against your criteria</li><li>Test plan for the next phase</li></ul></div>
               </div>
               <figure><img src="img/bench.jpg" alt="Genell adjusting components on an optical bench in a lab." loading="lazy" width="1395" height="822"><figcaption>Optical bench alignment. Laser optics has been part of the practice since the patent.</figcaption></figure>
+              <div class="ph-key ph-key-end"><p>When a challenge calls for it, we build <b>custom AI tool sets and trackable dashboards</b>, so your data works toward the answer instead of piling up.</p></div>
             </div>
           </details>
 

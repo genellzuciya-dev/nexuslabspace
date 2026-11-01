@@ -940,6 +940,28 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
 
 .ph-key .pk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1rem 1.4rem;margin-top:.35rem}
 .ph-key .pk-grid p{font-size:.95rem}
+
+/* Phase 01 statement: full width of the phase header, dark green */
+#p1 .ph-key-first{max-width:none;margin:.9rem -.75rem .4rem;padding:1.5rem 1.6rem;border:0;border-radius:12px;background:#2f4b3f;color:#e9f1ec}
+@media (min-width:600px){#p1 .ph-key-first{margin-left:calc(-7.5rem - .75rem)}}
+#p1 .ph-key-first .label{color:#9fdcbe}
+#p1 .ph-key-first p{font-size:1.08rem;line-height:1.65;max-width:72ch}
+#p1 .ph-key-first b{color:#fff}
+
+/* worked example strips + Ask nature mosaic (Oct 31) */
+.ex-strip{border:1px solid var(--rule);border-radius:10px;background:color-mix(in srgb,var(--paper) 70%,transparent);padding:1.1rem 1.2rem;display:grid;gap:.8rem}
+.ex-label{font-family:var(--mono);font-size:var(--step--1);letter-spacing:.06em;color:var(--accent)}
+.ex-cards{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem;counter-reset:ex}
+.ex-cards li{counter-increment:ex;position:relative;background:var(--paper);border-radius:8px;padding:.9rem 1rem;display:grid;gap:.35rem;align-content:start}
+.ex-cards li + li::before{content:"";position:absolute;left:-.62rem;top:50%;width:.45rem;height:.45rem;border-top:2px solid var(--accent);border-right:2px solid var(--accent);transform:translate(-50%,-50%) rotate(45deg)}
+.ex-k{font-weight:700;font-size:.9rem;color:var(--ink)}
+.ex-cards p{margin:0;font-size:.95rem;color:var(--ink-soft);line-height:1.5}
+@media (max-width:760px){.ex-cards{grid-template-columns:1fr}.ex-cards li + li::before{left:50%;top:-.4rem;transform:translate(-50%,-50%) rotate(135deg)}}
+.mosaic{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem}
+.mosaic figure{margin:0}
+.mosaic img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:6px}
+.mosaic figure:nth-child(1) img{object-position:50% 35%}
+@media (max-width:640px){.mosaic{grid-template-columns:1fr 1fr}.mosaic figure:nth-child(3){grid-column:span 2}}
 </style>
 </head>
 <body>
@@ -1129,7 +1151,7 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
             </summary>
             <div class="body">
               
-              <div class="ph-key">
+              <div class="ph-key ph-key-first">
                 <span class="label">Why this phase comes first</span>
                 <p><b>No one today is short on data. What is rare is the right question.</b> This phase is what sets Nexus Lab Space apart. Before we ideate anything, we look at your system in context to find the points of tension and the leverage points, and make sure we are asking the right question with the right approach.</p>
               </div>
@@ -1138,23 +1160,14 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
                 <div><h4>What we do</h4><ul><li>Functional diagnosis of the challenge</li><li>Systems and stakeholder mapping workshop</li><li>Constraint lock: materials, cost, regulation, timeline</li></ul></div>
                 <div class="outputs"><h4>You get</h4><ul><li>Challenge brief written as functions</li><li>Systems map with leverage points</li><li>Success criteria everyone signs off on</li></ul></div>
               </div>
-              <figure class="ph-fig">
-                <svg viewBox="0 0 640 340" role="img" aria-label="A systems map: the challenge restated as a function sits at the center, linked to the people involved. A feedback loop circles them, and a dashed boundary of fixed constraints surrounds the whole map.">
-                  <rect class="d-bound" x="18" y="18" width="604" height="304" rx="14"/>
-                  <text class="d-small" x="34" y="44">FIXED CONSTRAINTS</text>
-                  <text class="d-small" x="606" y="310" text-anchor="end">materials · cost · regulation · time</text>
-                  <path class="d-loop" d="M190 110 A 150 92 0 0 1 450 110"/><path class="d-loop" d="M450 230 A 150 92 0 0 1 190 230"/>
-                  <path class="d-head" transform="translate(450 110) rotate(62)" d="M-6 -6 L6 0 L-6 6 Z"/><path class="d-head" transform="translate(190 230) rotate(242)" d="M-6 -6 L6 0 L-6 6 Z"/>
-                  <text class="d-small" x="320" y="98" text-anchor="middle">feedback loop</text>
-                  <g class="d-links"><path d="M320 170 L146 110 M320 170 L146 232 M320 170 L494 110 M320 170 L494 232"/></g>
-                  <g class="d-node"><circle cx="146" cy="110" r="26"/><path class="d-ic" d="M146 101 a6 6 0 1 1 0.1 0 M134 122 q12 -12 24 0"/><text x="146" y="152" text-anchor="middle">users</text></g>
-                  <g class="d-node"><circle cx="146" cy="232" r="26"/><circle class="d-ic" cx="146" cy="232" r="7"/><path class="d-ic" d="M146 219 v4 M146 241 v4 M133 232 h4 M155 232 h4 M137 223 l3 3 M152 238 l3 3 M155 223 l-3 3 M140 238 l-3 3"/><text x="146" y="274" text-anchor="middle">operators</text></g>
-                  <g class="d-node"><circle cx="494" cy="110" r="26"/><path class="d-ic" d="M482 120 v-14 l12 -9 l12 9 v14 z M490 120 v-7 h8 v7"/><text x="494" y="152" text-anchor="middle">neighbors</text></g>
-                  <g class="d-node"><circle cx="494" cy="232" r="26"/><path class="d-ic" d="M494 244 v-20 M494 230 c -8 0, -12 -6, -12 -12 c 8 0, 12 5, 12 12 M494 226 c 8 0, 12 -6, 12 -12 c -8 0, -12 5, -12 12"/><text x="494" y="274" text-anchor="middle">ecosystem</text></g>
-                  <g class="d-key"><rect x="236" y="138" width="168" height="64" rx="8"/><text x="320" y="164" text-anchor="middle" class="d-k1">FUNCTION</text><text x="320" y="188" text-anchor="middle" class="d-k2">What must it do?</text></g>
-                </svg>
-                <figcaption>The challenge, restated as a function, mapped against the people, loops, and constraints around it.</figcaption>
-              </figure>
+              <div class="ex-strip" role="group" aria-label="Example">
+                <span class="ex-label">Example · A storm drain that does not clog (illustrative)</span>
+                <ol class="ex-cards">
+                  <li><span class="ex-k">What you ask</span><p>&ldquo;Our storm drain screens clog every monsoon.&rdquo;</p></li>
+                  <li><span class="ex-k">What it must do</span><p>Filter huge volumes of water without clogging.</p></li>
+                  <li><span class="ex-k">What we map</span><p>Who clears the drains, how fast the water arrives, and what the budget allows.</p></li>
+                </ol>
+              </div>
             </div>
           </details>
 
@@ -1171,7 +1184,19 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
                 <div><h4>What we do</h4><ul><li>Literature search by function</li><li>Field and macro observation</li><li>Abstraction into transferable principles</li></ul></div>
                 <div class="outputs"><h4>You get</h4><ul><li>Biological strategy dossier with citations</li><li>Shortlist of design principles</li><li>Field documentation you can reuse</li></ul></div>
               </div>
-              <figure><img src="img/field.jpg" alt="Two naturalists in a forest laughing as one holds out a large bracket fungus." loading="lazy" width="1600" height="1200"><figcaption>Field observation, Pacific Northwest.</figcaption></figure>
+              <div class="mosaic">
+                <figure><img src="img/ask-nature-orbweaver.jpg" alt="Golden silk orb-weaver spider at the center of its web." loading="lazy" width="800" height="1200"><figcaption>Golden silk orb-weaver, Costa Rica.</figcaption></figure>
+                <figure><img src="img/ask-nature-hummingbird.jpg" alt="Iridescent green hummingbird perched on a branch." loading="lazy" width="1200" height="800"><figcaption>Hummingbird, Costa Rica.</figcaption></figure>
+                <figure><img src="img/field.jpg" alt="Two naturalists in a forest laughing as one holds out a large bracket fungus." loading="lazy" width="1600" height="1200"><figcaption>Field observation, Pacific Northwest.</figcaption></figure>
+              </div>
+              <div class="ex-strip" role="group" aria-label="Example">
+                <span class="ex-label">Example · A storm drain that does not clog (illustrative)</span>
+                <ol class="ex-cards">
+                  <li><span class="ex-k">What we search</span><p>Organisms that filter huge volumes without clogging.</p></li>
+                  <li><span class="ex-k">What nature does</span><p>Filter-feeding fish like whale sharks let water sweep across the filter, so particles roll along instead of jamming the holes.</p></li>
+                  <li><span class="ex-k">The principle</span><p>Angle the flow across the screen, not straight into it.</p></li>
+                </ol>
+              </div>
             </div>
           </details>
 
@@ -1189,6 +1214,14 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
                 <div class="outputs"><h4>You get</h4><ul><li>Working prototype</li><li>Concept comparison against your criteria</li><li>Test plan for the next phase</li></ul></div>
               </div>
               <figure><img src="img/bench.jpg" alt="Genell adjusting components on an optical bench in a lab." loading="lazy" width="1395" height="822"><figcaption>Optical bench alignment. Laser optics has been part of the practice since the patent.</figcaption></figure>
+              <div class="ex-strip" role="group" aria-label="Example">
+                <span class="ex-label">Example · A storm drain that does not clog (illustrative)</span>
+                <ol class="ex-cards">
+                  <li><span class="ex-k">What we build</span><p>A 3D-printed screen with angled ribs.</p></li>
+                  <li><span class="ex-k">Where we try it</span><p>A water tray in the studio, run at storm-level flow.</p></li>
+                  <li><span class="ex-k">What you get</span><p>A screen you can hold and a plan for the field test.</p></li>
+                </ol>
+              </div>
               <div class="ph-key ph-key-end">
                 <span class="label">What your prototype looks like</span>
                 <div class="pk-two">
@@ -1213,27 +1246,14 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
                 <div><h4>What we do</h4><ul><li>Field pilots with real users</li><li>Sensing, observation, and data analysis</li><li>Iteration on what breaks</li></ul></div>
                 <div class="outputs"><h4>You get</h4><ul><li>Findings report with measured results</li><li>Revised design</li><li>Go, adjust, or stop recommendation</li></ul></div>
               </div>
-              <figure class="ph-fig">
-                <svg viewBox="0 0 640 300" role="img" aria-label="Testing loop: the prototype goes into the real setting with people using it, results are measured against the success criteria from Phase 01, and the outcome is go, adjust, or stop. Adjust loops back to the prototype.">
-                  <g class="d-node"><rect x="34" y="104" width="104" height="80" rx="10"/><path class="d-ic" d="M66 130 l20 -10 l20 10 v22 l-20 10 l-20 -10 z M66 130 l20 10 l20 -10 M86 140 v22"/><text x="86" y="212" text-anchor="middle">prototype</text></g>
-                  <path class="d-flow" d="M146 144 H 194"/><path class="d-head" transform="translate(198 144)" d="M-6 -6 L6 0 L-6 6 Z"/>
-                  <g class="d-node"><rect x="208" y="84" width="160" height="120" rx="10"/>
-                    <path class="d-ground" d="M222 176 H354"/>
-                    <path class="d-ic" d="M246 150 a7 7 0 1 1 0.1 0 M236 176 v-10 q10 -10 20 0 v10 M290 146 a7 7 0 1 1 0.1 0 M280 176 v-14 q10 -10 20 0 v14 M334 152 a7 7 0 1 1 0.1 0 M324 176 v-8 q10 -10 20 0 v8"/>
-                    <rect class="d-proto-mini" x="276" y="104" width="28" height="18" rx="3"/>
-                    <text x="288" y="232" text-anchor="middle">real setting</text></g>
-                  <path class="d-flow" d="M376 144 H 424"/><path class="d-head" transform="translate(428 144)" d="M-6 -6 L6 0 L-6 6 Z"/>
-                  <g class="d-node"><circle cx="476" cy="144" r="40"/><path class="d-ic" d="M450 156 a 28 28 0 0 1 52 0 M476 156 L 492 132"/><circle class="d-dot" cx="476" cy="156" r="3.5"/><text x="476" y="212" text-anchor="middle">measure</text></g>
-                  <text class="d-small" x="476" y="232" text-anchor="middle">vs. Phase 01 criteria</text>
-                  <g class="d-chips"><rect class="go" x="546" y="88" width="64" height="28" rx="14"/><text x="578" y="107" text-anchor="middle">go</text>
-                    <rect class="adj" x="546" y="130" width="64" height="28" rx="14"/><text x="578" y="149" text-anchor="middle">adjust</text>
-                    <rect class="stop" x="546" y="172" width="64" height="28" rx="14"/><text x="578" y="191" text-anchor="middle">stop</text></g>
-                  <path class="d-flow" d="M518 144 H 540"/>
-                  <path class="d-loop" d="M578 200 V 254 H 86 V 228"/><path class="d-head" transform="translate(86 224) rotate(-90)" d="M-6 -6 L6 0 L-6 6 Z"/>
-                  <text class="d-small" x="330" y="276" text-anchor="middle">iterate on what breaks</text>
-                </svg>
-                <figcaption>The prototype goes where it has to live. Results are measured against the criteria set at the start, and the data decides what happens next.</figcaption>
-              </figure>
+              <div class="ex-strip" role="group" aria-label="Example">
+                <span class="ex-label">Example · A storm drain that does not clog (illustrative)</span>
+                <ol class="ex-cards">
+                  <li><span class="ex-k">Where we test</span><p>One real drain, through a full storm season.</p></li>
+                  <li><span class="ex-k">What we measure</span><p>How often it clogs, compared with a standard screen next to it.</p></li>
+                  <li><span class="ex-k">What we decide</span><p>Go, adjust the angle, or stop.</p></li>
+                </ol>
+              </div>
               <div class="ph-key ph-key-end">
                 <span class="label">What testing in context can look like</span>
                 <div class="pk-grid">
@@ -1262,22 +1282,14 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
                 <div><h4>What we do</h4><ul><li>Specifications and production support</li><li>Training for staff or facilitators</li><li>Roadmap planning</li></ul></div>
                 <div class="outputs"><h4>You get</h4><ul><li>Build-ready specs and a success plan for implementation and training</li><li>Trained internal owners</li><li>A reusable library of strategies</li></ul></div>
               </div>
-              <figure class="ph-fig">
-                <svg viewBox="0 0 640 300" role="img" aria-label="Handoff: the studio passes specs and a success plan for implementation and training to the people who will own the work, and their network keeps growing after the studio steps back.">
-                  <g class="d-node d-fade"><circle cx="86" cy="150" r="34"/><path class="d-ic" d="M72 150 l14 -12 l14 12 M76 146 v16 h20 v-16"/><text x="86" y="206" text-anchor="middle">studio</text></g>
-                  <path class="d-flow" d="M128 150 H 188"/><path class="d-head" transform="translate(192 150)" d="M-6 -6 L6 0 L-6 6 Z"/>
-                  <g class="d-key"><rect x="196" y="106" width="176" height="88" rx="8"/>
-                    <path class="d-ic-light" d="M210 132 h24 l8 8 v30 h-32 z M234 132 v8 h8 M217 149 h17 M217 157 h17 M217 165 h11"/>
-                    <text x="254" y="134" class="d-k2s">specs</text><text x="254" y="150" class="d-k2s">success plan for</text><text x="254" y="166" class="d-k2s">implementation</text><text x="254" y="182" class="d-k2s">&amp; training</text></g>
-                  <path class="d-flow" d="M378 150 H 390"/><path class="d-head" transform="translate(394 150)" d="M-6 -6 L6 0 L-6 6 Z"/>
-                  <g class="d-links"><path d="M432 150 L520 84 M432 150 L536 150 M432 150 L520 216 M520 84 L590 54 M520 84 L600 104 M536 150 L606 140 M520 216 L594 196 M520 216 L586 254 M536 150 L520 84 M536 150 L520 216"/></g>
-                  <g class="d-node"><circle cx="432" cy="150" r="30"/><path class="d-ic" d="M428 139 a5 5 0 1 1 -10 0 a5 5 0 1 1 10 0 M446 139 a5 5 0 1 1 -10 0 a5 5 0 1 1 10 0 M412 164 v-3 a11 10 0 0 1 22 0 v3 M430 164 v-3 a11 10 0 0 1 22 0 v3"/><text x="432" y="202" text-anchor="middle">owners</text></g>
-                  <g class="d-sprout"><circle cx="520" cy="84" r="12"/><circle cx="536" cy="150" r="12"/><circle cx="520" cy="216" r="12"/></g>
-                  <g class="d-seed"><circle cx="590" cy="54" r="6"/><circle cx="600" cy="104" r="6"/><circle cx="606" cy="140" r="6"/><circle cx="594" cy="196" r="6"/><circle cx="586" cy="254" r="6"/></g>
-                  <text class="d-small" x="560" y="286" text-anchor="middle">keeps growing</text>
-                </svg>
-                <figcaption>Like a healthy ecosystem, the work should not depend on one species. We hand it to the people who will run it, and it keeps growing.</figcaption>
-              </figure>
+              <div class="ex-strip" role="group" aria-label="Example">
+                <span class="ex-label">Example · A storm drain that does not clog (illustrative)</span>
+                <ol class="ex-cards">
+                  <li><span class="ex-k">What we hand over</span><p>Specs, an install guide and a maintenance checklist.</p></li>
+                  <li><span class="ex-k">Who we train</span><p>The crew that clears the drains.</p></li>
+                  <li><span class="ex-k">What keeps growing</span><p>A design the city can repeat on the next street.</p></li>
+                </ol>
+              </div>
             </div>
           </details>
 

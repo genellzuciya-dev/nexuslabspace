@@ -996,6 +996,8 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
 .fd-body .credits.alum{margin-top:0}
 
 @media (max-width:560px){header.top .brand-tag{white-space:normal;max-width:21ch;line-height:1.3}header.top .brand{min-width:0;flex:1 1 auto}}
+.bts{display:flex;flex-wrap:wrap;align-items:baseline;gap:.4rem .7rem;margin:0 0 1rem;padding:.6rem .8rem;border-left:2px solid var(--accent);background:color-mix(in srgb,var(--accent) 7%,transparent);font-size:var(--step--1);color:var(--ink-soft)}
+.bts span{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:500}
 /* Phase 03 prototyping photo grid */
 .proto-grid{display:grid;gap:.6rem;grid-template-columns:repeat(2,1fr);margin:0}
 .proto-grid .pg-t{margin:0;position:relative;overflow:hidden;background:var(--rule)}
@@ -1181,7 +1183,7 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
       <div class="tr-flow" aria-label="Both tracks share four phases, then split: hand off, or steward over time">
         <div class="tr-in"><span class="tr-chip">Track A · Products</span><span class="tr-chip">Track B · Social innovation</span></div>
         <svg class="tr-join" viewBox="0 0 60 80" aria-hidden="true"><path class="ja" d="M2 20 C 30 20, 30 40, 56 40"/><path class="jb" d="M2 60 C 30 60, 30 40, 56 40"/><path class="h" d="M50 34 L58 40 L50 46"/></svg>
-        <ol class="tr-steps"><li style="--i:0"><a href="#p1"><span>01</span>Frame the system</a></li><li style="--i:1"><a href="#p2"><span>02</span>Ask nature</a></li><li style="--i:2"><a href="#p3"><span>03</span>Prototype in hand</a></li><li style="--i:3"><a href="#p4"><span>04</span>Test in context</a></li></ol>
+        <ol class="tr-steps"><li style="--i:0"><a href="#p1"><span>01</span>Frame the system</a></li><li style="--i:1"><a href="#p2"><span>02</span>Nexus asks nature</a></li><li style="--i:2"><a href="#p3"><span>03</span>Prototype in hand</a></li><li style="--i:3"><a href="#p4"><span>04</span>Test in context</a></li></ol>
         <svg class="tr-split" viewBox="0 0 60 80" aria-hidden="true"><path class="sa" d="M2 40 C 30 40, 30 20, 56 20"/><path class="sb" d="M2 40 C 30 40, 30 60, 56 60"/></svg>
         <div class="tr-end"><a class="te-a" href="#p5" style="--i:4"><span>05A · Track A</span>Hand off</a><a class="te-b" href="#p5b" style="--i:4"><span>05B · Track B</span>Steward and iterate</a></div>
       </div>
@@ -1223,15 +1225,16 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
           <details class="phase" id="p2">
             <summary>
               <div class="code">Phase<strong>02</strong></div>
-              <div class="ph-sum"><h3>Ask nature</h3><p class="question">Which organisms and ecosystems already do this well?</p></div>
+              <div class="ph-sum"><h3>Nexus asks nature</h3><p class="question">Which organisms and ecosystems already do this well?</p></div>
               <span class="jx-toggle" aria-hidden="true"></span>
             </summary>
             <div class="body">
               
-              <p>We search biology by function, not by keyword. Then we go look: field observation, macro photography, and data where it helps. Each strategy is traced to its scientific source and abstracted into a design principle your team can use without a biology degree.</p>
+              <p class="bts"><span>Behind the scenes</span> This phase is studio work. Your team doesn't need to join the research.</p>
+              <p>We search biology by function, not by keyword. Then we go look: field observation, macro photography, and data where it helps. What comes back to you is a lineup of the biological strategies we found, each one traced to its scientific source and abstracted into a design principle your team can use without a biology degree.</p>
               <div class="two">
                 <div><h4>What we do</h4><ul><li>Literature search by function</li><li>Field and macro observation</li><li>Abstraction into transferable principles</li></ul></div>
-                <div class="outputs"><h4>You get</h4><ul><li>Biological strategy dossier with citations</li><li>Shortlist of design principles</li><li>Field documentation you can reuse</li></ul></div>
+                <div class="outputs"><h4>You get</h4><ul><li>Biological strategy lineup: every solution we found in nature, with citations</li><li>Shortlist of design principles</li><li>Field documentation you can reuse</li></ul></div>
               </div>
               <div class="mosaic">
                 <figure class="m-hum"><img src="img/ask-nature-hummingbird.jpg" alt="Iridescent green hummingbird perched on a branch." loading="lazy" width="1200" height="800"><figcaption>Hummingbird, Costa Rica.</figcaption></figure>

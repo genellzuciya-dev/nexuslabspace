@@ -980,6 +980,20 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
 .dp-k.ok{fill:var(--accent)}
 .dp-div{stroke:var(--rule);stroke-width:1}
 @media (max-width:760px){.ws-row{grid-template-columns:1fr}}
+
+/* Founder: collapsible background (Nov 2) */
+.fd-more{margin-top:1.4rem;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.fd-more summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:1rem;padding:1rem .2rem}
+.fd-more summary::-webkit-details-marker{display:none}
+.fd-more .fd-sum{flex:1;font-weight:600;color:var(--ink)}
+.fd-tog{position:relative;width:28px;height:28px;border-radius:50%;flex:none;transition:background .2s}
+.fd-tog::before,.fd-tog::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:2px;background:var(--ink);transform:translate(-50%,-50%)}
+.fd-tog::after{transform:translate(-50%,-50%) rotate(90deg);transition:transform .25s}
+.fd-more[open] .fd-tog::after{transform:translate(-50%,-50%) rotate(0)}
+.fd-more summary:hover .fd-tog{background:color-mix(in srgb,var(--accent) 14%,transparent)}
+.fd-more summary:hover .fd-sum{color:var(--accent)}
+.fd-body{padding-bottom:1rem}
+.fd-body .credits.alum{margin-top:0}
 </style>
 </head>
 <body>
@@ -1881,6 +1895,9 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
         <h2 style="margin-top:.7rem">From pyrotechnics to photonics to photosynthesis.</h2>
         <p>Genell Zuciya is a creative technologist, inventor, biomimicry professional, and experiential creative director with nearly two decades of work across Walt Disney Imagineering, Netflix, and Meow Wolf. She specializes in large-scale immersive design, innovation strategy, and concept-to-deployment development at the intersection of technology, storytelling, and systems thinking.</p>
         <p>She holds a Master's in Biomimicry and has done fieldwork in over six ecosystems. As the founder of Nexus Lab Space, Genell is always looking for collaborators in experiential innovation and human-centered design.</p>
+        <details class="fd-more">
+          <summary><span class="label">Background</span><span class="fd-sum">Experience, recognition, education and service</span><span class="fd-tog" aria-hidden="true"></span></summary>
+          <div class="fd-body">
         <div class="credits alum">
           <span class="label">Alum of</span>
           <span>Walt Disney Imagineering</span><span>Meow Wolf</span><span>Netflix Experiences</span>
@@ -1892,6 +1909,8 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
           <div><dt>Service</dt><dd>SEGD Sustainability Committee Chair<br>Board, International Spy Museum<br>Board, Biomimicry for Social Innovation<br>Board, Santa Fe TradFest</dd></div>
           <div><dt>Elsewhere</dt><dd><a href="https://www.linkedin.com/in/genellzuciya" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://www.ilovephotons.com/" target="_blank" rel="noopener">ilovephotons.com</a></dd></div>
         </dl>
+          </div>
+        </details>
       </div>
     </div>
     <div class="wrap">

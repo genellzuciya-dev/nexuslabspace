@@ -920,6 +920,9 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
 .tr-flow.hl-a .sa,.tr-flow.hl-b .sb{stroke-width:2.4}
 .tr-flow.hl-a .te-b,.tr-flow.hl-b .te-a{opacity:.35}
 .tr-flow.hl-a .te-a,.tr-flow.hl-b .te-b{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,var(--paper))}
+.tr-end a .te-get{display:block;margin-top:.35rem;white-space:normal;font-family:var(--body);font-weight:400;font-size:.82rem;line-height:1.45;color:var(--ink-soft)}
+.tr-end a .te-get b{font-family:var(--mono);font-weight:500;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-right:.3rem}
+@media (min-width:900px){.tr-end a{max-width:17rem}}
 .ph-track{display:block;font-family:var(--mono);font-size:var(--step--1);color:var(--accent);letter-spacing:.04em;margin-bottom:.2rem}
 
 /* Phase 01 emphasis */
@@ -998,6 +1001,10 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
 @media (max-width:560px){header.top .brand-tag{white-space:normal;max-width:21ch;line-height:1.3}header.top .brand{min-width:0;flex:1 1 auto}}
 .bts{display:flex;flex-wrap:wrap;align-items:baseline;gap:.4rem .7rem;margin:0 0 1rem;padding:.6rem .8rem;border-left:2px solid var(--accent);background:color-mix(in srgb,var(--accent) 7%,transparent);font-size:var(--step--1);color:var(--ink-soft)}
 .bts span{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:500}
+.ot-in .ot-for{margin-bottom:.35rem}
+.ot-list{margin:0 0 .6rem;padding:0;list-style:none;display:grid;gap:.25rem;font-size:.95rem;line-height:1.45;color:var(--ink-soft)}
+.ot-list li{padding-left:1.1rem;position:relative}
+.ot-list li::before{content:"";position:absolute;left:0;top:.68em;width:.45rem;height:1.5px;background:var(--accent)}
 /* hand-lettered phase notes */
 .ph-note{--ink:#2436a8;--note:#fbfaf4;margin:1.2rem 0 1.4rem;max-width:30rem;transform:rotate(-1.2deg)}
 .ph-note blockquote{margin:0;padding:.9rem 1.2rem 1rem;background:var(--note);border:1px solid color-mix(in srgb,var(--ink) 18%,transparent);border-radius:4px;box-shadow:0 6px 18px -10px rgba(0,0,0,.35);font-family:"Patrick Hand","Comic Sans MS",cursive;color:var(--ink);font-size:clamp(1.25rem,1.1rem + .6vw,1.55rem);line-height:1.3}
@@ -1160,7 +1167,7 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
         <div class="offer-head">
           <span class="label">What we offer</span>
           <h2>One process, two kinds of challenges.</h2>
-          <p class="offer-lede">Whether the challenge is a product or a social system, the work moves through the same four phases, from question to tested system. Then the path splits: products are usually handed off, and social systems are usually stewarded over time. What changes is what counts as success.</p>
+          <p class="offer-lede">Whether the challenge is a product or a social system, the work moves through the same four phases, from question to tested system.</p>
         </div>
         <div class="offer-tracks">
           <article class="ot">
@@ -1168,8 +1175,8 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
             <div class="ot-in">
               <span class="label">Track A</span>
               <h3>Products and experiences</h3>
-              <p><b>For</b> product and R&amp;D teams, toy and game makers, and attraction and experience designers.</p>
-              <p><b>You leave with</b> tested concepts, a working prototype, and specs grounded in sourced biology.</p>
+              <p class="ot-for"><b>For</b></p>
+              <ul class="ot-list"><li>Product and R&amp;D teams</li><li>Toy and game makers</li><li>Attraction and experience designers</li></ul>
             </div>
           </article>
           <article class="ot">
@@ -1183,8 +1190,8 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
             <div class="ot-in">
               <span class="label">Track B</span>
               <h3>Social innovation and civic systems</h3>
-              <p><b>For</b> cities, nonprofits, cultural institutions, schools, and festivals.</p>
-              <p><b>You leave with</b> a shared systems map, a piloted intervention, and a success plan your community can run.</p>
+              <p class="ot-for"><b>For</b></p>
+              <ul class="ot-list"><li>Cities</li><li>Nonprofits</li><li>Cultural institutions</li><li>Schools</li><li>Festivals</li></ul>
             </div>
           </article>
         </div>
@@ -1193,19 +1200,13 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
         <svg class="tr-join" viewBox="0 0 60 80" aria-hidden="true"><path class="ja" d="M2 20 C 30 20, 30 40, 56 40"/><path class="jb" d="M2 60 C 30 60, 30 40, 56 40"/><path class="h" d="M50 34 L58 40 L50 46"/></svg>
         <ol class="tr-steps"><li style="--i:0"><a href="#p1"><span>01</span>Frame the system</a></li><li style="--i:1"><a href="#p2"><span>02</span>Nexus asks nature</a></li><li style="--i:2"><a href="#p3"><span>03</span>Prototype in hand</a></li><li style="--i:3"><a href="#p4"><span>04</span>Test in context</a></li></ol>
         <svg class="tr-split" viewBox="0 0 60 80" aria-hidden="true"><path class="sa" d="M2 40 C 30 40, 30 20, 56 20"/><path class="sb" d="M2 40 C 30 40, 30 60, 56 60"/></svg>
-        <div class="tr-end"><a class="te-a" href="#p5" style="--i:4"><span>05A · Track A</span>Hand off</a><a class="te-b" href="#p5b" style="--i:4"><span>05B · Track B</span>Steward and iterate</a></div>
+        <div class="tr-end"><a class="te-a" href="#p5" style="--i:4"><span>05A · Track A</span>Hand off<small class="te-get"><b>You leave with</b> tested concepts, a working prototype, and specs grounded in sourced biology.</small></a><a class="te-b" href="#p5b" style="--i:4"><span>05B · Track B</span>Steward and iterate<small class="te-get"><b>You leave with</b> a shared systems map, a piloted intervention, and a success plan your community can run.</small></a></div>
       </div>
-        <div class="proc-cols">
-          <div class="proc-col"><span class="proc-k">Grounded</span><p>Our process follows the established biomimicry design process, taught through Biomimicry 3.8 and Arizona State University, applied to your challenge.</p></div>
-          <div class="proc-col"><span class="proc-k">The right question first</span><p>This is where we take time to understand before any brainstorming or inventing. We define the function: what has to happen, for whom, and under what conditions. A precise question is what makes nature&rsquo;s answers useful.</p></div>
-          <div class="proc-col"><span class="proc-k">Real at every step</span><p>Every phase ends with something you can hold, test, or hand to your team, filtered against your real constraints.</p></div>
-        </div>
       </div>
 
       <div class="offer-head phases-head" id="process">
-        <span class="label">The phases</span>
-        <h2>From first question to a working system, with nature in the loop.</h2>
-        <p class="offer-lede">Frame the system, ask nature, prototype, and test in context. Then the work either goes home with your team or we stay on to steward it over time. Tap any phase to see what happens inside it.</p>
+        <h2>The phases</h2>
+        <p class="offer-lede">Frame the system, ask nature, prototype, and test in context.</p>
       </div>
       <div class="method">
 

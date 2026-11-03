@@ -644,9 +644,9 @@ footer{border-top:1px solid var(--rule);padding-block:2rem}
 
 /* both tracks, one process */
 .tr-flow{display:grid;gap:1rem;align-items:center;margin-top:clamp(2rem,5vw,3rem);grid-template-columns:1fr}
-@media (min-width:900px){.tr-flow{grid-template-columns:auto 60px 1fr}}
+@media (min-width:1100px){.tr-flow{grid-template-columns:auto 60px 1fr}}
 .tr-in{display:flex;flex-wrap:wrap;gap:.5rem}
-@media (min-width:900px){.tr-in{display:grid;gap:1.4rem}}
+@media (min-width:1100px){.tr-in{display:grid;gap:1.4rem}}
 .tr-chip{font-family:var(--mono);font-size:var(--step--1);border:1px solid var(--accent);color:var(--accent);padding:.35rem .7rem;border-radius:99px;white-space:nowrap}
 .tr-chip{transition:background-color .3s,color .3s,opacity .3s,box-shadow .3s}
 .tr-flow.hl-a .tr-chip:nth-child(1),.tr-flow.hl-b .tr-chip:nth-child(2){background:var(--accent);color:var(--on-accent);box-shadow:0 6px 18px -8px color-mix(in srgb,var(--accent) 80%,transparent)}
@@ -663,7 +663,7 @@ footer{border-top:1px solid var(--rule);padding-block:2rem}
 .ot.is-hl{border-color:var(--accent);box-shadow:0 14px 34px -22px color-mix(in srgb,var(--accent) 70%,transparent)}
 @media (prefers-reduced-motion: reduce){.tr-flow.run .tr-steps a{animation:none;background:color-mix(in srgb,var(--accent) 12%,var(--paper));border-color:var(--accent)}.tr-flow.run .tr-steps a span{animation:none}.tr-flow.hl-a .ja,.tr-flow.hl-b .jb{animation:none}}
 .tr-join{display:none;width:60px;height:80px}
-@media (min-width:900px){.tr-join{display:block}}
+@media (min-width:1100px){.tr-join{display:block}}
 .tr-join path{fill:none;stroke:var(--accent);stroke-width:1.6}
 .tr-steps{list-style:none;margin:0;padding:0;display:grid;gap:.5rem;grid-template-columns:1fr}
 @media (min-width:600px){.tr-steps{grid-template-columns:repeat(5,minmax(0,1fr))}}
@@ -906,13 +906,31 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
 :root[data-theme="dark"] header.top{box-shadow:0 1px 0 #4cc2b0, 0 2px 0 rgba(76,194,176,.15)}
 
 /* split ending: 05A hand off / 05B steward (Oct 31) */
-@media (min-width:900px){.tr-flow{grid-template-columns:auto 60px 1fr 60px auto}}
+/* Learn it live card (Nov 3) */
+.ot-live{margin-top:clamp(1.8rem,4vw,2.6rem);display:grid;gap:1rem 2rem;grid-template-columns:1fr;padding:1.1rem 1.2rem 1.2rem;border:1.5px dashed color-mix(in srgb,var(--accent) 55%,transparent);border-radius:3px;background:color-mix(in srgb,var(--accent) 4%,transparent)}
+@media (min-width:760px){.ot-live{grid-template-columns:minmax(0,1fr) minmax(0,1.4fr)}}
+.ot-live h3{font-size:var(--step-1);line-height:1.15;margin:.35rem 0 .6rem}
+.ot-live .ot-for{margin:0 0 .35rem;font-size:.95rem}
+.ot-live .ot-for b{font-family:var(--mono);font-weight:500;font-size:var(--step--1);letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.ot-live .ol-side p{margin:0;font-size:.95rem;line-height:1.5;color:var(--ink-soft)}
+.ol-steps{list-style:none;margin:.9rem 0;padding:0;display:grid;gap:.5rem;grid-template-columns:repeat(3,minmax(0,1fr))}
+.ol-steps li{display:grid;gap:.15rem;border:1px solid var(--rule);background:var(--plate);border-radius:3px;padding:.55rem .6rem;font-family:var(--display);font-weight:700;font-size:.88rem;line-height:1.25;color:var(--ink);min-width:0;overflow-wrap:break-word}
+.ol-steps li span{font-family:var(--mono);font-weight:400;font-size:var(--step--1);color:var(--accent)}
+.ol-steps li:last-child{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,var(--paper))}
+.ot-live .ol-fmt{font-size:.88rem}
+.learn-sec{border-top:1px solid var(--rule)}
+.learn-sec .ot-live{margin-top:0}
+/* keep step titles inside their boxes (Nov 3) */
+@media (min-width:1100px){.tr-in .tr-chip{white-space:normal;max-width:9.5rem;line-height:1.35;border-radius:12px}.tr-end a{max-width:14.5rem}}
+.tr-steps a{align-content:start;min-width:0;overflow-wrap:break-word;hyphens:auto;-webkit-hyphens:auto}
+@media (min-width:600px){.tr-steps a{font-size:clamp(.78rem,.45rem + .62vw,.95rem);padding:.65rem .6rem}}
+@media (min-width:1100px){.tr-flow{grid-template-columns:auto 60px 1fr 60px auto}}
 @media (min-width:600px){.tr-steps{grid-template-columns:repeat(4,minmax(0,1fr))}}
 .tr-split{display:none;width:60px;height:80px}
-@media (min-width:900px){.tr-split{display:block}}
+@media (min-width:1100px){.tr-split{display:block}}
 .tr-split path{fill:none;stroke:var(--accent);stroke-width:1.6;transition:opacity .3s,stroke-width .3s}
 .tr-end{display:grid;gap:.5rem;grid-template-columns:1fr 1fr}
-@media (min-width:900px){.tr-end{grid-template-columns:1fr;gap:1.1rem}}
+@media (min-width:1100px){.tr-end{grid-template-columns:1fr;gap:1.1rem}}
 .tr-end a{display:grid;gap:.15rem;text-decoration:none;background:var(--plate);border:1px solid var(--rule);border-radius:3px;padding:.6rem .8rem;font-family:var(--display);font-weight:700;font-size:.95rem;color:var(--ink);white-space:nowrap;transition:border-color .2s,background .2s,opacity .3s}
 .tr-end a span{font-family:var(--mono);font-weight:400;font-size:var(--step--1);color:var(--accent)}
 .tr-end a:hover{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,var(--paper))}
@@ -922,7 +940,7 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
 .tr-flow.hl-a .te-a,.tr-flow.hl-b .te-b{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,var(--paper))}
 .tr-end a .te-get{display:block;margin-top:.35rem;white-space:normal;font-family:var(--body);font-weight:400;font-size:.82rem;line-height:1.45;color:var(--ink-soft)}
 .tr-end a .te-get b{font-family:var(--mono);font-weight:500;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-right:.3rem}
-@media (min-width:900px){.tr-end a{max-width:17rem}}
+@media (min-width:1100px){.tr-end a{max-width:14.5rem}}
 .ph-track{display:block;font-family:var(--mono);font-size:var(--step--1);color:var(--accent);letter-spacing:.04em;margin-bottom:.2rem}
 
 /* Phase 01 emphasis */
@@ -1198,7 +1216,7 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
       <div class="tr-flow" aria-label="Both tracks share four phases, then split: hand off, or steward over time">
         <div class="tr-in"><span class="tr-chip">Track A · Products</span><span class="tr-chip">Track B · Social innovation</span></div>
         <svg class="tr-join" viewBox="0 0 60 80" aria-hidden="true"><path class="ja" d="M2 20 C 30 20, 30 40, 56 40"/><path class="jb" d="M2 60 C 30 60, 30 40, 56 40"/><path class="h" d="M50 34 L58 40 L50 46"/></svg>
-        <ol class="tr-steps"><li style="--i:0"><a href="#p1"><span>01</span>Frame the system</a></li><li style="--i:1"><a href="#p2"><span>02</span>Nexus asks nature</a></li><li style="--i:2"><a href="#p3"><span>03</span>Prototype in hand</a></li><li style="--i:3"><a href="#p4"><span>04</span>Test in context</a></li></ol>
+        <ol class="tr-steps"><li style="--i:0"><a href="#p1"><span>01</span>Frame the system</a></li><li style="--i:1"><a href="#p2"><span>02</span>Nexus asks nature</a></li><li style="--i:2"><a href="#p3"><span>03</span>Proto&shy;type in hand</a></li><li style="--i:3"><a href="#p4"><span>04</span>Test in context</a></li></ol>
         <svg class="tr-split" viewBox="0 0 60 80" aria-hidden="true"><path class="sa" d="M2 40 C 30 40, 30 20, 56 20"/><path class="sb" d="M2 40 C 30 40, 30 60, 56 60"/></svg>
         <div class="tr-end"><a class="te-a" href="#p5" style="--i:4"><span>05A · Track A</span>Hand off<small class="te-get"><b>You leave with</b> tested concepts, a working prototype, and specs grounded in sourced biology.</small></a><a class="te-b" href="#p5b" style="--i:4"><span>05B · Track B</span>Steward and iterate<small class="te-get"><b>You leave with</b> a shared systems map, a piloted intervention, and a success plan your community can run.</small></a></div>
       </div>
@@ -1402,12 +1420,12 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
             <div class="ol-layer" data-i="0">
               <span class="label">Layer 1 of 6</span>
               <h3>Nature has already done the R&amp;D.</h3>
-              <p>Life has spent 3.8 billion years evolving ways to survive and thrive that are efficient, renewable, and fit for their place. Many of the problems we face have already been solved somewhere.</p>
+              <p>Life on planet Earth has spent 3.8 billion years evolving ways to survive and thrive that are efficient, renewable, and fit for their context. Many of the challenges we face in design, sustainability, relations, communications and more have already been solved somewhere in the natural world.</p>
             </div>
             <div class="ol-layer" data-i="1" hidden>
               <span class="label">Layer 2 of 6</span>
               <h3>Ask what it does, not what it looks like.</h3>
-              <p>Instead of copying a shape, ask a function question: how does nature keep cool, store energy, or move water?</p><p class="ol-ex">Not "make it look like a leaf," but "how does a leaf shed water?"</p>
+              <p>Instead of copying a shape, as biophilic design often does, we ask a function question: how does nature keep cool, store energy, or move water?</p><p class="ol-ex">Not "make it look like a leaf," but "how does a leaf shed water?"</p>
             </div>
             <div class="ol-layer" data-i="2" hidden>
               <span class="label">Layer 3 of 6</span>
@@ -1417,7 +1435,7 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
             <div class="ol-layer" data-i="3" hidden>
               <span class="label">Layer 4 of 6</span>
               <h3>Find the strategy underneath.</h3>
-              <p>Look past the organism to the mechanism that actually does the work.</p><p class="ol-ex">The hummingbird's green comes from layered structure, not pigment.</p>
+              <p>Look past the organism to the mechanism that actually does the work.</p><p class="ol-ex">The hummingbird's green comes from layered structural color, not pigment.</p>
             </div>
             <div class="ol-layer" data-i="4" hidden>
               <span class="label">Layer 5 of 6</span>
@@ -1438,6 +1456,34 @@ header.top{border-bottom:0;box-shadow:0 1px 0 #0d6f63, 0 2px 0 rgba(13,111,99,.1
           </div>
         </div>
       </div>
+      </div>
+  </section>
+
+  <section id="learn" class="learn-sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="label">Learn it live</span>
+          <h2 style="margin-top:.7rem">Curious, but no project yet?</h2>
+        </div>
+        <p>Bring biomimicry to your group through a talk, a hands-on workshop, or a guided nature hike. No challenge brief needed, just curiosity.</p>
+      </div>
+      <article class="ot-live" aria-label="Learn it live: talks, workshops and guided nature hikes">
+            <div class="ol-main">
+              <h3>Talks, workshops and guided nature hikes</h3>
+              <p class="ot-for"><b>For</b></p>
+              <ul class="ot-list"><li>Schools</li><li>Companies and teams</li><li>Nature centers</li><li>Conferences</li></ul>
+            </div>
+            <div class="ol-side">
+              <p>The same process, compressed into a session. We frame the question with your group, ask nature together, then explore it hands-on.</p>
+              <ol class="ol-steps" aria-label="Three steps in a session">
+                <li><span>01</span>Frame the question</li>
+                <li><span>02</span>Ask nature together</li>
+                <li><span>03</span>Experience it</li>
+              </ol>
+              <p class="ol-fmt">A presentation, a hands-on workshop, or out on a hike. For all ages.</p>
+            </div>
+          </article>
     </div>
   </section>
 

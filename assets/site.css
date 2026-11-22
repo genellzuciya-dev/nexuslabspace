@@ -2104,3 +2104,76 @@ footer .foot a,footer a{color:#f8f4ec!important;text-decoration-color:rgba(248,2
 .sx-board::before{display:none}
 .sx-side.lab .sx-board{background:#e6eaf7}
 .sx-side.space .sx-board{background:#f6e6da}
+
+/* =====================================================================
+   v13 (Nov 22 2026): cool base, neon accents
+   Warm white + cobalt and midnight carry the site. Neon green and neon orange
+   are accents only. Peach survives only as an iridescent shimmer.
+   ===================================================================== */
+:root{--flash:#f0560f;--space:#ff5a14;--space-2:#ff8a1f;--space-3:#ffb21f;--space-tint:#eef0fa;
+  --space-grad:linear-gradient(100deg,#ff4d14 0%,#ff7a1a 55%,#ffa51f 100%);
+  --split-grad:linear-gradient(100deg,#2453e6 0%,#19c7d6 48%,#ff7a1a 100%);
+  --iris:linear-gradient(100deg,#2453e6,#19c7d6 32%,#ffd3bd 52%,#a99cff 76%,#2453e6)}
+/* realization bar: six steps, starting with in-field case studies */
+.lvl ol{grid-template-columns:repeat(6,minmax(0,1fr))}
+.lvl ol::before{left:8.33%;right:8.33%}
+.lvl li:not(.on)+li.on::after{display:none}
+/* stamp: text is fitted to the circle, so no letter spacing */
+.stamp text{letter-spacing:0}
+/* page heads: cool light with a whisper of peach */
+.page-head,[data-page] .page-head{background:radial-gradient(45% 85% at 100% 0%,rgba(25,199,214,.22),transparent 70%),radial-gradient(30% 60% at 80% 0%,rgba(255,211,189,.25),transparent 70%),radial-gradient(40% 80% at 0% 0%,rgba(36,83,230,.1),transparent 70%)}
+[data-page="contact"] .page-head h1{background:var(--lab-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+#explore.band{background:linear-gradient(180deg,#eceefb,var(--paper))}
+.ticker span:nth-child(3n+2)::after{background:#ff6a14;box-shadow:0 0 10px #ff6a14}
+.founder .fd-pair{background:linear-gradient(135deg,#e6ebff,#e3f6fa)}
+
+/* contact: no peach. questions on warm white with neon orange accents; form on cool blue */
+.cs-faq{background:radial-gradient(55% 45% at 0% 0%,rgba(255,211,189,.25),transparent 70%),#fbf9f4}
+.cs-faq h2{color:#15153a}
+.cs-faq .sec-head .label,.cs-faq .faq summary::after{color:#f0560f}
+.cs-faq .faq details[open] summary{color:#f0560f}
+.cs-form{background:radial-gradient(60% 50% at 100% 0%,rgba(25,199,214,.22),transparent 70%),linear-gradient(180deg,#e2e9ff,#edf1fd)}
+
+/* two halves of one studio: electric indigo with neon cyan and neon orange */
+#wheel{background:radial-gradient(40% 55% at 3% 30%,rgba(25,230,255,.32),transparent 70%),radial-gradient(40% 55% at 98% 72%,rgba(255,106,20,.32),transparent 70%),
+  radial-gradient(35% 45% at 55% 0%,rgba(150,120,255,.3),transparent 70%),linear-gradient(180deg,#2a2fb0,#1f2390)}
+#wheel .sx-side.lab .sx-head .sx-k,#wheel .sx-side.lab .sx-where b,#wheel .sx-hubk.lab{color:#3ff0ff}
+#wheel .sx-side.space .sx-head .sx-k,#wheel .sx-side.space .sx-where b,#wheel .sx-hubk.space{color:#ff8a2a}
+#wheel .sx-side.lab{--side:#2b3bff;--side-grad:linear-gradient(90deg,#3b4bff,#19e6ff)}
+#wheel .sx-side.space{--side:#ff5a14;--side-grad:linear-gradient(90deg,#ff4d14,#ffa51f)}
+#wheel .sx-side.lab .sx-card.divider .sx-front{background:radial-gradient(90% 120% at 100% 0%,rgba(25,230,255,.45),transparent 60%),#2b3bff;color:#fff}
+#wheel .sx-side.space .sx-card.divider .sx-front{background:radial-gradient(90% 120% at 100% 0%,rgba(255,200,40,.55),transparent 60%),linear-gradient(135deg,#ff4d14,#ff7a1a);color:#15153a}
+#wheel .sx-side.lab .sx-card.divider .sx-dt{color:#fff}
+#wheel .sx-side.space .sx-card.divider .sx-dt{color:#15153a}
+#wheel .sx-side.lab .sx-card.divider .sx-dk{color:#bff8ff}
+#wheel .sx-side.space .sx-card.divider .sx-dk{color:#15153a}
+#wheel .sx-side.lab .sx-card.divider .sx-dn{color:#dfe6ff}
+#wheel .sx-side.space .sx-card.divider .sx-dn{color:#2a1608}
+#wheel .sx-tab{background:#1f2390}
+#wheel .sx-side.lab .sx-tab{color:#3ff0ff;border-color:rgba(63,240,255,.6)}
+#wheel .sx-side.space .sx-tab{color:#ff8a2a;border-color:rgba(255,138,42,.6)}
+#wheel .sx-back{background:#2f35b8}
+#wheel .sx-axle{box-shadow:0 0 18px color-mix(in srgb,var(--side) 80%,transparent)}
+#wheel .sx-axle i{background:#1f2390}
+#wheel .sx-side.lab .sx-axle i{border-color:#3ff0ff}#wheel .sx-side.space .sx-axle i{border-color:#ff8a2a}
+#wheel .sx-side.lab .sx-btn{border-color:rgba(63,240,255,.6);color:#3ff0ff}
+#wheel .sx-side.space .sx-btn{border-color:rgba(255,138,42,.6);color:#ff8a2a}
+#wheel .sx-side.lab .sx-btn:hover{background:#3ff0ff;color:#15153a}#wheel .sx-side.space .sx-btn:hover{background:#ff8a2a;color:#15153a}
+#wheel .sx-seg{stroke:#1f2390}
+#wheel .sx-seg.lab.t1{fill:#3b4bff}#wheel .sx-seg.lab.t2{fill:#19e6ff}#wheel .sx-seg.lab.t3{fill:#c4f6ff}
+#wheel .sx-seg.space.t1{fill:#ff4d14}#wheel .sx-seg.space.t2{fill:#ff9a1f}#wheel .sx-seg.space.t3{fill:#ffe1b0}
+#wheel .sx-ticks.lab line{stroke:#3ff0ff}#wheel .sx-ticks.space line{stroke:#ff8a2a}
+#wheel .sx-hubc{fill:#1a1d78;stroke:rgba(255,255,255,.3)}
+#wheel .sx-split{stroke:#1f2390}
+#wheel .sx-key .k1{background:linear-gradient(90deg,#3b4bff 50%,#ff4d14 50%)}
+#wheel .sx-key .k2{background:linear-gradient(90deg,#19e6ff 50%,#ff9a1f 50%)}
+#wheel .sx-key .k3{background:linear-gradient(90deg,#c4f6ff 50%,#ffe1b0 50%)}
+#wheel .sx-hub svg{filter:drop-shadow(0 0 14px rgba(63,240,255,.35)) drop-shadow(0 0 14px rgba(255,138,42,.25))}
+#wheel .rx-listbtn{color:#3ff0ff}
+#wheel .sx-side.lab .sx-board,#wheel .sx-side.space .sx-board{background:#eef0fa}
+#wheel .sx-side.space .sx-stamp{color:#f0560f;border-color:#f0560f}
+#wheel .sec-head::after{opacity:.9}
+/* more room between the cards and the dial */
+@media (min-width:1000px){#wheel .sx-grid{grid-template-columns:minmax(0,1fr) 12.5rem minmax(0,1fr);column-gap:4.5rem}}
+#wheel .sx{--cw:min(480px,86vw)}
+@media (min-width:1000px) and (max-width:1440px){#wheel .sx{--cw:min(480px,calc((100vw - 12.5rem - 13rem)/2))}}

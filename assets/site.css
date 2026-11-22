@@ -2311,3 +2311,5 @@ footer{background:#0A0A14}
 .brand-mark .node{filter:none}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .brand-mark .node{fill:#A196F8}}
 :root[data-theme="dark"] .brand-mark .node{fill:#A196F8}
+
+header.top{box-shadow:0 1px 0 rgba(127,58,237,.55),0 2px 0 rgba(127,58,237,.12)}

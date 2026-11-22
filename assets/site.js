@@ -1337,7 +1337,7 @@ try{
   if(!band||!canvas||!canvas.getContext)return;
   var ctx=canvas.getContext('2d'), W=0, H=0, dpr=1, nodes=[], pulses=[], raf=0, mx=null, my=null, visible=true, line='13,111,99', dot='18,42,39', last=0, nextFire=0, D=140;
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var POP_LIGHT=['25,230,214','255,90,60','77,77,255','150,230,30','255,160,30'], POP_DARK=['60,255,235','255,120,90','130,130,255','200,255,60','255,190,70'], POP=POP_LIGHT;
+  var POP_LIGHT=['127,58,237','19,194,183','198,255,52','255,106,31','108,95,255'], POP_DARK=['161,150,248','63,230,218','198,255,52','255,138,61','140,128,255'], POP=POP_LIGHT;
   function rgb(v){v=v.trim();if(v[0]==='#'){if(v.length===4)v='#'+v[1]+v[1]+v[2]+v[2]+v[3]+v[3];return [1,3,5].map(function(i){return parseInt(v.substr(i,2),16)}).join(',');}
     var m=v.match(/[\d.]+/g);return m?m.slice(0,3).join(','):null;}
   function isDark(){var t=document.documentElement.getAttribute('data-theme');return t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;}
@@ -1701,6 +1701,7 @@ try{
       });
     });
     cards.forEach(function(c){drum.appendChild(c);});
+    var api={dragging:false, step:Math.min(26,150/Math.max(1,cards.length-1))};
     function layout(){
       cards.forEach(function(c,i){
         var d=i-cur, rot, z, op=1;
@@ -1716,14 +1717,13 @@ try{
       var t=cards[cur].dataset.tier;
       where.innerHTML='<b>'+TL[t]+'</b> · '+pad(cur+1)+' / '+pad(cards.length);
       segs.forEach(function(s){ if(s.dataset.side===sd) s.classList.toggle('is-on',s.dataset.tier===t); });
-      if(ticks) ticks.style.transform='rotate('+(sd==='lab'?-1:1)*cur*14+'deg)';
+      if(ticks && !api.dragging){ ticks.style.transition=''; ticks.style.transform='rotate('+(sd==='lab'?-1:1)*cur*api.step+'deg)'; }
     }
     function go(n){ n=Math.max(0,Math.min(cards.length-1,n)); if(n===cur) return false; cur=n; layout(); return true; }
     el.querySelectorAll('.sx-btn').forEach(function(b){ b.addEventListener('click',function(){go(cur+parseInt(b.dataset.dir,10));}); });
     drum.addEventListener('click',function(e){ var c=e.target.closest('.sx-card'); if(!c||e.target.closest('a')) return; var i=cards.indexOf(c); if(i!==cur) go(i); });
     stage.addEventListener('keydown',function(e){ var k=e.key,n=null; if(k==='ArrowDown'||k==='ArrowRight'||k==='PageDown') n=cur+1; else if(k==='ArrowUp'||k==='ArrowLeft'||k==='PageUp') n=cur-1; else if(k==='Home') n=0; else if(k==='End') n=cards.length-1; if(n!==null){e.preventDefault();go(n);} });
-    var acc=0,lastT=0;
-    stage.addEventListener('wheel',function(e){ var dir=e.deltaY>0?1:-1; if((dir>0&&cur===cards.length-1)||(dir<0&&cur===0)){acc=0;return;} e.preventDefault(); acc+=e.deltaY; var now=Date.now(); if(Math.abs(acc)>=40&&now-lastT>95){go(cur+dir);acc=0;lastT=now;} },{passive:false});
+    /* page scrolling is never captured: flip with the dial, the buttons, a drag or the arrow keys */
     /* drag with a little momentum: a fast flick spins several cards */
     var sy=null,lastY=0,lastTs=0,vel=0;
     stage.addEventListener('pointerdown',function(e){ if(e.pointerType==='touch'||e.target.closest('a,button')) return; sy=e.clientY; lastY=e.clientY; lastTs=e.timeStamp; vel=0; });
@@ -1733,7 +1733,8 @@ try{
     stage.addEventListener('touchstart',function(e){tx=e.touches[0].clientX;},{passive:true});
     stage.addEventListener('touchmove',function(e){ if(tx===null) return; var dx=e.touches[0].clientX-tx; if(Math.abs(dx)>40){go(cur+(dx<0?1:-1)); tx=e.touches[0].clientX;} },{passive:true});
     layout();
-    return {go:go, mark:function(t){return marks[t];}};
+    api.go=go; api.mark=function(t){return marks[t];}; api.cur=function(){return cur;}; api.n=cards.length; api.ticks=ticks; api.layout=layout;
+    return api;
   }
   drums.lab=build('lab'); drums.space=build('space');
   segs.forEach(function(s){
@@ -1741,6 +1742,30 @@ try{
     s.addEventListener('click',pick);
     s.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){e.preventDefault();pick();} });
   });
+  /* grab-and-turn dial: each half of the wheel turns its own rotary file */
+  (function(){
+    var svg=sx.querySelector('.sx-hub svg'); if(!svg) return;
+    var drag=null, moved=false;
+    function ang(e){ var r=svg.getBoundingClientRect(), cx=r.left+r.width/2, cy=r.top+r.height/2; return {a:Math.atan2(e.clientY-cy,e.clientX-cx)*180/Math.PI, side:(e.clientX<cx?'lab':'space')}; }
+    svg.addEventListener('pointerdown',function(e){
+      var p=ang(e), d=drums[p.side]; drag={side:p.side, d:d, a0:p.a, last:p.a, acc:0, start:d.cur()}; moved=false;
+      d.dragging=true; d.ticks.style.transition='none'; svg.setPointerCapture(e.pointerId); sx.classList.add('dial-grab'); sx.dataset.grab=p.side; e.preventDefault();
+    });
+    svg.addEventListener('pointermove',function(e){
+      if(!drag) return; var p=ang(e), da=p.a-drag.last; if(da>180) da-=360; if(da<-180) da+=360; drag.last=p.a; drag.acc+=da; if(Math.abs(drag.acc)>3) moved=true;
+      var d=drag.d, sign=drag.side==='lab'?-1:1, steps=Math.round(sign*drag.acc/d.step), target=Math.max(0,Math.min(d.n-1,drag.start+steps));
+      if(target!==d.cur()) d.go(target);
+      var live=drag.start*d.step+sign*drag.acc; live=Math.max(0,Math.min((d.n-1)*d.step,live));
+      d.ticks.style.transform='rotate('+(sign*live)+'deg)';
+    });
+    function end(){ if(!drag) return; var d=drag.d; d.dragging=false; d.layout(); drag=null; sx.classList.remove('dial-grab'); delete sx.dataset.grab; }
+    svg.addEventListener('pointerup',end); svg.addEventListener('pointercancel',end);
+    /* a plain click on a ring still jumps; a turn does not */
+    svg.addEventListener('click',function(e){ if(moved){ e.stopPropagation(); e.preventDefault(); moved=false; } },true);
+    /* keyboard: a focused ring turns its half with the arrow keys */
+    segs.forEach(function(sg){ sg.addEventListener('keydown',function(e){ var d=drums[sg.dataset.side], k=e.key;
+      if(k==='ArrowDown'||k==='ArrowRight'){ e.preventDefault(); d.go(d.cur()+1); } if(k==='ArrowUp'||k==='ArrowLeft'){ e.preventDefault(); d.go(d.cur()-1); } }); });
+  })();
   sx.addEventListener('click',function(e){
     var a=e.target.closest('a.see-work'); if(!a) return;
     var d=document.getElementById(a.getAttribute('data-open')); if(!d) return;

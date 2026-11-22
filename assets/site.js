@@ -1489,8 +1489,9 @@ try{
   if('IntersectionObserver' in window){new IntersectionObserver(function(es){visible=es[0].isIntersecting;}).observe(box);}
   function loop(now){
     var t=(now-start)/1000;
-    if(now-last>3500){target=15+20*Math.sin(t*.35);}
-    tilt+=(target-tilt)*0.08;
+    /* on landing: a quick full sweep so the color shift reads as live and interactive; then a steady back-and-forth until someone takes over */
+    if(now-last>3500){ target = t<9 ? 38*Math.sin(t*2.6) : 32*Math.sin(t*1.3); }
+    tilt+=(target-tilt)*(now-last>3500?0.45:0.12);
     if(Math.abs(+slider.value-tilt)>0.5&&document.activeElement!==slider)slider.value=Math.round(tilt);
     if(visible)draw(t);
     requestAnimationFrame(loop);
@@ -1667,7 +1668,7 @@ try{
         var sealed=w.classList.contains('wc-sealed');
         c.className='sx-card '+t+(sealed?' sealed':'')+(img||sealed?' board':' noimg'); c.dataset.tier=t;
         var board='';
-        if(img){ board='<div class="sx-board"><img class="sx-main" src="'+img+'" alt="" loading="lazy" draggable="false">'+
+        if(img){ board='<div class="sx-board" style="--bg:url(\''+img+'\')"><img class="sx-main" src="'+img+'" alt="" loading="lazy" draggable="false">'+
           th.map(function(u,k){return '<figure class="sx-pin p'+k+'"><img src="'+u+'" alt="" loading="lazy" draggable="false"></figure>';}).join('')+
           '<i class="sx-tape"></i></div>'; }
         else if(sealed){ board='<div class="sx-board sx-sealedboard"><span class="sx-stamp">Under wraps</span></div>'; }

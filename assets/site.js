@@ -1514,7 +1514,7 @@ try{
   function loop(now){
     var t=(now-start)/1000;
     /* on landing: a quick full sweep so the color shift reads as live and interactive; then a steady back-and-forth until someone takes over */
-    if(now-last>3500){ target = t<9 ? 38*Math.sin(t*2.6) : 32*Math.sin(t*1.3); }
+    if(now-last>3500){ target = t<9 ? 38*Math.sin(t*1.75) : 32*Math.sin(t*0.85); }
     tilt+=(target-tilt)*(now-last>3500?0.45:0.12);
     if(Math.abs(+slider.value-tilt)>0.5&&document.activeElement!==slider)slider.value=Math.round(tilt);
     if(visible)draw(t);
@@ -1777,3 +1777,18 @@ try{
 })();
 
 }catch(e){ if(window.console) console.warn('[nexus]',e); }
+/* hero card: scale gently so the whole case study card fits the screen height on desktop (never below 80%) */
+(function(){try{
+  var d=document.getElementById('hdeck'); if(!d) return;
+  function fit(){
+    d.style.zoom='';
+    if(innerWidth<=900) return;
+    var hdr=document.querySelector('header.top');
+    var avail=innerHeight-(hdr?hdr.offsetHeight:0)-40;
+    var h=d.getBoundingClientRect().height;
+    var s=Math.max(.8,Math.min(1,avail/h));
+    if(s<.995) d.style.zoom=s.toFixed(3);
+  }
+  var t; addEventListener('resize',function(){clearTimeout(t);t=setTimeout(fit,120)});
+  addEventListener('load',fit); fit();
+}catch(e){}})();

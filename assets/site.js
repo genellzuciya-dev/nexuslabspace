@@ -1337,7 +1337,7 @@ try{
   if(!band||!canvas||!canvas.getContext)return;
   var ctx=canvas.getContext('2d'), W=0, H=0, dpr=1, nodes=[], pulses=[], raf=0, mx=null, my=null, visible=true, line='13,111,99', dot='18,42,39', last=0, nextFire=0, D=140;
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var POP_LIGHT=['61,107,255','108,95,255','255,79,31','255,194,26','124,199,255'], POP_DARK=['124,199,255','185,170,255','255,122,69','255,194,26','246,184,216'], POP=POP_LIGHT;
+  var POP_LIGHT=['54,112,255','249,214,1','54,112,255','23,23,23','127,162,255'], POP_DARK=['127,162,255','249,214,1','255,231,102','239,239,239','54,112,255'], POP=POP_LIGHT;
   function rgb(v){v=v.trim();if(v[0]==='#'){if(v.length===4)v='#'+v[1]+v[1]+v[2]+v[2]+v[3]+v[3];return [1,3,5].map(function(i){return parseInt(v.substr(i,2),16)}).join(',');}
     var m=v.match(/[\d.]+/g);return m?m.slice(0,3).join(','):null;}
   function isDark(){var t=document.documentElement.getAttribute('data-theme');return t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;}

@@ -1313,11 +1313,11 @@ try{
   if(!band||!canvas||!canvas.getContext)return;
   var ctx=canvas.getContext('2d'), W=0, H=0, dpr=1, nodes=[], pulses=[], raf=0, mx=null, my=null, visible=true, line='13,111,99', dot='18,42,39', last=0, nextFire=0, D=140;
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var POP_LIGHT=['16,185,150','44,150,230','122,92,214','214,58,150','30,200,120'], POP_DARK=['76,230,190','90,190,255','170,140,255','255,110,190','110,240,150'], POP=POP_LIGHT;
+  var POP_LIGHT=['25,230,214','255,90,60','77,77,255','150,230,30','255,160,30'], POP_DARK=['60,255,235','255,120,90','130,130,255','200,255,60','255,190,70'], POP=POP_LIGHT;
   function rgb(v){v=v.trim();if(v[0]==='#'){if(v.length===4)v='#'+v[1]+v[1]+v[2]+v[2]+v[3]+v[3];return [1,3,5].map(function(i){return parseInt(v.substr(i,2),16)}).join(',');}
     var m=v.match(/[\d.]+/g);return m?m.slice(0,3).join(','):null;}
   function isDark(){var t=document.documentElement.getAttribute('data-theme');return t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;}
-  function colors(){var cs=getComputedStyle(document.documentElement);line=rgb(cs.getPropertyValue('--accent'))||line;dot=rgb(cs.getPropertyValue('--ink'))||dot;POP=isDark()?POP_DARK:POP_LIGHT;}
+  function colors(){var cs=getComputedStyle(band);line=rgb(cs.getPropertyValue('--accent'))||line;dot=rgb(cs.getPropertyValue('--ink'))||dot;POP=isDark()?POP_DARK:POP_LIGHT;}
   function size(){var r=band.getBoundingClientRect();dpr=Math.min(window.devicePixelRatio||1,2);W=r.width;H=r.height;
     canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);D=Math.min(160,Math.max(110,W/9));}
   function spawn(){nodes=[];pulses=[];var n=Math.max(34,Math.min(130,Math.floor(W*H/12000)));

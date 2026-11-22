@@ -2203,3 +2203,113 @@ footer .foot a,footer a{color:#f8f4ec!important;text-decoration-color:rgba(248,2
 
 /* contact: founder sits under the form */
 [data-page="contact"] #founder{border-top:1px solid var(--rule)}
+
+/* =====================================================================
+   Palette D · Violet voltage (Nov 22 2026)
+   Ink #0A0A14 · Deep iris #3D0F6E · Electric violet #7F3AED · Blue genie #6C5FFF
+   Winter lilac #A196F8 · Mermaid lagoon #13C2B7 · Lime #C6FF34 · Tangerine #FF6A1F
+   Lab = violet, blue genie, lagoon. Space = tangerine. Lime = small sparks only.
+   ===================================================================== */
+:root{--paper:#F6F4FC;--cream:#F6F4FC;--plate:#ECE8F8;--band:#ECE7FB;--ink:#0A0A14;--ink-soft:#4A4566;--rule:#DCD6EE;
+  --accent:#7F3AED;--flash:#E2560F;--on-accent:#ffffff;--leaf:#C6FF34;--forest:#0A0A14;--logo:#0A0A14;
+  --lab:#7F3AED;--lab-2:#6C5FFF;--lab-3:#13C2B7;--lab-deep:#3D0F6E;--lab-tint:#E9E2FF;--lab-neon:#3FE6DA;
+  --space:#FF6A1F;--space-2:#FF8A3D;--space-3:#FFB13D;--space-tint:#F1EEFB;
+  --lab-grad:linear-gradient(100deg,#7F3AED 0%,#6C5FFF 50%,#13C2B7 100%);
+  --space-grad:linear-gradient(100deg,#FF6A1F 0%,#FF8A3D 55%,#FFB13D 100%);
+  --split-grad:linear-gradient(100deg,#7F3AED 0%,#6C5FFF 35%,#13C2B7 62%,#FF6A1F 100%);
+  --iris:linear-gradient(100deg,#7F3AED,#A196F8 30%,#13C2B7 60%,#C6FF34 82%,#7F3AED)}
+
+/* hero: lilac-white into ink, violet lines, neon pods */
+.hero-band{--accent:#6C5FFF;--ink:#0A0A14;
+  background:radial-gradient(38% 50% at 96% 2%,rgba(127,58,237,.22),transparent 70%),radial-gradient(30% 40% at 4% 60%,rgba(19,194,183,.14),transparent 70%),
+  radial-gradient(90% 140px at 50% 100%,#0A0A14 0%,transparent 100%),
+  linear-gradient(180deg,var(--paper) 0%,var(--paper) 38%,#E9E2FF 64%,#D9CFFB calc(100% - 150px),#0A0A14 100%)}
+.hero-band::after{background:radial-gradient(28% 32% at 72% 58%,rgba(127,58,237,.18),transparent 70%),radial-gradient(30% 30% at 20% 72%,rgba(19,194,183,.14),transparent 70%)!important}
+.hero h1{color:#0A0A14}
+.hero h1 em{background:linear-gradient(95deg,#7F3AED 0%,#6C5FFF 70%,#13C2B7 120%);-webkit-background-clip:text;background-clip:text;color:transparent}
+#hdeck{box-shadow:0 34px 70px -38px rgba(61,15,110,.6),0 0 0 1px rgba(127,58,237,.08),0 2px 0 rgba(255,255,255,.7) inset}
+#hdeck .deck-nav button[aria-selected="true"] i::after{background:#7F3AED}
+.hero .btn-primary::after{background-color:#C6FF34;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8h9M8.5 4.5L12 8l-3.5 3.5' fill='none' stroke='%230A0A14' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+.hero .stamp .core{fill:#C6FF34}
+.ticker{background:#0A0A14}
+.ticker span:nth-child(3n+1)::after{background:#13C2B7;box-shadow:0 0 10px #13C2B7}
+.ticker span:nth-child(3n+2)::after{background:#FF6A1F;box-shadow:0 0 10px #FF6A1F}
+.ticker span:nth-child(3n)::after{background:#C6FF34;box-shadow:0 0 10px #C6FF34}
+.btn-primary{background:#0A0A14;border-color:#0A0A14}
+.btn-primary:hover{background:var(--lab-grad);border-color:transparent}
+
+/* page heads and bands */
+.page-head,[data-page] .page-head{background:radial-gradient(45% 85% at 100% 0%,rgba(127,58,237,.18),transparent 70%),radial-gradient(30% 60% at 78% 0%,rgba(19,194,183,.16),transparent 70%)}
+#explore.band{background:linear-gradient(180deg,#ECE7FB,var(--paper))}
+#method.band{background:linear-gradient(180deg,#ECE7FB,#E6DEFE)}
+.founder .fd-pair{background:linear-gradient(135deg,#E9E2FF,#DDF6F3)}
+
+/* collaborate page: ocean lagoon for the open-space section, ink band with violet and lagoon glow */
+#learn{--accent:#6C5FFF;background:linear-gradient(180deg,#E2F6F4,color-mix(in srgb,#E2F6F4 40%,var(--paper)))}
+#engage.band{background:radial-gradient(50% 60% at 100% 0%,rgba(19,194,183,.2),transparent 70%),radial-gradient(45% 60% at 0% 100%,rgba(127,58,237,.38),transparent 70%),#0A0A14}
+#engage .eng:nth-child(2)::before{background:var(--lab-grad)}
+#engage .eng:nth-child(3)::before{background:var(--space-grad)}
+#engage .eng.feature{box-shadow:0 0 40px -10px rgba(198,255,52,.5)}
+
+/* contact */
+.cs-faq{background:radial-gradient(55% 45% at 0% 0%,rgba(255,106,31,.1),transparent 70%),#F6F4FC}
+.cs-faq h2{color:#0A0A14}
+.cs-faq .sec-head .label,.cs-faq .faq summary::after,.cs-faq .faq details[open] summary{color:#E2560F}
+.cs-form{background:radial-gradient(60% 50% at 100% 0%,rgba(19,194,183,.18),transparent 70%),linear-gradient(180deg,#E9E2FF,#F0ECFD)}
+.cs-form h2{color:#3D0F6E}
+.cs-form .steps li::marker,.cs-form .steps span{color:#7F3AED}
+.cs-form input,.cs-form textarea,.cs-form .radio-row label{background:#FBFAFF}
+
+/* two halves of one studio: ink with violet, lagoon and tangerine voltage */
+#wheel{background:radial-gradient(40% 55% at 3% 30%,rgba(127,58,237,.5),transparent 70%),radial-gradient(40% 55% at 98% 72%,rgba(255,106,31,.3),transparent 70%),
+  radial-gradient(35% 45% at 50% 0%,rgba(19,194,183,.2),transparent 70%),linear-gradient(180deg,#160E2E,#0A0A14)}
+#wheel .sec-head p,#wheel .sx-head p,#wheel .sx-where,#wheel .rx-hint,#wheel .sx-key{color:#C9C3E6}
+#wheel .sx-side.lab .sx-head .sx-k,#wheel .sx-side.lab .sx-where b,#wheel .sx-hubk.lab{color:#3FE6DA}
+#wheel .sx-side.space .sx-head .sx-k,#wheel .sx-side.space .sx-where b,#wheel .sx-hubk.space{color:#FF8A3D}
+#wheel .sx-side.lab{--side:#7F3AED;--side-grad:linear-gradient(90deg,#7F3AED,#6C5FFF 50%,#13C2B7)}
+#wheel .sx-side.space{--side:#FF6A1F;--side-grad:linear-gradient(90deg,#FF6A1F,#FFB13D)}
+#wheel .sx-side.lab .sx-card.divider .sx-front{background:radial-gradient(90% 120% at 100% 0%,rgba(19,194,183,.5),transparent 60%),linear-gradient(135deg,#7F3AED,#6C5FFF);color:#fff}
+#wheel .sx-side.space .sx-card.divider .sx-front{background:radial-gradient(90% 120% at 100% 0%,rgba(255,200,80,.5),transparent 60%),#FF6A1F;color:#0A0A14}
+#wheel .sx-side.lab .sx-card.divider .sx-dt{color:#fff}
+#wheel .sx-side.lab .sx-card.divider .sx-dk{color:#C6FF34}
+#wheel .sx-side.lab .sx-card.divider .sx-dn{color:#ECE7FF}
+#wheel .sx-side.space .sx-card.divider .sx-dt,#wheel .sx-side.space .sx-card.divider .sx-dk{color:#0A0A14}
+#wheel .sx-side.space .sx-card.divider .sx-dn{color:#2A1206}
+#wheel .sx-tab{background:#160E2E}
+#wheel .sx-side.lab .sx-tab{color:#3FE6DA;border-color:rgba(63,230,218,.6)}
+#wheel .sx-side.space .sx-tab{color:#FF8A3D;border-color:rgba(255,138,61,.6)}
+#wheel .sx-back{background:#241843;border-color:rgba(255,255,255,.08)}
+#wheel .sx-axle i{background:#160E2E}
+#wheel .sx-side.lab .sx-axle i{border-color:#3FE6DA}#wheel .sx-side.space .sx-axle i{border-color:#FF8A3D}
+#wheel .sx-side.lab .sx-btn{border-color:rgba(63,230,218,.6);color:#3FE6DA}
+#wheel .sx-side.space .sx-btn{border-color:rgba(255,138,61,.6);color:#FF8A3D}
+#wheel .sx-side.lab .sx-btn:hover{background:#3FE6DA;color:#0A0A14}#wheel .sx-side.space .sx-btn:hover{background:#FF8A3D;color:#0A0A14}
+#wheel .sx-seg{stroke:#120B26}
+#wheel .sx-seg.lab.t1{fill:#7F3AED}#wheel .sx-seg.lab.t2{fill:#13C2B7}#wheel .sx-seg.lab.t3{fill:#D3CBFF}
+#wheel .sx-seg.space.t1{fill:#FF6A1F}#wheel .sx-seg.space.t2{fill:#FFB13D}#wheel .sx-seg.space.t3{fill:#FFE2C4}
+#wheel .sx-ticks.lab line{stroke:#3FE6DA}#wheel .sx-ticks.space line{stroke:#FF8A3D}
+#wheel .sx-ticks.lab .sx-knob{fill:#C6FF34;filter:drop-shadow(0 0 6px #C6FF34)}
+#wheel .sx-ticks.space .sx-knob{fill:#FF8A3D;filter:drop-shadow(0 0 6px #FF8A3D)}
+#wheel .sx-knob{stroke:#120B26}
+#wheel .sx-hubc{fill:#160E2E;stroke:rgba(255,255,255,.25)}
+#wheel .sx-split{stroke:#120B26}
+#wheel .sx-key .k1{background:linear-gradient(90deg,#7F3AED 50%,#FF6A1F 50%)}
+#wheel .sx-key .k2{background:linear-gradient(90deg,#13C2B7 50%,#FFB13D 50%)}
+#wheel .sx-key .k3{background:linear-gradient(90deg,#D3CBFF 50%,#FFE2C4 50%)}
+#wheel .sx-hub svg{filter:drop-shadow(0 0 16px rgba(127,58,237,.45)) drop-shadow(0 0 14px rgba(255,106,31,.25))}
+#wheel .sx-hub::after{color:#C9C3E6}
+#wheel .rx-listbtn{color:#3FE6DA}
+#wheel .sx-side.lab .sx-board,#wheel .sx-side.space .sx-board{background:#F1EEFB}
+#wheel .sx-side.lab .sx-stamp{color:#7F3AED;border-color:#7F3AED}
+#wheel .sx-side.space .sx-stamp{color:#E2560F;border-color:#E2560F}
+#wheel .sx-txt .originTag{border-color:var(--side);color:var(--side)}
+#wheel .sx-side.space .sx-txt .originTag{color:#E2560F;border-color:#E2560F}
+.originTag.ot-partner{background:#FF6A1F;border-color:#FF6A1F;color:#0A0A14}
+footer{background:#0A0A14}
+
+/* logo A: ink mark, violet nodes (lilac nodes on a cream mark in dark mode) */
+.brand-mark .node{filter:none}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .brand-mark .node{fill:#A196F8}}
+:root[data-theme="dark"] .brand-mark .node{fill:#A196F8}
+
+header.top{box-shadow:0 1px 0 rgba(127,58,237,.55),0 2px 0 rgba(127,58,237,.12)}

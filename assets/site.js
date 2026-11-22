@@ -1663,9 +1663,15 @@ try{
         (real.length? real.length+(real.length===1?' card':' cards')+' behind this tab' : (slot?slot.querySelector('.wc-line').textContent:''))+'</p></div></div><div class="sx-face sx-back"></div>';
       cards.push(d);
       real.forEach(function(w){
-        var img=w.getAttribute('data-img'), c=document.createElement('div');
-        c.className='sx-card '+t+(w.classList.contains('wc-sealed')?' sealed':'')+(img?'':' noimg'); c.dataset.tier=t;
-        c.innerHTML='<div class="sx-face sx-front">'+(img?'<div class="sx-img"><img src="'+img+'" alt="" loading="lazy" draggable="false"></div>':'')+'<div class="sx-txt">'+w.innerHTML+'</div></div><div class="sx-face sx-back"></div>';
+        var img=w.getAttribute('data-img'), th=(w.getAttribute('data-thumbs')||'').split(',').filter(Boolean), c=document.createElement('div');
+        var sealed=w.classList.contains('wc-sealed');
+        c.className='sx-card '+t+(sealed?' sealed':'')+(img||sealed?' board':' noimg'); c.dataset.tier=t;
+        var board='';
+        if(img){ board='<div class="sx-board"><img class="sx-main" src="'+img+'" alt="" loading="lazy" draggable="false">'+
+          th.map(function(u,k){return '<figure class="sx-pin p'+k+'"><img src="'+u+'" alt="" loading="lazy" draggable="false"></figure>';}).join('')+
+          '<i class="sx-tape"></i></div>'; }
+        else if(sealed){ board='<div class="sx-board sx-sealedboard"><span class="sx-stamp">Under wraps</span></div>'; }
+        c.innerHTML='<div class="sx-face sx-front">'+board+'<div class="sx-txt">'+w.innerHTML+'</div></div><div class="sx-face sx-back"></div>';
         cards.push(c);
       });
     });

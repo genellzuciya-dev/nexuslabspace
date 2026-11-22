@@ -2306,3 +2306,8 @@ footer .foot a,footer a{color:#f8f4ec!important;text-decoration-color:rgba(248,2
 #wheel .sx-side.space .sx-txt .originTag{color:#E2560F;border-color:#E2560F}
 .originTag.ot-partner{background:#FF6A1F;border-color:#FF6A1F;color:#0A0A14}
 footer{background:#0A0A14}
+
+/* logo A: ink mark, violet nodes (lilac nodes on a cream mark in dark mode) */
+.brand-mark .node{filter:none}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .brand-mark .node{fill:#A196F8}}
+:root[data-theme="dark"] .brand-mark .node{fill:#A196F8}

@@ -2177,3 +2177,29 @@ footer .foot a,footer a{color:#f8f4ec!important;text-decoration-color:rgba(248,2
 @media (min-width:1000px){#wheel .sx-grid{grid-template-columns:minmax(0,1fr) 12.5rem minmax(0,1fr);column-gap:4.5rem}}
 #wheel .sx{--cw:min(480px,86vw)}
 @media (min-width:1000px) and (max-width:1440px){#wheel .sx{--cw:min(480px,calc((100vw - 12.5rem - 13rem)/2))}}
+
+/* ===== v14 (Nov 22 2026) ===== */
+/* dial: grab and turn */
+#wheel .sx-hub svg{cursor:grab;touch-action:none}
+#wheel .sx.dial-grab .sx-hub svg{cursor:grabbing}
+#wheel .sx-knob{stroke:#1f2390;stroke-width:3}
+#wheel .sx-ticks.lab .sx-knob{fill:#3ff0ff;filter:drop-shadow(0 0 6px #3ff0ff)}
+#wheel .sx-ticks.space .sx-knob{fill:#ff8a2a;filter:drop-shadow(0 0 6px #ff8a2a)}
+#wheel .sx[data-grab="lab"] .sx-seg.space,#wheel .sx[data-grab="space"] .sx-seg.lab{opacity:.25!important}
+#wheel .sx-hub::after{content:"Drag to turn";position:absolute;left:0;right:0;bottom:-1.6rem;text-align:center;font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:#cfd0f0;opacity:.8}
+@media (max-width:999px){#wheel .sx-hub::after{bottom:auto;top:calc(100% - 4.4rem)}}
+#wheel .sx-ticks{transition:transform .55s cubic-bezier(.3,1.35,.5,1)}
+
+/* hero: a hit of neon orange for vitality and contrast */
+.hero h1 em{background:linear-gradient(95deg,#ff4d14 0%,#ff7a1a 60%,#ffa51f 100%);-webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:.08em}
+.hero-band{background:radial-gradient(38% 50% at 96% 2%,rgba(255,106,20,.28),transparent 70%),radial-gradient(90% 140px at 50% 100%,#0b241f 0%,transparent 100%),
+  linear-gradient(180deg,var(--paper) 0%,var(--paper) 38%,color-mix(in srgb,var(--paper) 45%,#cfe0d3) 62%,#cfe0d3 calc(100% - 150px),#0b241f 100%)}
+#hdeck{box-shadow:0 34px 70px -38px rgba(11,36,31,.7),0 0 0 1px rgba(255,106,20,.08),0 2px 0 rgba(255,255,255,.6) inset}
+#hdeck .deck-nav button[aria-selected="true"] i::after{background:#ff5a14}
+#hdeck .deck-nav button[aria-selected="true"] span{color:#15153a}
+.hero .btn-primary::after{background-color:#ff6a14;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8h9M8.5 4.5L12 8l-3.5 3.5' fill='none' stroke='%23ffffff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+.hero .stamp .core{fill:#ff6a14}
+.ticker{background:#0b241f}
+
+/* contact: founder sits under the form */
+[data-page="contact"] #founder{border-top:1px solid var(--rule)}

@@ -2618,7 +2618,10 @@ header.top::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height
 .hdeck figcaption{font-size:.8rem;line-height:1.45;row-gap:.3rem!important}
 .hdeck figcaption>span{line-height:1.45}
 .hero{padding-top:clamp(1.5rem,3vw,2.75rem)}
-#hdeck .specimen .inset{width:clamp(110px,21%,190px)!important}
+#hdeck .specimen:not(.sf-sim) .inset{width:clamp(110px,21%,190px)!important}
+/* hummingbird photo: wider, landscape crop so it fills more of the plate without covering the readouts */
+#hdeck .deck-card[data-i="0"] .specimen .inset{width:clamp(170px,32%,300px)!important}
+#hdeck .deck-card[data-i="0"] .specimen .inset img{aspect-ratio:4/3!important;object-position:55% 40%}
 
 /* =====================================================================
    Two halves · Full spectrum nacre neon (Nov 22 2026)
@@ -2686,3 +2689,43 @@ header.top::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height
 .hud-vine .leaf{fill:rgba(255,95,174,.1);stroke:#FF5FAE}
 #wheel .sx-hub::before{left:0;top:1.6rem;width:100%;aspect-ratio:1;transform:scale(1.1);
   -webkit-mask:radial-gradient(closest-side,transparent 93%,#000 94%,#000 98%,transparent 99%);mask:radial-gradient(closest-side,transparent 93%,#000 94%,#000 98%,transparent 99%)}
+
+#hdeck .deck-nav{grid-template-columns:repeat(7,minmax(0,1fr))!important}
+/* LeafQuest flashcards: size by height so the whole card shows in the shorter hero plate */
+#hdeck .lq-cards{top:2.3rem;bottom:36%;align-items:stretch}
+#hdeck .lqc{display:flex;align-items:center;justify-content:center;min-height:0;height:100%}
+#hdeck .lqc-in{height:100%;width:auto;max-width:100%}
+/* keep descenders (y, p, j, g) inside gradient-clipped headlines */
+.hero h1 em{padding-bottom:.2em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.page-head h1,.page-head h1 em{padding-bottom:.14em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+#wheel h2{padding-bottom:.12em}
+
+/* =====================================================================
+   Two halves · neon swapped to cyan and mint (Nov 22 2026)
+   Lab cyan #3FE0FF, Space mint #4DFFC3, sun gold #FFC21A as the small spark.
+   ===================================================================== */
+#wheel{--neon-r:#4DFFC3;--neon-spectrum:linear-gradient(90deg,#3FE0FF,#7CEFE6 50%,#4DFFC3)}
+#wheel .sec-head .label::before{background:#FFC21A!important;box-shadow:0 0 10px #FFC21A!important}
+#wheel .sx-side.space{--side:#4DFFC3;--hc:#4DFFC3;--side-grad:linear-gradient(90deg,#9DFFE0,#4DFFC3)}
+#wheel .sx-side.lab{--side-grad:linear-gradient(90deg,#3FE0FF,#7CC7FF)}
+#wheel .sx-side.space .sx-head .sx-k,#wheel .sx-side.space .sx-where b,#wheel .sx-hubk.space{color:#4DFFC3;text-shadow:0 0 10px rgba(77,255,195,.55)}
+#wheel .sx-side.space .sx-tab{color:#4DFFC3;border-color:#4DFFC3;box-shadow:0 0 10px -2px #4DFFC3}
+#wheel .sx-side.space .sx-btn{border-color:#4DFFC3;color:#4DFFC3;box-shadow:0 0 12px -3px #4DFFC3}
+#wheel .sx-side.space .sx-btn:hover{background:#4DFFC3;color:#101538}
+#wheel .sx-side.space .sx-axle i{border-color:#4DFFC3}
+#wheel .sx-hub svg{filter:drop-shadow(0 0 2px rgba(255,255,255,.4)) drop-shadow(0 0 14px rgba(63,224,255,.45)) drop-shadow(0 0 18px rgba(77,255,195,.35))}
+#wheel .sx-hub::before{background:conic-gradient(from 0deg,#3FE0FF,#4DFFC3 50%,#3FE0FF);filter:drop-shadow(0 0 6px rgba(77,255,195,.7))}
+#wheel .sx-ticks.space line{stroke:#4DFFC3}
+#wheel .sx-ticks.space .sx-knob{fill:#4DFFC3;filter:drop-shadow(0 0 7px #4DFFC3)}
+#wheel .sx-key .k1{background:linear-gradient(90deg,#3FE0FF 50%,#4DFFC3 50%)}
+#wheel .sx-key .k2{background:linear-gradient(90deg,#7CC7FF 50%,#9DFFE0 50%)}
+#wheel .sec-head::after{box-shadow:0 0 12px rgba(77,255,195,.45)}
+.hud-c.tr{border-color:#7CC7FF;filter:drop-shadow(0 0 6px #7CC7FF)}.hud-t.tr{color:#7CC7FF}
+.hud-c.br{border-color:#4DFFC3;filter:drop-shadow(0 0 6px #4DFFC3)}.hud-t.br{color:#4DFFC3}
+.hud-c.bl{border-color:#FFC21A;filter:drop-shadow(0 0 6px #FFC21A)}.hud-t.bl{color:#FFC21A}
+.hud-t b{background:#FFC21A;box-shadow:0 0 10px #FFC21A}
+.hud-floor{background-image:linear-gradient(rgba(63,224,255,.4) 1px,transparent 1px),linear-gradient(90deg,rgba(77,255,195,.35) 1px,transparent 1px)}
+.hud-vine path{stroke:#4DFFC3;filter:drop-shadow(0 0 4px #4DFFC3)}
+.hud-vine .leaf{fill:rgba(77,255,195,.1);stroke:#4DFFC3}
+.explore{grid-template-columns:repeat(3,1fr)}
+@media (max-width:900px){.explore{grid-template-columns:1fr}}

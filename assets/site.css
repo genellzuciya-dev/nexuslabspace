@@ -2547,3 +2547,63 @@ header.top::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height
 #wheel{padding-bottom:calc(var(--sec-pad,5rem) + 150px)}
 #wheel h2{-webkit-text-fill-color:transparent}
 #wheel .sx-hub::before{content:none}
+
+/* =====================================================================
+   Two halves · Nacre glass (Nov 22 2026)
+   Mother-of-pearl panels on midnight. Lab = pearl sky to lilac. Space = pearl peach to pink.
+   No purple and orange pairing. Dark ink text on the pearl cards.
+   ===================================================================== */
+#wheel{--iris:linear-gradient(100deg,#B9E7FF 0%,#D9C7FF 30%,#F6B8D8 55%,#FFE3B8 78%,#C8F5D8 100%);
+  background:radial-gradient(42% 50% at 0% 30%,rgba(185,231,255,.16),transparent 70%),radial-gradient(42% 50% at 100% 75%,rgba(246,184,216,.14),transparent 70%),
+  radial-gradient(34% 34% at 50% 40%,rgba(217,199,255,.12),transparent 70%),linear-gradient(180deg,#0E1438 0%,#101538 60%,#0B0F2C 100%)}
+#wheel .sec-head .label{color:#B9E7FF}
+#wheel .sec-head p,#wheel .sx-head p,#wheel .sx-where,#wheel .rx-hint,#wheel .sx-key{color:#C3CBE8}
+#wheel .sx-side.lab{--side:#B9E7FF;--side-grad:linear-gradient(90deg,#B9E7FF,#D9C7FF);--hc:#B9E7FF}
+#wheel .sx-side.space{--side:#F6B8D8;--side-grad:linear-gradient(90deg,#FFE3B8,#F6B8D8);--hc:#F6B8D8}
+#wheel .sx-side.lab .sx-head .sx-k,#wheel .sx-side.lab .sx-where b,#wheel .sx-hubk.lab{color:#B9E7FF}
+#wheel .sx-side.space .sx-head .sx-k,#wheel .sx-side.space .sx-where b,#wheel .sx-hubk.space{color:#F6B8D8}
+/* pearl divider cards with ink text */
+#wheel .sx-side.lab .sx-card.divider .sx-front{background:radial-gradient(90% 120% at 100% 0%,rgba(255,255,255,.55),transparent 60%),linear-gradient(135deg,#B9E7FF 0%,#C9D4FF 50%,#D9C7FF 100%);color:#101538}
+#wheel .sx-side.space .sx-card.divider .sx-front{background:radial-gradient(90% 120% at 100% 0%,rgba(255,255,255,.55),transparent 60%),linear-gradient(135deg,#FFE3B8 0%,#FBCDC8 50%,#F6B8D8 100%);color:#3A1428}
+#wheel .sx-side.lab .sx-card.divider .sx-dt{color:#101538}#wheel .sx-side.lab .sx-card.divider .sx-dk{color:#2A3A78}#wheel .sx-side.lab .sx-card.divider .sx-dn{color:#2A3A78}
+#wheel .sx-side.space .sx-card.divider .sx-dt{color:#3A1428}#wheel .sx-side.space .sx-card.divider .sx-dk{color:#7A3456}#wheel .sx-side.space .sx-card.divider .sx-dn{color:#7A3456}
+#wheel .sx-card .sx-front{box-shadow:0 0 0 1px rgba(255,255,255,.35) inset,0 24px 50px -28px rgba(0,0,0,.6)}
+#wheel .sx-back{background:#1B2457;border-color:rgba(185,231,255,.12)}
+#wheel .sx-tab{background:#121A44}
+#wheel .sx-side.lab .sx-tab{color:#B9E7FF;border-color:rgba(185,231,255,.55)}
+#wheel .sx-side.space .sx-tab{color:#F6B8D8;border-color:rgba(246,184,216,.55)}
+#wheel .sx-side.lab .sx-btn{border-color:rgba(185,231,255,.55);color:#B9E7FF}
+#wheel .sx-side.space .sx-btn{border-color:rgba(246,184,216,.55);color:#F6B8D8}
+#wheel .sx-side.lab .sx-btn:hover{background:#B9E7FF;color:#101538}#wheel .sx-side.space .sx-btn:hover{background:#F6B8D8;color:#3A1428}
+#wheel .sx-side.lab .sx-axle i{border-color:#B9E7FF}#wheel .sx-side.space .sx-axle i{border-color:#F6B8D8}
+/* project boards and stamps stay readable on pearl */
+#wheel .sx-side.lab .sx-board,#wheel .sx-side.space .sx-board{background:#F4F6FC}
+#wheel .sx-side.lab .sx-stamp{color:#2A3A78;border-color:#2A3A78}
+#wheel .sx-side.space .sx-stamp{color:#8A2F5A;border-color:#8A2F5A}
+#wheel .sx-txt .originTag{border-color:#2A3A78;color:#2A3A78}
+#wheel .sx-side.space .sx-txt .originTag{border-color:#8A2F5A;color:#8A2F5A}
+.originTag.ot-partner{background:#F6B8D8;border-color:#F6B8D8;color:#3A1428}
+/* dial: pearl rings */
+#wheel .sx-seg.lab.t1{fill:#9FD8FF}#wheel .sx-seg.lab.t2{fill:#C5CCFF}#wheel .sx-seg.lab.t3{fill:#E8EEFF}
+#wheel .sx-seg.space.t1{fill:#F6B8D8}#wheel .sx-seg.space.t2{fill:#FFD3B6}#wheel .sx-seg.space.t3{fill:#FFF0DE}
+#wheel .sx-ticks.lab line{stroke:#B9E7FF}#wheel .sx-ticks.space line{stroke:#F6B8D8}
+#wheel .sx-ticks.lab .sx-knob{fill:#E6F4FF;filter:drop-shadow(0 0 6px #B9E7FF)}
+#wheel .sx-ticks.space .sx-knob{fill:#FFE8F2;filter:drop-shadow(0 0 6px #F6B8D8)}
+#wheel .sx-key .k1{background:linear-gradient(90deg,#9FD8FF 50%,#F6B8D8 50%)}
+#wheel .sx-key .k2{background:linear-gradient(90deg,#C5CCFF 50%,#FFD3B6 50%)}
+#wheel .sx-key .k3{background:linear-gradient(90deg,#E8EEFF 50%,#FFF0DE 50%)}
+#wheel .sx-hub svg{filter:drop-shadow(0 0 18px rgba(185,231,255,.35)) drop-shadow(0 0 22px rgba(246,184,216,.25))}
+#wheel .rx-listbtn{color:#B9E7FF}
+/* HUD in pearl light */
+.hud-floor{background-image:linear-gradient(rgba(185,199,255,.38) 1px,transparent 1px),linear-gradient(90deg,rgba(185,199,255,.38) 1px,transparent 1px);opacity:.5}
+.hud-sun{background:repeating-conic-gradient(from 0deg,rgba(255,227,184,.12) 0deg 2deg,transparent 2deg 12deg),radial-gradient(circle,rgba(217,199,255,.22) 0%,rgba(246,184,216,.1) 34%,transparent 62%)}
+.hud-scan{background:linear-gradient(180deg,transparent,rgba(185,231,255,.05) 70%,rgba(230,244,255,.28) 99%,transparent)}
+.hud-circuit path{stroke:#B9E7FF}.hud-circuit circle{fill:#E6F4FF;filter:drop-shadow(0 0 6px #B9E7FF)}
+.hud-vine path{stroke:#F6B8D8}.hud-vine .leaf{fill:rgba(246,184,216,.1);stroke:#F6B8D8}
+.hud-c.tl,.hud-c.tr{border-color:#D9C7FF}.hud-c.bl{border-color:#B9E7FF}.hud-c.br{border-color:#F6B8D8}
+.hud-t.bl{color:#B9E7FF}.hud-t.br{color:#F6B8D8}
+.hud-t b{background:#B9E7FF;box-shadow:0 0 10px #B9E7FF}
+#wheel .sx-side.lab .originTag{border-color:#2A3A78;color:#2A3A78}
+#wheel .sx-side.space .originTag{border-color:#8A2F5A;color:#8A2F5A}
+#wheel .sx-side .originTag.ot-partner{background:#F6B8D8;border-color:#F6B8D8;color:#3A1428}
+#wheel .sx-side .originTag.wh-space-tag{border-color:#8A2F5A!important;color:#8A2F5A!important;background:transparent!important}

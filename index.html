@@ -31,7 +31,7 @@
   <div class="wrap hero">
     <div class="hero-grid">
       <div>
-        <p class="hero-eyebrow"><span class="sun" aria-hidden="true"></span>R&amp;D studio · Based in New Mexico</p>
+        
           <h1>Living systems already solved it. <em>We help you build it.</em></h1>
         <p class="lede">Nexus Lab Space is an R&amp;D studio that creates solutions for hard challenges that product designers, experience designers, and communities face. We look to nature for the answer, often in the most unlikely places.</p>
           <span class="stamp" aria-hidden="true"><svg viewBox="0 0 120 120"><defs><path id="stampc" d="M60 60 m-46 0 a46 46 0 1 1 92 0 a46 46 0 1 1 -92 0"/></defs><text><textPath href="#stampc">Bioinspired systems · Product design studio · </textPath></text><circle class="core" cx="60" cy="60" r="15"/><path d="M60 50 C 66 56, 66 64, 60 70 C 54 64, 54 56, 60 50 Z M60 52 V69" fill="none" stroke="#15302a" stroke-width="1.4" stroke-linecap="round"/></svg></span>
@@ -41,31 +41,26 @@
         </div>
       </div>
       <div class="deck hdeck" id="hdeck" aria-roledescription="carousel" aria-label="Studio projects">
-      <figure class="plate deck-card" data-i="0" data-ms="57000" aria-label="Slide 1 of 8: Drone show safety concept">
-        <header class="sf-head"><h3>Drone Show Safety</h3><h4>Bioinspiration from <em>ELECTRIC FISH</em></h4><p><i>Eigenmannia virescens</i> (glass knifefish)</p><small>Shifts its electric signal away from a neighbor's so neither one is jammed</small></header>
-        <div class="specimen sim sf-sim ds-sim" id="dfs-sim">
-          <canvas class="un-map" id="dfs-sky" aria-label="Concept model of a drone formation where neighboring drones move to separate radio channels when interference appears."></canvas>
-          <span class="tag"><i></i><span id="dfs-tag">01a · Electric fish jamming avoidance · modeled</span></span>
-          <figure class="inset sf-inset"><canvas id="dfs-fish" aria-hidden="true"></canvas><span>01a · Electric fish</span></figure>
-          <div class="sf-flash" id="dfs-flash" aria-hidden="true"></div>
-          <div class="sf-cap dfs-cap" aria-live="polite"><span class="sf-who" id="dfs-who">Electric fish</span><b id="dfs-verb">Senses</b><span class="sf-beats" aria-hidden="true"><i data-v="Senses">senses</i><i data-v="Shifts">shifts</i><i data-v="Holds">holds</i></span><span id="dfs-say"></span></div>
-        </div>
-        <div class="control sf-ctl">
-          <label for="dfs-t">Story</label>
-          <input id="dfs-t" type="range" min="0" max="54" step=".1" value="0">
-          <span id="dfs-ro">Electric fish · senses</span>
-          <button type="button" class="sf-pause" id="dfs-pause" aria-pressed="false" aria-label="Pause the story"><svg viewBox="0 0 12 12" aria-hidden="true"><path class="ic-pause" d="M3 2v8M9 2v8"/><path class="ic-play" d="M3 2l7 4-7 4z"/></svg></button>
-        </div>
-        <figcaption>
-          <b>Challenge</b><span>Drone light shows depend on radio links between hundreds of drones and a ground station. Interference on a shared channel can drop those links, and the formation has to stay safe for the audience watching nearby.</span>
-          <b>Fig. 01a</b><span><i>Eigenmannia virescens</i>, modeled. When a neighbor's electric signal is close to its own frequency, each fish shifts its frequency away from the other: the higher one goes higher, the lower one goes lower.</span>
-          <b>Fig. 01b</b><span>Drone show safety concept. Neighboring drones that detect interference move to radio channels further apart, in opposite directions, so links stay clear and the formation holds.</span>
-          <b>Origin</b><span>Internal concept</span>
-          <b>Level of realization</b><span class="lvl"><ol aria-label="Level of realization: Concept, step 1 of 5"><li class="on now">Concept</li><li class="">Prototyped</li><li class="">Working prototype</li><li class="">Testing</li><li class="">Produced at scale</li></ol></span>
-          <b class="fn-label">Function</b><span class="fn-text">Avoid signal interference.</span>
-        </figcaption>
-      </figure>
-      <figure class="plate deck-card is-off" data-i="1" data-ms="57000" aria-label="Slide 2 of 8: LeafQuest">
+      <figure class="plate deck-card" data-i="0" aria-label="Slide 1 of 8: Example from nature, Hummingbird"><header class="sf-head"><h3>Materials</h3><h4>Bioinspiration from <em>HUMMINGBIRD</em></h4><small>Example from nature</small></header>
+      <div class="specimen" id="specimen" aria-label="Live rendering of an iridescent feather whose color shifts with viewing angle.">
+        <img id="fallback" src="img/hummingbird.jpg" alt="An iridescent green hummingbird perched on a bare branch." hidden>
+        <canvas id="gl"></canvas>
+        <figure class="inset" id="inset"><img src="img/hummingbird.jpg" alt="Photograph of an iridescent green hummingbird perched on a branch." width="1600" height="1067"><span>01a · Observed</span></figure>
+        <span class="tag"><i></i>01b · Modeled live</span>
+        <div class="readout"><span>θ <b id="ro-angle">15°</b></span><span>d <b>380–430 nm</b></span><span>n <b>1.56</b></span></div>
+      </div>
+      <div class="control">
+        <label for="tilt">Viewing angle</label>
+        <input id="tilt" type="range" min="-40" max="40" step="1" value="15">
+        <span id="ro-angle2">15°</span>
+      </div>
+      <figcaption>
+        <b>Fig. 01a</b><span>Hummingbird, photographed in Costa Rica. Its green comes from structure, not green pigment.</span>
+        <b>Fig. 01b</b><span>The same color, computed. Light reflecting off thin keratin layers in each barb interferes, so the hue shifts as the angle changes. Move across the plate to tilt it.</span>
+        <b class="fn-label">Function</b><span class="fn-text">Make color without dye.</span>
+      </figcaption>
+    </figure>
+          <figure class="plate deck-card is-off" data-i="1" data-ms="57000" aria-label="Slide 2 of 8: LeafQuest">
         <header class="sf-head"><h3>Nature Education</h3><h4>Bioinspiration from <em>HONEYBEES</em></h4><p><i>Apis mellifera</i> (western honey bee)</p><small>The waggle dance sends one clear message through sound, scent, and movement</small></header>
         <div class="specimen sim lq-hero-sim sf-sim" id="lqb-sim">
           <div class="lq-3d lq-hero-3d" id="lq3d-hero" aria-label="3D concept model of the LeafQuest play device. A card lands on the second reader and its ring lights up to show a match or no match."><canvas></canvas></div>
@@ -95,7 +90,73 @@
           <b></b><span><a class="see-work" href="work/#pj-leafquest" data-open="pj-leafquest">See more in the Work section &rarr;</a></span>
         </figcaption>
       </figure>
-      <figure class="plate deck-card is-off" data-i="2" data-ms="79000" aria-label="Slide 3 of 8: Storm Fuel">
+          <figure class="plate deck-card is-off" data-i="2" aria-label="Slide 3 of 8: Example from nature, Whale shark"><header class="sf-head"><h3>Filtration</h3><h4>Bioinspiration from <em>WHALE SHARK</em></h4><small>Example from nature</small></header>
+        <div class="specimen sim" id="ws-sim" aria-label="Live simulation of crossflow filtration. Plankton and water flow over a filter mesh; the flow angle decides whether the mesh stays clear or clogs.">
+          <canvas></canvas>
+          <span class="tag"><i></i>03b · Modeled live</span>
+          <figure class="inset inset-video" id="ws-video">
+            <div class="iv-box"><video id="ws-clip" src="img/whaleshark.mp4" poster="img/whaleshark-poster.jpg" muted loop playsinline preload="metadata" aria-label="Video of a whale shark feeding near La Paz, Mexico."></video></div>
+            <span>03a · Observed</span>
+          </figure>
+          <div class="readout"><span>θ <b id="ws-ro-a">15°</b></span><span>mesh open <b id="ws-ro-o">100%</b></span><span>to throat <b id="ws-ro-c">0</b></span></div>
+        </div>
+        <div class="control">
+          <label for="ws-tilt">Flow angle</label>
+          <input id="ws-tilt" type="range" min="0" max="85" step="1" value="15">
+          <span id="ws-ro-a2">15°</span>
+        </div>
+        <figcaption>
+          <b>Fig. 03a</b><span>A whale shark feeding near La Paz, Mexico. Filmed by my good friend and colleague Nicholas Heier.</span>
+          <b>Fig. 03b</b><span>The same filter, simulated. When water sweeps across the mesh, plankton rolls along to the throat and the pores stay clear. Turn the flow straight into the mesh and it clogs. Move across the plate to change the angle.</span>
+          <b class="fn-label">Function</b><span class="fn-text">Filter huge volumes without clogging.</span>
+        </figcaption>
+      </figure>
+          <figure class="plate deck-card is-off" data-i="3" data-ms="57000" aria-label="Slide 4 of 8: Drone show safety concept">
+        <header class="sf-head"><h3>Drone Show Safety</h3><h4>Bioinspiration from <em>ELECTRIC FISH</em></h4><p><i>Eigenmannia virescens</i> (glass knifefish)</p><small>Shifts its electric signal away from a neighbor's so neither one is jammed</small></header>
+        <div class="specimen sim sf-sim ds-sim" id="dfs-sim">
+          <canvas class="un-map" id="dfs-sky" aria-label="Concept model of a drone formation where neighboring drones move to separate radio channels when interference appears."></canvas>
+          <span class="tag"><i></i><span id="dfs-tag">01a · Electric fish jamming avoidance · modeled</span></span>
+          <figure class="inset sf-inset"><canvas id="dfs-fish" aria-hidden="true"></canvas><span>01a · Electric fish</span></figure>
+          <div class="sf-flash" id="dfs-flash" aria-hidden="true"></div>
+          <div class="sf-cap dfs-cap" aria-live="polite"><span class="sf-who" id="dfs-who">Electric fish</span><b id="dfs-verb">Senses</b><span class="sf-beats" aria-hidden="true"><i data-v="Senses">senses</i><i data-v="Shifts">shifts</i><i data-v="Holds">holds</i></span><span id="dfs-say"></span></div>
+        </div>
+        <div class="control sf-ctl">
+          <label for="dfs-t">Story</label>
+          <input id="dfs-t" type="range" min="0" max="54" step=".1" value="0">
+          <span id="dfs-ro">Electric fish · senses</span>
+          <button type="button" class="sf-pause" id="dfs-pause" aria-pressed="false" aria-label="Pause the story"><svg viewBox="0 0 12 12" aria-hidden="true"><path class="ic-pause" d="M3 2v8M9 2v8"/><path class="ic-play" d="M3 2l7 4-7 4z"/></svg></button>
+        </div>
+        <figcaption>
+          <b>Challenge</b><span>Drone light shows depend on radio links between hundreds of drones and a ground station. Interference on a shared channel can drop those links, and the formation has to stay safe for the audience watching nearby.</span>
+          <b>Fig. 01a</b><span><i>Eigenmannia virescens</i>, modeled. When a neighbor's electric signal is close to its own frequency, each fish shifts its frequency away from the other: the higher one goes higher, the lower one goes lower.</span>
+          <b>Fig. 01b</b><span>Drone show safety concept. Neighboring drones that detect interference move to radio channels further apart, in opposite directions, so links stay clear and the formation holds.</span>
+          <b>Origin</b><span>Internal concept</span>
+          <b>Level of realization</b><span class="lvl"><ol aria-label="Level of realization: Concept, step 1 of 5"><li class="on now">Concept</li><li class="">Prototyped</li><li class="">Working prototype</li><li class="">Testing</li><li class="">Produced at scale</li></ol></span>
+          <b class="fn-label">Function</b><span class="fn-text">Avoid signal interference.</span>
+        </figcaption>
+      </figure>
+          <figure class="plate deck-card is-off" data-i="4" aria-label="Slide 5 of 8: Example from nature, Raven"><header class="sf-head"><h3>Communication</h3><h4>Bioinspiration from <em>RAVEN</em></h4><small>Example from nature</small></header>
+        <div class="specimen sim" id="rv-sim" aria-label="Live spectrogram of a raven's calls, drawn from the recording and synced to the video.">
+          <canvas></canvas>
+          <span class="tag"><i></i>04b · Modeled live · spectrogram</span>
+          <figure class="inset inset-video rv-inset">
+            <div class="iv-box"><video id="rv-video" src="img/raven.mp4" poster="img/raven-poster.jpg" muted loop playsinline preload="metadata" aria-label="Video of a raven calling from a rooftop beam in Santa Fe, New Mexico."></video></div>
+            <span>04a · Observed <button type="button" class="rv-sound" id="rv-sound" aria-pressed="false">Sound off</button></span>
+          </figure>
+          <div class="readout"><span>time <b id="rv-ro-t">0.0 s</b></span><span><b id="rv-ro-k">between calls</b></span><span>peak <b id="rv-ro-f">–</b></span></div>
+        </div>
+        <div class="control">
+          <label for="rv-scrub">Scrub</label>
+          <input id="rv-scrub" type="range" min="0" max="93" step="1" value="0">
+          <span id="rv-ro-t2">0.0 s</span>
+        </div>
+        <figcaption>
+          <b>Fig. 04a</b><span>A raven calling from a rooftop beam in Santa Fe, New Mexico: three pairs of croaks in nine seconds. Filmed by the author.</span>
+          <b>Fig. 04b</b><span>The same calls, as a spectrogram drawn from this recording. Each croak is a stack of low harmonics near 1 kHz, a low, rich pitch that carries well in open air. Move across the plate to scrub through the recording.</span>
+          <b class="fn-label">Function</b><span class="fn-text">Send a clear signal over distance.</span>
+        </figcaption>
+      </figure>
+          <figure class="plate deck-card is-off" data-i="5" data-ms="79000" aria-label="Slide 6 of 8: Storm Fuel">
         <header class="sf-head"><h3>Hurricane Preparedness</h3><h4>Bioinspiration from <em>MOLD</em></h4><p><i>Aspergillus</i>, <i>Penicillium</i>, <i>Cladosporium</i>, and <i>Stachybotrys</i> (black mold)</p><small>Common in flooded New Orleans homes after hurricanes</small></header>
         <div class="specimen sim sf-sim" id="sf-sim" aria-label="Live 3D model of a neighborhood after a hurricane. Neighbors carry food scraps, lumber, and storm debris to a shared biofuel center, then fill their own fuel canisters to run home generators, a boat, and a chainsaw that clears a fallen tree from the road. A magnified inset shows mold spreading, digesting, absorbing, and storing reserves in damp conditions.">
           <canvas class="sf-3d"></canvas>
@@ -120,7 +181,7 @@
           <b></b><span><a class="see-work" href="work/#pj-storm-fuel" data-open="pj-storm-fuel">See more in the Work section &rarr;</a></span>
         </figcaption>
       </figure>
-      <figure class="plate deck-card is-off" data-i="3" data-ms="57000" aria-label="Slide 4 of 8: Urban Nexus">
+          <figure class="plate deck-card is-off" data-i="6" data-ms="57000" aria-label="Slide 7 of 8: Urban Nexus">
         <header class="sf-head"><h3>Collaborative Civic Planning</h3><h4>Bioinspiration from <em>FUNGAL NETWORKS</em></h4><p><i>Phanerochaete velutina</i> (a cord-forming wood-decay fungus)</p><small>Links fallen logs, twigs, and leaf litter across the forest floor into one network</small></header>
         <div class="specimen sim sf-sim un-sim" id="unb-sim">
           <div class="un-clips" id="unb-clips" aria-label="Screen recordings of the Urban Nexus platform: the civic planner workspace and the community chatbot.">
@@ -149,26 +210,7 @@
           <b></b><span><a class="see-work" href="work/#pj-urban-nexus" data-open="pj-urban-nexus">See more in the Work section &rarr;</a></span>
         </figcaption>
       </figure>
-        <figure class="plate deck-card is-off" data-i="4" aria-label="Slide 5 of 8: Example from nature, Hummingbird"><header class="sf-head"><h3>Materials</h3><h4>Bioinspiration from <em>HUMMINGBIRD</em></h4><small>Example from nature</small></header>
-      <div class="specimen" id="specimen" aria-label="Live rendering of an iridescent feather whose color shifts with viewing angle.">
-        <img id="fallback" src="img/hummingbird.jpg" alt="An iridescent green hummingbird perched on a bare branch." hidden>
-        <canvas id="gl"></canvas>
-        <figure class="inset" id="inset"><img src="img/hummingbird.jpg" alt="Photograph of an iridescent green hummingbird perched on a branch." width="1600" height="1067"><span>01a · Observed</span></figure>
-        <span class="tag"><i></i>01b · Modeled live</span>
-        <div class="readout"><span>θ <b id="ro-angle">15°</b></span><span>d <b>380–430 nm</b></span><span>n <b>1.56</b></span></div>
-      </div>
-      <div class="control">
-        <label for="tilt">Viewing angle</label>
-        <input id="tilt" type="range" min="-40" max="40" step="1" value="15">
-        <span id="ro-angle2">15°</span>
-      </div>
-      <figcaption>
-        <b>Fig. 01a</b><span>Hummingbird, photographed in Costa Rica. Its green comes from structure, not green pigment.</span>
-        <b>Fig. 01b</b><span>The same color, computed. Light reflecting off thin keratin layers in each barb interferes, so the hue shifts as the angle changes. Move across the plate to tilt it.</span>
-        <b class="fn-label">Function</b><span class="fn-text">Make color without dye.</span>
-      </figcaption>
-    </figure>      
-<figure class="plate deck-card is-off" data-i="5" aria-label="Slide 6 of 8: Example from nature, Highland cattle"><header class="sf-head"><h3>Insulation</h3><h4>Bioinspiration from <em>HIGHLAND CATTLE</em></h4><small>Example from nature</small></header>
+          <figure class="plate deck-card is-off" data-i="7" aria-label="Slide 8 of 8: Example from nature, Highland cattle"><header class="sf-head"><h3>Insulation</h3><h4>Bioinspiration from <em>HIGHLAND CATTLE</em></h4><small>Example from nature</small></header>
         <div class="specimen sim" id="hc-sim" aria-label="Live thermal view of a Highland cattle coat in cold wind and rain. Coat depth changes how much body heat escapes.">
           <canvas></canvas>
           <span class="tag tag-on-warm"><i></i>02b · Modeled live · thermal</span>
@@ -186,56 +228,8 @@
           <b class="fn-label">Function</b><span class="fn-text">Stay warm and dry without burning extra energy.</span>
         </figcaption>
       </figure>
-      
-<figure class="plate deck-card is-off" data-i="6" aria-label="Slide 7 of 8: Example from nature, Whale shark"><header class="sf-head"><h3>Filtration</h3><h4>Bioinspiration from <em>WHALE SHARK</em></h4><small>Example from nature</small></header>
-        <div class="specimen sim" id="ws-sim" aria-label="Live simulation of crossflow filtration. Plankton and water flow over a filter mesh; the flow angle decides whether the mesh stays clear or clogs.">
-          <canvas></canvas>
-          <span class="tag"><i></i>03b · Modeled live</span>
-          <figure class="inset inset-video" id="ws-video">
-            <div class="iv-box"><video id="ws-clip" src="img/whaleshark.mp4" poster="img/whaleshark-poster.jpg" muted loop playsinline preload="metadata" aria-label="Video of a whale shark feeding near La Paz, Mexico."></video></div>
-            <span>03a · Observed</span>
-          </figure>
-          <div class="readout"><span>θ <b id="ws-ro-a">15°</b></span><span>mesh open <b id="ws-ro-o">100%</b></span><span>to throat <b id="ws-ro-c">0</b></span></div>
-        </div>
-        <div class="control">
-          <label for="ws-tilt">Flow angle</label>
-          <input id="ws-tilt" type="range" min="0" max="85" step="1" value="15">
-          <span id="ws-ro-a2">15°</span>
-        </div>
-        <figcaption>
-          <b>Fig. 03a</b><span>A whale shark feeding near La Paz, Mexico. Filmed by my good friend and colleague Nicholas Heier.</span>
-          <b>Fig. 03b</b><span>The same filter, simulated. When water sweeps across the mesh, plankton rolls along to the throat and the pores stay clear. Turn the flow straight into the mesh and it clogs. Move across the plate to change the angle.</span>
-          <b class="fn-label">Function</b><span class="fn-text">Filter huge volumes without clogging.</span>
-        </figcaption>
-      </figure>
-      
-<figure class="plate deck-card is-off" data-i="7" aria-label="Slide 8 of 8: Example from nature, Raven"><header class="sf-head"><h3>Communication</h3><h4>Bioinspiration from <em>RAVEN</em></h4><small>Example from nature</small></header>
-        <div class="specimen sim" id="rv-sim" aria-label="Live spectrogram of a raven's calls, drawn from the recording and synced to the video.">
-          <canvas></canvas>
-          <span class="tag"><i></i>04b · Modeled live · spectrogram</span>
-          <figure class="inset inset-video rv-inset">
-            <div class="iv-box"><video id="rv-video" src="img/raven.mp4" poster="img/raven-poster.jpg" muted loop playsinline preload="metadata" aria-label="Video of a raven calling from a rooftop beam in Santa Fe, New Mexico."></video></div>
-            <span>04a · Observed <button type="button" class="rv-sound" id="rv-sound" aria-pressed="false">Sound off</button></span>
-          </figure>
-          <div class="readout"><span>time <b id="rv-ro-t">0.0 s</b></span><span><b id="rv-ro-k">between calls</b></span><span>peak <b id="rv-ro-f">–</b></span></div>
-        </div>
-        <div class="control">
-          <label for="rv-scrub">Scrub</label>
-          <input id="rv-scrub" type="range" min="0" max="93" step="1" value="0">
-          <span id="rv-ro-t2">0.0 s</span>
-        </div>
-        <figcaption>
-          <b>Fig. 04a</b><span>A raven calling from a rooftop beam in Santa Fe, New Mexico: three pairs of croaks in nine seconds. Filmed by the author.</span>
-          <b>Fig. 04b</b><span>The same calls, as a spectrogram drawn from this recording. Each croak is a stack of low harmonics near 1 kHz, a low, rich pitch that carries well in open air. Move across the plate to scrub through the recording.</span>
-          <b class="fn-label">Function</b><span class="fn-text">Send a clear signal over distance.</span>
-        </figcaption>
-      </figure>
           <div class="deck-nav" role="tablist" aria-label="Choose a slide">
-          <button type="button" role="tab" data-i="0" aria-selected="true"><span>Safety</span><i></i></button>
-          <button type="button" role="tab" data-i="1" aria-selected="false"><span>Education</span><i></i></button>
-          <button type="button" role="tab" data-i="2" aria-selected="false"><span>Energy</span><i></i></button>
-          <button type="button" role="tab" data-i="3" aria-selected="false"><span>Civic planning</span><i></i></button>
-          <button type="button" role="tab" data-i="4" aria-selected="false"><span>Materials</span><i></i></button><button type="button" role="tab" data-i="5" aria-selected="false"><span>Insulation</span><i></i></button><button type="button" role="tab" data-i="6" aria-selected="false"><span>Filtration</span><i></i></button><button type="button" role="tab" data-i="7" aria-selected="false"><span>Communication</span><i></i></button><button type="button" class="deck-pause" aria-pressed="false" aria-label="Pause the projects"><svg viewBox="0 0 12 12" aria-hidden="true"><path class="ic-pause" d="M3 2v8M9 2v8"/><path class="ic-play" d="M3 2l7 4-7 4z"/></svg></button>
+          <button type="button" role="tab" data-i="0" aria-selected="true"><span>Materials</span><i></i></button><button type="button" role="tab" data-i="1" aria-selected="false"><span>Education</span><i></i></button><button type="button" role="tab" data-i="2" aria-selected="false"><span>Filtration</span><i></i></button><button type="button" role="tab" data-i="3" aria-selected="false"><span>Safety</span><i></i></button><button type="button" role="tab" data-i="4" aria-selected="false"><span>Communication</span><i></i></button><button type="button" role="tab" data-i="5" aria-selected="false"><span>Energy</span><i></i></button><button type="button" role="tab" data-i="6" aria-selected="false"><span>Civic planning</span><i></i></button><button type="button" role="tab" data-i="7" aria-selected="false"><span>Insulation</span><i></i></button><button type="button" class="deck-pause" aria-pressed="false" aria-label="Pause the projects"><svg viewBox="0 0 12 12" aria-hidden="true"><path class="ic-pause" d="M3 2v8M9 2v8"/><path class="ic-play" d="M3 2l7 4-7 4z"/></svg></button>
         </div>
       </div>
     </div>
@@ -287,12 +281,12 @@
             <div class="wh-half lab" id="wh-lab" role="tabpanel" aria-labelledby="wh-tab-lab">
               <h3>Biomimicry and incubation</h3>
               <p class="wh-sub">Emulating how nature works.</p>
-              <div class="wh-tier" id="wh-lab-t1" data-side="lab" data-tier="t1"><h4>Case studies and concepts</h4><div class="wh-cards"><article class="wc" data-img="img/community.jpg"><span class="tagrow"><span class="originTag ot-partner">Partner</span><span class="wc-lvl">Concept · step 1 of 5</span></span><span class="wc-title">Storm Fuel · Slidell, Louisiana</span><p class="wc-line">A community biofuel center modeled on how mold stores and distributes energy, for the days after a hurricane.</p><a class="see-work" href="work/#pj-storm-fuel" data-open="pj-storm-fuel">See it in Work &rarr;</a></article><article class="wc"><span class="tagrow"><span class="originTag">Internal</span><span class="wc-lvl">Concept · step 1 of 5</span></span><span class="wc-title">Drone show safety</span><p class="wc-line">Neighboring drones that detect interference move to radio channels further apart, so links stay clear and the formation holds.</p></article></div></div><div class="wh-tier" id="wh-lab-t2" data-side="lab" data-tier="t2"><h4>In development</h4><div class="wh-cards"><article class="wc" data-img="img/un-scan.jpg"><span class="tagrow"><span class="originTag">Internal</span><span class="wc-lvl">Working prototype · step 3 of 5</span></span><span class="wc-title">Urban Nexus</span><p class="wc-line">A spatial evidence platform built on verified local data that shows civic teams where resources are thin.</p><a class="see-work" href="work/#pj-urban-nexus" data-open="pj-urban-nexus">See it in Work &rarr;</a></article><article class="wc" data-img="img/lq-sweetgum.jpg"><span class="tagrow"><span class="originTag">Internal</span><span class="wc-lvl">Testing · step 4 of 5</span></span><span class="wc-title">LeafQuest</span><p class="wc-line">An NFC nature-education game that teaches systems design and evolution through leaf shape, margin and venation.</p><p class="wc-line"><em>Patent pending · two provisional applications filed</em></p><a class="see-work" href="work/#pj-leafquest" data-open="pj-leafquest">See it in Work &rarr;</a></article><article class="wc wc-sealed" data-count=""><span class="tagrow"><span class="wc-lvl">Sealed</span></span><span class="wc-title"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="wc-count">More projects under wraps</span></span><p class="wc-line">Work under patent or confidentiality. It exists, and the details stay private until filings allow. Ask about it on a framing call.</p></article></div></div><div class="wh-tier" id="wh-lab-t3" data-side="lab" data-tier="t3"><h4>Realized</h4><div class="wh-cards"><article class="wc wc-slot"><span class="wc-title">Next to land here</span><p class="wc-line">Installed, launched and public work from the Lab will be listed here.</p></article></div></div>
+              <div class="wh-tier" id="wh-lab-t1" data-side="lab" data-tier="t1"><h4>Case studies and concepts</h4><div class="wh-cards"><article class="wc" data-img="img/community.jpg" data-thumbs="img/storm-sketch.jpg"><span class="tagrow"><span class="originTag ot-partner">Partner</span><span class="wc-lvl">Concept · step 1 of 5</span></span><span class="wc-title">Storm Fuel · Slidell, Louisiana</span><p class="wc-line">A community biofuel center modeled on how mold stores and distributes energy, for the days after a hurricane.</p><a class="see-work" href="work/#pj-storm-fuel" data-open="pj-storm-fuel">See it in Work &rarr;</a></article><article class="wc" data-img="img/drone-sim.jpg" data-thumbs=""><span class="tagrow"><span class="originTag">Internal</span><span class="wc-lvl">Concept · step 1 of 5</span></span><span class="wc-title">Drone show safety</span><p class="wc-line">Neighboring drones that detect interference move to radio channels further apart, so links stay clear and the formation holds.</p></article></div></div><div class="wh-tier" id="wh-lab-t2" data-side="lab" data-tier="t2"><h4>In development</h4><div class="wh-cards"><article class="wc" data-img="img/un-scan.jpg" data-thumbs="img/un-clip-planner.jpg,img/un-clip-lenses.jpg"><span class="tagrow"><span class="originTag">Internal</span><span class="wc-lvl">Working prototype · step 3 of 5</span></span><span class="wc-title">Urban Nexus</span><p class="wc-line">A spatial evidence platform built on verified local data that shows civic teams where resources are thin.</p><a class="see-work" href="work/#pj-urban-nexus" data-open="pj-urban-nexus">See it in Work &rarr;</a></article><article class="wc" data-img="img/lq-sweetgum.jpg" data-thumbs="img/lq-goodding.jpg,img/lq-sweetgum-back.jpg"><span class="tagrow"><span class="originTag">Internal</span><span class="wc-lvl">Testing · step 4 of 5</span></span><span class="wc-title">LeafQuest</span><p class="wc-line">An NFC nature-education game that teaches systems design and evolution through leaf shape, margin and venation.</p><p class="wc-line"><em>Patent pending · two provisional applications filed</em></p><a class="see-work" href="work/#pj-leafquest" data-open="pj-leafquest">See it in Work &rarr;</a></article><article class="wc wc-sealed" data-count=""><span class="tagrow"><span class="wc-lvl">Sealed</span></span><span class="wc-title"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="wc-count">More projects under wraps</span></span><p class="wc-line">Work under patent or confidentiality. It exists, and the details stay private until filings allow. Ask about it on a framing call.</p></article></div></div><div class="wh-tier" id="wh-lab-t3" data-side="lab" data-tier="t3"><h4>Realized</h4><div class="wh-cards"><article class="wc wc-slot"><span class="wc-title">Next to land here</span><p class="wc-line">Installed, launched and public work from the Lab will be listed here.</p></article></div></div>
             </div>
             <div class="wh-half space" id="wh-space" role="tabpanel" aria-labelledby="wh-tab-space">
               <h3>Biomorphic and biophilic</h3>
               <p class="wh-sub">Nature's form, and our connection to it.</p>
-              <div class="wh-tier" id="wh-space-t1" data-side="space" data-tier="t1"><h4>Case studies and concepts</h4><div class="wh-cards"><article class="wc wc-slot"><span class="wc-title">Next to land here</span><p class="wc-line">Community concepts and studies of nature's form will be listed here.</p></article></div></div><div class="wh-tier" id="wh-space-t2" data-side="space" data-tier="t2"><h4>In development</h4><div class="wh-cards"><article class="wc"><span class="tagrow"><span class="originTag wh-space-tag">Internal</span><span class="wc-lvl">Testing with artists</span></span><span class="wc-title">Microscope brushes for Procreate</span><p class="wc-line">A brush set built from textures captured under the microscope, with custom grain images and shape stamps.</p></article><article class="wc wc-sealed" data-count=""><span class="tagrow"><span class="wc-lvl">Sealed</span></span><span class="wc-title"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="wc-count">More projects under wraps</span></span><p class="wc-line">Work under patent or confidentiality. It exists, and the details stay private until filings allow. Ask about it on a framing call.</p></article></div></div><div class="wh-tier" id="wh-space-t3" data-side="space" data-tier="t3"><h4>Realized</h4><div class="wh-cards"><article class="wc wc-slot"><span class="wc-title">Next to land here</span><p class="wc-line">Installed, launched and public work from the Space will be listed here.</p></article></div></div>
+              <div class="wh-tier" id="wh-space-t1" data-side="space" data-tier="t1"><h4>Case studies and concepts</h4><div class="wh-cards"><article class="wc wc-slot"><span class="wc-title">Next to land here</span><p class="wc-line">Community concepts and studies of nature's form will be listed here.</p></article></div></div><div class="wh-tier" id="wh-space-t2" data-side="space" data-tier="t2"><h4>In development</h4><div class="wh-cards"><article class="wc" data-img="img/leaf-plate-02-eggplant-stellate.jpg" data-thumbs="img/leaf-plate-04-purslane-domes.jpg,img/leaf-plate-09-bristlegrass-silica.jpg"><span class="tagrow"><span class="originTag wh-space-tag">Internal</span><span class="wc-lvl">Testing with artists</span></span><span class="wc-title">Microscope brushes for Procreate</span><p class="wc-line">A brush set built from textures captured under the microscope, with custom grain images and shape stamps.</p></article><article class="wc wc-sealed" data-count=""><span class="tagrow"><span class="wc-lvl">Sealed</span></span><span class="wc-title"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="wc-count">More projects under wraps</span></span><p class="wc-line">Work under patent or confidentiality. It exists, and the details stay private until filings allow. Ask about it on a framing call.</p></article></div></div><div class="wh-tier" id="wh-space-t3" data-side="space" data-tier="t3"><h4>Realized</h4><div class="wh-cards"><article class="wc wc-slot"><span class="wc-title">Next to land here</span><p class="wc-line">Installed, launched and public work from the Space will be listed here.</p></article></div></div>
             </div>
           </div>
         </div>

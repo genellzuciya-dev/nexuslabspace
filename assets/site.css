@@ -2729,3 +2729,14 @@ header.top::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height
 .hud-vine .leaf{fill:rgba(77,255,195,.1);stroke:#4DFFC3}
 .explore{grid-template-columns:repeat(3,1fr)}
 @media (max-width:900px){.explore{grid-template-columns:1fr}}
+
+/* home: menu bar uses the same container as the hero, so logo, headline, card and Contact us line up */
+[data-page="home"] header.top .wrap.nav{max-width:min(1520px,calc(100vw - 48px))}
+@media (max-width: 900px){[data-page="home"] header.top .wrap.nav{max-width:none}}
+
+/* leaf badge in the hero stamp is always green */
+.hero .stamp .core{fill:#3FD68A!important}
+
+/* two halves: remove the bottom HUD graphics (grid floor, circuit, vine, bottom corner marks) */
+.hud-floor,.hud-art,.hud-c.bl,.hud-c.br,.hud-t.bl,.hud-t.br{display:none!important}
+#wheel{padding-bottom:var(--sec-pad,5rem)}

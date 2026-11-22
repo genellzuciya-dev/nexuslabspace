@@ -1182,8 +1182,32 @@ lqBuild(document.getElementById('lq3d-hero'), null);
   var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   function clamp(v){ return v<0?0:v>1?1:v; } function sm(v){ v=clamp(v); return v*v*(3-2*v); }
   // separation: 0 while jammed, rising to 1 once both have shifted apart
-  function fishBody(c,x,y,L,dir,col){ c.save(); c.translate(x,y); c.scale(dir,1); c.fillStyle=col; c.beginPath(); c.moveTo(L*.5,0); c.quadraticCurveTo(L*.2,-L*.11,-L*.25,-L*.05); c.lineTo(-L*.55,0); c.lineTo(-L*.25,L*.05); c.quadraticCurveTo(L*.2,L*.11,L*.5,0); c.fill();
-    c.strokeStyle='rgba(255,255,255,.35)'; c.lineWidth=Math.max(1,L*.01); c.beginPath(); for(var k=0;k<14;k++){ var xx=L*.3-k*L*.055; c.moveTo(xx,L*.05); c.lineTo(xx-L*.02,L*.085); } c.stroke(); c.fillStyle='#0b1a1a'; c.beginPath(); c.arc(L*.4,-L*.015,L*.018,0,7); c.fill(); c.restore(); }
+  /* glass knifefish (Eigenmannia): small blunt head, no dorsal fin, see-through body tapering to a thin tail,
+     and a long rippling anal fin along the belly that it swims with */
+  function fishBody(c,x,y,L,dir,col){ var t=performance.now()/1000; c.save(); c.translate(x,y); c.scale(dir,1);
+    c.beginPath(); c.moveTo(L*.5,L*.012);
+    c.bezierCurveTo(L*.49,-L*.045,L*.43,-L*.075,L*.3,-L*.082);
+    c.bezierCurveTo(L*.1,-L*.085,-L*.15,-L*.05,-L*.38,-L*.018);
+    c.bezierCurveTo(-L*.45,-L*.008,-L*.49,-L*.003,-L*.53,0);
+    c.bezierCurveTo(-L*.49,L*.004,-L*.45,L*.01,-L*.38,L*.02);
+    c.bezierCurveTo(-L*.15,L*.05,L*.1,L*.085,L*.3,L*.07);
+    c.bezierCurveTo(L*.42,L*.06,L*.48,L*.045,L*.5,L*.012); c.closePath();
+    var g=c.createLinearGradient(0,-L*.09,0,L*.09); g.addColorStop(0,'rgba(225,236,230,.55)'); g.addColorStop(.5,'rgba(205,222,214,.32)'); g.addColorStop(1,'rgba(225,236,230,.5)');
+    c.fillStyle=g; c.fill(); c.strokeStyle='rgba(235,245,240,.85)'; c.lineWidth=Math.max(1,L*.006); c.stroke();
+    /* anal fin: a long translucent ribbon that ripples from head to tail */
+    c.beginPath(); var x0=L*.27, x1=-L*.44, n=34, base=[], edge=[];
+    for(var k=0;k<=n;k++){ var u=k/n, xx=x0+(x1-x0)*u, by=L*(.072-.056*u), h=L*.05*(1-u*.65)*(.75+.25*Math.sin(u*14-t*7));
+      base.push([xx,by]); edge.push([xx,by+h]); }
+    c.moveTo(base[0][0],base[0][1]); edge.forEach(function(p){c.lineTo(p[0],p[1]);}); for(var k=n;k>=0;k--) c.lineTo(base[k][0],base[k][1]); c.closePath();
+    c.fillStyle='rgba(225,240,232,.28)'; c.fill(); c.strokeStyle='rgba(235,245,240,.55)'; c.lineWidth=Math.max(.8,L*.004); c.stroke();
+    c.strokeStyle='rgba(235,245,240,.32)'; c.beginPath(); for(var k=0;k<=n;k+=2){ c.moveTo(base[k][0],base[k][1]); c.lineTo(edge[k][0],edge[k][1]); } c.stroke();
+    /* spine, gill arc, pectoral fin, eye */
+    c.strokeStyle='rgba(240,248,244,.5)'; c.lineWidth=Math.max(1,L*.005); c.beginPath(); c.moveTo(L*.36,-L*.01); c.quadraticCurveTo(0,-L*.02,-L*.5,0); c.stroke();
+    c.beginPath(); c.arc(L*.4,L*.005,L*.05,-1.1,1.1); c.stroke();
+    c.save(); c.translate(L*.33,L*.04); c.rotate(.55+Math.sin(t*5)*.12); c.beginPath(); c.ellipse(0,L*.02,L*.012,L*.035,0,0,7); c.fillStyle='rgba(230,242,236,.4)'; c.fill(); c.restore();
+    c.fillStyle='#0b1a1a'; c.beginPath(); c.arc(L*.44,-L*.022,L*.014,0,7); c.fill();
+    c.fillStyle='rgba(255,255,255,.8)'; c.beginPath(); c.arc(L*.445,-L*.026,L*.004,0,7); c.fill();
+    c.restore(); }
   function wave(c,x0,x1,y,amp,freq,t,col,lw,mod){ c.strokeStyle=col; c.lineWidth=lw; c.beginPath(); for(var x=x0;x<=x1;x+=2){ var u=(x-x0); var a=amp*(mod?mod(u):1); var yy=y+Math.sin(u*freq-t*6)*a; if(x===x0) c.moveTo(x,yy); else c.lineTo(x,yy); } c.stroke(); }
   function fish(se,sh,ho,t){ var c=fc, W=fcv.width, H0=fcv.height; if(!W||!H0) return; var full=box.classList.contains('sf-full'), H=full?H0*.56:H0*.8, s=Math.max(3,W/90);
     var bg=c.createLinearGradient(0,0,0,H0); bg.addColorStop(0,'#123838'); bg.addColorStop(1,'#071a1c'); c.fillStyle=bg; c.fillRect(0,0,W,H0);

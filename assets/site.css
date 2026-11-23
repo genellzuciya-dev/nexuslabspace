@@ -3016,3 +3016,7 @@ html.solo #hdeck .specimen{height:calc(100vh - 64px)!important;max-height:none!i
 html.solo #hdeck .control{padding:.6rem 1rem;color:#C3CBE8}
 .cs-gal .cs-wide{grid-column:1/-1}
 .cs-gal .cs-wide video{aspect-ratio:16/9;background:#000}
+/* case study open: use the normal pointer (the custom cursor sits below the dialog layer) */
+html.case-open.has-cur,html.case-open.has-cur *{cursor:auto!important}
+html.case-open.has-cur a,html.case-open.has-cur button,html.case-open.has-cur video{cursor:pointer!important}
+html.case-open .cur,html.case-open .cur-ring{opacity:0!important}

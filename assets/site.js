@@ -1811,6 +1811,7 @@ try{(function(){
       ifr.addEventListener('load',function(){ box.classList.add('ready'); }); box.appendChild(ifr);
     });
     if(typeof dlg.showModal==='function') dlg.showModal(); else dlg.setAttribute('open','');
+    doc.querySelectorAll('video[autoplay]').forEach(function(v){ if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){ v.removeAttribute('autoplay'); v.controls=true; return; } var pr=v.play(); if(pr&&pr.catch) pr.catch(function(){}); });
     document.documentElement.classList.add('case-open');
     history.replaceState(null,'','#case-'+key);
   }

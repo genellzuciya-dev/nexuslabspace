@@ -2740,3 +2740,98 @@ header.top::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height
 /* two halves: remove the bottom HUD graphics (grid floor, circuit, vine, bottom corner marks) */
 .hud-floor,.hud-art,.hud-c.bl,.hud-c.br,.hud-t.bl,.hud-t.br{display:none!important}
 #wheel{padding-bottom:var(--sec-pad,5rem)}
+
+
+/* =====================================================================
+   Palette · Golden ultramarine (Nov 22 2026)
+   Bright gray #EFEFEF · Chinese black #171717 · Ultramarine #3670FF · Golden #F9D601
+   Lab = ultramarine, Space = golden. Leaf badge stays green.
+   ===================================================================== */
+:root{--paper:#EFEFEF;--cream:#EFEFEF;--plate:#E4E7F2;--band:#E4E7F2;--ink:#171717;--ink-soft:#4E4E52;--logo:#171717;--accent:#3670FF;--nacre:linear-gradient(90deg,#3670FF,#F9D601);--iris:linear-gradient(90deg,#3670FF,#F9D601)}
+body{background:#EFEFEF}
+header.top{background:#EFEFEF}
+header.top::after{background:linear-gradient(90deg,#3670FF,#F9D601)!important}
+.brand-mark .node{fill:#3670FF!important}
+.hero-band{background:radial-gradient(38% 50% at 96% 2%,rgba(54,112,255,.35),transparent 70%),radial-gradient(30% 40% at 4% 60%,rgba(249,214,1,.22),transparent 70%),radial-gradient(90% 140px at 50% 100%,#171717 0%,transparent 100%),linear-gradient(180deg,#EFEFEF 0%,#EFEFEF 45%,#E4E7F2 calc(100% - 150px),#171717 100%)!important}
+.hero-band::after{background:none!important}
+.hero h1{color:#171717}
+.hero h1 em{background:linear-gradient(95deg,#3670FF 0%,#3670FF 55%,#5A8BFF 110%)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent}
+.btn-primary,.hero .btn-primary{background:#171717!important;border-color:#171717!important;color:#fff}
+.btn-primary::after,.hero .btn-primary::after{background-color:#F9D601!important}
+.ticker{background:#171717!important}
+.ticker span:nth-child(3n+1)::after{background:#F9D601;box-shadow:0 0 10px #F9D601}
+.ticker span:nth-child(3n+2)::after{background:#3670FF;box-shadow:0 0 10px #3670FF}
+.ticker span:nth-child(3n)::after{background:#EFEFEF;box-shadow:0 0 10px #EFEFEF}
+.nav li a[aria-current="page"]::after{background:#F9D601!important}
+#hdeck{background:#EFEFEF}
+#hdeck .deck-nav button[aria-selected="true"] i::after{background:#3670FF!important}
+.sf-head h4 em{color:#3670FF!important}
+/* two halves */
+#wheel{background:radial-gradient(42% 50% at 0% 30%,rgba(54,112,255,.35),transparent 70%),radial-gradient(42% 50% at 100% 75%,rgba(249,214,1,.22),transparent 70%),linear-gradient(180deg,#1E2A5A 0%,#171717 70%)!important}
+#wheel .sec-head::after{background:linear-gradient(90deg,#3670FF,#F9D601)!important;box-shadow:none}
+#wheel .sec-head .label{color:#3670FF}
+#wheel .sec-head .label::before{background:#F9D601!important;box-shadow:0 0 10px #F9D601!important}
+#wheel h2{background:linear-gradient(100deg,#fff 0%,#fff 45%,#7FA2FF 75%,#FFE766 100%)!important;-webkit-background-clip:text!important;background-clip:text!important}
+#wheel .sx-side.lab{--side:#3670FF;--hc:#3670FF;--side-grad:linear-gradient(90deg,#3670FF,#7FA2FF)}
+#wheel .sx-side.space{--side:#F9D601;--hc:#F9D601;--side-grad:linear-gradient(90deg,#F9D601,#FFE766)}
+#wheel .sx-side.lab .sx-head .sx-k,#wheel .sx-side.lab .sx-where b,#wheel .sx-hubk.lab{color:#3670FF;text-shadow:0 0 10px #3670FF66}
+#wheel .sx-side.space .sx-head .sx-k,#wheel .sx-side.space .sx-where b,#wheel .sx-hubk.space{color:#F9D601;text-shadow:0 0 10px #F9D60166}
+#wheel .sx-side.lab .sx-card.divider .sx-front{background:linear-gradient(135deg,#D6E1FF,#B9CCFF)!important;color:#0B1E52}
+#wheel .sx-side.space .sx-card.divider .sx-front{background:linear-gradient(135deg,#FFF3A6,#F9E36A)!important;color:#3A3200}
+#wheel .sx-side.lab .sx-card.divider .sx-dt,#wheel .sx-side.lab .sx-card.divider .sx-dk,#wheel .sx-side.lab .sx-card.divider .sx-dn{color:#0B1E52!important}
+#wheel .sx-side.space .sx-card.divider .sx-dt,#wheel .sx-side.space .sx-card.divider .sx-dk,#wheel .sx-side.space .sx-card.divider .sx-dn{color:#3A3200!important}
+#wheel .sx-side.lab .sx-tab,#wheel .sx-side.lab .sx-btn{color:#3670FF!important;border-color:#3670FF!important;box-shadow:0 0 10px -3px #3670FF!important;background:#171717}
+#wheel .sx-side.space .sx-tab,#wheel .sx-side.space .sx-btn{color:#F9D601!important;border-color:#F9D601!important;box-shadow:0 0 10px -3px #F9D601!important;background:#171717}
+#wheel .sx-side.lab .sx-axle i{border-color:#3670FF!important;background:#171717!important}#wheel .sx-side.space .sx-axle i{border-color:#F9D601!important;background:#171717!important}
+#wheel .sx-seg.lab.t1{fill:#3670FF!important}#wheel .sx-seg.lab.t2{fill:#7FA2FF!important}#wheel .sx-seg.lab.t3{fill:#D6E1FF!important}
+#wheel .sx-seg.space.t1{fill:#F9D601!important}#wheel .sx-seg.space.t2{fill:#FFE766!important}#wheel .sx-seg.space.t3{fill:#FFF3A6!important}
+#wheel .sx-seg{stroke:#171717!important}#wheel .sx-hubc{fill:#171717!important}
+#wheel .sx-ticks.lab line{stroke:#3670FF!important}#wheel .sx-ticks.space line{stroke:#F9D601!important}
+#wheel .sx-ticks.lab .sx-knob{fill:#3670FF!important;filter:drop-shadow(0 0 7px #3670FF)!important}
+#wheel .sx-ticks.space .sx-knob{fill:#F9D601!important;filter:drop-shadow(0 0 7px #F9D601)!important}
+#wheel .sx-hub::before{background:conic-gradient(from 0deg,#3670FF,#7FA2FF,#F9D601,#FFE766,#3670FF)!important;filter:drop-shadow(0 0 6px #3670FFaa)!important}
+#wheel .sx-hub svg{filter:drop-shadow(0 0 14px #3670FF66) drop-shadow(0 0 18px #F9D60155)!important}
+#wheel .sx-key .k1{background:linear-gradient(90deg,#3670FF 50%,#F9D601 50%)!important}
+#wheel .sx-key .k2{background:linear-gradient(90deg,#7FA2FF 50%,#FFE766 50%)!important}
+#wheel .sx-key .k3{background:linear-gradient(90deg,#D6E1FF 50%,#FFF3A6 50%)!important}
+.hud-c.tl{border-color:#3670FF!important;filter:drop-shadow(0 0 6px #3670FF)!important}.hud-t.tl{color:#3670FF!important}
+.hud-c.tr{border-color:#F9D601!important;filter:drop-shadow(0 0 6px #F9D601)!important}.hud-t.tr{color:#F9D601!important}
+.hud-t b{background:#F9D601!important;box-shadow:0 0 10px #F9D601!important}
+.hud-cells{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='97' viewBox='0 0 56 97'%3E%3Cpath d='M28 0 L56 16 V48 L28 64 L0 48 V16 Z M28 64 V97' fill='none' stroke='%237FA2FF' stroke-width='.8'/%3E%3C/svg%3E")!important}
+#wheel .rx-listbtn{color:#3670FF!important}
+#explore.band,.band{background:linear-gradient(180deg,#E4E7F2,#EFEFEF)!important}
+footer{background:#171717!important}
+header.top .btn-primary{background:transparent!important;border-color:#17171755!important;color:#171717!important}
+#hdeck,.hdeck{--accent:#3670FF}
+#hdeck .fn-text,#hdeck .fn-label,#hdeck .sf-head small,#hdeck .lvl li.now{color:#3670FF!important}
+#hdeck input[type=range]{accent-color:#3670FF}
+.page-head,[data-page] .page-head{background:radial-gradient(45% 85% at 100% 0%,rgba(54,112,255,.35),transparent 70%),radial-gradient(30% 60% at 78% 0%,rgba(249,214,1,.22),transparent 70%),#EFEFEF!important}
+.page-head h1{background:linear-gradient(100deg,#3670FF,#3670FF 60%,#5A8BFF)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important}
+.crumb::before,.page-head .crumb::before{background:#F9D601!important}
+#learn{--accent:#3670FF;background:radial-gradient(40% 60% at 10% 20%,rgba(249,214,1,.22),transparent 70%),radial-gradient(40% 60% at 90% 80%,rgba(54,112,255,.35),transparent 70%),linear-gradient(180deg,#E4E7F2,#EFEFEF)!important}
+.oyster svg [stroke]{stroke:#3670FF}
+#engage.band,#engage{background:radial-gradient(50% 60% at 100% 0%,rgba(249,214,1,.22),transparent 70%),radial-gradient(45% 60% at 0% 100%,rgba(54,112,255,.35),transparent 70%),#171717!important}
+#engage .eng:nth-child(2)::before{background:linear-gradient(90deg,#3670FF,#7FA2FF)!important}
+#engage .eng:nth-child(3)::before{background:linear-gradient(90deg,#F9D601,#FFE766)!important}
+#engage .eng.feature{box-shadow:0 0 40px -10px #F9D60188!important}
+#method.band,#process{background:linear-gradient(180deg,#E4E7F2,#EFEFEF)!important}
+.phase .code,.phase .ph-track,.phase summary .code{color:#3670FF!important}
+.phase[open]{border-color:#3670FF55}
+.d-key rect,.d-proto-mini,.d-seed circle{fill:#3670FF!important}
+.d-loop{stroke:#3670FF!important}
+.ph-key-first{background:#1E2A5A!important}
+.ph-key-first .label{color:#F9D601!important}
+#engage .eng.feature{background:#F9D601!important;color:#171717}
+.cs-faq{background:#EFEFEF!important}.cs-form{background:linear-gradient(180deg,#E4E7F2,#EFEFEF)!important}
+
+/* golden ultramarine: finishing touches */
+.label::before,.sec-head .label::before,.crumb::before{background:#F9D601}
+#hdeck .lvl li.on::before,#hdeck .lvl li.on:not(:first-child)::after{background:#3670FF;border-color:#3670FF}
+.d-chips .go{fill:color-mix(in srgb,#3670FF 18%,#EFEFEF);stroke:#3670FF}
+.oyster svg{--accent:#3670FF}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .brand-mark .node{fill:#7FA2FF!important}}
+
+.cs-faq .sec-head .label,.cs-faq .faq summary::after,.cs-faq .faq details[open] summary{color:#3670FF!important}
+.cs-faq .sec-head .label::after{background:#3670FF}
+.cs-form h2{color:#171717}
+.cs-form{background:linear-gradient(180deg,#E4E7F2,#EFEFEF)!important}

@@ -1547,6 +1547,7 @@ try{
 /* bullseye cursor: only for devices with a precise pointer */
 (function(){
   if(!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  if(/[?&]solo=/.test(location.search)) return;
   var root=document.documentElement, cur=document.getElementById('cur'), ring=document.getElementById('curRing');
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches, cx=-100, cy=-100, rx=-100, ry=-100, on=false;
   var HOT='a,button,summary,label,[role="tab"],input[type="range"],.lq-3d,.deck-card canvas,.yt-btn';

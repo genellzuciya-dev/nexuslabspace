@@ -2835,3 +2835,17 @@ header.top .btn-primary{background:transparent!important;border-color:#17171755!
 .cs-faq .sec-head .label::after{background:#3670FF}
 .cs-form h2{color:#171717}
 .cs-form{background:linear-gradient(180deg,#E4E7F2,#EFEFEF)!important}
+
+/* golden ultramarine: retire leftover orange and violet tokens site-wide */
+:root{--lab:#3670FF;--lab-2:#7FA2FF;--lab-3:#B9CCFF;--lab-deep:#1E2A5A;--lab-tint:#D6E1FF;--lab-neon:#7FA2FF;
+  --space:#F9D601;--space-2:#FFE766;--space-3:#F9E36A;--space-tint:#FFF3A6;--flash:#3670FF;--leaf:#F9D601;--forest:#171717;
+  --lab-grad:linear-gradient(90deg,#3670FF,#7FA2FF);--space-grad:linear-gradient(90deg,#F9D601,#FFE766);
+  --split-grad:linear-gradient(90deg,#3670FF,#7FA2FF 45%,#F9D601)}
+/* explore cards */
+.ex-card:nth-child(1)::before{background:linear-gradient(90deg,#3670FF,#7FA2FF)}
+.ex-card:nth-child(2)::before{background:linear-gradient(90deg,#3670FF,#7FA2FF 45%,#F9D601)}
+.ex-card:nth-child(3)::before{background:linear-gradient(90deg,#F9D601,#FFE766)}
+.ex-card .ex-k,.ex-card:nth-child(1) .ex-k,.ex-card:nth-child(2) .ex-k,.ex-card:nth-child(3) .ex-k,.ex-card:nth-child(4) .ex-k{color:#3670FF}
+.ex-card i{background:#F9D601}
+.ex-card i::after{background:#171717}
+.founder .fd-pair{background:linear-gradient(135deg,#D6E1FF 0%,#EFEFEF 55%,#FFF3A6 100%)!important}

@@ -2961,3 +2961,56 @@ header.top .btn-primary{background:transparent!important;border-color:#17171755!
 .ph-key-first{background:#14224F!important}.ph-key-first .label{color:#5FE08A!important}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .brand-mark .node{fill:#8FB0FF!important}}
 .d-chips .stop{fill:#E2E2E2;stroke:#171717;stroke-dasharray:4 3}
+
+/* =====================================================================
+   Case studies: expanded view from the project cards (Nov 23 2026)
+   ===================================================================== */
+.sx-open{display:inline-flex;align-items:center;gap:.55rem;margin-top:.9rem;padding:.45rem .5rem .45rem .95rem;border-radius:999px;border:1px solid #171717;background:#171717;color:#fff;font:600 .82rem/1 Montserrat,sans-serif;cursor:pointer}
+.sx-open i{width:22px;height:22px;border-radius:50%;background:#5FE08A url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8h9M8.5 4.5L12 8l-3.5 3.5' fill='none' stroke='%23171717' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat}
+.sx-open:hover{background:#2B5BFF;border-color:#2B5BFF}
+.sx-open:focus-visible{outline:3px solid #8FB0FF;outline-offset:2px}
+#wheel .sx-card.has-case:not(.behind):not(.flipped) .sx-front{cursor:pointer}
+.case-dlg{width:min(1080px,calc(100vw - 32px));max-height:calc(100vh - 40px);padding:0;border:0;border-radius:22px;background:#EFEFEF;color:#171717;box-shadow:0 40px 120px -30px rgba(0,0,0,.6);overflow:hidden}
+.case-dlg::backdrop{background:rgba(16,21,40,.62);backdrop-filter:blur(4px)}
+.case-dlg[open]{animation:csIn .28s cubic-bezier(.2,.8,.2,1)}
+@keyframes csIn{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}
+html.case-open{overflow:hidden}
+.cs-scroll{max-height:calc(100vh - 40px);overflow:auto;padding:clamp(1.4rem,3.2vw,3rem)}
+.cs-close{position:absolute;top:14px;right:14px;z-index:3;width:44px;height:44px;border-radius:50%;border:1px solid rgba(23,23,23,.2);background:#fff;color:#171717;font-size:26px;line-height:1;cursor:pointer}
+.cs-close:hover{background:#171717;color:#fff}
+.cs-head{padding-right:3rem;border-bottom:2px solid;border-image:linear-gradient(90deg,#2B5BFF,#5FE08A) 1;padding-bottom:1.2rem;margin-bottom:1.4rem}
+.cs-tags{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:.78rem}
+.cs-lvl{color:#4E4E52}
+.cs-head h2{font-family:Fraunces,serif;font-weight:400;font-size:clamp(2rem,1.4rem + 2.4vw,3.4rem);line-height:1.05;margin:.6rem 0 .5rem}
+.cs-lede{font-size:1.12rem;color:#4E4E52;max-width:60ch;margin:0}
+.cs-fn{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.6rem;margin:0 0 1.4rem}
+.cs-fn div{background:#fff;border:1px solid #DDDDE3;border-radius:12px;padding:.8rem .9rem}
+.cs-fn dt{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:#1F48D6}
+.cs-fn dd{margin:.35rem 0 0;font-weight:600;font-size:.98rem}
+.cs-fn div:first-child{background:#171717;border-color:#171717;color:#fff}.cs-fn div:first-child dt{color:#5FE08A}
+.cs-model{margin:0 0 1.8rem}
+.cs-frame{position:relative;height:clamp(300px,46vw,520px);border-radius:16px;overflow:hidden;background:#101828}
+.cs-frame span{position:absolute;inset:0;display:grid;place-items:center;color:#8FB0FF;font-family:'IBM Plex Mono',monospace;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase}
+.cs-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;opacity:0;transition:opacity .4s}
+.cs-frame.ready iframe{opacity:1}
+.cs-model figcaption,.cs-gal figcaption{font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:#4E4E52;margin-top:.5rem;line-height:1.5}
+.cs-body h3{font-family:Fraunces,serif;font-weight:400;font-size:1.6rem;margin:1.8rem 0 .5rem}
+.cs-body p,.cs-body li{font-size:1.02rem;line-height:1.7;max-width:68ch}
+.cs-beats{padding-left:1.2rem}.cs-beats li{margin:.45rem 0}.cs-beats b{color:#1F48D6}
+.cs-partners{list-style:none;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem}
+.cs-partners li{background:#fff;border:1px solid #DDDDE3;border-top:3px solid #5FE08A;border-radius:12px;padding:.85rem 1rem;display:grid;gap:.2rem}
+.cs-partners span{font-size:.88rem;color:#4E4E52;line-height:1.45}
+.cs-status{list-style:none;padding:0}.cs-status li{position:relative;padding-left:1.6rem;margin:.4rem 0}
+.cs-status li::before{content:"";position:absolute;left:0;top:.55em;width:11px;height:11px;border-radius:50%;border:2px solid #8C8C94}
+.cs-status li.done::before{background:#2B5BFF;border-color:#2B5BFF}
+.cs-status li.now::before{background:#5FE08A;border-color:#2F9E5C;transform:rotate(45deg);border-radius:2px}
+.cs-gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1.8rem}
+.cs-gal figure{margin:0}.cs-gal img,.cs-gal video{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;display:block;background:#ddd}
+@media (max-width:760px){.case-dlg{width:100vw;max-width:100vw;max-height:100vh;height:100vh;border-radius:0}.cs-scroll{max-height:100vh}.cs-fn,.cs-partners{grid-template-columns:1fr 1fr}}
+/* solo mode for the model frame */
+html.solo,html.solo body{background:#101828!important;margin:0;padding:0;overflow:hidden}
+html.solo #hdeck{position:fixed;inset:0;margin:0!important;width:100%!important;max-width:none!important;height:100%;border-radius:0!important;box-shadow:none!important;background:#101828!important;padding:0!important;zoom:1!important}
+html.solo #hdeck .deck-nav,html.solo #hdeck figcaption,html.solo #hdeck .sf-head,html.solo #hdeck .deck-pause,html.solo #hdeck .deck-card>header,html.solo #hdeck .deck-card .sf-head{display:none!important}
+html.solo #hdeck .deck-card{padding:0!important;background:transparent!important;border:0!important;box-shadow:none!important}
+html.solo #hdeck .specimen{height:calc(100vh - 64px)!important;max-height:none!important;aspect-ratio:auto!important;border-radius:0!important}
+html.solo #hdeck .control{padding:.6rem 1rem;color:#C3CBE8}

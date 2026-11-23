@@ -1696,7 +1696,8 @@ try{
           th.map(function(u,k){return '<figure class="sx-pin p'+k+'"><img src="'+u+'" alt="" loading="lazy" draggable="false"></figure>';}).join('')+
           '<i class="sx-tape"></i></div>'; }
         else if(sealed){ board='<div class="sx-board sx-sealedboard"><span class="sx-stamp">Under wraps</span></div>'; }
-        c.innerHTML='<div class="sx-face sx-front">'+board+'<div class="sx-txt">'+w.innerHTML+'</div></div><div class="sx-face sx-back"></div>';
+        var cs=w.getAttribute('data-case'); if(cs){ c.dataset.case=cs; c.classList.add('has-case'); }
+        c.innerHTML='<div class="sx-face sx-front">'+board+'<div class="sx-txt">'+w.innerHTML+(cs?'<button type="button" class="sx-open" data-case="'+cs+'">Open case study<i aria-hidden="true"></i></button>':'')+'</div></div><div class="sx-face sx-back"></div>';
         cards.push(c);
       });
     });
@@ -1721,7 +1722,9 @@ try{
     }
     function go(n){ n=Math.max(0,Math.min(cards.length-1,n)); if(n===cur) return false; cur=n; layout(); return true; }
     el.querySelectorAll('.sx-btn').forEach(function(b){ b.addEventListener('click',function(){go(cur+parseInt(b.dataset.dir,10));}); });
-    drum.addEventListener('click',function(e){ var c=e.target.closest('.sx-card'); if(!c||e.target.closest('a')) return; var i=cards.indexOf(c); if(i!==cur) go(i); });
+    drum.addEventListener('click',function(e){ var c=e.target.closest('.sx-card'); if(!c||e.target.closest('a')) return; var i=cards.indexOf(c);
+      if(i!==cur){ e.preventDefault(); e.stopPropagation(); go(i); return; }
+      if(c.dataset.case && window.nexusOpenCase && !api.dragging) window.nexusOpenCase(c.dataset.case, c); });
     stage.addEventListener('keydown',function(e){ var k=e.key,n=null; if(k==='ArrowDown'||k==='ArrowRight'||k==='PageDown') n=cur+1; else if(k==='ArrowUp'||k==='ArrowLeft'||k==='PageUp') n=cur-1; else if(k==='Home') n=0; else if(k==='End') n=cards.length-1; if(n!==null){e.preventDefault();go(n);} });
     /* page scrolling is never captured: flip with the dial, the buttons, a drag or the arrow keys */
     /* drag with a little momentum: a fast flick spins several cards */
@@ -1782,7 +1785,7 @@ try{
   var d=document.getElementById('hdeck'); if(!d) return;
   function fit(){
     d.style.zoom='';
-    if(innerWidth<=900) return;
+    if(innerWidth<=900||document.documentElement.classList.contains('solo')) return;
     var hdr=document.querySelector('header.top');
     var avail=innerHeight-(hdr?hdr.offsetHeight:0)-40;
     var h=d.getBoundingClientRect().height;
@@ -1792,3 +1795,43 @@ try{
   var t; addEventListener('resize',function(){clearTimeout(t);t=setTimeout(fit,120)});
   addEventListener('load',fit); fit();
 }catch(e){}})();
+
+
+/* case studies: each project card opens a detailed view; Esc, the close button or the backdrop closes it */
+try{(function(){
+  var dlg=document.getElementById('case-dlg'); if(!dlg) return;
+  var doc=dlg.querySelector('.cs-doc'), scroller=dlg.querySelector('.cs-scroll'), opener=null;
+  function open(key,from){
+    var t=document.getElementById('case-'+key); if(!t) return;
+    opener=from||document.activeElement;
+    doc.innerHTML=''; doc.appendChild(t.content.cloneNode(true)); scroller.scrollTop=0;
+    doc.querySelectorAll('.cs-model').forEach(function(f){
+      var n=f.getAttribute('data-slide'), box=f.querySelector('.cs-frame');
+      var ifr=document.createElement('iframe'); ifr.title='Live model'; ifr.loading='eager'; ifr.src='./?solo='+n;
+      ifr.addEventListener('load',function(){ box.classList.add('ready'); }); box.appendChild(ifr);
+    });
+    if(typeof dlg.showModal==='function') dlg.showModal(); else dlg.setAttribute('open','');
+    document.documentElement.classList.add('case-open');
+    history.replaceState(null,'','#case-'+key);
+  }
+  function close(){ if(dlg.open){ if(typeof dlg.close==='function') dlg.close(); else dlg.removeAttribute('open'); } }
+  dlg.addEventListener('close',function(){ doc.innerHTML=''; document.documentElement.classList.remove('case-open');
+    if(location.hash.indexOf('#case-')===0) history.replaceState(null,'',location.pathname+location.search);
+    if(opener&&opener.focus) try{opener.focus({preventScroll:true});}catch(e){} });
+  dlg.querySelector('.cs-close').addEventListener('click',close);
+  dlg.addEventListener('click',function(e){ if(e.target===dlg) close(); });
+  document.addEventListener('click',function(e){ var b=e.target.closest('.sx-open'); if(!b) return; e.preventDefault(); e.stopPropagation(); open(b.getAttribute('data-case'),b); },true);
+  window.nexusOpenCase=open;
+  if(location.hash.indexOf('#case-')===0) setTimeout(function(){ open(location.hash.slice(6)); },400);
+})();}catch(e){ if(window.console) console.warn('[nexus case]',e); }
+
+/* solo mode: ?solo=N shows only hero slide N, paused on that slide, for the case-study model frame */
+try{(function(){
+  var m=/[?&]solo=(\d+)/.exec(location.search); if(!m) return;
+  var n=+m[1], d=document.getElementById('hdeck'); if(!d) return;
+  document.documentElement.classList.add('solo');
+  var tabs=d.querySelectorAll('.deck-nav button[role="tab"]'); if(tabs[n]) tabs[n].click();
+  var pb=d.querySelector('.deck-pause'); if(pb && pb.getAttribute('aria-pressed')!=='true') pb.click();
+  d.remove(); document.body.innerHTML=''; document.body.appendChild(d); d.style.zoom='';
+  window.scrollTo(0,0);
+})();}catch(e){ if(window.console) console.warn('[nexus solo]',e); }

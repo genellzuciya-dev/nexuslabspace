@@ -3014,3 +3014,5 @@ html.solo #hdeck .deck-nav,html.solo #hdeck figcaption,html.solo #hdeck .sf-head
 html.solo #hdeck .deck-card{padding:0!important;background:transparent!important;border:0!important;box-shadow:none!important}
 html.solo #hdeck .specimen{height:calc(100vh - 64px)!important;max-height:none!important;aspect-ratio:auto!important;border-radius:0!important}
 html.solo #hdeck .control{padding:.6rem 1rem;color:#C3CBE8}
+.cs-gal .cs-wide{grid-column:1/-1}
+.cs-gal .cs-wide video{aspect-ratio:16/9;background:#000}

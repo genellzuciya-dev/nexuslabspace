@@ -3020,3 +3020,44 @@ html.solo #hdeck .control{padding:.6rem 1rem;color:#C3CBE8}
 html.case-open.has-cur,html.case-open.has-cur *{cursor:auto!important}
 html.case-open.has-cur a,html.case-open.has-cur button,html.case-open.has-cur video{cursor:pointer!important}
 html.case-open .cur,html.case-open .cur-ring{opacity:0!important}
+
+/* =====================================================================
+   Dial: more direct control (Nov 23 2026)
+   ===================================================================== */
+.sx-live .sx-card{transition:transform .14s linear,opacity .14s linear!important}
+.sx-ticks{transition:transform .6s cubic-bezier(.34,1.56,.64,1)}
+#wheel .sx-seg{transition:filter .2s,opacity .2s;cursor:grab}
+#wheel .sx-hub:hover .sx-seg{opacity:.78}
+#wheel .sx-hub .sx-seg:hover,#wheel .sx-hub .sx-seg:focus-visible{opacity:1;filter:brightness(1.18) drop-shadow(0 0 8px rgba(143,176,255,.75))}
+#wheel .sx-hub .sx-seg.space:hover,#wheel .sx-hub .sx-seg.space:focus-visible{filter:brightness(1.12) drop-shadow(0 0 8px rgba(95,224,138,.75))}
+#wheel .sx-seg.is-on{filter:brightness(1.15)}
+.dial-grab #wheel .sx-seg,.dial-grab .sx-seg{cursor:grabbing}
+.sx-mark{fill:rgba(255,255,255,.28);transition:r .25s,fill .25s;cursor:pointer}
+.sx-marks.lab .sx-mark.div{fill:#8FB0FF}.sx-marks.space .sx-mark.div{fill:#A6F0BE}
+.sx-marks.lab .sx-mark.on{fill:#fff;r:4.6px;filter:drop-shadow(0 0 5px #8FB0FF)}
+.sx-marks.space .sx-mark.on{fill:#fff;r:4.6px;filter:drop-shadow(0 0 5px #5FE08A)}
+.sx-hub .sx-hubt{transition:fill .25s;font-family:'IBM Plex Mono',monospace;letter-spacing:.06em}
+.sx-hub.live[data-side="lab"] .sx-hubt:first-of-type{fill:#8FB0FF}
+.sx-hub.live[data-side="space"] .sx-hubt:first-of-type{fill:#5FE08A}
+.sx-hub.live .sx-hubc{stroke:rgba(255,255,255,.45)}
+.sx-hub.live[data-side="lab"] .sx-hubc{filter:drop-shadow(0 0 10px rgba(43,91,255,.6))}
+.sx-hub.live[data-side="space"] .sx-hubc{filter:drop-shadow(0 0 10px rgba(95,224,138,.55))}
+.sx-hub.nudge #sx-ticks-lab{animation:dialNudgeL 2s cubic-bezier(.45,0,.55,1)}
+.sx-hub.nudge #sx-ticks-space{animation:dialNudgeR 2s cubic-bezier(.45,0,.55,1) .25s}
+@keyframes dialNudgeL{0%,100%{transform:rotate(0)}35%{transform:rotate(-14deg)}65%{transform:rotate(3deg)}}
+@keyframes dialNudgeR{0%,100%{transform:rotate(0)}35%{transform:rotate(14deg)}65%{transform:rotate(-3deg)}}
+@media (prefers-reduced-motion:reduce){.sx-hub.nudge #sx-ticks-lab,.sx-hub.nudge #sx-ticks-space{animation:none}}
+/* brush preview */
+.cs-brush{margin:0 0 1.8rem}
+.cs-bstage{position:relative;height:clamp(280px,40vw,460px);border-radius:16px;overflow:hidden;background:radial-gradient(60% 80% at 20% 0%,rgba(43,91,255,.25),transparent 70%),radial-gradient(60% 80% at 100% 100%,rgba(95,224,138,.18),transparent 70%),#101828}
+.cs-bstage canvas{position:absolute;inset:0;width:100%;height:100%}
+.cs-bmeta{position:absolute;left:18px;bottom:14px;display:flex;gap:14px;align-items:baseline;font-family:'IBM Plex Mono',monospace;color:#EFEFEF}
+.cs-bmeta .nm{font-size:.95rem;letter-spacing:.06em}.cs-bmeta .ct{font-size:.75rem;color:#8FB0FF;letter-spacing:.12em}
+.cs-bpause{position:absolute;right:14px;bottom:12px;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.4);background:rgba(16,24,40,.6);cursor:pointer;display:grid;place-items:center}
+.cs-bpause span{width:12px;height:12px;border-left:3.5px solid #fff;border-right:3.5px solid #fff;box-sizing:border-box}
+.cs-bpause.paused span{border:0;width:0;height:0;border-left:12px solid #fff;border-top:7px solid transparent;border-bottom:7px solid transparent;margin-left:3px}
+.cs-brush figcaption{font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:#4E4E52;margin-top:.5rem}
+.cs-bgroups{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.8rem}
+.cs-bgroups div{background:#fff;border:1px solid #DDDDE3;border-radius:12px;padding:.8rem 1rem}
+.cs-bgroups h4{margin:0 0 .4rem;font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:#1F48D6}
+.cs-bgroups ul{list-style:none;margin:0;padding:0}.cs-bgroups li{font-size:.92rem;line-height:1.6}

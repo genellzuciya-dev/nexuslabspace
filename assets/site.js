@@ -1366,7 +1366,7 @@ try{
   var root=document.getElementById('ft'); if(!root)return;
   var svg=root.querySelector('.ft-3d'), keys=root.querySelector('.ft-keys'), NS='http://www.w3.org/2000/svg';
   var stepEl=root.querySelector('.ft-step'), hEl=root.querySelector('.ft-h'), bEl=root.querySelector('.ft-b'), chips=root.querySelector('.ft-chips'),
-      endEl=root.querySelector('.ft-end'), reset=root.querySelector('.ft-reset'), done=root.querySelector('.ft-done');
+      endEl=root.querySelector('.ft-end'), reset=root.querySelector('.ft-reset'), done=root.querySelector('.ft-done')||{};
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var FLAPS=[
     {a:'Electronics',b:'+ Software',full:'Electronics and software',what:'A proof of concept for the technology: does it work?',qx:.5,qy:.5,dot:'#2B5BFF',n:[1,2]},

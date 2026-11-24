@@ -1494,7 +1494,7 @@ try{
   var root=svg.closest('.xp'), NS='http://www.w3.org/2000/svg', S=34;
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var TH=[['Records','#2B5BFF'],['Maps','#2E9E5B'],['Sensors','#C98500'],['Field notes','#E8503D'],['Surveys','#6E93FF'],['Spreadsheets','#5F5E5A']];
-  var GL='rgba(143,176,255,.2)', GS='#6E93FF';
+  var GL='rgba(26,156,140,.16)', GS='#1a9c8c';
   function P(x,y,z){return [(x-y)*.866*S,(x+y)*.5*S-(z||0)*S];}
   function pts(a){return a.map(function(v){var q=P(v[0],v[1],v[2]);return q[0].toFixed(1)+','+q[1].toFixed(1);}).join(' ');}
   function el(n,a,par){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);(par||svg).appendChild(e);return e;}
@@ -1530,7 +1530,7 @@ try{
       g.addEventListener('mouseenter',function(){if(!picked){hi=j;if(reduce)draw();}});});
     /* evidence frame: a glass pane every thread passes through */
     poly([[3,-.5,0],[3,6.5,0],[3,6.5,2],[3,-.5,2]],GL,GS,1.2,.95);
-    poly([[3,-.5,2],[3.25,-.5,2],[3.25,6.5,2],[3,6.5,2]],'rgba(110,147,255,.35)',GS,1,1);
+    poly([[3,-.5,2],[3.25,-.5,2],[3.25,6.5,2],[3,6.5,2]],'rgba(26,156,140,.35)',GS,1,1);
     TH.forEach(function(th,j){var y=ty(j),q=P(3,y,1.05);el('circle',{cx:q[0].toFixed(1),cy:q[1].toFixed(1),r:2.6,fill:'#fff',stroke:th[1],'stroke-width':1.5,opacity:T.tags});
       if(T.tags>.05&&hi===j&&T.team>.5)txt(3,y,1.05,'traced to '+th[0].toLowerCase(),'lm-tb','start',8,-6,T.tags);});
     /* woven cloth, then a working screen */

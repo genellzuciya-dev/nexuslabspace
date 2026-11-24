@@ -3208,3 +3208,20 @@ html.case-open .cur,html.case-open .cur-ring{opacity:0!important}
 .xp-journey .xs circle.jp,.xp-journey .xs.done circle.jp{fill:var(--paper,#f0f0f0);stroke:#E8503D;stroke-width:2}
 .xp-journey .xs.current circle.jp{fill:#E8503D}
 .xp-journey .xs circle.jr{stroke:var(--paper,#f0f0f0);stroke-width:1.5}
+/* experience design: top-down museum plan */
+.xp-journey .ol-grid{grid-template-columns:minmax(0,1fr)}
+@media (min-width:980px){.xp-journey .ol-grid{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:3rem;align-items:start}}
+.xp-journey .jfig svg{width:100%;max-width:none}
+.xp-journey .jwall{fill:none;stroke:#171717;stroke-width:3}
+.xp-journey .xs .jroom{fill:#F6F4EF;stroke:#171717;stroke-width:1.5;transition:fill .3s}
+.xp-journey .xs.current .jroom{fill:color-mix(in srgb,#4f74f0 13%,#fff);stroke:#171717}
+.xp-journey .xs.done .jroom{fill:#F6F4EF}
+.xp-journey .jdoor{stroke:var(--paper,#f0f0f0);stroke-width:5}
+.xp-journey .jdoorl{font:400 10.5px 'IBM Plex Mono',monospace;fill:var(--ink-soft)}
+.xp-journey .xs text.jrn{font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.04em;fill:#171717}
+.xp-journey .xs circle.jr{stroke:#F6F4EF;stroke-width:1.2;opacity:.92}
+.xp-journey .xs.current circle.jr{opacity:1}
+.xp-journey .jtrail{fill:none;stroke-width:1.2;stroke-dasharray:2 5;opacity:.35;stroke-linecap:round;stroke-linejoin:round}
+.xp-journey .jv{stroke:#fff;stroke-width:1.5}
+.jwhole{display:grid;grid-template-columns:92px minmax(0,1fr);gap:1rem;align-items:center}
+.jwhole svg{width:92px;height:92px}

@@ -3225,3 +3225,10 @@ html.case-open .cur,html.case-open .cur-ring{opacity:0!important}
 .xp-journey .jv{stroke:#fff;stroke-width:1.5}
 .jwhole{display:grid;grid-template-columns:92px minmax(0,1fr);gap:1rem;align-items:center}
 .jwhole svg{width:92px;height:92px}
+/* forward-deployed AI: glass loom */
+@media (min-width:980px){.xp-loom .ol-grid{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:3rem}}
+.loom-svg{width:100%;height:auto;display:block;overflow:visible}
+.loom-svg .lm-t{font:400 11px 'IBM Plex Mono',monospace;fill:#444441}
+.loom-svg .lm-tb{font:600 11.5px 'IBM Plex Mono',monospace;fill:#171717}
+.loom-svg .lm-th{cursor:pointer}
+.xp-loom .xp-fig svg.loom-svg{max-width:none}

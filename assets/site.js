@@ -1383,7 +1383,7 @@ try{
     7:['Does the interface make sense?','Click-through screens on a real phone or kiosk before anything is coded.',['Screen mock-up','Phone or tablet']],
     8:['Can people find their way without help?','Hand testers the click-through and watch where they hesitate.',['Click-through','Five testers']]};
   /* geometry: four square pyramids on a 2 x 2 base, apex height H */
-  var H=.68, S=124, TILT=.78, D=6, Z0=-.62;
+  var H=.7, S=118, TILT=.52, D=6, Z0=-.62;
   function pyr(f){var x0=f.qx-.5,x1=f.qx+.5,y0=f.qy-.5,y1=f.qy+.5,c=[[x0,y0,0],[x1,y0,0],[x1,y1,0],[x0,y1,0]],ap=[f.qx,f.qy,H],faces=[];
     for(var i=0;i<4;i++){var p=c[i],q=c[(i+1)%4],mx=(p[0]+q[0])/2,my=(p[1]+q[1])/2,inner=Math.abs(mx)<1e-6||Math.abs(my)<1e-6;
       faces.push({pts:[ap,p,q],inner:inner,axis:Math.abs(mx)<1e-6?'x':(Math.abs(my)<1e-6?'y':null)});}
@@ -1393,8 +1393,8 @@ try{
     faces.push({pts:[[x0,0,0],[x1,0,0],[f.qx,0,Z0+.04]],inner:true,axis:'y',num:f.n[1]});
     return faces;}
   var P=FLAPS.map(pyr);
-  var st={ax:0,ay:0,sp:0,yaw:0,tilt:TILT}, picked=null, busy=false, active=null, lifted=null, liftT=0;
-  function rot(v,f){var x=v[0],y=v[1],z=v[2],a,c,s,t;
+  var st={ax:0,ay:0,sp:0,yaw:0,tilt:TILT,flat:0}, picked=null, busy=false, active=null, lifted=null, liftT=0;
+  function rot(v,f){var x=v[0],y=v[1],z=v[2]*(1-st.flat),a,c,s,t;
     z-=Z0;
     a=st.ax*(f.qx<0?1:-1);c=Math.cos(a);s=Math.sin(a);t=x*c-z*s;z=x*s+z*c;x=t;
     a=st.ay*(f.qy<0?1:-1);c=Math.cos(a);s=Math.sin(a);t=y*c-z*s;z=y*s+z*c;y=t;
@@ -1417,9 +1417,11 @@ try{
         list.push({k:k,fc:fc,pr:pr,d:dep,lit:lit,w:w,mid:mid,vn:vn});});});
     list.sort(function(a,b){return a.d-b.d;});
     svg.textContent='';
-    var sh=el('ellipse',{cx:0,cy:96+st.sp*30,rx:150+st.sp*60,ry:22,fill:'rgba(0,0,0,.07)'});svg.appendChild(sh);
+    if(st.flat>.55){drawSheet(Math.min(1,(st.flat-.55)/.45));if(st.flat>.97)return;}
+    var sh=el('ellipse',{cx:0,cy:96+st.sp*30,rx:150+st.sp*60,ry:22,fill:'rgba(0,0,0,.07)',opacity:(1-st.flat).toFixed(2)});svg.appendChild(sh);
     list.forEach(function(it){var f=FLAPS[it.k],fc=it.fc,inner=fc.inner,g=el('g',{'class':'ft-f'+(inner?' ft-in':' ft-out')});
-      var base=inner?228:250,v=Math.round(base*(.8+.2*it.lit)),col='rgb('+v+','+(v-1)+','+(v-5)+')';
+      var seam=!inner&&(Math.abs((fc.pts[1][0]+fc.pts[2][0])/2)<1e-6||Math.abs((fc.pts[1][1]+fc.pts[2][1])/2)<1e-6);
+      var base=inner?222:(seam?236:252),v=Math.round(base*(.8+.2*it.lit)),col=seam||inner?'rgb('+(v-10)+','+(v-6)+','+(v+6)+')':'rgb('+v+','+(v-1)+','+(v-5)+')';
       var dim=picked!==null&&inner&&FLAPS[picked].n.indexOf(fc.num)<0&&(active||lifted);
       var isLive=inner&&active&&active.indexOf(fc.num)>-1;
       var op=1; if(lifted===fc.num) op=1-liftT;
@@ -1430,14 +1432,28 @@ try{
       if(inner&&fc.num!=null)g.dataset.num=fc.num; g.dataset.k=it.k;
       svg.appendChild(g);});
     /* labels sit above each peak, in screen space */
-    FLAPS.forEach(function(f,k){var a=view(rot([f.qx*1.62,f.qy*1.62,H*.16],f)),o=Math.max(0,1-Math.max(st.ax,st.ay)*2.2-st.sp*6);
-      var g=el('g',{opacity:o.toFixed(2),'class':'ft-labs'}),dx=f.qx<0?-1:1;
+    FLAPS.forEach(function(f,k){var a=view(rot([f.qx*1.5,f.qy*1.5,H*.22],f)),o=Math.max(0,1-Math.max(st.ax,st.ay)*2.2-st.sp*6-st.flat*3);
+      var g=el('g',{opacity:o.toFixed(2),'class':'ft-labs'+(picked===null&&o>.5?' on':'')});g.dataset.k=k;
+      g.appendChild(el('rect',{x:(a.x-48).toFixed(1),y:(a.y-26).toFixed(1),width:96,height:46,fill:'transparent'}));
       g.appendChild(el('circle',{cx:(a.x).toFixed(1),cy:(a.y-16).toFixed(1),r:5.5,fill:f.dot}));
       var t=el('text',{x:a.x.toFixed(1),y:(a.y+2).toFixed(1),'text-anchor':'middle','class':'ft-lab'});t.textContent=f.a;
       var t2=el('text',{x:a.x.toFixed(1),y:(a.y+15).toFixed(1),'text-anchor':'middle','class':'ft-lab2'});t2.textContent=f.b;
       g.appendChild(t);g.appendChild(t2);svg.appendChild(g);});
   }
-  function tween(to,ms,cb){var from={ax:st.ax,ay:st.ay,sp:st.sp,yaw:st.yaw,tilt:st.tilt},t0=null;if(reduce||!ms){for(var k in to)st[k]=to[k];draw();cb&&cb();return;}
+  var SHORT={1:'Sensor timing',2:'Touch to screen',3:'Big enough?',4:'Screen height',5:'Projector bright?',6:'Does it land?',7:'Makes sense?',8:'Find the way'};
+  function drawSheet(o){var W=138,cy0=12,g=el('g',{opacity:o.toFixed(2),'class':'ft-sheet'});svg.appendChild(g);
+    g.appendChild(el('rect',{x:-W,y:cy0-W,width:2*W,height:2*W,fill:'#fbfaf6',stroke:'#c9c6be','stroke-width':1}));
+    [['M',-W,cy0-W,'L',W,cy0+W],['M',W,cy0-W,'L',-W,cy0+W],['M',0,cy0-W,'L',0,cy0+W],['M',-W,cy0,'L',W,cy0],['M',0,cy0-W,'L',W,cy0,'L',0,cy0+W,'L',-W,cy0,'Z']].forEach(function(d){g.appendChild(el('path',{d:d.join(' '),fill:'none',stroke:'#d8d5cc','stroke-width':.9}));});
+    FLAPS.forEach(function(f){var sx=f.qx>0?1:-1,sy=f.qy>0?-1:1,cs=56,x=sx>0?W-cs:-W,y=cy0+(sy>0?W-cs:-W);
+      g.appendChild(el('rect',{x:x,y:y,width:cs,height:cs,fill:f.dot,opacity:.22}));
+      var t=el('text',{x:x+cs/2,y:y+cs/2+1,'text-anchor':'middle','class':'ft-lab'});t.textContent=f.a;g.appendChild(t);
+      var t2=el('text',{x:x+cs/2,y:y+cs/2+14,'text-anchor':'middle','class':'ft-lab2'});t2.textContent=f.b;g.appendChild(t2);
+      [[f.n[0],-67.5],[f.n[1],-22.5]].forEach(function(q){var ang=q[1]*Math.PI/180,r=W*.56,px=sx*Math.cos(ang)*r,py=cy0+sy*(-Math.sin(ang))*r;
+        var on=lifted===q[0];
+        if(on)g.appendChild(el('circle',{cx:px.toFixed(1),cy:(py-6).toFixed(1),r:15,fill:'#171717'}));
+        var n=el('text',{x:px.toFixed(1),y:py.toFixed(1),'text-anchor':'middle','class':'ft-num'});n.textContent=q[0];if(on)n.setAttribute('style','fill:#fff');g.appendChild(n);});});
+  }
+  function tween(to,ms,cb){var from={ax:st.ax,ay:st.ay,sp:st.sp,yaw:st.yaw,tilt:st.tilt,flat:st.flat},t0=null;if(reduce||!ms){for(var k in to)st[k]=to[k];draw();cb&&cb();return;}
     function f(ts){if(!t0)t0=ts;var u=Math.min(1,(ts-t0)/ms),e=u<.5?2*u*u:1-Math.pow(-2*u+2,2)/2;for(var k in to)st[k]=from[k]+(to[k]-from[k])*e;draw();if(u<1)requestAnimationFrame(f);else cb&&cb();}
     requestAnimationFrame(f);}
   function say(s,h,b,c){stepEl.textContent=s;hEl.textContent=h;bEl.innerHTML=b;chips.innerHTML=(c||[]).map(function(x,i){return '<span>'+(i===0?'<b>Parts</b>':'')+x+'</span>';}).join('');}
@@ -1451,12 +1467,16 @@ try{
   function reveal(m){if(!active||active.indexOf(m)<0)return;active=null;lifted=m;var q=Q[m],t0=null;
     (function f(ts){if(!t0)t0=ts;liftT=reduce?1:Math.min(1,(ts-t0)/500);draw();if(liftT<1)requestAnimationFrame(f);})(performance.now());
     if(!reduce)requestAnimationFrame(function g(ts){liftT=Math.min(1,liftT+.06);draw();if(liftT<1)requestAnimationFrame(g);});
-    say('Step 3 of 3',q[0],'<span class="ft-mock">The quick mock-up:</span> '+q[1],q[2]);endEl.hidden=false;done.hidden=false;keyBtns([]);}
-  svg.addEventListener('click',function(e){var g=e.target.closest('.ft-f');if(!g)return;
+    say('Step 3 of 3',q[0],'<span class="ft-mock">The quick mock-up:</span> '+q[1],q[2]);endEl.hidden=false;done.hidden=false;unfoldB.hidden=false;keyBtns([['Unfold the whole sheet',function(){unfoldB.click();}]]);}
+  var unfoldB=root.querySelector('.ft-unfold');
+  unfoldB.addEventListener('click',function(){unfoldB.hidden=true;busy=true;
+    tween({ax:0,ay:0,sp:0},500,function(){tween({yaw:0,tilt:.02},600,function(){tween({flat:1},900,function(){busy=false;});});});
+    say('The whole sheet','Eight questions, one sheet.','Unfolded, every kind of proof sits side by side. We only build the one that matters most right now, and the rest can wait.');chips.innerHTML='';var ol='<ol class="ft-all">';FLAPS.forEach(function(f){f.n.forEach(function(m){ol+='<li'+(m===lifted?' class="on"':'')+'><b>'+m+'</b><span>'+Q[m][0]+'</span><em>'+f.a+'</em></li>';});});ol+='</ol>';chips.innerHTML=ol;});
+  svg.addEventListener('click',function(e){var lb=e.target.closest('.ft-labs.on');if(lb&&picked===null){choose(+lb.dataset.k);return;}var g=e.target.closest('.ft-f');if(!g)return;
     if(picked===null)choose(+g.dataset.k); else if(g.dataset.num)reveal(+g.dataset.num);});
-  svg.addEventListener('mousemove',function(e){var g=e.target.closest('.ft-f');svg.style.cursor=(g&&(picked===null||(active&&g.dataset.num&&active.indexOf(+g.dataset.num)>-1)))?'pointer':'default';});
-  reset.addEventListener('click',function(){picked=null;active=null;lifted=null;liftT=0;busy=false;endEl.hidden=true;done.hidden=true;reset.hidden=true;
-    tween({ax:0,ay:0,sp:0,yaw:0,tilt:TILT},600);say('Step 1 of 3','Pick what you need to prove.','Each peak is a different kind of prototype. Choose one to open it.');initKeys();});
+  svg.addEventListener('mousemove',function(e){var g=e.target.closest('.ft-f')||e.target.closest('.ft-labs.on');svg.style.cursor=(g&&(picked===null||(active&&g.dataset.num&&active.indexOf(+g.dataset.num)>-1)))?'pointer':'default';});
+  reset.addEventListener('click',function(){picked=null;active=null;lifted=null;liftT=0;busy=false;endEl.hidden=true;done.hidden=true;reset.hidden=true;unfoldB.hidden=true;
+    tween({ax:0,ay:0,sp:0,yaw:0,tilt:TILT,flat:0},700);say('Step 1 of 3','Pick what you need to prove.','Each peak is a different kind of prototype. Choose one to open it.');initKeys();});
   function initKeys(){keyBtns(FLAPS.map(function(f,k){return ['Open '+f.full,function(){choose(k);}];}));}
   initKeys();draw();
   /* a small idle pinch so it reads as paper that moves */

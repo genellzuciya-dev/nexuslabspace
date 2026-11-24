@@ -3344,3 +3344,4 @@ html.solo #hdeck .hd-heads{display:none!important}
 /* hero video taller now that the title row sits above the bars */ #hdeck .specimen{height:clamp(250px,calc(165vh - 1045px),520px)}
 /* hero: every slide fills the card; the video box takes whatever space the text leaves */
 /* hero: one video height for every slide, sized to the screen */ #hdeck .specimen{height:clamp(260px,calc((100vh - 111px)/.79 - 505px),575px)!important}
+#wheel .ms-layer iframe.ms-live{position:absolute;left:-6%;top:-6%;width:112%;height:112%;border:0;pointer-events:none;background:#0f2b30}

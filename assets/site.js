@@ -1456,8 +1456,8 @@ try{
     requestAnimationFrame(f);}
   function say(s,h,b,c){stepEl.textContent=s;hEl.textContent=h;bEl.innerHTML=b;chips.innerHTML=(c||[]).map(function(x,i){return '<span>'+(i===0?'<b>Parts</b>':'')+x+'</span>';}).join('');}
   function keyBtns(items){keys.textContent='';items.forEach(function(it){var b=document.createElement('button');b.type='button';b.textContent=it[0];b.addEventListener('click',it[1]);keys.appendChild(b);});}
-  function choose(k){if(busy||picked!==null)return;busy=true;picked=k;var f=FLAPS[k],n=f.a.length,per=Math.max(170,Math.min(320,2800/n)),i=0;
-    say('Opening',f.full+'.',f.what+'<br><span class="ft-mock">Open, close, open: one pinch for each letter of '+f.a+'.</span>');keyBtns([]);
+  function choose(k){if(busy||picked!==null)return;busy=true;picked=k;var f=FLAPS[k],n=4,per=320,i=0;
+    say('Opening',f.full+'.',f.what);keyBtns([]);
     (function tick(){if(i<n){var h=i%2===0;i++;tween(h?{ax:.4,ay:0}:{ax:0,ay:.4},per*.55,function(){tween({ax:0,ay:0},per*.45,tick);});}
       else tween({ax:.5,ay:.5,sp:.04,yaw:(f.qy<0?Math.PI:0)+(f.qx<0?.35:-.35)*(f.qy<0?1:-1),tilt:.62},900,function(){active=f.n.slice();busy=false;reset.hidden=false;draw();
         showFlap(f);keyBtns([['Unfold the whole sheet',function(){unfoldB.click();}]]);});})();}

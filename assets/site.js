@@ -1421,11 +1421,11 @@ try{
       var seam=false;
       var base=inner?222:(seam?236:252),v=Math.round(base*(1-LC+LC*it.lit)),col=seam||inner?'rgb('+(v-10)+','+(v-6)+','+(v+6)+')':'rgb('+v+','+(v-1)+','+(v-5)+')';
       var dim=picked!==null&&inner&&FLAPS[picked].n.indexOf(fc.num)<0&&(active||lifted);
-      var isLive=inner&&active&&active.indexOf(fc.num)>-1;
+      var isLive=inner&&active&&active.indexOf(fc.num)>-1&&(lifted==null||lifted===fc.num);
       var op=1; if(lifted===fc.num) op=1-liftT;
       g.appendChild(el('path',{d:'M'+it.pr.map(function(p){return p.x.toFixed(1)+' '+p.y.toFixed(1);}).join(' L')+' Z',fill:col,stroke:isLive?'#171717':'#C9C6BE','stroke-width':isLive?1.6:.8,'stroke-linejoin':'round',opacity:op}));
       var cx=(it.pr[0].x+it.pr[1].x+it.pr[2].x)/3, cy=(it.pr[0].y+it.pr[1].y+it.pr[2].y)/3;
-      var openA=fc.axis==='x'?st.ax:st.ay; if(inner&&openA>.16&&it.vn>.15&&!dim&&lifted!==fc.num){var t=el('text',{x:cx.toFixed(1),y:(cy+6).toFixed(1),'text-anchor':'middle','class':'ft-num'});t.textContent=fc.num;g.appendChild(t);}
+      var openA=fc.axis==='x'?st.ax:st.ay; if(inner&&openA>.16&&it.vn>.15&&!dim){var t=el('text',{x:cx.toFixed(1),y:(cy+6).toFixed(1),'text-anchor':'middle','class':'ft-num'});t.textContent=fc.num;g.appendChild(t);}
       
       if(inner&&fc.num!=null)g.dataset.num=fc.num; g.dataset.k=it.k;
       svg.appendChild(g);});
@@ -1447,7 +1447,7 @@ try{
       var t=el('text',{x:x+cs/2,y:y+cs/2+1,'text-anchor':'middle','class':'ft-lab'});t.textContent=f.a;g.appendChild(t);
       var t2=el('text',{x:x+cs/2,y:y+cs/2+14,'text-anchor':'middle','class':'ft-lab2'});t2.textContent=f.b;g.appendChild(t2);
       [[f.n[0],-67.5],[f.n[1],-22.5]].forEach(function(q){var ang=q[1]*Math.PI/180,r=W*.56,px=sx*Math.cos(ang)*r,py=cy0+sy*(-Math.sin(ang))*r;
-        var on=lifted===q[0];
+        var on=picked!==null&&FLAPS[picked].n.indexOf(q[0])>-1;
         if(on)g.appendChild(el('circle',{cx:px.toFixed(1),cy:(py-6).toFixed(1),r:15,fill:'#171717'}));
         var n=el('text',{x:px.toFixed(1),y:py.toFixed(1),'text-anchor':'middle','class':'ft-num'});n.textContent=q[0];if(on)n.setAttribute('style','fill:#fff');g.appendChild(n);});});
   }
@@ -1457,24 +1457,25 @@ try{
   function say(s,h,b,c){stepEl.textContent=s;hEl.textContent=h;bEl.innerHTML=b;chips.innerHTML=(c||[]).map(function(x,i){return '<span>'+(i===0?'<b>Parts</b>':'')+x+'</span>';}).join('');}
   function keyBtns(items){keys.textContent='';items.forEach(function(it){var b=document.createElement('button');b.type='button';b.textContent=it[0];b.addEventListener('click',it[1]);keys.appendChild(b);});}
   function choose(k){if(busy||picked!==null)return;busy=true;picked=k;var f=FLAPS[k],n=f.a.length,per=Math.max(170,Math.min(320,2800/n)),i=0;
-    say('Step 1 of 3',f.full+'.',f.what+'<br><span class="ft-mock">Open, close, open: one pinch for each letter of '+f.a+'.</span>');keyBtns([]);
+    say('Opening',f.full+'.',f.what+'<br><span class="ft-mock">Open, close, open: one pinch for each letter of '+f.a+'.</span>');keyBtns([]);
     (function tick(){if(i<n){var h=i%2===0;i++;tween(h?{ax:.4,ay:0}:{ax:0,ay:.4},per*.55,function(){tween({ax:0,ay:0},per*.45,tick);});}
       else tween({ax:.5,ay:.5,sp:.04,yaw:(f.qy<0?Math.PI:0)+(f.qx<0?.35:-.35)*(f.qy<0?1:-1),tilt:.62},900,function(){active=f.n.slice();busy=false;reset.hidden=false;draw();
-        say('Step 2 of 3','Pick the one thing to prove.','Two questions sit under '+f.full.toLowerCase()+'. Pick a number to lift its flap.');
-        keyBtns(f.n.map(function(m){return ['Number '+m,function(){reveal(m);}];}));});})();}
-  function reveal(m){if(!active||active.indexOf(m)<0)return;active=null;lifted=m;var q=Q[m],t0=null;
-    (function f(ts){if(!t0)t0=ts;liftT=reduce?1:Math.min(1,(ts-t0)/500);draw();if(liftT<1)requestAnimationFrame(f);})(performance.now());
-    if(!reduce)requestAnimationFrame(function g(ts){liftT=Math.min(1,liftT+.06);draw();if(liftT<1)requestAnimationFrame(g);});
-    say('Step 3 of 3',q[0],'<span class="ft-mock">The quick mock-up:</span> '+q[1],q[2]);endEl.hidden=false;done.hidden=false;unfoldB.hidden=false;keyBtns([['Unfold the whole sheet',function(){unfoldB.click();}]]);}
+        showFlap(f);keyBtns([['Unfold the whole sheet',function(){unfoldB.click();}]]);});})();}
+  /* once a flap opens, both of its questions are shown straight away; a number on the paper just highlights its card */
+  function showFlap(f){stepEl.textContent='Inside '+f.full.toLowerCase();hEl.textContent='Two things this kind of prototype proves.';bEl.innerHTML=f.what;
+    chips.innerHTML='<div class="ft-qs">'+f.n.map(function(m){var q=Q[m];return '<article class="ft-q" data-n="'+m+'"><span class="ft-qn">'+m+'</span><div><h4>'+q[0]+'</h4><p><b>The quick mock-up:</b> '+q[1]+'</p><p class="ft-parts">'+q[2].map(function(x,i){return '<span>'+(i===0?'<b>Parts</b>':'')+x+'</span>';}).join('')+'</p></div></article>';}).join('')+'</div>';
+    endEl.hidden=false;done.hidden=false;unfoldB.hidden=false;}
+  function reveal(m){if(!active||active.indexOf(m)<0)return;lifted=m;draw();
+    chips.querySelectorAll('.ft-q').forEach(function(c){c.classList.toggle('on',+c.getAttribute('data-n')===m);});}
   var unfoldB=root.querySelector('.ft-unfold');
   unfoldB.addEventListener('click',function(){unfoldB.hidden=true;busy=true;
     tween({ax:0,ay:0,sp:0},500,function(){tween({yaw:0,tilt:.02},600,function(){tween({flat:1},900,function(){busy=false;});});});
-    say('The whole sheet','Eight questions, one sheet.','Unfolded, every kind of proof sits side by side. We only build the one that matters most right now, and the rest can wait.');chips.innerHTML='';var ol='<ol class="ft-all">';FLAPS.forEach(function(f){f.n.forEach(function(m){ol+='<li'+(m===lifted?' class="on"':'')+'><b>'+m+'</b><span>'+Q[m][0]+'</span><em>'+f.a+'</em></li>';});});ol+='</ol>';chips.innerHTML=ol;});
+    say('The whole sheet','Eight questions, one sheet.','Unfolded, every kind of proof sits side by side. We only build the one that matters most right now, and the rest can wait.');chips.innerHTML='';var ol='<ol class="ft-all">';FLAPS.forEach(function(f){f.n.forEach(function(m){ol+='<li'+(picked!==null&&FLAPS[picked].n.indexOf(m)>-1?' class="on"':'')+'><b>'+m+'</b><span>'+Q[m][0]+'</span><em>'+f.a+'</em></li>';});});ol+='</ol>';chips.innerHTML=ol;});
   svg.addEventListener('click',function(e){var lb=e.target.closest('.ft-labs.on');if(lb&&picked===null){choose(+lb.dataset.k);return;}var g=e.target.closest('.ft-f');if(!g)return;
     if(picked===null)choose(+g.dataset.k); else if(g.dataset.num)reveal(+g.dataset.num);});
   svg.addEventListener('mousemove',function(e){var g=e.target.closest('.ft-f')||e.target.closest('.ft-labs.on');svg.style.cursor=(g&&(picked===null||(active&&g.dataset.num&&active.indexOf(+g.dataset.num)>-1)))?'pointer':'default';});
   reset.addEventListener('click',function(){picked=null;active=null;lifted=null;liftT=0;busy=false;endEl.hidden=true;done.hidden=true;reset.hidden=true;unfoldB.hidden=true;
-    tween({ax:0,ay:0,sp:0,yaw:YAW0,tilt:TILT,flat:0},700);say('Step 1 of 3','Pick what you need to prove.','Each peak is a different kind of prototype. Choose one to open it.');initKeys();});
+    tween({ax:0,ay:0,sp:0,yaw:YAW0,tilt:TILT,flat:0},700);say('Choose a flap','Pick what you need to prove.','Each flap is a different kind of prototype. Choose one to open it.');initKeys();});
   function initKeys(){keyBtns(FLAPS.map(function(f,k){return ['Open '+f.full,function(){choose(k);}];}));}
   initKeys();draw();
   /* a small idle pinch so it reads as paper that moves */

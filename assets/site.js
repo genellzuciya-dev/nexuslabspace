@@ -1462,7 +1462,7 @@ try{
       else tween({ax:.5,ay:.5,sp:.04,yaw:(f.qy<0?Math.PI:0)+(f.qx<0?.35:-.35)*(f.qy<0?1:-1),tilt:.62},900,function(){active=f.n.slice();busy=false;reset.hidden=false;draw();
         showFlap(f);keyBtns([['Unfold the whole sheet',function(){unfoldB.click();}]]);});})();}
   /* once a flap opens, both of its questions are shown straight away; a number on the paper just highlights its card */
-  function showFlap(f){stepEl.textContent='Inside '+f.full.toLowerCase();hEl.textContent='Two things this kind of prototype proves.';bEl.innerHTML=f.what;
+  function showFlap(f){stepEl.textContent='Examples · '+f.full.toLowerCase();hEl.textContent='Asking questions like these?';bEl.innerHTML='Then you\u2019re likely looking for '+(f.a==='Electronics'?'an ':'a ')+f.full.replace(/^UI/,'UI').toLowerCase().replace(/^ui/,'UI')+' prototype. '+f.what+' Every project has its own questions; these are just examples.';
     chips.innerHTML='<div class="ft-qs">'+f.n.map(function(m){var q=Q[m];return '<article class="ft-q" data-n="'+m+'"><span class="ft-qn">'+m+'</span><div><h4>'+q[0]+'</h4><p><b>The quick mock-up:</b> '+q[1]+'</p><p class="ft-parts">'+q[2].map(function(x,i){return '<span>'+(i===0?'<b>Parts</b>':'')+x+'</span>';}).join('')+'</p></div></article>';}).join('')+'</div>';
     endEl.hidden=false;done.hidden=false;unfoldB.hidden=false;}
   function reveal(m){if(!active||active.indexOf(m)<0)return;lifted=m;draw();
@@ -1470,7 +1470,7 @@ try{
   var unfoldB=root.querySelector('.ft-unfold');
   unfoldB.addEventListener('click',function(){unfoldB.hidden=true;busy=true;
     tween({ax:0,ay:0,sp:0},500,function(){tween({yaw:0,tilt:.02},600,function(){tween({flat:1},900,function(){busy=false;});});});
-    say('The whole sheet','Eight questions, one sheet.','Unfolded, every kind of proof sits side by side. We only build the one that matters most right now, and the rest can wait.');chips.innerHTML='';var ol='<ol class="ft-all">';FLAPS.forEach(function(f){f.n.forEach(function(m){ol+='<li'+(picked!==null&&FLAPS[picked].n.indexOf(m)>-1?' class="on"':'')+'><b>'+m+'</b><span>'+Q[m][0]+'</span><em>'+f.a+'</em></li>';});});ol+='</ol>';chips.innerHTML=ol;});
+    say('The whole sheet','A sheet full of examples.','Unfolded, example questions for every kind of prototype sit side by side. Your project will have its own; we build the quickest prototype that answers the one that matters most.');chips.innerHTML='';var ol='<ol class="ft-all">';FLAPS.forEach(function(f){f.n.forEach(function(m){ol+='<li'+(picked!==null&&FLAPS[picked].n.indexOf(m)>-1?' class="on"':'')+'><b>'+m+'</b><span>'+Q[m][0]+'</span><em>'+f.a+'</em></li>';});});ol+='</ol>';chips.innerHTML=ol;});
   svg.addEventListener('click',function(e){var lb=e.target.closest('.ft-labs.on');if(lb&&picked===null){choose(+lb.dataset.k);return;}var g=e.target.closest('.ft-f');if(!g)return;
     if(picked===null)choose(+g.dataset.k); else if(g.dataset.num)reveal(+g.dataset.num);});
   svg.addEventListener('mousemove',function(e){var g=e.target.closest('.ft-f')||e.target.closest('.ft-labs.on');svg.style.cursor=(g&&(picked===null||(active&&g.dataset.num&&active.indexOf(+g.dataset.num)>-1)))?'pointer':'default';});

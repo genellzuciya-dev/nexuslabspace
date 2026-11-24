@@ -3081,3 +3081,24 @@ html.case-open .cur,html.case-open .cur-ring{opacity:0!important}
 .kw-chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}.kw-chips li{font-size:.9rem;padding:5px 13px;border-radius:999px;background:#F2F4FF;border:1px solid #C9D6FF;color:#171717}
 .kw-blanket{margin:18px 0 0;padding-top:14px;border-top:1px solid #E2E2DE;font-size:.95rem;color:#2a2a2a;max-width:none}
 @media (max-width:760px){.kw-grid{grid-template-columns:1fr 1fr;gap:16px 18px}}
+/* Hero: two-line slide header so the animation area can be taller */
+#hdeck .sf-head{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:.55rem;row-gap:.2rem;padding:0 0 .6rem}
+#hdeck .sf-head h3{order:1;font-size:clamp(1.05rem,1.45vw,1.28rem);line-height:1.15}
+#hdeck .sf-head h4{order:2;margin:0;font-size:clamp(.95rem,1.25vw,1.1rem);line-height:1.15}
+#hdeck .sf-head h4:before{content:"·";margin-right:.55rem;color:color-mix(in srgb,var(--ink) 40%,transparent);font-weight:400}
+#hdeck .sf-head:after{content:"";order:3;flex-basis:100%;height:0}
+#hdeck .sf-head p{order:4;font-size:.84rem;line-height:1.3}
+#hdeck .sf-head small{order:5;line-height:1.3}
+#hdeck .sf-head p+small:before{content:"·";margin-right:.55rem;color:color-mix(in srgb,var(--ink) 35%,transparent)}
+#hdeck .specimen{height:clamp(250px,calc(125vh - 725px),450px)}
+#hdeck .deck-card{padding-top:.75rem}
+/* Hero: split layout for the Urban Nexus and Storm Fuel slides on wider screens.
+   Platform footage or the 3D scene sits on the left, the nature model fills the right, both above the caption. */
+@media (min-width:700px){
+  #unb-sim:not(.sf-full) .un-clips video{left:.7rem;right:auto;top:2.4rem;width:calc(68% - 1.05rem);height:calc(100% - 7.2rem);object-fit:contain;object-position:center}
+  #unb-sim:not(.sf-full) .sf-inset{top:2.4rem!important;right:.7rem!important;width:calc(32% - 1.05rem)!important;height:calc(100% - 7.2rem)!important}
+  #sf-sim:not(.sf-full) canvas.sf-3d{right:34%;width:auto}
+  #sf-sim:not(.sf-full) .sf-inset{top:2.4rem!important;right:.7rem!important;width:calc(34% - 1.4rem)!important;height:calc(100% - 7.2rem)!important}
+  #unb-sim:not(.sf-full) .sf-inset canvas,#sf-sim:not(.sf-full) .sf-inset canvas{aspect-ratio:auto!important;height:100%!important;border-radius:6px}
+  #sf-sim:not(.sf-full) .sf-inset span{display:none}
+}

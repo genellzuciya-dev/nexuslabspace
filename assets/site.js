@@ -810,7 +810,7 @@ lqBuild(document.getElementById('lq3d-hero'), null);
       var W=camWide, aS=.05, eA=Math.atan2(Math.sin(aA-aS),Math.cos(aA-aS)), eB=Math.atan2(Math.sin(aB-aS),Math.cos(aB-aS)), dSF=Math.abs(eA)<Math.abs(eB)?eA:eB, aT=aS+dSF*camPan, dS=Math.atan2(Math.sin(aT-a),Math.cos(aT-a)); a+=dS*W; var da=Math.atan2(Math.sin(aF-a),Math.cos(aF-a)); a+=da*w; var rad=12-1.6*w-1.4*W, h=6.8-.9*w+.4*W;
       camera.position.set(Math.cos(a)*rad,h,Math.sin(a)*rad); panLook.copy(midLook).lerp(logLook,camPan); look.set(0,.3,0).lerp(panLook,W).lerp(focusLook,w); camera.lookAt(look); };
     render=function(t){ place(t); renderer.render(scene,camera); };
-    size3d=function(){ var r=box.getBoundingClientRect(); if(!r.width) return; renderer.setSize(r.width,r.height,false); camera.aspect=r.width/r.height; camera.fov=r.width<480?42:33; camera.setViewOffset(r.width,r.height,r.width*.07,0,r.width,r.height); camera.updateProjectionMatrix(); };
+    size3d=function(){ var r=cv.getBoundingClientRect(), rb=box.getBoundingClientRect(); if(!r.width) return; var split=r.width<rb.width*.9; renderer.setSize(r.width,r.height,false); camera.aspect=r.width/r.height; camera.fov=r.width<480?42:33; camera.setViewOffset(r.width,r.height,split?0:r.width*.07,0,r.width,r.height); camera.updateProjectionMatrix(); };
   }
 
   var BEAT={Absorbs:'#a35a2a',Stores:'#f0b828',Spreads:'#fff27a'}, BEATTXT={Absorbs:'#ec9a5c',Stores:'#f6c445',Spreads:'#fff27a'}, capEl=box.querySelector('.sf-cap'), beatEls=[].slice.call(box.querySelectorAll('.sf-beats i'));
@@ -956,6 +956,14 @@ lqBuild(document.getElementById('lq3d-hero'), null);
   var GRIT=[]; for(var k=0;k<1400;k++) GRIT.push({x:rnd(),y:rnd(),r:rnd(),c:rnd()});
   var BLADES=[]; for(var k=0;k<220;k++) BLADES.push({a:k/220*6.283+(rnd()-.5)*.05,o:rnd(),l:rnd(),c:rnd(),bend:(rnd()-.5)*.6});
   var RAIN=[]; for(var k=0;k<120;k++) RAIN.push({x:rnd(),y:rnd(),v:.6+rnd()*.6});
+  var TALL=[]; for(var k=0;k<5200;k++) TALL.push({x:rnd(),y:rnd(),a:rnd()*6.28,l:rnd(),c:rnd()});
+  var tallCv=document.createElement('canvas'), tallKey='';
+  function tallLayer(W,H,s){ var key=W+'x'+H; if(key===tallKey) return tallCv; tallKey=key; tallCv.width=W; tallCv.height=H; var g=tallCv.getContext('2d');
+    g.fillStyle='#a8925a'; g.fillRect(0,0,W,H); g.lineCap='round';
+    TALL.forEach(function(tf){ var x=tf.x*W, y=tf.y*H, l=s*(.9+tf.l*1.3); g.strokeStyle=tf.c<.35?'rgba(120,112,58,.85)':tf.c<.7?'rgba(170,154,88,.85)':'rgba(214,196,136,.8)'; g.lineWidth=Math.max(1,s*.11);
+      for(var j=0;j<3;j++){ var a=tf.a+j*.35-.35; g.beginPath(); g.moveTo(x,y); g.quadraticCurveTo(x+Math.cos(a)*l*.5,y-Math.abs(Math.sin(a))*l*.6,x+Math.cos(a)*l,y-Math.abs(Math.sin(a))*l*.75); g.stroke(); } });
+    return tallCv; }
+  function smooth01(v){ v=clamp(v); return v*v*(3-2*v); }
   var grassCv=document.createElement('canvas'), grassKey='';
   function grassLayer(W,H,s){ var key=W+'x'+H; if(key===grassKey) return grassCv; grassKey=key; grassCv.width=W; grassCv.height=H; var g=grassCv.getContext('2d');
     g.fillStyle='#c99a66'; g.fillRect(0,0,W,H);
@@ -966,12 +974,14 @@ lqBuild(document.getElementById('lq3d-hero'), null);
     return grassCv; }
   function fairy(cn,mv,rs,t){ var c=fc, W=fcv.width, H0=fcv.height; if(!W||!H0) return; var U=Math.max(W,H0*1.25), s=Math.max(4,U/60);
     var full=box.classList.contains('sf-full'), H=full?H0*.78:H0; c.save(); c.drawImage(grassLayer(W,H0,s),0,0);
+    // start as an unbroken field of tall grass; it shortens and thins between the circles as they open
+    var shorten=smooth01((cn-.3)/.6); if(shorten<1){ c.globalAlpha=1-shorten; c.drawImage(tallLayer(W,H0,s),0,0); c.globalAlpha=1; }
     if(full) c.translate(0,H0*.02);
     // rainfall: in the Responds beat the rain rises and falls, and the gaps close and widen with it
     var rain=rs>0? .5+.5*Math.sin(t*.9) : .5, open=clamp(cn*1.25);
-    GAPS.forEach(function(g){ var grow=open*(.3+.7*clamp(cn*1.4-g.d*.35)), rad=g.r0*grow*(rs>0?(1.3-.6*rain):1)*U; g._rad=rad; if(rad<1) return; var x=g.x*U, y=g.y*U; if(y-rad*2>H||x-rad*2>W) return;
+    GAPS.forEach(function(g){ var grow=smooth01((cn-.15-g.d*.22)/.28), rad=g.r0*(.88+.12*grow)*(rs>0?(1.3-.6*rain):1)*U; g._rad=grow>0?rad:0; if(grow<=0) return; var x=g.x*U, y=g.y*U; if(y-rad*2>H||x-rad*2>W) return; c.save(); c.globalAlpha=grow;
       // soft halo of grass cover that falls off quickly away from the edge
-      var halo=c.createRadialGradient(x,y,rad*.95,x,y,rad*1.32); halo.addColorStop(0,'rgba(120,108,56,'+(.85*grow)+')'); halo.addColorStop(.6,'rgba(150,136,74,'+(.35*grow)+')'); halo.addColorStop(1,'rgba(150,136,74,0)'); c.fillStyle=halo; c.beginPath(); c.arc(x,y,rad*1.32,0,7); c.fill();
+      var halo=c.createRadialGradient(x,y,rad*.95,x,y,rad*1.32); halo.addColorStop(0,'rgba(120,108,56,.85)'); halo.addColorStop(.6,'rgba(150,136,74,.35)'); halo.addColorStop(1,'rgba(150,136,74,0)'); c.fillStyle=halo; c.beginPath(); c.arc(x,y,rad*1.32,0,7); c.fill();
       // bare center: smooth, slightly redder sand with a crisp edge
       c.save(); c.translate(x,y); c.scale(1,g.sq);
       var sand=c.createRadialGradient(-rad*.15,-rad*.15,0,0,0,rad); sand.addColorStop(0,'#d7905c'); sand.addColorStop(1,'#c47f4e'); c.fillStyle=sand; c.beginPath(); c.arc(0,0,rad,0,7); c.fill();
@@ -980,15 +990,15 @@ lqBuild(document.getElementById('lq3d-hero'), null);
       c.restore();
       // the ring: tall, dense grass right at the edge, longest blades leaning outward
       c.lineCap='round';
-      BLADES.forEach(function(bl){ var a=bl.a+g.ph, r0=rad*(.96+.08*bl.o), len=(rad*.12+rad*.22*bl.l)*grow+s*.15, ex=x+Math.cos(a+bl.bend*.3)*(r0+len), ey=y+Math.sin(a+bl.bend*.3)*(r0+len)*g.sq;
+      BLADES.forEach(function(bl){ var a=bl.a+g.ph, r0=rad*(.96+.08*bl.o), len=rad*.12+rad*.22*bl.l+s*.15, ex=x+Math.cos(a+bl.bend*.3)*(r0+len), ey=y+Math.sin(a+bl.bend*.3)*(r0+len)*g.sq;
         c.strokeStyle=bl.c<.35?'rgba(120,112,58,.9)':bl.c<.7?'rgba(170,154,88,.9)':'rgba(214,196,136,.85)'; c.lineWidth=Math.max(.9,s*(.09+.05*bl.l));
         c.beginPath(); c.moveTo(x+Math.cos(a)*r0,y+Math.sin(a)*r0*g.sq); c.quadraticCurveTo(x+Math.cos(a)*(r0+len*.6),y+Math.sin(a)*(r0+len*.6)*g.sq,ex,ey); c.stroke(); });
       // roots reach from the ring into the bare center during Shares
       if(mv>0&&rs===0){ c.strokeStyle='rgba(120,80,44,'+(.55*mv)+')'; c.lineWidth=Math.max(1,s*.1);
-        for(var j=0;j<10;j++){ var a=j/10*6.283+g.ph*.7, r1=rad*.98, r2=rad*(1-.55*mv); c.beginPath(); c.moveTo(x+Math.cos(a)*r1,y+Math.sin(a)*r1*g.sq); c.quadraticCurveTo(x+Math.cos(a+.25)*(r1+r2)/2,y+Math.sin(a+.25)*(r1+r2)/2*g.sq,x+Math.cos(a+.1)*r2,y+Math.sin(a+.1)*r2*g.sq); c.stroke(); } } });
+        for(var j=0;j<10;j++){ var a=j/10*6.283+g.ph*.7, r1=rad*.98, r2=rad*(1-.55*mv); c.beginPath(); c.moveTo(x+Math.cos(a)*r1,y+Math.sin(a)*r1*g.sq); c.quadraticCurveTo(x+Math.cos(a+.25)*(r1+r2)/2,y+Math.sin(a+.25)*(r1+r2)/2*g.sq,x+Math.cos(a+.1)*r2,y+Math.sin(a+.1)*r2*g.sq); c.stroke(); } } c.restore(); });
     // six neighbors: an even spacing around the gap nearest the middle of what is visible
     var bd=1e9; GAPS.forEach(function(g){ var d=Math.hypot(g.x*U-W*.5,g.y*U-H*.45); if(d<bd){ bd=d; HUB=g; } }); NEIGH=GAPS.filter(function(g){ return g!==HUB&&Math.hypot(g.x-HUB.x,g.y-HUB.y)<SP*1.25; });
-    var hx=HUB.x*U, hy=HUB.y*U, six=clamp((cn-.55)*2.5)*(mv>0&&rs===0?.5:1);
+    var hx=HUB.x*U, hy=HUB.y*U, six=clamp((cn-.78)*4.5)*(mv>0&&rs===0?.5:1);
     c.font=Math.round(s*1.05)+'px ui-monospace,monospace'; c.textAlign='left';
     function label(txt,x,y,a){ var tw=c.measureText(txt).width, al=c.textAlign, l0=al==='center'?x-tw/2:x; if(l0<s*.6) x+=s*.6-l0; if(l0+tw>W-s*.6) x-=l0+tw-(W-s*.6); c.save(); c.globalAlpha=a; c.lineWidth=Math.max(2,s*.3); c.strokeStyle='rgba(60,36,18,.75)'; c.strokeText(txt,x,y); c.fillStyle='#fff7d6'; c.fillText(txt,x,y); c.restore(); }
     if(six>0){ c.save(); c.setLineDash([s*.5,s*.4]); c.strokeStyle='rgba(255,247,214,'+(.95*six)+')'; c.lineWidth=Math.max(1.5,s*.2);
@@ -996,7 +1006,7 @@ lqBuild(document.getElementById('lq3d-hero'), null);
       c.save(); if(hx+SP*U*.62+s*17>W){ c.textAlign='center'; label('six neighbors, about 10 m apart',hx,hy+SP*U*1.25,six); } else label('six neighbors, about 10 m apart',hx+SP*U*.62,hy+SP*U*.3,six); c.restore(); }
     if(rs>0){ c.strokeStyle='rgba(225,238,248,'+(.55*rain*clamp(rs*3))+')'; c.lineWidth=Math.max(1,s*.1); RAIN.forEach(function(d){ var y=((d.y+t*d.v*.6)%1)*H, x=d.x*W; c.beginPath(); c.moveTo(x,y); c.lineTo(x-s*.4,y+s*1.6); c.stroke(); });
       label(rain>.5?'more rain: gaps close':'less rain: gaps widen',W*.04,H*.07,1); }
-    if(open>.6){ var g0=null, bg=1e9; GAPS.forEach(function(g){ if(g===HUB||NEIGH.indexOf(g)>=0) return; if(g.y*U<s*7||g.x*U<s*5) return; var d=Math.hypot(g.x*U-W*.22,g.y*U-H*.2); if(d<bg){ bg=d; g0=g; } }); if(g0){ var gy=g0.y*U, gr=(g0._rad||s*3); label('bare gap',g0.x*U-s*2.5,gy+s*.35,1); label('tall grass ring',g0.x*U-s*4,gy-gr*1.35-s*.6,1); c.save(); c.textAlign='center'; label('short, sparse grass',g0.x*U+SP*U*.5,gy+SP*U*.31,1); c.restore(); } }
+    if(cn>.85){ var g0=null, bg=1e9; GAPS.forEach(function(g){ if(g===HUB||NEIGH.indexOf(g)>=0) return; if(g.y*U<s*7||g.x*U<s*5) return; var d=Math.hypot(g.x*U-W*.22,g.y*U-H*.2); if(d<bg){ bg=d; g0=g; } }); if(g0){ var gy=g0.y*U, gr=(g0._rad||s*3); label('bare gap',g0.x*U-s*2.5,gy+s*.35,1); label('tall grass ring',g0.x*U-s*4,gy-gr*1.35-s*.6,1); c.save(); c.textAlign='center'; label('short, sparse grass',g0.x*U+SP*U*.5,gy+SP*U*.31,1); c.restore(); } }
     if(mv>0&&rs===0) label('moisture held in the gap',hx-s*7,hy+(HUB._rad||s*3)+s*3,1);
     c.restore(); }
   // the city: organic block-group parcels clipped from a Voronoi pattern inside an irregular city outline
@@ -1422,9 +1432,9 @@ try{
   ' float z=1.217*g(l,437.0,11.8,36.0)+.681*g(l,459.0,26.0,13.8);return vec3(x,y,z);}',
   'void main(){',
   ' vec2 uv=(gl_FragCoord.xy-.5*res)/res.y;',
-  ' vec2 p=uv*1.36; p.x+=0.17; p.y+=0.03;',
+  ' float k=clamp(res.x/res.y-1.,0.,1.); vec2 p=uv*mix(1.95,1.12,k); p.x+=mix(0.0,0.26,k); p.y+=mix(0.1,0.02,k);',
   // gentle rotation of the feather
-  ' float ang=1.02; p=mat2(cos(ang),-sin(ang),sin(ang),cos(ang))*p;',
+  ' float ang=1.36; p=mat2(cos(ang),-sin(ang),sin(ang),cos(ang))*p;',
   ' float xr=0.06*sin(p.y*1.7+0.4)-0.02;',
   ' float s=p.x-xr;',
   ' float yy=clamp((p.y+0.78)/1.56,0.,1.);',

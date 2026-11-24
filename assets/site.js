@@ -1383,7 +1383,7 @@ try{
     7:['Does the interface make sense?','Click-through screens on a real phone or kiosk before anything is coded.',['Screen mock-up','Phone or tablet']],
     8:['Can people find their way without help?','Hand testers the click-through and watch where they hesitate.',['Click-through','Five testers']]};
   /* geometry: four square pyramids on a 2 x 2 base, apex height H */
-  var H=.7, S=118, TILT=.52, D=6, Z0=-.62;
+  var H=.7, S=118, TILT=.8, D=6, Z0=-.62, YAW0=-.42, LC=.3;
   function pyr(f){var x0=f.qx-.5,x1=f.qx+.5,y0=f.qy-.5,y1=f.qy+.5,c=[[x0,y0,0],[x1,y0,0],[x1,y1,0],[x0,y1,0]],ap=[f.qx,f.qy,H],faces=[];
     for(var i=0;i<4;i++){var p=c[i],q=c[(i+1)%4],mx=(p[0]+q[0])/2,my=(p[1]+q[1])/2,inner=Math.abs(mx)<1e-6||Math.abs(my)<1e-6;
       faces.push({pts:[ap,p,q],inner:inner,axis:Math.abs(mx)<1e-6?'x':(Math.abs(my)<1e-6?'y':null)});}
@@ -1393,7 +1393,7 @@ try{
     faces.push({pts:[[x0,0,0],[x1,0,0],[f.qx,0,Z0+.04]],inner:true,axis:'y',num:f.n[1]});
     return faces;}
   var P=FLAPS.map(pyr);
-  var st={ax:0,ay:0,sp:0,yaw:0,tilt:TILT,flat:0}, picked=null, busy=false, active=null, lifted=null, liftT=0;
+  var st={ax:0,ay:0,sp:0,yaw:YAW0,tilt:TILT,flat:0}, picked=null, busy=false, active=null, lifted=null, liftT=0;
   function rot(v,f){var x=v[0],y=v[1],z=v[2]*(1-st.flat),a,c,s,t;
     z-=Z0;
     a=st.ax*(f.qx<0?1:-1);c=Math.cos(a);s=Math.sin(a);t=x*c-z*s;z=x*s+z*c;x=t;
@@ -1421,7 +1421,7 @@ try{
     var sh=el('ellipse',{cx:0,cy:96+st.sp*30,rx:150+st.sp*60,ry:22,fill:'rgba(0,0,0,.07)',opacity:(1-st.flat).toFixed(2)});svg.appendChild(sh);
     list.forEach(function(it){var f=FLAPS[it.k],fc=it.fc,inner=fc.inner,g=el('g',{'class':'ft-f'+(inner?' ft-in':' ft-out')});
       var seam=!inner&&(Math.abs((fc.pts[1][0]+fc.pts[2][0])/2)<1e-6||Math.abs((fc.pts[1][1]+fc.pts[2][1])/2)<1e-6);
-      var base=inner?222:(seam?236:252),v=Math.round(base*(.8+.2*it.lit)),col=seam||inner?'rgb('+(v-10)+','+(v-6)+','+(v+6)+')':'rgb('+v+','+(v-1)+','+(v-5)+')';
+      var base=inner?222:(seam?236:252),v=Math.round(base*(1-LC+LC*it.lit)),col=seam||inner?'rgb('+(v-10)+','+(v-6)+','+(v+6)+')':'rgb('+v+','+(v-1)+','+(v-5)+')';
       var dim=picked!==null&&inner&&FLAPS[picked].n.indexOf(fc.num)<0&&(active||lifted);
       var isLive=inner&&active&&active.indexOf(fc.num)>-1;
       var op=1; if(lifted===fc.num) op=1-liftT;
@@ -1461,7 +1461,7 @@ try{
   function choose(k){if(busy||picked!==null)return;busy=true;picked=k;var f=FLAPS[k],n=f.a.length,per=Math.max(170,Math.min(320,2800/n)),i=0;
     say('Step 1 of 3',f.full+'.',f.what+'<br><span class="ft-mock">Open, close, open: one pinch for each letter of '+f.a+'.</span>');keyBtns([]);
     (function tick(){if(i<n){var h=i%2===0;i++;tween(h?{ax:.4,ay:0}:{ax:0,ay:.4},per*.55,function(){tween({ax:0,ay:0},per*.45,tick);});}
-      else tween({ax:.45,ay:.45,sp:.06,yaw:f.qy<0?Math.PI:0,tilt:.4},900,function(){active=f.n.slice();busy=false;reset.hidden=false;draw();
+      else tween({ax:.45,ay:.45,sp:.06,yaw:(f.qy<0?Math.PI:0)+YAW0*.5,tilt:.4},900,function(){active=f.n.slice();busy=false;reset.hidden=false;draw();
         say('Step 2 of 3','Pick the one thing to prove.','Two questions sit under '+f.full.toLowerCase()+'. Pick a number to lift its flap.');
         keyBtns(f.n.map(function(m){return ['Number '+m,function(){reveal(m);}];}));});})();}
   function reveal(m){if(!active||active.indexOf(m)<0)return;active=null;lifted=m;var q=Q[m],t0=null;
@@ -1476,7 +1476,7 @@ try{
     if(picked===null)choose(+g.dataset.k); else if(g.dataset.num)reveal(+g.dataset.num);});
   svg.addEventListener('mousemove',function(e){var g=e.target.closest('.ft-f')||e.target.closest('.ft-labs.on');svg.style.cursor=(g&&(picked===null||(active&&g.dataset.num&&active.indexOf(+g.dataset.num)>-1)))?'pointer':'default';});
   reset.addEventListener('click',function(){picked=null;active=null;lifted=null;liftT=0;busy=false;endEl.hidden=true;done.hidden=true;reset.hidden=true;unfoldB.hidden=true;
-    tween({ax:0,ay:0,sp:0,yaw:0,tilt:TILT,flat:0},700);say('Step 1 of 3','Pick what you need to prove.','Each peak is a different kind of prototype. Choose one to open it.');initKeys();});
+    tween({ax:0,ay:0,sp:0,yaw:YAW0,tilt:TILT,flat:0},700);say('Step 1 of 3','Pick what you need to prove.','Each peak is a different kind of prototype. Choose one to open it.');initKeys();});
   function initKeys(){keyBtns(FLAPS.map(function(f,k){return ['Open '+f.full,function(){choose(k);}];}));}
   initKeys();draw();
   /* a small idle pinch so it reads as paper that moves */

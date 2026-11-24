@@ -2008,9 +2008,9 @@ try{
     d.style.zoom='';
     if(innerWidth<=900||document.documentElement.classList.contains('solo')) return;
     var hdr=document.querySelector('header.top');
-    var avail=innerHeight-(hdr?hdr.offsetHeight:0)-40;
+    var avail=innerHeight-(hdr?hdr.offsetHeight:0)-50;
     var h=d.getBoundingClientRect().height;
-    var s=Math.max(.8,Math.min(1,avail/h));
+    var s=Math.max(.74,Math.min(1,avail/h));
     if(s<.995) d.style.zoom=s.toFixed(3);
   }
   var t; addEventListener('resize',function(){clearTimeout(t);t=setTimeout(fit,120)});

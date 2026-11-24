@@ -1901,154 +1901,69 @@ try{
 }catch(e){ if(window.console) console.warn('[nexus]',e); }
 try{
 
-/* Split rotary wheel: a Lab rotary file and a Space rotary file spin on either side of the split dial. The plain list stays as the no-JS and screen-reader view. */
+/* Our projects: a slide carrier and a petri dish lens. Pick a side, pick a slide, and the dish zooms from the project into the nature behind it. */
 (function(){
-  var root=document.getElementById('wheel'); if(!root) return;
-  root.classList.add('wh-js');
+  var root=document.getElementById('ms'); if(!root) return;
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  root.querySelectorAll('.wc-sealed').forEach(function(c){var n=parseInt(c.getAttribute('data-count'),10); if(n>0) c.querySelector('.wc-count').textContent=n+(n===1?' project':' projects')+' under wraps';});
-  /* list view tabs */
-  var tabs=[].slice.call(root.querySelectorAll('.wh-tab')), halves={lab:document.getElementById('wh-lab'),space:document.getElementById('wh-space')}, mq=window.matchMedia('(min-width:1000px)');
-  function showHalf(sd){ tabs.forEach(function(t){t.setAttribute('aria-selected',t.classList.contains(sd)?'true':'false');}); Object.keys(halves).forEach(function(k){halves[k].hidden=mq.matches?false:(k!==sd);}); }
-  tabs.forEach(function(t){ t.addEventListener('click',function(){showHalf(t.classList.contains('space')?'space':'lab');}); });
-  showHalf('lab');
-
-  var sx=document.getElementById('sx'); if(!sx) return;
-  var TL={t1:'Concepts',t2:'In development',t3:'Realized'}, NAMES={lab:'Lab',space:'Space'}, drums={};
-  var segs=[].slice.call(sx.querySelectorAll('.sx-seg'));
-  function pad(n){return (n<10?'0':'')+n;}
-
-  function build(sd){
-    var half=halves[sd], el=sx.querySelector('.sx-side.'+sd), stage=el.querySelector('.sx-stage'), drum=el.querySelector('.sx-drum'), where=el.querySelector('.sx-where'),
-        ticks=document.getElementById('sx-ticks-'+sd), cards=[], marks={}, cur=0;
-    [].slice.call(half.querySelectorAll('.wh-tier')).forEach(function(tier){
-      var t=tier.dataset.tier, label=tier.querySelector('h4').textContent;
-      var items=[].slice.call(tier.querySelectorAll('.wc')), real=items.filter(function(w){return !w.classList.contains('wc-slot');}), slot=items.filter(function(w){return w.classList.contains('wc-slot');})[0];
-      marks[t]=cards.length;
-      var d=document.createElement('div'); d.className='sx-card divider '+t; d.dataset.tier=t;
-      d.innerHTML='<span class="sx-tab">'+TL[t]+'</span><div class="sx-face sx-front"><div class="sx-txt"><span class="sx-dk">'+NAMES[sd]+' · tier '+t.slice(1)+'</span><span class="sx-dt">'+label+'</span><p class="sx-dn">'+
-        (real.length? real.length+(real.length===1?' card':' cards')+' behind this tab' : (slot?slot.querySelector('.wc-line').textContent:''))+'</p></div></div><div class="sx-face sx-back"></div>';
-      cards.push(d);
-      real.forEach(function(w){
-        var img=w.getAttribute('data-img'), th=(w.getAttribute('data-thumbs')||'').split(',').filter(Boolean), c=document.createElement('div');
-        var sealed=w.classList.contains('wc-sealed');
-        c.className='sx-card '+t+(sealed?' sealed':'')+(img||sealed?' board':' noimg'); c.dataset.tier=t;
-        var board='';
-        if(img){ board='<div class="sx-board" style="--bg:url(\''+img+'\')"><img class="sx-main" src="'+img+'" alt="" loading="lazy" draggable="false">'+
-          th.map(function(u,k){return '<figure class="sx-pin p'+k+'"><img src="'+u+'" alt="" loading="lazy" draggable="false"></figure>';}).join('')+
-          '<i class="sx-tape"></i></div>'; }
-        else if(sealed){ board='<div class="sx-board sx-sealedboard"><span class="sx-stamp">Under wraps</span></div>'; }
-        var cs=w.getAttribute('data-case'); if(cs){ c.dataset.case=cs; c.classList.add('has-case'); }
-        c.innerHTML='<div class="sx-face sx-front">'+board+'<div class="sx-txt">'+w.innerHTML+(cs?'<button type="button" class="sx-open" data-case="'+cs+'">Open case study<i aria-hidden="true"></i></button>':'')+'</div></div><div class="sx-face sx-back"></div>';
-        cards.push(c);
-      });
-    });
-    cards.forEach(function(c){drum.appendChild(c);});
-    var api={dragging:false, step:Math.min(26,150/Math.max(1,cards.length-1))};
-    /* a marker on the rim for every card: the knob lands on each one */
-    var marksG=null, svgEl=sx.querySelector('.sx-hub svg');
-    if(svgEl){ var NS='http://www.w3.org/2000/svg'; marksG=document.createElementNS(NS,'g'); marksG.setAttribute('class','sx-marks '+sd);
-      var a0=-10.7, sign=(sd==='lab'?-1:1);
-      cards.forEach(function(cd,k){ var ang=(sign*(Math.abs(a0)*(sd==='lab'?1:-1)) + sign*k*api.step)*Math.PI/180;
-        var deg=(sd==='lab'? (a0 - k*api.step) : (-a0 + k*api.step))*Math.PI/180, r=143, x=150+r*Math.sin(deg), y=150-r*Math.cos(deg);
-        var m=document.createElementNS(NS,'circle'); m.setAttribute('cx',x.toFixed(1)); m.setAttribute('cy',y.toFixed(1));
-        m.setAttribute('r',cd.classList.contains('divider')?3.4:2.4); m.setAttribute('class','sx-mark '+(cd.dataset.tier||'')+(cd.classList.contains('divider')?' div':''));
-        m.addEventListener('click',function(ev){ ev.stopPropagation(); go(k); }); marksG.appendChild(m); });
-      svgEl.appendChild(marksG); }
-    function layout(pos){
-      var P=(pos==null?cur:pos);
-      cards.forEach(function(c,i){
-        var d=i-P, rot, z, op=1, di=i-cur;
-        if(Math.abs(d)<1e-6){rot=0;z=0;}
-        else if(d>0){ var e=Math.min(d,1); rot=-(e*8+Math.min(d,8)*4.4); z=-d*1.5; op=d>8?0:Math.max(.25,1-d*.1);}
-        else { var e2=Math.min(-d,1); rot=e2*102+Math.min(-d,8)*5; z=d*1.5; op=-d>8?0:Math.max(.08,1-e2*.6+d*.07*e2);}
-        c.style.transform='rotateX('+rot+'deg) translateZ('+z+'px)'; c.style.opacity=op; c.style.visibility=op?'visible':'hidden';
-        c.style.zIndex=di===0?150:(di>0?100-di:120+di);
-        c.classList.toggle('peek',di===1||di===2); c.classList.toggle('flipped',di<0); c.classList.toggle('behind',di>0);
-        c.setAttribute('aria-hidden',di===0?'false':'true');
-        c.querySelectorAll('a,button').forEach(function(a){a.tabIndex=di===0?0:-1;});
-      });
-      var t=cards[cur].dataset.tier;
-      where.innerHTML='<b>'+TL[t]+'</b> · '+pad(cur+1)+' / '+pad(cards.length);
-      segs.forEach(function(s){ if(s.dataset.side===sd) s.classList.toggle('is-on',s.dataset.tier===t); });
-      if(ticks && !api.dragging){ ticks.style.transition=''; ticks.style.transform='rotate('+(sd==='lab'?-1:1)*cur*api.step+'deg)'; }
-      if(marksG){ [].forEach.call(marksG.children,function(m,k){ m.classList.toggle('on',k===cur); }); }
-      if(window.nexusHub) window.nexusHub(sd, cur, cards.length, TL[t], cards[cur]);
-    }
-    function go(n){ n=Math.max(0,Math.min(cards.length-1,n)); if(n===cur) return false; cur=n; layout(); return true; }
-    el.querySelectorAll('.sx-btn').forEach(function(b){ b.addEventListener('click',function(){go(cur+parseInt(b.dataset.dir,10));}); });
-    drum.addEventListener('click',function(e){ var c=e.target.closest('.sx-card'); if(!c||e.target.closest('a')) return; var i=cards.indexOf(c);
-      if(i!==cur){ e.preventDefault(); e.stopPropagation(); go(i); return; }
-      if(c.dataset.case && window.nexusOpenCase && !api.dragging) window.nexusOpenCase(c.dataset.case, c); });
-    stage.addEventListener('keydown',function(e){ var k=e.key,n=null; if(k==='ArrowDown'||k==='ArrowRight'||k==='PageDown') n=cur+1; else if(k==='ArrowUp'||k==='ArrowLeft'||k==='PageUp') n=cur-1; else if(k==='Home') n=0; else if(k==='End') n=cards.length-1; if(n!==null){e.preventDefault();go(n);} });
-    /* page scrolling is never captured: flip with the dial, the buttons, a drag or the arrow keys */
-    /* drag with a little momentum: a fast flick spins several cards */
-    var sy=null,lastY=0,lastTs=0,vel=0;
-    stage.addEventListener('pointerdown',function(e){ if(e.pointerType==='touch'||e.target.closest('a,button')) return; sy=e.clientY; lastY=e.clientY; lastTs=e.timeStamp; vel=0; });
-    window.addEventListener('pointermove',function(e){ if(sy===null) return; var dt=Math.max(1,e.timeStamp-lastTs); vel=(e.clientY-lastY)/dt; lastY=e.clientY; lastTs=e.timeStamp; var dy=e.clientY-sy; if(Math.abs(dy)>38){go(cur+(dy<0?1:-1)); sy=e.clientY;} });
-    window.addEventListener('pointerup',function(){ if(sy===null) return; sy=null; var extra=Math.min(4,Math.floor(Math.abs(vel)*2.2)); if(extra>0&&!reduce){ var dir=vel<0?1:-1, k=0; (function step(){ if(k++<extra && go(cur+dir)) setTimeout(step,90); })(); } });
-    var tx=null;
-    stage.addEventListener('touchstart',function(e){tx=e.touches[0].clientX;},{passive:true});
-    stage.addEventListener('touchmove',function(e){ if(tx===null) return; var dx=e.touches[0].clientX-tx; if(Math.abs(dx)>40){go(cur+(dx<0?1:-1)); tx=e.touches[0].clientX;} },{passive:true});
-    layout();
-    api.go=go; api.mark=function(t){return marks[t];}; api.cur=function(){return cur;}; api.n=cards.length; api.ticks=ticks; api.layout=layout;
-    api.preview=function(pos){ var n=Math.round(pos); if(n!==cur){ cur=n; } layout(pos); };
-    api.el=el;
-    return api;
-  }
-  /* live readout in the hub: which half, which card, which tier */
-  (function(){ var tx=sx.querySelectorAll('.sx-hub .sx-hubt'); if(tx.length<2) return; var hubc=sx.querySelector('.sx-hubc'), tm=null, ready=false;
-    function pad2(n){return (n<10?'0':'')+n;}
-    window.nexusHub=function(sd,i,n,tier,card){ if(!ready) return;
-      tx[0].textContent=(sd==='lab'?'LAB ':'SPACE ')+pad2(i+1)+' / '+pad2(n);
-      var ttl=card&&card.querySelector('.wc-title'); var lab=ttl?ttl.textContent.split(' · ')[0]:tier; if(lab.length>16) lab=lab.slice(0,15)+'…';
-      tx[1].textContent=card&&card.classList.contains('divider')?tier:lab;
-      sx.querySelector('.sx-hub').dataset.side=sd; sx.querySelector('.sx-hub').classList.add('live');
-      clearTimeout(tm); tm=setTimeout(function(){ sx.querySelector('.sx-hub').classList.remove('live'); tx[0].textContent='Nexus'; tx[1].textContent='Lab · Space'; },4200); };
-    setTimeout(function(){ ready=true; },50);
-  })();
-  drums.lab=build('lab'); drums.space=build('space');
-  /* first time the wheel scrolls into view: a small turn of the dial shows it can be grabbed */
-  (function(){ if(reduce||!('IntersectionObserver' in window)) return; var hub=sx.querySelector('.sx-hub'); if(!hub) return;
-    var io=new IntersectionObserver(function(es){ es.forEach(function(en){ if(!en.isIntersecting) return; io.disconnect();
-      hub.classList.add('nudge'); setTimeout(function(){ hub.classList.remove('nudge'); },2200); }); },{threshold:.6}); io.observe(hub); })();
-  segs.forEach(function(s){
-    function pick(){ var d=drums[s.dataset.side]; d.go(d.mark(s.dataset.tier)); }
-    s.addEventListener('click',pick);
-    s.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){e.preventDefault();pick();} });
-  });
-  /* grab-and-turn dial: each half of the wheel turns its own rotary file */
-  (function(){
-    var svg=sx.querySelector('.sx-hub svg'); if(!svg) return;
-    var drag=null, moved=false;
-    function ang(e){ var r=svg.getBoundingClientRect(), cx=r.left+r.width/2, cy=r.top+r.height/2; return {a:Math.atan2(e.clientY-cy,e.clientX-cx)*180/Math.PI, side:(e.clientX<cx?'lab':'space')}; }
-    svg.addEventListener('pointerdown',function(e){
-      var p=ang(e), d=drums[p.side]; drag={side:p.side, d:d, a0:p.a, last:p.a, acc:0, start:d.cur()}; moved=false;
-      d.dragging=true; d.ticks.style.transition='none'; svg.setPointerCapture(e.pointerId); sx.classList.add('dial-grab'); sx.dataset.grab=p.side; d.el.classList.add('sx-live'); e.preventDefault();
-    });
-    svg.addEventListener('pointermove',function(e){
-      if(!drag) return; var p=ang(e), da=p.a-drag.last; if(da>180) da-=360; if(da<-180) da+=360; drag.last=p.a; drag.acc+=da; if(Math.abs(drag.acc)>3) moved=true;
-      var d=drag.d, sign=drag.side==='lab'?-1:1;
-      var live=drag.start*d.step+sign*drag.acc; live=Math.max(0,Math.min((d.n-1)*d.step,live));
-      d.preview(live/d.step);
-      d.ticks.style.transform='rotate('+(sign*live)+'deg)';
-    });
-    function end(){ if(!drag) return; var d=drag.d; d.dragging=false; d.el.classList.remove('sx-live'); d.layout(); drag=null; sx.classList.remove('dial-grab'); delete sx.dataset.grab; }
-    svg.addEventListener('pointerup',end); svg.addEventListener('pointercancel',end);
-    /* a plain click on a ring still jumps; a turn does not */
-    svg.addEventListener('click',function(e){ if(moved){ e.stopPropagation(); e.preventDefault(); moved=false; } },true);
-    /* keyboard: a focused ring turns its half with the arrow keys */
-    segs.forEach(function(sg){ sg.addEventListener('keydown',function(e){ var d=drums[sg.dataset.side], k=e.key;
-      if(k==='ArrowDown'||k==='ArrowRight'){ e.preventDefault(); d.go(d.cur()+1); } if(k==='ArrowUp'||k==='ArrowLeft'){ e.preventDefault(); d.go(d.cur()-1); } }); });
-  })();
-  sx.addEventListener('click',function(e){
-    var a=e.target.closest('a.see-work'); if(!a) return;
-    var d=document.getElementById(a.getAttribute('data-open')); if(!d) return;
-    e.preventDefault(); d.open=true; d.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'}); history.replaceState(null,'','#'+d.id);
-  });
-  sx.hidden=false; root.classList.add('rx-on');
-  var lb=document.getElementById('rx-listbtn');
-  lb.addEventListener('click',function(){ var on=!root.classList.contains('show-list'); root.classList.toggle('show-list',on); lb.setAttribute('aria-expanded',on); lb.textContent=on?'Hide the list':'Show as a list'; });
+  function mold(){var s='<svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice"><rect width="400" height="400" fill="#5a3b24"/>';
+    for(var i=0;i<14;i++)s+='<path d="M0 '+(i*30+8)+' C 120 '+(i*30-6)+', 260 '+(i*30+22)+', 400 '+(i*30+4)+'" stroke="rgba(0,0,0,.18)" stroke-width="3" fill="none"/>';
+    var seg=[];function br(x,y,a,d){if(d>6)return;var l=60-d*7,x2=x+Math.cos(a)*l,y2=y+Math.sin(a)*l;seg.push([x,y,x2,y2,d]);br(x2,y2,a-.5,d+1);br(x2,y2,a+.5,d+1);}
+    [0,1.6,3.2,4.7].forEach(function(a){br(200,200,a,0);});
+    seg.forEach(function(g){s+='<line x1="'+g[0].toFixed(1)+'" y1="'+g[1].toFixed(1)+'" x2="'+g[2].toFixed(1)+'" y2="'+g[3].toFixed(1)+'" stroke="#f3e6cc" stroke-width="'+(5-g[4]*.6)+'" stroke-linecap="round"/>';if(g[4]>3)s+='<circle cx="'+g[2].toFixed(1)+'" cy="'+g[3].toFixed(1)+'" r="5" fill="#ef7b3a"/>';});
+    return s+'</svg>';}
+  function fish(){var s='<svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice"><rect width="400" height="400" fill="#0f2b30"/>';
+    [['#7fd3ff',120,26],['#ff8a7a',200,34],['#f2c14e',280,22]].forEach(function(w){var d='M0 '+w[1];for(var x=0;x<=400;x+=4)d+=' L'+x+' '+(w[1]+Math.sin(x/w[2])*16).toFixed(1);s+='<path d="'+d+'" stroke="'+w[0]+'" stroke-width="4" fill="none"/>';});
+    return s+'<ellipse cx="150" cy="160" rx="90" ry="14" fill="#9fb0b5" opacity=".75"/><ellipse cx="260" cy="250" rx="80" ry="12" fill="#9fb0b5" opacity=".75"/></svg>';}
+  function comb(){var s='<svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice"><rect width="400" height="400" fill="#6b4410"/>';
+    for(var r=0;r<12;r++)for(var c=0;c<12;c++){var x=c*40+(r%2?20:0),y=r*35,h='';for(var k=0;k<6;k++){var a=Math.PI/3*k+Math.PI/6;h+=(k?' L':'M')+(x+19*Math.cos(a)).toFixed(1)+' '+(y+19*Math.sin(a)).toFixed(1);}s+='<path d="'+h+'Z" fill="#c8891d" stroke="#8a5a14" stroke-width="2"/>';}
+    return s+'<path d="M120 260 q40 -60 80 0 q40 60 80 0" stroke="#fff6dc" stroke-width="5" stroke-dasharray="10 8" fill="none"/></svg>';}
+  function img(src,alt){return '<img src="'+src+'" alt="'+alt+'" loading="lazy">';}
+  var P=[
+    {g:'fn',t:'Storm Fuel',st:'Concept',from:'mold',thumb:'img/community.jpg',a:img('img/community.jpg','Community members at the Slidell, Louisiana gathering.'),b:mold(),f:'Store and distribute energy.',o:'Mold',s:'Concept, with partners in Slidell, Louisiana',p:'A community biofuel center for the days after a hurricane, modeled on how mold stores and distributes energy.',m:['10×','400×'],cs:'storm-fuel'},
+    {g:'fn',t:'Urban Nexus',st:'Working platform',from:'fairy circles',thumb:'img/un-scan.jpg',a:img('img/un-scan.jpg','The Urban Nexus map of Albuquerque.'),b:img('img/fc-hero-aerial-namibia.jpg','Aerial view of fairy circles in the Namib Desert.'),f:'To self-organize.',o:'Fairy circles, Stipagrostis grasslands of the Namib Desert',s:'Working platform',p:'A spatial evidence platform that organizes environmental, economic and community data for all 376 block groups in Albuquerque into one shared frame.',m:['1:1','aerial'],cs:'urban-nexus'},
+    {g:'fn',t:'LeafQuest',st:'In playtests',from:'honey bees',thumb:'img/lq-sweetgum.jpg',a:img('img/lq-sweetgum.jpg','A LeafQuest sweetgum leaf card.'),b:comb(),f:'Self-organize.',o:'Apis mellifera, western honey bee',s:'Patent pending, two provisional applications filed',p:'An NFC nature-education game that teaches systems design and evolution through leaf shape, margin and venation.',m:['10×','100×'],cs:'leafquest'},
+    {g:'fn',t:'Drone show safety',st:'Concept',from:'electric fish',thumb:'img/drone-sim.jpg',a:img('img/drone-sim.jpg','A drone formation simulation.'),b:fish(),f:'Avoid signal interference.',o:'Eigenmannia virescens, glass knifefish',s:'Concept',p:'Neighboring drones that detect interference move to radio channels further apart, so links stay clear and the formation holds.',m:['10×','signal'],cs:'drone-safety'},
+    {g:'fm',t:'Microscope brushes',st:'Available now',from:'eggplant leaves',thumb:'img/leaf-subject-02-eggplant.jpg',a:img('img/leaf-subject-02-eggplant.jpg','An eggplant plant.'),b:img('img/leaf-plate-02-eggplant-stellate.jpg','Stellate trichomes on an eggplant leaf under the microscope.'),f:'Capture texture and form.',o:'Eggplant leaf, stellate trichomes',s:'On sale, 29 brushes',p:'A Procreate brush set built from leaf surfaces captured under the microscope, with custom grain images and shape stamps.',m:['1×','200×'],cs:'brushes'},
+    {g:'fm',t:'Four plants, four skins',st:'Field study',from:'purslane',thumb:'img/leaf-subject-03-purslane.jpg',a:img('img/leaf-subject-03-purslane.jpg','Desert horse purslane.'),b:img('img/leaf-plate-04-purslane-domes.jpg','Epidermal domes on purslane under the microscope.'),f:'Study surface form.',o:'Purslane, epidermal domes',s:'Published',p:'Macro and microscope plates of four desert plants, and the source of the brush textures.',m:['1×','200×'],link:'case-studies/'}];
+  var C={fn:'#8FB0FF',fm:'#5FE08A'};
+  var sw=root.querySelector('.ms-sw'), pages=root.querySelector('.ms-pages'), sub=root.querySelector('.ms-swsub'), carrier=root.querySelector('.ms-carrier');
+  var scope=root.querySelector('.ms-scope'), dish=root.querySelector('.ms-dish'), l1=root.querySelector('.ms-l1'), l2=root.querySelector('.ms-l2'), mag=root.querySelector('.ms-mag'), lab=root.querySelector('.ms-lab');
+  var info=root.querySelector('.ms-info'), openB=root.querySelector('.ms-open'), link=root.querySelector('.ms-link');
+  var cur=0, zoomed=false, timer=null, pos=0, btns=[];
+  P.forEach(function(p,i){var b=document.createElement('button');b.type='button';b.className='ms-gs';b.style.setProperty('--c',C[p.g]);b.setAttribute('aria-pressed','false');
+    b.innerHTML='<span class="ms-cs"><img src="'+p.thumb+'" alt="" loading="lazy"></span><span><b>'+p.t+'</b><em>'+p.st+' · from '+p.from+'</em></span>';
+    b.addEventListener('click',function(){pick(i);});root.querySelector('.ms-page[data-g="'+p.g+'"]').appendChild(b);btns.push(b);});
+  function zoom(on){var p=P[cur];zoomed=on;scope.classList.toggle('zoomed',on);mag.textContent=on?p.m[1]:p.m[0];if(!on)l2.classList.remove('live');}
+  function pick(i){var p=P[cur=i];clearTimeout(timer);
+    btns.forEach(function(b,k){b.setAttribute('aria-pressed',k===i?'true':'false');});
+    scope.classList.remove('zoomed','drawing');scope.classList.toggle('form',p.g==='fm');l1.innerHTML=p.a;l2.innerHTML=p.b;l2.classList.remove('live');mag.textContent=p.m[0];
+    lab.textContent=(p.g==='fn'?'FN':'FORM')+' · '+p.t.toUpperCase();
+    void scope.offsetWidth; scope.classList.add('drawing');
+    info.classList.add('fade');
+    setTimeout(function(){info.style.setProperty('--c',C[p.g]);
+      info.querySelector('.ms-k').textContent=(p.g==='fn'?'How nature works':'Nature’s form')+' · '+p.st;
+      info.querySelector('.ms-t').textContent=p.t;info.querySelector('.ms-f').textContent=p.f;info.querySelector('.ms-o').textContent=p.o;info.querySelector('.ms-s').textContent=p.s;info.querySelector('.ms-p').textContent=p.p;
+      if(p.cs){openB.hidden=false;openB.setAttribute('data-case',p.cs);link.hidden=true;}else{openB.hidden=true;link.hidden=false;link.setAttribute('href',p.link);}
+      info.classList.remove('fade');},180);
+    if(reduce){zoom(true);return;}
+    zoom(false);timer=setTimeout(function(){zoom(true);setTimeout(function(){if(zoomed&&cur===i)l2.classList.add('live');},1700);},1500);}
+  dish.addEventListener('click',function(){clearTimeout(timer);zoom(!zoomed);if(zoomed&&!reduce)setTimeout(function(){if(zoomed)l2.classList.add('live');},1700);});
+  function setP(v,anim){pos=Math.max(0,Math.min(1,v));carrier.classList.toggle('anim',!!anim);carrier.style.setProperty('--p',pos.toFixed(3));
+    var fm=pos>=.5;sub.textContent=fm?'Biomorphic and biophilic · shape, texture and our connection to it':'Biomimicry · emulating strategies that do the job';
+    sw.setAttribute('aria-valuenow',fm?1:0);sw.setAttribute('aria-valuetext',fm?'Nature’s form':'How nature works');
+    root.querySelectorAll('.ms-page').forEach(function(pg){var hide=(pg.getAttribute('data-g')==='fm')!==fm;pg.setAttribute('aria-hidden',hide?'true':'false');pg.querySelectorAll('button').forEach(function(b){b.tabIndex=hide?-1:0;});});}
+  function snap(to){setP(to,true);var g=to?'fm':'fn';if(P[cur].g!==g){for(var k=0;k<P.length;k++)if(P[k].g===g){pick(k);break;}}}
+  var drag=false,sx=0,sp=0,moved=false;
+  sw.addEventListener('pointerdown',function(e){drag=true;moved=false;sx=e.clientX;sp=pos;try{sw.setPointerCapture(e.pointerId);}catch(_){}});
+  sw.addEventListener('pointermove',function(e){if(!drag)return;if(Math.abs(e.clientX-sx)>4)moved=true;setP(sp+(e.clientX-sx)/(sw.clientWidth/2),false);});
+  function up(e){if(!drag)return;drag=false;if(!moved){var r=sw.getBoundingClientRect();snap(e.clientX-r.left>r.width/2?1:0);}else snap(pos>.5?1:0);}
+  sw.addEventListener('pointerup',up);sw.addEventListener('pointercancel',function(){if(drag){drag=false;snap(pos>.5?1:0);}});
+  sw.addEventListener('keydown',function(e){if(e.key==='ArrowRight'||e.key==='End'){e.preventDefault();snap(1);}if(e.key==='ArrowLeft'||e.key==='Home'){e.preventDefault();snap(0);}if(e.key===' '||e.key==='Enter'){e.preventDefault();snap(pos<.5?1:0);}});
+  setP(0);
+  /* start when the section first comes into view, so the zoom is seen */
+  pick(0);clearTimeout(timer);zoom(false);
+  var started=false;function go(){if(started)return;started=true;pick(cur);}
+  if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){go();io.disconnect();}});},{threshold:.35});io.observe(root);}else go();
 })();
 
 }catch(e){ if(window.console) console.warn('[nexus]',e); }

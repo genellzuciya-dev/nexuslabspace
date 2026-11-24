@@ -1591,6 +1591,21 @@ try{
 }catch(e){ if(window.console) console.warn('[nexus]',e); }
 try{
 
+/* hero deck: each slide's title row sits above the progress bars, and the bars lose their word labels */
+(function(){
+  var d=document.getElementById('hdeck'); if(!d) return;
+  var box=d.querySelector('.hd-heads'), nav=d.querySelector('.deck-nav'); if(!box||!nav) return;
+  var cards=[].slice.call(d.querySelectorAll('.deck-card')), heads=[];
+  cards.forEach(function(c,i){var h=c.querySelector('.sf-head'); if(!h) return; h.setAttribute('data-i',c.getAttribute('data-i')||i); box.appendChild(h); heads.push(h);});
+  function sync(){var b=nav.querySelector('[aria-selected="true"]'),k=b?b.getAttribute('data-i'):'0';
+    heads.forEach(function(h){var on=h.getAttribute('data-i')===k;h.classList.toggle('on',on);h.setAttribute('aria-hidden',on?'false':'true');});}
+  new MutationObserver(sync).observe(nav,{subtree:true,attributes:true,attributeFilter:['aria-selected']});
+  sync();
+})();
+
+}catch(e){ if(window.console) console.warn('[nexus]',e); }
+try{
+
 /* living network, adapted from the original Nexus Lab Space site: ink and teal lines, with neurons that fire in iridescent color */
 (function(){
   var band=document.querySelector('.hero-band'), canvas=document.getElementById('nlsCanvas');
@@ -1942,8 +1957,7 @@ try{
     {g:'fn',t:'Urban Nexus',st:'Working platform',from:'fairy circles',thumb:'img/un-scan.jpg',a:img('img/un-scan.jpg','The Urban Nexus map of Albuquerque.'),b:img('img/fc-hero-aerial-namibia.jpg','Aerial view of fairy circles in the Namib Desert.'),f:'To self-organize.',o:'Fairy circles in <i>Stipagrostis</i> grasslands, Namib Desert',s:'Working platform',p:'A spatial evidence platform that organizes environmental, economic and community data for all 376 block groups in Albuquerque into one shared frame.',m:['1:1','aerial'],cs:'urban-nexus'},
     {g:'fn',t:'LeafQuest',st:'In playtests',from:'honey bees',thumb:'img/lq-sweetgum.jpg',a:img('img/lq-sweetgum.jpg','A LeafQuest sweetgum leaf card.'),b:'<video src="img/honeybee-sunflower.mp4" poster="img/honeybee-sunflower.jpg" muted loop playsinline autoplay preload="none" aria-label="A honey bee foraging on a sunflower, filmed by Nexus Lab Space."></video>',f:'Self-organize.',o:'Western honey bee, <i>Apis mellifera</i>',s:'Patent pending, two provisional applications filed',p:'An NFC nature-education game that teaches systems design and evolution through leaf shape, margin and venation.',m:['10×','field'],cs:'leafquest'},
     {g:'fn',t:'Drone show safety',st:'Concept',from:'electric fish',thumb:'img/drone-sim.jpg',a:img('img/drone-sim.jpg','A drone formation simulation.'),b:fish(),f:'Avoid signal interference.',o:'Glass knifefish, <i>Eigenmannia virescens</i>',s:'Concept',p:'Neighboring drones that detect interference move to radio channels further apart, so links stay clear and the formation holds.',m:['10×','signal'],cs:'drone-safety'},
-    {g:'fm',t:'Microscope brushes',st:'Available now',from:'eggplant leaves',thumb:'img/leaf-subject-02-eggplant.jpg',a:img('img/leaf-subject-02-eggplant.jpg','An eggplant plant.'),b:img('img/leaf-plate-02-eggplant-stellate.jpg','Stellate trichomes on an eggplant leaf under the microscope.'),f:'Capture texture and form.',o:'Eggplant, <i>Solanum melongena</i> (stellate trichomes)',s:'On sale, 29 brushes',p:'A Procreate brush set built from leaf surfaces captured under the microscope, with custom grain images and shape stamps.',m:['1×','200×'],cs:'brushes'},
-    {g:'fm',t:'Four plants, four skins',st:'Field study',from:'purslane',thumb:'img/leaf-subject-03-purslane.jpg',a:img('img/leaf-subject-03-purslane.jpg','Desert horse purslane.'),b:img('img/leaf-plate-04-purslane-domes.jpg','Epidermal domes on purslane under the microscope.'),f:'Study surface form.',o:'Desert horse purslane, <i>Trianthema portulacastrum</i>',s:'Published',p:'Macro and microscope plates of four desert plants, and the source of the brush textures.',m:['1×','200×'],link:'case-studies/'}];
+    {g:'fm',t:'Microscope brushes',st:'Available now',from:'eggplant leaves',thumb:'img/leaf-subject-02-eggplant.jpg',a:img('img/leaf-subject-02-eggplant.jpg','An eggplant plant.'),b:img('img/leaf-plate-02-eggplant-stellate.jpg','Stellate trichomes on an eggplant leaf under the microscope.'),f:'Capture texture and form.',o:'Eggplant, <i>Solanum melongena</i> (stellate trichomes)',s:'On sale, 29 brushes',p:'A Procreate brush set built from leaf surfaces captured under the microscope, with custom grain images and shape stamps.',m:['1×','200×'],cs:'brushes'}];
   var C={fn:'#8FB0FF',fm:'#5FE08A'};
   var sw=root.querySelector('.ms-sw'), pages=root.querySelector('.ms-pages'), sub=root.querySelector('.ms-swsub'), carrier=root.querySelector('.ms-carrier');
   var scope=root.querySelector('.ms-scope'), dish=root.querySelector('.ms-dish'), l1=root.querySelector('.ms-l1'), l2=root.querySelector('.ms-l2'), mag=root.querySelector('.ms-mag'), lab=root.querySelector('.ms-lab');

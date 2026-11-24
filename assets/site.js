@@ -1332,6 +1332,141 @@ try{
 }catch(e){ if(window.console) console.warn('[nexus]',e); }
 try{
 
+/* explainers: tabs plus a stepper for each area */
+(function(){
+  var sec=document.querySelector('.xp-sec'); if(!sec)return;
+  var tabs=[].slice.call(sec.querySelectorAll('.xp-tab')), panes=[].slice.call(sec.querySelectorAll('.xp-pane'));
+  function pick(t){tabs.forEach(function(b){b.setAttribute('aria-selected',b.dataset.t===t?'true':'false');});panes.forEach(function(p){p.hidden=p.dataset.t!==t;});var on=sec.querySelector('.xp-tab[data-t="'+t+'"]'),row=on&&on.parentNode;if(row&&row.scrollWidth>row.clientWidth)row.scrollLeft=on.offsetLeft-row.offsetLeft-16;}
+  tabs.forEach(function(b){b.addEventListener('click',function(){pick(b.dataset.t);});});
+  [].slice.call(document.querySelectorAll('[data-xp].kw-q')).forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();pick(a.dataset.xp);sec.scrollIntoView({behavior:'smooth',block:'start'});history.replaceState(null,'','#explain-'+a.dataset.xp);});});
+  var m=location.hash.match(/^#explain-(ai|pr|bio|ex)$/); if(m){pick(m[1]);setTimeout(function(){sec.scrollIntoView();},60);}
+  [].slice.call(sec.querySelectorAll('.xp')).forEach(function(root){
+    var layers=[].slice.call(root.querySelectorAll('.ol-layer')), st=[].slice.call(root.querySelectorAll('.xs')),
+        dots=[].slice.call(root.querySelectorAll('.ol-dots button')), back=root.querySelector('.xp-back'),
+        next=root.querySelector('.xp-next'), done=root.querySelector('.xp-done'), cur=0, last=layers.length-1;
+    function show(i){cur=Math.max(0,Math.min(last,i));
+      layers.forEach(function(l,k){l.hidden=k!==cur;});
+      st.forEach(function(r,k){r.classList.toggle('done',k<cur);r.classList.toggle('current',k===cur);});
+      dots.forEach(function(d,k){if(k===cur)d.setAttribute('aria-current','true');else d.removeAttribute('aria-current');});
+      root.className=root.className.replace(/\bat\d\b/g,'').trim()+' at'+cur;
+      back.disabled=cur===0; next.hidden=cur===last; done.hidden=cur!==last;}
+    next.addEventListener('click',function(){show(cur+1);});
+    back.addEventListener('click',function(){show(cur-1);});
+    dots.forEach(function(d,k){d.addEventListener('click',function(){show(k);});});
+    st.forEach(function(r,k){r.addEventListener('click',function(){show(k);});});
+    show(0);
+  });
+})();
+
+}catch(e){ if(window.console) console.warn('[nexus]',e); }
+try{
+
+/* rapid prototyping fortune teller, folded paper in 3D */
+(function(){
+  var root=document.getElementById('ft'); if(!root)return;
+  var svg=root.querySelector('.ft-3d'), keys=root.querySelector('.ft-keys'), NS='http://www.w3.org/2000/svg';
+  var stepEl=root.querySelector('.ft-step'), hEl=root.querySelector('.ft-h'), bEl=root.querySelector('.ft-b'), chips=root.querySelector('.ft-chips'),
+      endEl=root.querySelector('.ft-end'), reset=root.querySelector('.ft-reset'), done=root.querySelector('.ft-done');
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var FLAPS=[
+    {a:'Electronics',b:'+ Software',full:'Electronics and software',what:'A proof of concept for the technology: does it work?',qx:.5,qy:.5,dot:'#2B5BFF',n:[1,2]},
+    {a:'Physical',b:'+ Spatial',full:'Physical and spatial',what:'A proof of concept for the body: does it fit, and is it comfortable?',qx:.5,qy:-.5,dot:'#3fbf6f',n:[3,4]},
+    {a:'Perception',b:'+ Emotion',full:'Perception and emotion',what:'A mock-up for the senses: can people see it, hear it and feel it, here, in this light?',qx:-.5,qy:-.5,dot:'#171717',n:[5,6]},
+    {a:'UI',b:'+ Flow',full:'UI and flow',what:'A mock-up for understanding: do people know what to do?',qx:-.5,qy:.5,dot:'#8FB0FF',n:[7,8]}];
+  var Q={
+    1:['Does the sensor fire at the right moment?','An Arduino sketch and one sensor to tune when the effect triggers.',['Arduino','Sensor','LED']],
+    2:['Does touching it change the screen?','Cardboard, a touch point and a laptop to prove the link from physical to digital.',['Cardboard','Touch sensor','Laptop']],
+    3:['Is the space big enough?','Tape the footprint on a warehouse floor and walk it with real people.',['Floor tape','Stand-in people']],
+    4:['Are the screens at a comfortable height?','TVs on rolling stands in an open space, checked with adults and kids.',['TVs on stands','Open warehouse']],
+    5:['Is the projector bright enough on that wall?','Borrow a projector and test it on the real surface, in the real ambient light.',['Loaner projector','The real wall']],
+    6:['Does the moment land?','Play the sound and light at show level in the space and watch how people react.',['Speaker','Lights','Test guests']],
+    7:['Does the interface make sense?','Click-through screens on a real phone or kiosk before anything is coded.',['Screen mock-up','Phone or tablet']],
+    8:['Can people find their way without help?','Hand testers the click-through and watch where they hesitate.',['Click-through','Five testers']]};
+  /* geometry: four square pyramids on a 2 x 2 base, apex height H */
+  var H=.68, S=124, TILT=.78, D=6, Z0=-.62;
+  function pyr(f){var x0=f.qx-.5,x1=f.qx+.5,y0=f.qy-.5,y1=f.qy+.5,c=[[x0,y0,0],[x1,y0,0],[x1,y1,0],[x0,y1,0]],ap=[f.qx,f.qy,H],faces=[];
+    for(var i=0;i<4;i++){var p=c[i],q=c[(i+1)%4],mx=(p[0]+q[0])/2,my=(p[1]+q[1])/2,inner=Math.abs(mx)<1e-6||Math.abs(my)<1e-6;
+      faces.push({pts:[ap,p,q],inner:inner,axis:Math.abs(mx)<1e-6?'x':(Math.abs(my)<1e-6?'y':null)});}
+    faces.forEach(function(fc){fc.inner=false;});
+    /* pocket walls: hidden while closed, they tilt into view when the peaks part */
+    faces.push({pts:[[0,y0,0],[0,y1,0],[0,f.qy,Z0+.04]],inner:true,axis:'x',num:f.n[0]});
+    faces.push({pts:[[x0,0,0],[x1,0,0],[f.qx,0,Z0+.04]],inner:true,axis:'y',num:f.n[1]});
+    return faces;}
+  var P=FLAPS.map(pyr);
+  var st={ax:0,ay:0,sp:0,yaw:0,tilt:TILT}, picked=null, busy=false, active=null, lifted=null, liftT=0;
+  function rot(v,f){var x=v[0],y=v[1],z=v[2],a,c,s,t;
+    z-=Z0;
+    a=st.ax*(f.qx<0?1:-1);c=Math.cos(a);s=Math.sin(a);t=x*c-z*s;z=x*s+z*c;x=t;
+    a=st.ay*(f.qy<0?1:-1);c=Math.cos(a);s=Math.sin(a);t=y*c-z*s;z=y*s+z*c;y=t;
+    z+=Z0;
+    x+=f.qx*st.sp;y+=f.qy*st.sp;var cy=Math.cos(st.yaw),sy=Math.sin(st.yaw);return [x*cy-y*sy,x*sy+y*cy,z];}
+  function view(v){var T=st.tilt,up=v[1]*Math.cos(T)+v[2]*Math.sin(T),tw=v[2]*Math.cos(T)-v[1]*Math.sin(T),k=D/(D-tw);
+    return {x:v[0]*S*k,y:-up*S*k+28,d:tw};}
+  function sub(a,b){return [a[0]-b[0],a[1]-b[1],a[2]-b[2]];}
+  function cross(a,b){return [a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];}
+  function norm(v){var l=Math.hypot(v[0],v[1],v[2])||1;return [v[0]/l,v[1]/l,v[2]/l];}
+  var L=norm([-.45,.35,.85]);
+  function el(n,a){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);return e;}
+  function draw(){
+    var list=[];
+    FLAPS.forEach(function(f,k){var cen=rot([f.qx,f.qy,H*.15],f);
+      P[k].forEach(function(fc){var w=fc.pts.map(function(v){return rot(v,f);}),n=norm(cross(sub(w[1],w[0]),sub(w[2],w[0]))),mid=[(w[0][0]+w[1][0]+w[2][0])/3,(w[0][1]+w[1][1]+w[2][1])/3,(w[0][2]+w[1][2]+w[2][2])/3];
+        if((mid[0]-cen[0])*n[0]+(mid[1]-cen[1])*n[1]+(mid[2]-cen[2])*n[2]<0)n=[-n[0],-n[1],-n[2]];
+        var vn=n[2]*Math.cos(st.tilt)-n[1]*Math.sin(st.tilt); if(vn<=0.02)return;
+        var pr=w.map(view),dep=(pr[0].d+pr[1].d+pr[2].d)/3,lit=Math.max(0,n[0]*L[0]+n[1]*L[1]+n[2]*L[2]);
+        list.push({k:k,fc:fc,pr:pr,d:dep,lit:lit,w:w,mid:mid,vn:vn});});});
+    list.sort(function(a,b){return a.d-b.d;});
+    svg.textContent='';
+    var sh=el('ellipse',{cx:0,cy:96+st.sp*30,rx:150+st.sp*60,ry:22,fill:'rgba(0,0,0,.07)'});svg.appendChild(sh);
+    list.forEach(function(it){var f=FLAPS[it.k],fc=it.fc,inner=fc.inner,g=el('g',{'class':'ft-f'+(inner?' ft-in':' ft-out')});
+      var base=inner?228:250,v=Math.round(base*(.8+.2*it.lit)),col='rgb('+v+','+(v-1)+','+(v-5)+')';
+      var dim=picked!==null&&inner&&FLAPS[picked].n.indexOf(fc.num)<0&&(active||lifted);
+      var isLive=inner&&active&&active.indexOf(fc.num)>-1;
+      var op=1; if(lifted===fc.num) op=1-liftT;
+      g.appendChild(el('path',{d:'M'+it.pr.map(function(p){return p.x.toFixed(1)+' '+p.y.toFixed(1);}).join(' L')+' Z',fill:col,stroke:isLive?'#171717':'#C9C6BE','stroke-width':isLive?1.6:.8,'stroke-linejoin':'round',opacity:dim?.35:op}));
+      var cx=(it.pr[0].x+it.pr[1].x+it.pr[2].x)/3, cy=(it.pr[0].y+it.pr[1].y+it.pr[2].y)/3;
+      var openA=fc.axis==='x'?st.ax:st.ay; if(inner&&openA>.16&&it.vn>.15&&!dim&&lifted!==fc.num){var t=el('text',{x:cx.toFixed(1),y:(cy+6).toFixed(1),'text-anchor':'middle','class':'ft-num'});t.textContent=fc.num;g.appendChild(t);}
+      
+      if(inner&&fc.num!=null)g.dataset.num=fc.num; g.dataset.k=it.k;
+      svg.appendChild(g);});
+    /* labels sit above each peak, in screen space */
+    FLAPS.forEach(function(f,k){var a=view(rot([f.qx*1.62,f.qy*1.62,H*.16],f)),o=Math.max(0,1-Math.max(st.ax,st.ay)*2.2-st.sp*6);
+      var g=el('g',{opacity:o.toFixed(2),'class':'ft-labs'}),dx=f.qx<0?-1:1;
+      g.appendChild(el('circle',{cx:(a.x).toFixed(1),cy:(a.y-16).toFixed(1),r:5.5,fill:f.dot}));
+      var t=el('text',{x:a.x.toFixed(1),y:(a.y+2).toFixed(1),'text-anchor':'middle','class':'ft-lab'});t.textContent=f.a;
+      var t2=el('text',{x:a.x.toFixed(1),y:(a.y+15).toFixed(1),'text-anchor':'middle','class':'ft-lab2'});t2.textContent=f.b;
+      g.appendChild(t);g.appendChild(t2);svg.appendChild(g);});
+  }
+  function tween(to,ms,cb){var from={ax:st.ax,ay:st.ay,sp:st.sp,yaw:st.yaw,tilt:st.tilt},t0=null;if(reduce||!ms){for(var k in to)st[k]=to[k];draw();cb&&cb();return;}
+    function f(ts){if(!t0)t0=ts;var u=Math.min(1,(ts-t0)/ms),e=u<.5?2*u*u:1-Math.pow(-2*u+2,2)/2;for(var k in to)st[k]=from[k]+(to[k]-from[k])*e;draw();if(u<1)requestAnimationFrame(f);else cb&&cb();}
+    requestAnimationFrame(f);}
+  function say(s,h,b,c){stepEl.textContent=s;hEl.textContent=h;bEl.innerHTML=b;chips.innerHTML=(c||[]).map(function(x,i){return '<span>'+(i===0?'<b>Parts</b>':'')+x+'</span>';}).join('');}
+  function keyBtns(items){keys.textContent='';items.forEach(function(it){var b=document.createElement('button');b.type='button';b.textContent=it[0];b.addEventListener('click',it[1]);keys.appendChild(b);});}
+  function choose(k){if(busy||picked!==null)return;busy=true;picked=k;var f=FLAPS[k],n=f.a.length,per=Math.max(170,Math.min(320,2800/n)),i=0;
+    say('Step 1 of 3',f.full+'.',f.what+'<br><span class="ft-mock">Open, close, open: one pinch for each letter of '+f.a+'.</span>');keyBtns([]);
+    (function tick(){if(i<n){var h=i%2===0;i++;tween(h?{ax:.4,ay:0}:{ax:0,ay:.4},per*.55,function(){tween({ax:0,ay:0},per*.45,tick);});}
+      else tween({ax:.45,ay:.45,sp:.06,yaw:f.qy<0?Math.PI:0,tilt:.4},900,function(){active=f.n.slice();busy=false;reset.hidden=false;draw();
+        say('Step 2 of 3','Pick the one thing to prove.','Two questions sit under '+f.full.toLowerCase()+'. Pick a number to lift its flap.');
+        keyBtns(f.n.map(function(m){return ['Number '+m,function(){reveal(m);}];}));});})();}
+  function reveal(m){if(!active||active.indexOf(m)<0)return;active=null;lifted=m;var q=Q[m],t0=null;
+    (function f(ts){if(!t0)t0=ts;liftT=reduce?1:Math.min(1,(ts-t0)/500);draw();if(liftT<1)requestAnimationFrame(f);})(performance.now());
+    if(!reduce)requestAnimationFrame(function g(ts){liftT=Math.min(1,liftT+.06);draw();if(liftT<1)requestAnimationFrame(g);});
+    say('Step 3 of 3',q[0],'<span class="ft-mock">The quick mock-up:</span> '+q[1],q[2]);endEl.hidden=false;done.hidden=false;keyBtns([]);}
+  svg.addEventListener('click',function(e){var g=e.target.closest('.ft-f');if(!g)return;
+    if(picked===null)choose(+g.dataset.k); else if(g.dataset.num)reveal(+g.dataset.num);});
+  svg.addEventListener('mousemove',function(e){var g=e.target.closest('.ft-f');svg.style.cursor=(g&&(picked===null||(active&&g.dataset.num&&active.indexOf(+g.dataset.num)>-1)))?'pointer':'default';});
+  reset.addEventListener('click',function(){picked=null;active=null;lifted=null;liftT=0;busy=false;endEl.hidden=true;done.hidden=true;reset.hidden=true;
+    tween({ax:0,ay:0,sp:0,yaw:0,tilt:TILT},600);say('Step 1 of 3','Pick what you need to prove.','Each peak is a different kind of prototype. Choose one to open it.');initKeys();});
+  function initKeys(){keyBtns(FLAPS.map(function(f,k){return ['Open '+f.full,function(){choose(k);}];}));}
+  initKeys();draw();
+  /* a small idle pinch so it reads as paper that moves */
+  if(!reduce&&'IntersectionObserver' in window){var shown=false;new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!shown&&picked===null){shown=true;
+    tween({ax:.32},420,function(){tween({ax:0},380,function(){tween({ay:.32},420,function(){tween({ay:0},380);});});});}});},{threshold:.5}).observe(svg);}
+})();
+
+}catch(e){ if(window.console) console.warn('[nexus]',e); }
+try{
+
 /* living network, adapted from the original Nexus Lab Space site: ink and teal lines, with neurons that fire in iridescent color */
 (function(){
   var band=document.querySelector('.hero-band'), canvas=document.getElementById('nlsCanvas');

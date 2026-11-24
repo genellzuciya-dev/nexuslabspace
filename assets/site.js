@@ -1467,6 +1467,27 @@ try{
 }catch(e){ if(window.console) console.warn('[nexus]',e); }
 try{
 
+/* experience design: visitors walking the museum plan */
+(function(){
+  var dots=[].slice.call(document.querySelectorAll('.xp-journey .jv')); if(!dots.length)return;
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var W=dots.map(function(d){var p=d.getAttribute('data-path').split(';').map(function(s){var a=s.split(',');return [+a[0],+a[1]];}),L=[0];
+    for(var i=1;i<p.length;i++)L.push(L[i-1]+Math.hypot(p[i][0]-p[i-1][0],p[i][1]-p[i-1][1]));
+    return {el:d,p:p,L:L,off:+d.getAttribute('data-off')};});
+  function place(w,u){var t=u*w.L[w.L.length-1],i=1;while(i<w.L.length-1&&w.L[i]<t)i++;
+    var a=w.p[i-1],b=w.p[i],f=(t-w.L[i-1])/((w.L[i]-w.L[i-1])||1);w.el.setAttribute('cx',(a[0]+(b[0]-a[0])*f).toFixed(1));w.el.setAttribute('cy',(a[1]+(b[1]-a[1])*f).toFixed(1));
+    w.el.style.opacity=u<.03?u/.03:(u>.97?(1-u)/.03:1);}
+  if(reduce){W.forEach(function(w,k){place(w,.2+k*.18);});return;}
+  var svg=dots[0].ownerSVGElement,on=false,T0=null,PER=26000;
+  function tick(ts){if(!on){T0=null;return;}if(T0==null)T0=ts-1;var u=(ts-T0)/PER;W.forEach(function(w){place(w,(u+w.off)%1);});requestAnimationFrame(tick);}
+  W.forEach(function(w){place(w,w.off);});
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){es.forEach(function(e){var was=on;on=e.isIntersecting;if(on&&!was)requestAnimationFrame(tick);});}).observe(svg);
+  else{on=true;requestAnimationFrame(tick);}
+})();
+
+}catch(e){ if(window.console) console.warn('[nexus]',e); }
+try{
+
 /* living network, adapted from the original Nexus Lab Space site: ink and teal lines, with neurons that fire in iridescent color */
 (function(){
   var band=document.querySelector('.hero-band'), canvas=document.getElementById('nlsCanvas');

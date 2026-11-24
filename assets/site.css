@@ -3331,3 +3331,14 @@ html.case-open .cur,html.case-open .cur-ring{opacity:0!important}
 dt .dt-sub{display:block;font:400 .66rem/1.3 var(--display,Montserrat),sans-serif;letter-spacing:0;text-transform:none;color:#8d99b8;margin-top:2px}
 .case-dlg dt .dt-sub{color:#77736a}
 .fn-label .dt-sub{display:block;font:400 .62rem/1.3 var(--display,Montserrat),sans-serif;letter-spacing:0;text-transform:none;color:var(--ink-soft,#77736a);margin-top:2px;max-width:7rem}
+
+/* hero deck: title row above the progress bars; bars without word labels */
+#hdeck .hd-heads{grid-row:1;grid-column:1/-1;display:grid;padding-right:2.4rem}
+#hdeck .hd-heads .sf-head{grid-area:1/1;visibility:hidden;opacity:0;transition:opacity .35s;padding:0 0 .55rem}
+#hdeck .hd-heads .sf-head.on{visibility:visible;opacity:1}
+#hdeck .deck-nav{grid-row:2!important;padding-top:0!important;margin-bottom:.85rem!important}
+#hdeck .deck-nav .deck-pause{top:-2.6rem!important}
+#hdeck .deck-card{grid-row:3!important}
+#hdeck .deck-nav button[role="tab"] span{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+html.solo #hdeck .hd-heads{display:none!important}
+/* hero video taller now that the title row sits above the bars */ #hdeck .specimen{height:clamp(250px,calc(165vh - 1045px),520px)}

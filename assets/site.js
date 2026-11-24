@@ -941,73 +941,64 @@ lqBuild(document.getElementById('lq3d-hero'), null);
     if(deckPause){ var ds=deckPause.getAttribute('aria-pressed')==='true'; if(paused&&!ds){ deckPause.click(); weStopped=true; } else if(!paused&&weStopped&&ds){ deckPause.click(); weStopped=false; } } });
   if(reduce){ T=38; step(0); } else requestAnimationFrame(frame);
 })();
-/* Urban Nexus hero: a wood-decay fungal network alternating with a block-group map of Albuquerque (stylized) */
+/* Urban Nexus hero: Namib fairy circles alternating with a block-group map of Albuquerque (stylized) */
 (function(){
   var box=document.getElementById('unb-sim'); if(!box) return;
   var fcv=document.getElementById('unb-fun'), fc=fcv.getContext('2d'), mcv=document.createElement('canvas'), mc=mcv.getContext('2d'), card=box.closest('.deck-card'), clips=[].slice.call(box.querySelectorAll('.un-clips video')), clipOn=null;
   var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   function clamp(v){ return v<0?0:v>1?1:v; }
   var seed=11; function rnd(){ seed=(seed*9301+49297)%233280; return seed/233280; }
-  // forest floor, in 0..1 units: a fallen log, litter, living trees and saplings
-  var LITTER=[]; for(var k=0;k<90;k++) LITTER.push({x:rnd(),y:rnd(),r:.008+rnd()*.016,a:rnd()*3,c:rnd()});
-  var MOSS=[]; for(var k=0;k<26;k++) MOSS.push({x:rnd(),y:rnd(),r:.03+rnd()*.05});
-  var TREES=[{x:.9,y:.12,r:.065},{x:.08,y:.86,r:.05},{x:.62,y:.9,r:.045}];
-  var SAPS=[{x:.42,y:.33,s:1,main:1},{x:.7,y:.74,s:.7},{x:.16,y:.3,s:.6}];
-  // the log: an irregular trunk lying on the floor, root end at left, broken end at right
-  var LOGP=[]; (function(){ var n=26; for(var i=0;i<=n;i++){ var u=i/n; LOGP.push({x:.05+u*.32, y:.44-(.055+.012*Math.sin(u*9)+(u<.12?(.12-u)*.35:0)-u*.012)}); } for(var i=n;i>=0;i--){ var u=i/n; LOGP.push({x:.05+u*.32, y:.56+(.055+.01*Math.sin(u*7+1)+(u<.12?(.12-u)*.35:0)-u*.012)}); } })();
-  var STUBS=[{u:.35,side:-1,l:.05,a:-.9},{u:.6,side:1,l:.04,a:.8},{u:.78,side:-1,l:.03,a:-.6}];
-  var ORG={x:.37,y:.5};
-  var RES=[{x:.55,y:.2,kind:'twig'},{x:.6,y:.5,kind:'leaf'},{x:.47,y:.74,kind:'twig'},{x:.24,y:.16,kind:'leaf'},{x:.26,y:.8,kind:'leaf'},{x:.76,y:.34,kind:'twig'}], BAIT={x:.86,y:.6,kind:'branch'};
-  function pathTo(p){ var pts=[], n=18, mx=(ORG.x+p.x)/2+(rnd()-.5)*.12, my=(ORG.y+p.y)/2+(rnd()-.5)*.12;
-    for(var i=0;i<=n;i++){ var u=i/n, a=(1-u)*(1-u), b=2*(1-u)*u, c=u*u; pts.push({x:a*ORG.x+b*mx+c*p.x+(i&&i<n?(rnd()-.5)*.012:0), y:a*ORG.y+b*my+c*p.y+(i&&i<n?(rnd()-.5)*.012:0)}); } return pts; }
-  var PATHS=RES.map(pathTo), BPATH=pathTo(BAIT);
-  var HAIR=[]; PATHS.concat([BPATH]).forEach(function(pp,pi){ for(var i=2;i<pp.length-1;i+=2){ HAIR.push({p:pi,i:i,a:rnd()*6.28,l:.012+rnd()*.025}); } });
-  function poly(c,W,H,pts,frac,wid,col){ var n=Math.max(1,Math.floor(frac*(pts.length-1))); if(frac<=0) return; c.strokeStyle=col; c.lineWidth=wid; c.lineCap='round'; c.lineJoin='round'; c.beginPath(); c.moveTo(pts[0].x*W,pts[0].y*H);
-    for(var i=1;i<=n;i++) c.lineTo(pts[i].x*W,pts[i].y*H); var rem=frac*(pts.length-1)-n; if(n<pts.length-1&&rem>0){ var a=pts[n],b=pts[n+1]; c.lineTo((a.x+(b.x-a.x)*rem)*W,(a.y+(b.y-a.y)*rem)*H); } c.stroke(); }
-  function along(pts,u){ var f=u*(pts.length-1), i=Math.min(pts.length-2,Math.floor(f)), r=f-i; return {x:pts[i].x+(pts[i+1].x-pts[i].x)*r, y:pts[i].y+(pts[i+1].y-pts[i].y)*r}; }
-  function resource(c,W,H,p,s,alpha){ c.save(); c.globalAlpha=alpha; c.translate(p.x*W,p.y*H);
-    if(p.kind==='twig'){ c.rotate(.6); c.strokeStyle='#7a5532'; c.lineCap='round'; c.lineWidth=s*.45; c.beginPath(); c.moveTo(-s*2.2,0); c.lineTo(s*2.2,0); c.moveTo(s*.5,0); c.lineTo(s*1.6,-s*.9); c.stroke(); }
-    else if(p.kind==='leaf'){ c.fillStyle='#8a6a2a'; c.beginPath(); c.ellipse(0,0,s*1.3,s*.7,.5,0,7); c.fill(); c.strokeStyle='rgba(60,40,15,.7)'; c.lineWidth=Math.max(1,s*.1); c.beginPath(); c.moveTo(-s*1.1,-s*.5); c.lineTo(s*1.1,s*.5); c.stroke(); }
-    else { c.rotate(-.35); c.strokeStyle='#8b6238'; c.lineCap='round'; c.lineWidth=s*1.1; c.beginPath(); c.moveTo(-s*3,0); c.lineTo(s*3,0); c.stroke(); c.lineWidth=s*.6; c.beginPath(); c.moveTo(-s*.5,0); c.lineTo(s*.8,-s*1.8); c.moveTo(s*1.4,0); c.lineTo(s*2.6,s*1.4); c.stroke();
-      c.fillStyle='#4f7a3a'; [[s*.9,-s*2.1],[s*2.8,s*1.7],[-s*3.1,s*.2]].forEach(function(q){ c.beginPath(); c.ellipse(q[0],q[1],s*.6,s*.32,.4,0,7); c.fill(); }); }
+  // Namib grassland seen from above: light sand, short sparse tufts between circles, tall dense grass rings around bare red-sand centers
+  var GAPS=[], SP=.15; for(var r=-1;r<10;r++) for(var q=-1;q<10;q++){ var x=(q+(r%2?.5:0))*SP, y=r*SP*.866; GAPS.push({x:x+(rnd()-.5)*.022, y:y+(rnd()-.5)*.022, r0:.027+rnd()*.013, ph:rnd()*6.28, d:rnd(), sq:.93+rnd()*.12}); }
+  var HUB=null, best=9; GAPS.forEach(function(g){ var d=Math.hypot(g.x-.5,g.y-.3); if(d<best){ best=d; HUB=g; } });
+  var NEIGH=GAPS.filter(function(g){ var d=Math.hypot(g.x-HUB.x,g.y-HUB.y); return g!==HUB&&d<SP*1.25; });
+  var TUFT=[]; for(var k=0;k<520;k++) TUFT.push({x:rnd(),y:rnd(),a:rnd()*6.28,l:rnd(),c:rnd()});
+  var GRIT=[]; for(var k=0;k<1400;k++) GRIT.push({x:rnd(),y:rnd(),r:rnd(),c:rnd()});
+  var BLADES=[]; for(var k=0;k<220;k++) BLADES.push({a:k/220*6.283+(rnd()-.5)*.05,o:rnd(),l:rnd(),c:rnd(),bend:(rnd()-.5)*.6});
+  var RAIN=[]; for(var k=0;k<120;k++) RAIN.push({x:rnd(),y:rnd(),v:.6+rnd()*.6});
+  var grassCv=document.createElement('canvas'), grassKey='';
+  function grassLayer(W,H,s){ var key=W+'x'+H; if(key===grassKey) return grassCv; grassKey=key; grassCv.width=W; grassCv.height=H; var g=grassCv.getContext('2d');
+    g.fillStyle='#c99a66'; g.fillRect(0,0,W,H);
+    GRIT.forEach(function(p){ g.fillStyle=p.c<.5?'rgba(214,170,120,.5)':'rgba(176,128,84,.35)'; g.beginPath(); g.arc(p.x*W,p.y*H,Math.max(.6,s*.08*(.5+p.r)),0,7); g.fill(); });
+    g.lineCap='round';
+    TUFT.forEach(function(tf){ var x=tf.x*W, y=tf.y*H, l=s*(.2+tf.l*.35); g.strokeStyle=tf.c<.5?'rgba(150,138,78,.5)':tf.c<.8?'rgba(176,160,96,.45)':'rgba(206,188,128,.4)'; g.lineWidth=Math.max(.7,s*.07);
+      for(var j=0;j<4;j++){ var a=tf.a+j*.45-.7, ll=l*(.6+.4*((j*37+tf.l*10)%1)); g.beginPath(); g.moveTo(x,y); g.lineTo(x+Math.cos(a)*ll,y-Math.abs(Math.sin(a))*ll); g.stroke(); } });
+    return grassCv; }
+  function fairy(cn,mv,rs,t){ var c=fc, W=fcv.width, H0=fcv.height; if(!W||!H0) return; var U=Math.max(W,H0*1.25), s=Math.max(4,U/60);
+    var full=box.classList.contains('sf-full'), H=full?H0*.78:H0; c.save(); c.drawImage(grassLayer(W,H0,s),0,0);
+    if(full) c.translate(0,H0*.02);
+    // rainfall: in the Responds beat the rain rises and falls, and the gaps close and widen with it
+    var rain=rs>0? .5+.5*Math.sin(t*.9) : .5, open=clamp(cn*1.25);
+    GAPS.forEach(function(g){ var grow=open*(.3+.7*clamp(cn*1.4-g.d*.35)), rad=g.r0*grow*(rs>0?(1.3-.6*rain):1)*U; g._rad=rad; if(rad<1) return; var x=g.x*U, y=g.y*U; if(y-rad*2>H||x-rad*2>W) return;
+      // soft halo of grass cover that falls off quickly away from the edge
+      var halo=c.createRadialGradient(x,y,rad*.95,x,y,rad*1.32); halo.addColorStop(0,'rgba(120,108,56,'+(.85*grow)+')'); halo.addColorStop(.6,'rgba(150,136,74,'+(.35*grow)+')'); halo.addColorStop(1,'rgba(150,136,74,0)'); c.fillStyle=halo; c.beginPath(); c.arc(x,y,rad*1.32,0,7); c.fill();
+      // bare center: smooth, slightly redder sand with a crisp edge
+      c.save(); c.translate(x,y); c.scale(1,g.sq);
+      var sand=c.createRadialGradient(-rad*.15,-rad*.15,0,0,0,rad); sand.addColorStop(0,'#d7905c'); sand.addColorStop(1,'#c47f4e'); c.fillStyle=sand; c.beginPath(); c.arc(0,0,rad,0,7); c.fill();
+      // faint moisture held in the center sand only
+      if(mv>0){ var m=c.createRadialGradient(0,0,0,0,0,rad*.8); m.addColorStop(0,'rgba(120,150,170,'+(.32*mv)+')'); m.addColorStop(1,'rgba(120,150,170,0)'); c.fillStyle=m; c.beginPath(); c.arc(0,0,rad*.8,0,7); c.fill(); }
+      c.restore();
+      // the ring: tall, dense grass right at the edge, longest blades leaning outward
+      c.lineCap='round';
+      BLADES.forEach(function(bl){ var a=bl.a+g.ph, r0=rad*(.96+.08*bl.o), len=(rad*.12+rad*.22*bl.l)*grow+s*.15, ex=x+Math.cos(a+bl.bend*.3)*(r0+len), ey=y+Math.sin(a+bl.bend*.3)*(r0+len)*g.sq;
+        c.strokeStyle=bl.c<.35?'rgba(120,112,58,.9)':bl.c<.7?'rgba(170,154,88,.9)':'rgba(214,196,136,.85)'; c.lineWidth=Math.max(.9,s*(.09+.05*bl.l));
+        c.beginPath(); c.moveTo(x+Math.cos(a)*r0,y+Math.sin(a)*r0*g.sq); c.quadraticCurveTo(x+Math.cos(a)*(r0+len*.6),y+Math.sin(a)*(r0+len*.6)*g.sq,ex,ey); c.stroke(); });
+      // roots reach from the ring into the bare center during Shares
+      if(mv>0&&rs===0){ c.strokeStyle='rgba(120,80,44,'+(.55*mv)+')'; c.lineWidth=Math.max(1,s*.1);
+        for(var j=0;j<10;j++){ var a=j/10*6.283+g.ph*.7, r1=rad*.98, r2=rad*(1-.55*mv); c.beginPath(); c.moveTo(x+Math.cos(a)*r1,y+Math.sin(a)*r1*g.sq); c.quadraticCurveTo(x+Math.cos(a+.25)*(r1+r2)/2,y+Math.sin(a+.25)*(r1+r2)/2*g.sq,x+Math.cos(a+.1)*r2,y+Math.sin(a+.1)*r2*g.sq); c.stroke(); } } });
+    // six neighbors: an even spacing around the gap nearest the middle of what is visible
+    var bd=1e9; GAPS.forEach(function(g){ var d=Math.hypot(g.x*U-W*.5,g.y*U-H*.45); if(d<bd){ bd=d; HUB=g; } }); NEIGH=GAPS.filter(function(g){ return g!==HUB&&Math.hypot(g.x-HUB.x,g.y-HUB.y)<SP*1.25; });
+    var hx=HUB.x*U, hy=HUB.y*U, six=clamp((cn-.55)*2.5)*(mv>0&&rs===0?.5:1);
+    c.font=Math.round(s*1.05)+'px ui-monospace,monospace'; c.textAlign='left';
+    function label(txt,x,y,a){ var tw=c.measureText(txt).width, al=c.textAlign, l0=al==='center'?x-tw/2:x; if(l0<s*.6) x+=s*.6-l0; if(l0+tw>W-s*.6) x-=l0+tw-(W-s*.6); c.save(); c.globalAlpha=a; c.lineWidth=Math.max(2,s*.3); c.strokeStyle='rgba(60,36,18,.75)'; c.strokeText(txt,x,y); c.fillStyle='#fff7d6'; c.fillText(txt,x,y); c.restore(); }
+    if(six>0){ c.save(); c.setLineDash([s*.5,s*.4]); c.strokeStyle='rgba(255,247,214,'+(.95*six)+')'; c.lineWidth=Math.max(1.5,s*.2);
+      NEIGH.forEach(function(g){ var gx=g.x*U, gy=g.y*U, d=Math.hypot(gx-hx,gy-hy), ux=(gx-hx)/d, uy=(gy-hy)/d, a0=(HUB._rad||0)*.6, a1=d-(g._rad||0)*.6; c.beginPath(); c.moveTo(hx+ux*a0,hy+uy*a0); c.lineTo(hx+ux*a1,hy+uy*a1); c.stroke(); }); c.restore();
+      c.save(); if(hx+SP*U*.62+s*17>W){ c.textAlign='center'; label('six neighbors, about 10 m apart',hx,hy+SP*U*1.25,six); } else label('six neighbors, about 10 m apart',hx+SP*U*.62,hy+SP*U*.3,six); c.restore(); }
+    if(rs>0){ c.strokeStyle='rgba(225,238,248,'+(.55*rain*clamp(rs*3))+')'; c.lineWidth=Math.max(1,s*.1); RAIN.forEach(function(d){ var y=((d.y+t*d.v*.6)%1)*H, x=d.x*W; c.beginPath(); c.moveTo(x,y); c.lineTo(x-s*.4,y+s*1.6); c.stroke(); });
+      label(rain>.5?'more rain: gaps close':'less rain: gaps widen',W*.04,H*.07,1); }
+    if(open>.6){ var g0=null, bg=1e9; GAPS.forEach(function(g){ if(g===HUB||NEIGH.indexOf(g)>=0) return; if(g.y*U<s*7||g.x*U<s*5) return; var d=Math.hypot(g.x*U-W*.22,g.y*U-H*.2); if(d<bg){ bg=d; g0=g; } }); if(g0){ var gy=g0.y*U, gr=(g0._rad||s*3); label('bare gap',g0.x*U-s*2.5,gy+s*.35,1); label('tall grass ring',g0.x*U-s*4,gy-gr*1.35-s*.6,1); c.save(); c.textAlign='center'; label('short, sparse grass',g0.x*U+SP*U*.5,gy+SP*U*.31,1); c.restore(); } }
+    if(mv>0&&rs===0) label('moisture held in the gap',hx-s*7,hy+(HUB._rad||s*3)+s*3,1);
     c.restore(); }
-  function sapling(c,x,y,sz,grow){ var n=6; c.save(); c.translate(x,y); for(var i=0;i<n;i++){ var a=i/n*6.283+.3; c.fillStyle=i%2?'#6fa04a':'#86b85a'; c.beginPath(); c.ellipse(Math.cos(a)*sz*.55*grow,Math.sin(a)*sz*.55*grow,sz*.5*grow,sz*.22*grow,a,0,7); c.fill(); } c.fillStyle='#4d6b2c'; c.beginPath(); c.arc(0,0,sz*.14,0,7); c.fill(); c.restore(); }
-  function fungus(cn,mv,rs,t){ var c=fc, W=fcv.width, H0=fcv.height; if(!W||!H0) return; var s=Math.max(4,W/60);
-    var bg=c.createLinearGradient(0,0,W,H0); bg.addColorStop(0,'#2d2416'); bg.addColorStop(1,'#1d1810'); c.fillStyle=bg; c.fillRect(0,0,W,H0);
-    // keep the scene above the caption: draw into the top three quarters of the frame
-    var full=box.classList.contains('sf-full'), H=full?H0*.74:H0; c.save(); if(full) c.translate(0,H0*.05);
-    MOSS.forEach(function(m){ var g=c.createRadialGradient(m.x*W,m.y*H,0,m.x*W,m.y*H,m.r*W); g.addColorStop(0,'rgba(70,96,40,.32)'); g.addColorStop(1,'rgba(70,96,40,0)'); c.fillStyle=g; c.beginPath(); c.arc(m.x*W,m.y*H,m.r*W,0,7); c.fill(); });
-    LITTER.forEach(function(l){ c.fillStyle=l.c<.45?'rgba(132,96,46,.4)':l.c<.75?'rgba(96,98,46,.35)':'rgba(150,120,70,.3)'; c.beginPath(); c.ellipse(l.x*W,l.y*H,l.r*W,l.r*W*.5,l.a,0,7); c.fill(); });
-    // living trees seen from above: trunk, root flare and the shade of the canopy
-    TREES.forEach(function(tr){ var x=tr.x*W, y=tr.y*H, r=tr.r*W; var g=c.createRadialGradient(x,y,r,x,y,r*3.2); g.addColorStop(0,'rgba(10,20,8,.35)'); g.addColorStop(1,'rgba(10,20,8,0)'); c.fillStyle=g; c.beginPath(); c.arc(x,y,r*3.2,0,7); c.fill();
-      c.strokeStyle='#5a4128'; c.lineCap='round'; for(var k=0;k<6;k++){ var a=k/6*6.283+tr.x*7; c.lineWidth=r*.35; c.beginPath(); c.moveTo(x,y); c.lineTo(x+Math.cos(a)*r*1.7,y+Math.sin(a)*r*1.7); c.stroke(); }
-      c.fillStyle='#6b4e30'; c.beginPath(); c.arc(x,y,r,0,7); c.fill(); c.strokeStyle='rgba(40,26,12,.6)'; c.lineWidth=Math.max(1,r*.08); for(var q=1;q<4;q++){ c.beginPath(); c.arc(x,y,r*q/4,0,7); c.stroke(); } });
-    // nutrients released into the soil as the log breaks down
-    var spent=clamp(rs*1.3); if(spent>0){ var lg=c.createRadialGradient(.27*W,.5*H,0,.27*W,.5*H,.28*W); lg.addColorStop(0,'rgba(214,170,80,'+(.28*spent)+')'); lg.addColorStop(1,'rgba(214,170,80,0)'); c.fillStyle=lg; c.beginPath(); c.arc(.27*W,.5*H,.28*W,0,7); c.fill(); }
-    // the fallen log: irregular trunk with bark furrows, moss, branch stubs and a broken end
-    c.beginPath(); LOGP.forEach(function(p,i){ if(i) c.lineTo(p.x*W,p.y*H); else c.moveTo(p.x*W,p.y*H); }); c.closePath();
-    var lgC=c.createLinearGradient(0,.38*H,0,.62*H); var dk=1-.25*spent; lgC.addColorStop(0,'rgb('+Math.round(122*dk)+','+Math.round(88*dk)+','+Math.round(54*dk)+')'); lgC.addColorStop(.5,'rgb('+Math.round(98*dk)+','+Math.round(68*dk)+','+Math.round(40*dk)+')'); lgC.addColorStop(1,'rgb('+Math.round(66*dk)+','+Math.round(44*dk)+','+Math.round(26*dk)+')'); c.fillStyle=lgC; c.fill();
-    c.save(); c.clip(); c.strokeStyle='rgba(40,24,10,.55)'; c.lineWidth=Math.max(1,s*.14); for(var b=0;b<9;b++){ var yy=.4*H+b*.022*H; c.beginPath(); for(var xx=0;xx<=20;xx++){ var px=(.05+.32*xx/20)*W; c.lineTo(px,yy+Math.sin(xx*1.3+b)*s*.25); } c.stroke(); }
-      c.fillStyle='rgba(90,130,50,.55)'; [[.1,.43,.03],[.2,.4,.022],[.29,.42,.018]].forEach(function(m){ c.beginPath(); c.ellipse(m[0]*W,m[1]*H,m[2]*W,m[2]*W*.45,0,0,7); c.fill(); }); c.restore();
-    STUBS.forEach(function(st){ var x=(.05+st.u*.32)*W, y=(st.side<0?.4:.6)*H; c.strokeStyle='#6a4a2c'; c.lineWidth=s*.7; c.lineCap='round'; c.beginPath(); c.moveTo(x,y); c.lineTo(x+Math.sin(st.a)*st.l*W,y+st.side*Math.cos(st.a)*st.l*W); c.stroke(); });
-    var ex=.37*W, ey=.5*H; c.fillStyle='#a07a4a'; c.beginPath(); for(var k=0;k<=14;k++){ var a=-1.57+k/14*3.14, rr=.052*H*(1+(k%2?.18:-.05)); c.lineTo(ex+Math.cos(a)*rr*.5,ey+Math.sin(a)*rr); } c.closePath(); c.fill();
-    c.strokeStyle='rgba(70,45,20,.6)'; c.lineWidth=Math.max(1,s*.1); for(var r=1;r<4;r++){ c.beginPath(); c.ellipse(ex,ey,.026*H*r/4*1.0,.05*H*r/4,0,-1.57,1.57); c.stroke(); }
-    RES.forEach(function(p){ resource(c,W,H,p,s,1); }); if(rs>0) resource(c,W,H,BAIT,s,clamp(rs*3));
-    // saplings; the one beside the log grows as nutrients return to the soil
-    SAPS.forEach(function(sp){ sapling(c,sp.x*W,sp.y*H,s*2.4*sp.s,sp.main?1+.35*spent:1); });
-    // cords grow out from the log and link each resource
-    var thin=1-.55*clamp((rs-.3)*2);
-    PATHS.forEach(function(pp,k){ var g=clamp(cn*1.5-k*.08); poly(c,W,H,pp,g,Math.max(1.2,s*.32*thin),'rgba(238,230,206,'+(.9*(.5+.5*thin))+')'); });
-    var bg2=clamp((rs-.05)*1.8); poly(c,W,H,BPATH,bg2,Math.max(1.5,s*(.32+.5*clamp((rs-.4)*2))),'rgba(250,244,222,.95)');
-    HAIR.forEach(function(h){ var pp=h.p<PATHS.length?PATHS[h.p]:BPATH, g=h.p<PATHS.length?clamp(cn*1.5-h.p*.08):bg2; if(g*(pp.length-1)<h.i) return; var p=pp[h.i];
-      c.strokeStyle='rgba(238,230,206,.35)'; c.lineWidth=1; c.beginPath(); c.moveTo(p.x*W,p.y*H); c.lineTo(p.x*W+Math.cos(h.a)*h.l*W,p.y*H+Math.sin(h.a)*h.l*W); c.stroke(); });
-    // nutrients move along the cords from the log toward the growing edge
-    if(mv>0||rs>0){ var list=PATHS.slice(); if(rs>0) list.push(BPATH);
-      list.forEach(function(pp,k){ var isB=pp===BPATH, n=isB?5:3; for(var q=0;q<n;q++){ var u=((t*(isB?.32:.22))+q/n+k*.17)%1; if(isB&&u>bg2) continue; var p=along(pp,u), a=(isB?1:(rs>0?.45:1))*(mv>0?1:.6);
-        var gr=c.createRadialGradient(p.x*W,p.y*H,0,p.x*W,p.y*H,s*1.1); gr.addColorStop(0,'rgba(255,190,90,'+a+')'); gr.addColorStop(1,'rgba(255,190,90,0)'); c.fillStyle=gr; c.beginPath(); c.arc(p.x*W,p.y*H,s*1.1,0,7); c.fill(); } }); }
-    c.fillStyle='rgba(255,236,170,.9)'; c.font=Math.round(s*1.05)+'px ui-monospace,monospace'; c.textAlign='left';
-    c.fillText('fallen log',.07*W,.34*H); c.fillText('living tree',TREES[0].x*W-s*10.5,TREES[0].y*H+s*.4); c.fillText('sapling',SAPS[0].x*W+s*1.6,SAPS[0].y*H-s*.8);
-    if(rs>.2) c.fillText('newly fallen branch',BAIT.x*W-s*8,BAIT.y*H+s*3.4); c.restore(); }
   // the city: organic block-group parcels clipped from a Voronoi pattern inside an irregular city outline
   function clipPoly(P,a,b,c0){ var out=[]; for(var i=0;i<P.length;i++){ var p=P[i], q=P[(i+1)%P.length], fp=a*p.x+b*p.y-c0, fq=a*q.x+b*q.y-c0; if(fp<=0) out.push(p); if(fp*fq<0){ var t2=fp/(fp-fq); out.push({x:p.x+(q.x-p.x)*t2,y:p.y+(q.y-p.y)*t2}); } } return out; }
   // a city on a street grid: mostly square and trapezoid blocks, looser near the river and to the north, with a rigid stair-step city limit
@@ -1046,13 +1037,13 @@ lqBuild(document.getElementById('lq3d-hero'), null);
     if(mv>0){ c.strokeStyle='rgba(255,140,60,.9)'; c.lineWidth=Math.max(2,s*.3); c.strokeRect(lx,ly+3*s*1.9,s*1.1,s*1.1); c.fillStyle='rgba(220,235,230,.85)'; c.fillText('Resources thin',lx+s*1.6,ly+3*s*1.9+s*.95); }
     if(rs>0){ c.strokeStyle='rgba(159,232,255,.9)'; c.beginPath(); c.arc(lx+s*.55,ly+4*s*1.9+s*.55,s*.55,0,7); c.stroke(); c.fillStyle='rgba(220,235,230,.85)'; c.fillText('Resident input',lx+s*1.6,ly+4*s*1.9+s*.95); }
     c.fillStyle='rgba(159,216,204,.7)'; c.fillText('Block groups (stylized)',lx,ly-s*1.6); }
-  var BEAT={Connects:'#c0661c',Moves:'#f0b828',Responds:'#fff27a'}, BEATTXT={Connects:'#ec9a5c',Moves:'#f6c445',Responds:'#fff27a'};
+  var BEAT={Organizes:'#c0661c',Shares:'#f0b828',Responds:'#fff27a'}, BEATTXT={Organizes:'#ec9a5c',Shares:'#f6c445',Responds:'#fff27a'};
   var STEPS=[
-    {who:'Fungus',verb:'Connects',fun:1,say:'A wood-decay fungus grows out from a fallen log and links twigs, leaf litter, and other wood into one network across the forest floor.'},
-    {who:'Urban Nexus',verb:'Connects',say:'Urban Nexus links environmental, economic, and community data for all 376 block groups in Albuquerque into one shared frame.'},
-    {who:'Fungus',verb:'Moves',fun:1,say:'Nutrients and carbon move along its cords from the log to where the network is growing.'},
-    {who:'Urban Nexus',verb:'Moves',say:'Civic planners switch between economic, ecology, and life-centered lenses to see the facts block by block. It does not rank places or suggest what to build.'},
-    {who:'Fungus',verb:'Responds',fun:1,say:'When it reaches newly fallen wood, the network thickens the cords that lead there. The log it has broken down returns nutrients to the soil, where a sapling takes them up.'},
+    {who:'Fairy circles',verb:'Organizes',fun:1,say:'In the Namib Desert, grass and bare sand self-organize into a repeating pattern: bare circles about 10 m apart, most with six neighbors.'},
+    {who:'Urban Nexus',verb:'Organizes',say:'Urban Nexus organizes environmental, economic, and community data for all 376 block groups in Albuquerque into one shared frame.'},
+    {who:'Fairy circles',verb:'Shares',fun:1,say:'Grasses at the edge extend their roots into the bare center, where the sand holds moisture as a reservoir for the surrounding grass.'},
+    {who:'Urban Nexus',verb:'Shares',say:'Civic planners switch between economic, ecology, and life-centered lenses to see where shared resources are thin, block by block. It does not rank places or suggest what to build.'},
+    {who:'Fairy circles',verb:'Responds',fun:1,say:'The pattern follows the rain. Less rain widens the gaps and more rain closes them, so no clump sits closer to the water than its neighbors.'},
     {who:'Urban Nexus',verb:'Responds',say:'A community chatbot, now in development, answers residents only from verified data about their city, and what they ask feeds back to planners.'}];
   var B=[0,9,17,26,34,43,51], END=54;
   var capEl=box.querySelector('.sf-cap'), beatEls=[].slice.call(box.querySelectorAll('.sf-beats i')), flashEl=document.getElementById('unb-flash'), verbEl=document.getElementById('unb-verb'), sayEl=document.getElementById('unb-say'), whoEl=document.getElementById('unb-who'), tagEl=document.getElementById('unb-tag'), roEl=document.getElementById('unb-ro'), slider=document.getElementById('unb-t');
@@ -1064,8 +1055,8 @@ lqBuild(document.getElementById('lq3d-hero'), null);
       if(flashEl&&!reduce){ flashEl.textContent=st.verb; flashEl.style.color=tcol; flashEl.classList.remove('go'); void flashEl.offsetWidth; flashEl.classList.add('go'); }
       sayEl.textContent=''; var ws=st.say.split(' '); words=ws.map(function(w,k){ var e=document.createElement('span'); e.textContent=w+(k<ws.length-1?' ':''); sayEl.appendChild(e); return e; }); litN=-1; whoEl.textContent=st.who; roEl.textContent=st.who+' · '+st.verb.toLowerCase(); }
     var span=(B[i+1]||END)-B[i], f=clamp((T-B[i])/(span*.8)), n=Math.min(words.length,Math.floor(f*words.length+.0001)+(f>0?1:0)); if(n!==litN){ litN=n; words.forEach(function(e,k){ e.classList.toggle('lit',k<n); }); }
-    var isFull=!!st.fun&&!(T>(B[i+1]||END)-.6); if(isFull!==full){ full=isFull; box.classList.toggle('sf-full',isFull); tagEl.textContent=isFull?'04a · Wood-decay fungus · modeled':(i===5?'04b · Urban Nexus · community chatbot · screen recording':'04b · Urban Nexus · civic planner · screen recording'); }
-    var cn=clamp(T/8), mv=clamp((T-17)/8), rs=clamp((T-34)/8); fungus(cn,mv,rs,t);
+    var isFull=!!st.fun&&!(T>(B[i+1]||END)-.6); if(isFull!==full){ full=isFull; box.classList.toggle('sf-full',isFull); tagEl.textContent=isFull?'04a · Namib fairy circles · modeled':(i===5?'04b · Urban Nexus · community chatbot · screen recording':'04b · Urban Nexus · civic planner · screen recording'); }
+    var cn=clamp(T/8), mv=clamp((T-17)/8)*(T<34?1:clamp(1-(T-34)/4)), rs=clamp((T-34)/8); fairy(cn,mv,rs,t);
     // platform footage for the Urban Nexus steps
     var ci=isFull?Math.min(i+1,5):i; if(ci%2===0) ci=Math.max(1,ci-1); var want=null; clips.forEach(function(v){ if(+v.getAttribute('data-step')===ci) want=v; });
     if(want!==clipOn){ clips.forEach(function(v){ v.classList.toggle('on',v===want); if(v!==want) v.pause(); }); if(want) want._key=null; clipOn=want; }

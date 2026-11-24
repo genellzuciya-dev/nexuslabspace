@@ -3066,3 +3066,5 @@ html.case-open .cur,html.case-open .cur-ring{opacity:0!important}
 .cs-buy i{width:22px;height:22px;border-radius:50%;background:#5FE08A;position:relative}
 .cs-buy i:after{content:"";position:absolute;left:7px;top:7px;width:6px;height:6px;border-top:2px solid #171717;border-right:2px solid #171717;transform:rotate(45deg)}
 .cs-buy:hover{background:#2B5BFF}
+/* case study source line */
+.case-dlg .cs-src{font-family:'IBM Plex Mono',monospace;font-size:.75rem;color:#4E4E52;margin-top:.6rem}

@@ -948,46 +948,56 @@ lqBuild(document.getElementById('lq3d-hero'), null);
   var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   function clamp(v){ return v<0?0:v>1?1:v; }
   var seed=11; function rnd(){ seed=(seed*9301+49297)%233280; return seed/233280; }
-  // Namib grassland seen from above: bare circles on a near-hexagonal lattice, each ringed by taller grass
-  var GAPS=[], SP=.17; for(var r=-1;r<9;r++) for(var q=-1;q<8;q++){ var x=(q+(r%2?.5:0))*SP, y=r*SP*.866; GAPS.push({x:x+(rnd()-.5)*.025, y:y+(rnd()-.5)*.025, r0:.026+rnd()*.012, ph:rnd()*6.28, d:rnd()}); }
+  // Namib grassland seen from above: light sand, short sparse tufts between circles, tall dense grass rings around bare red-sand centers
+  var GAPS=[], SP=.15; for(var r=-1;r<10;r++) for(var q=-1;q<10;q++){ var x=(q+(r%2?.5:0))*SP, y=r*SP*.866; GAPS.push({x:x+(rnd()-.5)*.022, y:y+(rnd()-.5)*.022, r0:.027+rnd()*.013, ph:rnd()*6.28, d:rnd(), sq:.93+rnd()*.12}); }
   var HUB=null, best=9; GAPS.forEach(function(g){ var d=Math.hypot(g.x-.5,g.y-.3); if(d<best){ best=d; HUB=g; } });
   var NEIGH=GAPS.filter(function(g){ var d=Math.hypot(g.x-HUB.x,g.y-HUB.y); return g!==HUB&&d<SP*1.25; });
-  var TUFT=[]; for(var k=0;k<2600;k++) TUFT.push({x:rnd(),y:rnd(),a:rnd()*6.28,l:rnd(),c:rnd()});
+  var TUFT=[]; for(var k=0;k<520;k++) TUFT.push({x:rnd(),y:rnd(),a:rnd()*6.28,l:rnd(),c:rnd()});
+  var GRIT=[]; for(var k=0;k<1400;k++) GRIT.push({x:rnd(),y:rnd(),r:rnd(),c:rnd()});
+  var BLADES=[]; for(var k=0;k<220;k++) BLADES.push({a:k/220*6.283+(rnd()-.5)*.05,o:rnd(),l:rnd(),c:rnd(),bend:(rnd()-.5)*.6});
   var RAIN=[]; for(var k=0;k<120;k++) RAIN.push({x:rnd(),y:rnd(),v:.6+rnd()*.6});
   var grassCv=document.createElement('canvas'), grassKey='';
   function grassLayer(W,H,s){ var key=W+'x'+H; if(key===grassKey) return grassCv; grassKey=key; grassCv.width=W; grassCv.height=H; var g=grassCv.getContext('2d');
-    g.fillStyle='#7d6a45'; g.fillRect(0,0,W,H); g.lineCap='round';
-    TUFT.forEach(function(tf){ var x=tf.x*W, y=tf.y*H, l=s*(.5+tf.l*.9); g.strokeStyle=tf.c<.5?'rgba(176,160,96,.55)':tf.c<.8?'rgba(150,140,82,.5)':'rgba(205,190,130,.45)'; g.lineWidth=Math.max(1,s*.13);
-      for(var j=0;j<3;j++){ var a=tf.a+j*.5-.5; g.beginPath(); g.moveTo(x,y); g.lineTo(x+Math.cos(a)*l,y+Math.sin(a)*l); g.stroke(); } });
+    g.fillStyle='#c99a66'; g.fillRect(0,0,W,H);
+    GRIT.forEach(function(p){ g.fillStyle=p.c<.5?'rgba(214,170,120,.5)':'rgba(176,128,84,.35)'; g.beginPath(); g.arc(p.x*W,p.y*H,Math.max(.6,s*.08*(.5+p.r)),0,7); g.fill(); });
+    g.lineCap='round';
+    TUFT.forEach(function(tf){ var x=tf.x*W, y=tf.y*H, l=s*(.2+tf.l*.35); g.strokeStyle=tf.c<.5?'rgba(150,138,78,.5)':tf.c<.8?'rgba(176,160,96,.45)':'rgba(206,188,128,.4)'; g.lineWidth=Math.max(.7,s*.07);
+      for(var j=0;j<4;j++){ var a=tf.a+j*.45-.7, ll=l*(.6+.4*((j*37+tf.l*10)%1)); g.beginPath(); g.moveTo(x,y); g.lineTo(x+Math.cos(a)*ll,y-Math.abs(Math.sin(a))*ll); g.stroke(); } });
     return grassCv; }
-  function fairy(cn,mv,rs,t){ var c=fc, W=fcv.width, H0=fcv.height; if(!W||!H0) return; var s=Math.max(4,W/60);
+  function fairy(cn,mv,rs,t){ var c=fc, W=fcv.width, H0=fcv.height; if(!W||!H0) return; var U=Math.max(W,H0*1.25), s=Math.max(4,U/60);
     var full=box.classList.contains('sf-full'), H=full?H0*.78:H0; c.save(); c.drawImage(grassLayer(W,H0,s),0,0);
     if(full) c.translate(0,H0*.02);
     // rainfall: in the Responds beat the rain rises and falls, and the gaps close and widen with it
     var rain=rs>0? .5+.5*Math.sin(t*.9) : .5, open=clamp(cn*1.25);
-    GAPS.forEach(function(g){ var rad=g.r0*(open*(.25+.75*clamp(cn*1.4-g.d*.35)))*(rs>0?(1.35-.7*rain):1)*W; g._rad=rad; if(rad<1) return; var x=g.x*W, y=g.y*W; if(y-rad*2>H) return;
-      // ring of taller grass around the gap
-      var ring=c.createRadialGradient(x,y,rad*.95,x,y,rad*1.45); ring.addColorStop(0,'rgba(150,170,80,'+(.75*open)+')'); ring.addColorStop(1,'rgba(150,170,80,0)'); c.fillStyle=ring; c.beginPath(); c.arc(x,y,rad*1.45,0,7); c.fill();
-      c.strokeStyle='rgba(222,212,140,'+(.75*open)+')'; c.lineWidth=Math.max(1,s*.16); c.lineCap='round';
-      for(var j=0;j<34;j++){ var a=j/34*6.283+g.ph, rr=rad*(1.02+.12*((j*7)%5)/5), bx=x+Math.cos(a)*rr, by=y+Math.sin(a)*rr; c.beginPath(); c.moveTo(bx,by); c.lineTo(bx+Math.cos(a+.3)*s*.8,by+Math.sin(a+.3)*s*.8); c.stroke(); }
-      // bare sand in the center
-      var sand=c.createRadialGradient(x-rad*.2,y-rad*.2,0,x,y,rad); sand.addColorStop(0,'#e9c98f'); sand.addColorStop(1,'#cfa66a'); c.fillStyle=sand; c.beginPath(); c.arc(x,y,rad,0,7); c.fill();
-      // moisture held in the gap's sand, and roots reaching in from the ring
-      if(mv>0){ var m=c.createRadialGradient(x,y,0,x,y,rad*.95); m.addColorStop(0,'rgba(90,170,220,'+(.55*mv)+')'); m.addColorStop(1,'rgba(90,170,220,0)'); c.fillStyle=m; c.beginPath(); c.arc(x,y,rad*.95,0,7); c.fill();
-        c.strokeStyle='rgba(120,84,46,'+(.65*mv)+')'; c.lineWidth=Math.max(1,s*.12);
-        for(var j=0;j<10;j++){ var a=j/10*6.283+g.ph*.7, r1=rad*1.05, r2=rad*(1-.55*mv); c.beginPath(); c.moveTo(x+Math.cos(a)*r1,y+Math.sin(a)*r1); c.quadraticCurveTo(x+Math.cos(a+.25)*(r1+r2)/2,y+Math.sin(a+.25)*(r1+r2)/2,x+Math.cos(a+.1)*r2,y+Math.sin(a+.1)*r2); c.stroke(); }
-        for(var q=0;q<4;q++){ var u=((t*.35)+q/4+g.ph)%1, a=g.ph+q*1.57, rr=rad*(.2+.85*u), px=x+Math.cos(a)*rr, py=y+Math.sin(a)*rr; var gr=c.createRadialGradient(px,py,0,px,py,s*.7); gr.addColorStop(0,'rgba(150,215,255,'+(.9*mv*(1-u*.6))+')'); gr.addColorStop(1,'rgba(150,215,255,0)'); c.fillStyle=gr; c.beginPath(); c.arc(px,py,s*.7,0,7); c.fill(); } } });
-    // six neighbors: an even spacing around one gap
-    var hx=HUB.x*W, hy=HUB.y*W, six=clamp((cn-.55)*2.5)*(mv>0&&rs===0?.5:1);
+    GAPS.forEach(function(g){ var grow=open*(.3+.7*clamp(cn*1.4-g.d*.35)), rad=g.r0*grow*(rs>0?(1.3-.6*rain):1)*U; g._rad=rad; if(rad<1) return; var x=g.x*U, y=g.y*U; if(y-rad*2>H||x-rad*2>W) return;
+      // soft halo of grass cover that falls off quickly away from the edge
+      var halo=c.createRadialGradient(x,y,rad*.95,x,y,rad*1.32); halo.addColorStop(0,'rgba(120,108,56,'+(.85*grow)+')'); halo.addColorStop(.6,'rgba(150,136,74,'+(.35*grow)+')'); halo.addColorStop(1,'rgba(150,136,74,0)'); c.fillStyle=halo; c.beginPath(); c.arc(x,y,rad*1.32,0,7); c.fill();
+      // bare center: smooth, slightly redder sand with a crisp edge
+      c.save(); c.translate(x,y); c.scale(1,g.sq);
+      var sand=c.createRadialGradient(-rad*.15,-rad*.15,0,0,0,rad); sand.addColorStop(0,'#d7905c'); sand.addColorStop(1,'#c47f4e'); c.fillStyle=sand; c.beginPath(); c.arc(0,0,rad,0,7); c.fill();
+      // faint moisture held in the center sand only
+      if(mv>0){ var m=c.createRadialGradient(0,0,0,0,0,rad*.8); m.addColorStop(0,'rgba(120,150,170,'+(.32*mv)+')'); m.addColorStop(1,'rgba(120,150,170,0)'); c.fillStyle=m; c.beginPath(); c.arc(0,0,rad*.8,0,7); c.fill(); }
+      c.restore();
+      // the ring: tall, dense grass right at the edge, longest blades leaning outward
+      c.lineCap='round';
+      BLADES.forEach(function(bl){ var a=bl.a+g.ph, r0=rad*(.96+.08*bl.o), len=(rad*.12+rad*.22*bl.l)*grow+s*.15, ex=x+Math.cos(a+bl.bend*.3)*(r0+len), ey=y+Math.sin(a+bl.bend*.3)*(r0+len)*g.sq;
+        c.strokeStyle=bl.c<.35?'rgba(120,112,58,.9)':bl.c<.7?'rgba(170,154,88,.9)':'rgba(214,196,136,.85)'; c.lineWidth=Math.max(.9,s*(.09+.05*bl.l));
+        c.beginPath(); c.moveTo(x+Math.cos(a)*r0,y+Math.sin(a)*r0*g.sq); c.quadraticCurveTo(x+Math.cos(a)*(r0+len*.6),y+Math.sin(a)*(r0+len*.6)*g.sq,ex,ey); c.stroke(); });
+      // roots reach from the ring into the bare center during Shares
+      if(mv>0&&rs===0){ c.strokeStyle='rgba(120,80,44,'+(.55*mv)+')'; c.lineWidth=Math.max(1,s*.1);
+        for(var j=0;j<10;j++){ var a=j/10*6.283+g.ph*.7, r1=rad*.98, r2=rad*(1-.55*mv); c.beginPath(); c.moveTo(x+Math.cos(a)*r1,y+Math.sin(a)*r1*g.sq); c.quadraticCurveTo(x+Math.cos(a+.25)*(r1+r2)/2,y+Math.sin(a+.25)*(r1+r2)/2*g.sq,x+Math.cos(a+.1)*r2,y+Math.sin(a+.1)*r2*g.sq); c.stroke(); } } });
+    // six neighbors: an even spacing around the gap nearest the middle of what is visible
+    var bd=1e9; GAPS.forEach(function(g){ var d=Math.hypot(g.x*U-W*.5,g.y*U-H*.45); if(d<bd){ bd=d; HUB=g; } }); NEIGH=GAPS.filter(function(g){ return g!==HUB&&Math.hypot(g.x-HUB.x,g.y-HUB.y)<SP*1.25; });
+    var hx=HUB.x*U, hy=HUB.y*U, six=clamp((cn-.55)*2.5)*(mv>0&&rs===0?.5:1);
     c.font=Math.round(s*1.05)+'px ui-monospace,monospace'; c.textAlign='left';
-    if(six>0){ c.save(); c.setLineDash([s*.5,s*.4]); c.strokeStyle='rgba(255,247,214,'+(.85*six)+')'; c.lineWidth=Math.max(1.5,s*.18);
-      NEIGH.forEach(function(g){ var gx=g.x*W, gy=g.y*W, d=Math.hypot(gx-hx,gy-hy), ux=(gx-hx)/d, uy=(gy-hy)/d, a0=(HUB._rad||0)*1.1, a1=d-(g._rad||0)*1.1; c.beginPath(); c.moveTo(hx+ux*a0,hy+uy*a0); c.lineTo(hx+ux*a1,hy+uy*a1); c.stroke(); }); c.restore();
-      c.fillStyle='rgba(255,247,214,'+six+')'; c.fillText('six neighbors, about 10 m apart',hx+s*1.2,hy-(HUB._rad||s*3)-s*1.4); }
-    if(rs>0){ c.strokeStyle='rgba(190,225,255,'+(.5*rain*clamp(rs*3))+')'; c.lineWidth=Math.max(1,s*.1); RAIN.forEach(function(d){ var y=((d.y+t*d.v*.6)%1)*H, x=d.x*W; c.beginPath(); c.moveTo(x,y); c.lineTo(x-s*.4,y+s*1.6); c.stroke(); });
-      c.fillStyle='rgba(255,247,214,.95)'; c.fillText(rain>.5?'more rain: gaps close':'less rain: gaps widen',W*.04,H*.07); }
-    c.fillStyle='rgba(255,247,214,.92)';
-    if(open>.6){ var g0=GAPS.filter(function(g){ return g.x>.1&&g.x<.3&&g.y>.06&&g.y<.2; })[0]; if(g0){ var gy=g0.y*W, gr=(g0._rad||s*3); c.fillText('bare gap',g0.x*W+gr+s*.8,gy-s*.2); c.fillText('taller grass ring',g0.x*W+gr+s*.8,gy+s*1.3); } }
-    if(mv>0&&rs===0) c.fillText('moisture held in the gap',hx-s*7,hy+(HUB._rad||s*3)+s*2.2);
+    function label(txt,x,y,a){ var tw=c.measureText(txt).width, al=c.textAlign, l0=al==='center'?x-tw/2:x; if(l0<s*.6) x+=s*.6-l0; if(l0+tw>W-s*.6) x-=l0+tw-(W-s*.6); c.save(); c.globalAlpha=a; c.lineWidth=Math.max(2,s*.3); c.strokeStyle='rgba(60,36,18,.75)'; c.strokeText(txt,x,y); c.fillStyle='#fff7d6'; c.fillText(txt,x,y); c.restore(); }
+    if(six>0){ c.save(); c.setLineDash([s*.5,s*.4]); c.strokeStyle='rgba(255,247,214,'+(.95*six)+')'; c.lineWidth=Math.max(1.5,s*.2);
+      NEIGH.forEach(function(g){ var gx=g.x*U, gy=g.y*U, d=Math.hypot(gx-hx,gy-hy), ux=(gx-hx)/d, uy=(gy-hy)/d, a0=(HUB._rad||0)*.6, a1=d-(g._rad||0)*.6; c.beginPath(); c.moveTo(hx+ux*a0,hy+uy*a0); c.lineTo(hx+ux*a1,hy+uy*a1); c.stroke(); }); c.restore();
+      c.save(); if(hx+SP*U*.62+s*17>W){ c.textAlign='center'; label('six neighbors, about 10 m apart',hx,hy+SP*U*1.25,six); } else label('six neighbors, about 10 m apart',hx+SP*U*.62,hy+SP*U*.3,six); c.restore(); }
+    if(rs>0){ c.strokeStyle='rgba(225,238,248,'+(.55*rain*clamp(rs*3))+')'; c.lineWidth=Math.max(1,s*.1); RAIN.forEach(function(d){ var y=((d.y+t*d.v*.6)%1)*H, x=d.x*W; c.beginPath(); c.moveTo(x,y); c.lineTo(x-s*.4,y+s*1.6); c.stroke(); });
+      label(rain>.5?'more rain: gaps close':'less rain: gaps widen',W*.04,H*.07,1); }
+    if(open>.6){ var g0=null, bg=1e9; GAPS.forEach(function(g){ if(g===HUB||NEIGH.indexOf(g)>=0) return; if(g.y*U<s*7||g.x*U<s*5) return; var d=Math.hypot(g.x*U-W*.22,g.y*U-H*.2); if(d<bg){ bg=d; g0=g; } }); if(g0){ var gy=g0.y*U, gr=(g0._rad||s*3); label('bare gap',g0.x*U-s*2.5,gy+s*.35,1); label('tall grass ring',g0.x*U-s*4,gy-gr*1.35-s*.6,1); c.save(); c.textAlign='center'; label('short, sparse grass',g0.x*U+SP*U*.5,gy+SP*U*.31,1); c.restore(); } }
+    if(mv>0&&rs===0) label('moisture held in the gap',hx-s*7,hy+(HUB._rad||s*3)+s*3,1);
     c.restore(); }
   // the city: organic block-group parcels clipped from a Voronoi pattern inside an irregular city outline
   function clipPoly(P,a,b,c0){ var out=[]; for(var i=0;i<P.length;i++){ var p=P[i], q=P[(i+1)%P.length], fp=a*p.x+b*p.y-c0, fq=a*q.x+b*q.y-c0; if(fp<=0) out.push(p); if(fp*fq<0){ var t2=fp/(fp-fq); out.push({x:p.x+(q.x-p.x)*t2,y:p.y+(q.y-p.y)*t2}); } } return out; }

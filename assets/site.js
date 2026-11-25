@@ -2029,7 +2029,7 @@ try{
     zoom(false);timer=setTimeout(function(){zoom(true);setTimeout(function(){if(zoomed&&cur===i)l2.classList.add('live');},1700);},1500);}
   dish.addEventListener('click',function(){clearTimeout(timer);zoom(!zoomed);if(zoomed&&!reduce)setTimeout(function(){if(zoomed)l2.classList.add('live');},1700);});
   function setP(v,anim){pos=Math.max(0,Math.min(1,v));carrier.classList.toggle('anim',!!anim);carrier.style.setProperty('--p',pos.toFixed(3));
-    var fm=pos>=.5;sub.textContent=fm?'Bioinspired aesthetics · form, texture and light to learn from and make with':'Biomimicry · emulating how life gets the job done';
+    var fm=pos>=.5;sub.textContent=fm?'Bioinspired aesthetics · form, texture and light to learn from and make with':'Biomimicry and Biomimetics · bioinspired systems analysis and design';
     sw.setAttribute('aria-valuenow',fm?1:0);sw.setAttribute('aria-valuetext',fm?'Form':'Function');
     root.querySelectorAll('.ms-page').forEach(function(pg){var hide=(pg.getAttribute('data-g')==='fm')!==fm;pg.setAttribute('aria-hidden',hide?'true':'false');pg.querySelectorAll('button').forEach(function(b){b.tabIndex=hide?-1:0;});});}
   function snap(to){setP(to,true);var g=to?'fm':'fn';if(P[cur].g!==g){for(var k=0;k<P.length;k++)if(P[k].g===g){pick(k);break;}}}

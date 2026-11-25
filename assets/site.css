@@ -3267,8 +3267,8 @@ html.case-open .cur,html.case-open .cur-ring{opacity:0!important}
 #wheel .ms-lens{position:relative;display:block;width:100%;height:100%;border-radius:50%;overflow:hidden;background:#05080f;box-shadow:inset 0 0 40px rgba(0,0,0,.65),inset 0 0 0 1px rgba(255,255,255,.18)}
 #wheel .ms-layer{position:absolute;inset:0;transition:transform 1.6s cubic-bezier(.2,.7,.1,1),opacity 1s ease}
 #wheel .ms-layer img,#wheel .ms-layer svg{width:100%;height:100%;object-fit:cover;display:block}
-#wheel .ms-l1{transform:scale(1);opacity:1}#wheel .ms-l2{transform:scale(.35);opacity:0}
-#wheel .ms-scope.zoomed .ms-l1{transform:scale(3.2);opacity:0}#wheel .ms-scope.zoomed .ms-l2{transform:scale(1);opacity:1}
+#wheel .ms-l1{transform:scale(1);opacity:1}#wheel .ms-l2{transform:scale(1);opacity:0}
+#wheel .ms-scope.zoomed .ms-l1{transform:scale(1.9);opacity:0}#wheel .ms-scope.zoomed .ms-l2{transform:scale(1.08);opacity:1;transition:transform 5s cubic-bezier(.25,.6,.3,1),opacity 1.2s ease}
 #wheel .ms-vign{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,transparent 55%,rgba(0,0,0,.6) 100%);pointer-events:none}
 #wheel .ms-glare{position:absolute;inset:0;border-radius:50%;pointer-events:none;background:radial-gradient(120% 70% at 24% 8%,rgba(255,255,255,.32),rgba(255,255,255,.09) 38%,transparent 56%),radial-gradient(60% 30% at 78% 92%,rgba(255,255,255,.08),transparent 70%),linear-gradient(125deg,transparent 58%,rgba(255,255,255,.07) 63%,transparent 70%)}
 #wheel .ms-glare:after{content:"";position:absolute;inset:3%;border-radius:50%;border:2px solid transparent;border-top-color:rgba(255,255,255,.45);border-left-color:rgba(255,255,255,.18);transform:rotate(-18deg);filter:blur(1.2px)}
@@ -3279,7 +3279,7 @@ html.case-open .cur,html.case-open .cur-ring{opacity:0!important}
 #wheel .ms-lab{font:500 2.1px 'IBM Plex Mono',monospace;letter-spacing:.3px;fill:rgba(235,242,255,.6)}
 #wheel .ms-mag{display:block;text-align:center;margin-top:18px;font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:rgba(235,242,255,.7);min-height:1em}
 @media (prefers-reduced-motion:no-preference){#wheel .ms-l2.live{animation:msGrow 9s ease-in-out infinite alternate}}
-@keyframes msGrow{from{transform:scale(1) rotate(0)}to{transform:scale(1.06) rotate(1.5deg)}}
+@keyframes msGrow{from{transform:scale(1.08)}to{transform:scale(1.16)}}
 @media (prefers-reduced-motion:reduce){#wheel .ms-layer{transition:opacity .3s}}
 #wheel .ms-info{--c:#8FB0FF}
 #wheel .ms-info>*{transition:opacity .3s}#wheel .ms-info.fade>*{opacity:0}
@@ -3358,3 +3358,5 @@ html.solo #hdeck .hd-heads{display:none!important}
 #wheel .ms-gs.has-sec{padding-right:18px}
 #wheel .ms-gs.has-sec:after{background:var(--s);width:5px;right:0;top:0;bottom:0;border-radius:0 6px 6px 0;opacity:1}
 #wheel .ms-sec{position:absolute;right:14px;top:8px;font:600 9px 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--s)}
+
+/* zoom never shows the image's square edges: the detail layer always fills the dish and only grows */

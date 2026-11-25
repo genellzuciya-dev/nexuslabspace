@@ -2021,7 +2021,7 @@ try{
     void scope.offsetWidth; scope.classList.add('drawing');
     info.classList.add('fade');
     setTimeout(function(){info.style.setProperty('--c',C[p.g]);
-      info.querySelector('.ms-k').textContent=(p.g==='fn'?'How nature works':'Nature’s form')+' · '+p.st;
+      info.querySelector('.ms-k').textContent=(p.g==='fn'?'Function':'Form')+' · '+p.st;
       info.querySelector('.ms-t').textContent=p.t;info.querySelector('.ms-f').textContent=p.f;info.querySelector('.ms-o').innerHTML=p.o;info.querySelector('.ms-s').textContent=p.s;info.querySelector('.ms-p').textContent=p.p;
       if(p.cs){openB.hidden=false;openB.setAttribute('data-case',p.cs);link.hidden=true;}else{openB.hidden=true;link.hidden=false;link.setAttribute('href',p.link);}
       info.classList.remove('fade');},180);
@@ -2029,8 +2029,8 @@ try{
     zoom(false);timer=setTimeout(function(){zoom(true);setTimeout(function(){if(zoomed&&cur===i)l2.classList.add('live');},1700);},1500);}
   dish.addEventListener('click',function(){clearTimeout(timer);zoom(!zoomed);if(zoomed&&!reduce)setTimeout(function(){if(zoomed)l2.classList.add('live');},1700);});
   function setP(v,anim){pos=Math.max(0,Math.min(1,v));carrier.classList.toggle('anim',!!anim);carrier.style.setProperty('--p',pos.toFixed(3));
-    var fm=pos>=.5;sub.textContent=fm?'Biomorphic and biophilic · shape, texture and our connection to it':'Biomimicry · emulating strategies that do the job';
-    sw.setAttribute('aria-valuenow',fm?1:0);sw.setAttribute('aria-valuetext',fm?'Nature’s form':'How nature works');
+    var fm=pos>=.5;sub.textContent=fm?'Bioinspired aesthetics · form, texture and light to learn from and make with':'Biomimicry · emulating how life gets the job done';
+    sw.setAttribute('aria-valuenow',fm?1:0);sw.setAttribute('aria-valuetext',fm?'Form':'Function');
     root.querySelectorAll('.ms-page').forEach(function(pg){var hide=(pg.getAttribute('data-g')==='fm')!==fm;pg.setAttribute('aria-hidden',hide?'true':'false');pg.querySelectorAll('button').forEach(function(b){b.tabIndex=hide?-1:0;});});}
   function snap(to){setP(to,true);var g=to?'fm':'fn';if(P[cur].g!==g){for(var k=0;k<P.length;k++)if(P[k].g===g){pick(k);break;}}}
   var drag=false,sx=0,sp=0,moved=false;

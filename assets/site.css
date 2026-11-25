@@ -3360,3 +3360,7 @@ html.solo #hdeck .hd-heads{display:none!important}
 #wheel .ms-sec{position:absolute;right:14px;top:8px;font:600 9px 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--s)}
 
 /* zoom never shows the image's square edges: the detail layer always fills the dish and only grows */
+
+/* a slide in two sectors: split edge stripe and both words */
+#wheel .ms-gs.multi-sec:after{background:linear-gradient(180deg,var(--s) 0 50%,var(--s2) 50% 100%)}
+#wheel .ms-sec i{font-style:normal}

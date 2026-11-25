@@ -3353,3 +3353,8 @@ html.solo #hdeck .hd-heads{display:none!important}
 .case-dlg .cs-body code{font-family:'IBM Plex Mono',monospace;font-size:.88em;background:rgba(0,0,0,.06);padding:.05em .3em;border-radius:3px}
 
 .case-dlg .cs-plank{position:relative;height:300px;border-radius:6px;overflow:hidden}
+
+/* sector label: colored right edge plus the sector word in the corner */
+#wheel .ms-gs.has-sec{padding-right:18px}
+#wheel .ms-gs.has-sec:after{background:var(--s);width:5px;right:0;top:0;bottom:0;border-radius:0 6px 6px 0;opacity:1}
+#wheel .ms-sec{position:absolute;right:14px;top:8px;font:600 9px 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--s)}

@@ -1606,6 +1606,36 @@ try{
 }catch(e){ if(window.console) console.warn('[nexus]',e); }
 try{
 
+try{
+/* plankton touch lab: drag across the water; strokes above a threshold make dinoflagellates flash blue (0.1-0.5 s), brighter for faster strokes */
+(function(){
+  window.nexusPlank=function(el,opts){ if(!el||el.__plank) return; el.__plank=1; opts=opts||{};
+    var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var cv=document.createElement('canvas'); cv.style.cssText='display:block;width:100%;height:100%;touch-action:none;cursor:crosshair';
+    el.appendChild(cv); var ctx=cv.getContext('2d'), W=0,H=0,dpr=Math.min(2,window.devicePixelRatio||1);
+    var N=opts.n||260, cells=[], last=null, raf=0, alive=true, t0=performance.now(), nextWave=opts.wave?1600:Infinity;
+    function size(){ W=Math.max(1,el.clientWidth); H=Math.max(1,el.clientHeight); cv.width=W*dpr; cv.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+      if(!cells.length) for(var i=0;i<N;i++) cells.push({x:Math.random(),y:Math.random(),s:.6+Math.random()*1.4,l:0,vx:(Math.random()-.5)*.00004,vy:(Math.random()-.5)*.00004}); }
+    function stir(x,y,force){ /* threshold: weak strokes stay dark */ if(force<.18) return; var R=(opts.r||46)*(.7+force*.6);
+      for(var i=0;i<cells.length;i++){ var c=cells[i], dx=c.x*W-x, dy=c.y*H-y, d=Math.sqrt(dx*dx+dy*dy); if(d<R){ var k=Math.min(1,force*(1-d/R)*1.6); if(k>c.l) c.l=k; } } }
+    function pos(e){ var r=cv.getBoundingClientRect(); return {x:(e.clientX-r.left)*W/Math.max(1,r.width),y:(e.clientY-r.top)*H/Math.max(1,r.height),t:performance.now()}; }
+    var host=opts.host||cv; host.addEventListener('pointerdown',function(e){ var p=pos(e); last=p; stir(p.x,p.y,.55); kick(); });
+    host.addEventListener('pointermove',function(e){ var p=pos(e); if(last){ var dt=Math.max(8,p.t-last.t), v=Math.hypot(p.x-last.x,p.y-last.y)/dt; stir(p.x,p.y,Math.min(1,v*.9)); kick(); } last=p; });
+    host.addEventListener('pointerleave',function(){ last=null; });
+    function draw(now){ raf=0; if(!alive) return; ctx.fillStyle='#04121f'; ctx.fillRect(0,0,W,H);
+      var busy=false;
+      if(opts.wave&&!reduce&&now-t0>nextWave){ var wx=((now-t0-nextWave)/2200)*(W+120)-60; for(var y=0;y<H;y+=18) stir(wx+Math.sin(y/40)*20,y,.5); if(wx>W+60) nextWave=now-t0+5200; busy=true; }
+      for(var i=0;i<cells.length;i++){ var c=cells[i]; c.x=(c.x+c.vx+1)%1; c.y=(c.y+c.vy+1)%1; var x=c.x*W,y=c.y*H;
+        ctx.fillStyle='rgba(120,170,200,.18)'; ctx.fillRect(x,y,c.s,c.s);
+        if(c.l>.01){ busy=true; var rr=8+c.l*22, g=ctx.createRadialGradient(x,y,0,x,y,rr); g.addColorStop(0,'rgba(170,235,255,'+c.l+')'); g.addColorStop(.35,'rgba(60,170,255,'+(c.l*.6)+')'); g.addColorStop(1,'rgba(30,120,255,0)');
+          ctx.fillStyle=g; ctx.beginPath(); ctx.arc(x,y,rr,0,6.283); ctx.fill(); c.l*=.92; } }
+      if(busy||opts.wave||cells.some(function(c){return c.vx;})) kick(); }
+    function kick(){ if(!raf&&alive) raf=requestAnimationFrame(draw); }
+    if('ResizeObserver' in window) new ResizeObserver(size).observe(el); size(); kick();
+    var mo=new MutationObserver(function(){ if(!document.contains(el)){ alive=false; mo.disconnect(); } }); mo.observe(document.body,{childList:true,subtree:true});
+  };
+})();
+}catch(e){ if(window.console) console.warn('[nexus]',e); }
 /* living network, adapted from the original Nexus Lab Space site: ink and teal lines, with neurons that fire in iridescent color */
 (function(){
   var band=document.querySelector('.hero-band'), canvas=document.getElementById('nlsCanvas');
@@ -1951,20 +1981,34 @@ try{
   function comb(){var s='<svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice"><rect width="400" height="400" fill="#6b4410"/>';
     for(var r=0;r<12;r++)for(var c=0;c<12;c++){var x=c*40+(r%2?20:0),y=r*35,h='';for(var k=0;k<6;k++){var a=Math.PI/3*k+Math.PI/6;h+=(k?' L':'M')+(x+19*Math.cos(a)).toFixed(1)+' '+(y+19*Math.sin(a)).toFixed(1);}s+='<path d="'+h+'Z" fill="#c8891d" stroke="#8a5a14" stroke-width="2"/>';}
     return s+'<path d="M120 260 q40 -60 80 0 q40 60 80 0" stroke="#fff6dc" stroke-width="5" stroke-dasharray="10 8" fill="none"/></svg>';}
+  function flies(){var s='<svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice"><defs><radialGradient id="msfly"><stop offset="0" stop-color="#eaff86"/><stop offset=".4" stop-color="#d9ff6a" stop-opacity=".5"/><stop offset="1" stop-color="#d9ff6a" stop-opacity="0"/></radialGradient></defs><rect width="400" height="400" fill="#07110d"/>';
+    for(var k=0;k<7;k++)s+='<path d="M'+(k*62+10)+' 400 C '+(k*62+30)+' 300, '+(k*62-10)+' 200, '+(k*62+18)+' 120" stroke="#0f2219" stroke-width="'+(10+k%3*4)+'" fill="none"/>';
+    /* first burst lands as the zoom finishes. Photinus carolinus: 6 flashes 0.5 s apart, then about 7 s dark (Faust 2010: 4-8 flashes, 6-9 s dark), 10 s cycle */
+    var kt=[0],v=[0];for(var f=0;f<6;f++){var t=f*.5;kt.push(t/10,(t+.07)/10,(t+.22)/10);v.push(0,1,0);}kt.push(1);v.push(0);
+    var a='keyTimes="'+kt.map(function(x){return x.toFixed(4);}).join(';')+'" values="'+v.join(';')+'"';
+    var seed=7;function r(){seed=(seed*9301+49297)%233280;return seed/233280;}
+    for(var i=0;i<46;i++){var x=(r()*400).toFixed(0),y=(60+r()*320).toFixed(0),z=(4+r()*9).toFixed(1),d=(2.4+r()*.12).toFixed(2);
+      s+='<g transform="translate('+x+' '+y+')"><circle r="'+(z*3)+'" fill="url(#msfly)" opacity="'+(reduce?(i%3?0:.9):0)+'">'+(reduce?'':'<animate attributeName="opacity" dur="10s" begin="'+d+'s" repeatCount="indefinite" '+a+'/>')+'</circle><circle r="'+(z/3).toFixed(1)+'" fill="#f4ffb0" opacity="'+(reduce?(i%3?.15:1):.15)+'">'+(reduce?'':'<animate attributeName="opacity" dur="10s" begin="'+d+'s" repeatCount="indefinite" keyTimes="'+kt.map(function(x){return x.toFixed(4);}).join(';')+'" values="'+v.map(function(q){return q?1:.15;}).join(';')+'"/>')+'</circle></g>';}
+    return s+'</svg>';}
   function img(src,alt){return '<img src="'+src+'" alt="'+alt+'" loading="lazy">';}
   var P=[
-    {g:'fn',t:'Storm Fuel',st:'Concept',from:'mold',thumb:'img/community.jpg',a:img('img/community.jpg','Community members at the Slidell, Louisiana gathering.'),b:mold(),f:'Store and distribute energy.',o:'Wall mold after hurricane flooding in Louisiana, mostly <i>Aspergillus</i> and <i>Penicillium</i>',s:'Concept, with partners in Slidell, Louisiana',p:'A community biofuel center for the days after a hurricane, modeled on how mold stores and distributes energy.',m:['10×','400×'],cs:'storm-fuel'},
-    {g:'fn',t:'Urban Nexus',st:'Working platform',from:'fairy circles',thumb:'img/un-scan.jpg',a:img('img/un-scan.jpg','The Urban Nexus map of Albuquerque.'),b:img('img/fc-hero-aerial-namibia.jpg','Aerial view of fairy circles in the Namib Desert.'),f:'To self-organize.',o:'Fairy circles in <i>Stipagrostis</i> grasslands, Namib Desert',s:'Working platform',p:'A spatial evidence platform that organizes environmental, economic and community data for all 376 block groups in Albuquerque into one shared frame.',m:['1:1','aerial'],cs:'urban-nexus'},
-    {g:'fn',t:'LeafQuest',st:'In playtests',from:'honey bees',thumb:'img/lq-sweetgum.jpg',a:img('img/lq-sweetgum.jpg','A LeafQuest sweetgum leaf card.'),b:'<video src="img/honeybee-sunflower.mp4" poster="img/honeybee-sunflower.jpg" muted loop playsinline autoplay preload="none" aria-label="A honey bee foraging on a sunflower, filmed by Nexus Lab Space."></video>',f:'Self-organize.',o:'Western honey bee, <i>Apis mellifera</i>',s:'Patent pending, two provisional applications filed',p:'An NFC nature-education game that teaches systems design and evolution through leaf shape, margin and venation.',m:['10×','field'],cs:'leafquest'},
-    {g:'fn',t:'Drone show safety',st:'Concept',from:'electric fish',thumb:'img/drone-sim.jpg',a:img('img/drone-sim.jpg','A drone formation simulation.'),b:'<iframe class="ms-live" data-src="./?solo=3" title="Glass knifefish jamming avoidance, the same live model as the hero" tabindex="-1" loading="lazy"></iframe>',f:'Avoid signal interference.',o:'Glass knifefish, <i>Eigenmannia virescens</i>',s:'Concept',p:'Neighboring drones that detect interference move to radio channels further apart, so links stay clear and the formation holds.',m:['10×','signal'],cs:'drone-safety'},
-    {g:'fm',t:'Microscope brushes',st:'Available now',from:'eggplant leaves',thumb:'img/leaf-subject-02-eggplant.jpg',a:img('img/leaf-subject-02-eggplant.jpg','An eggplant plant.'),b:img('img/leaf-plate-02-eggplant-stellate.jpg','Stellate trichomes on an eggplant leaf under the microscope.'),f:'Capture texture and form.',o:'Eggplant, <i>Solanum melongena</i> (stellate trichomes)',s:'On sale, 29 brushes',p:'A Procreate brush set built from leaf surfaces captured under the microscope, with custom grain images and shape stamps.',m:['1×','200×'],cs:'brushes'}];
+    {g:'fn',t:'Storm Fuel',sec:'Civic',st:'Concept',from:'mold',thumb:'img/community.jpg',a:img('img/community.jpg','Community members at the Slidell, Louisiana gathering.'),b:mold(),f:'Store and distribute energy.',o:'Wall mold after hurricane flooding in Louisiana, mostly <i>Aspergillus</i> and <i>Penicillium</i>',s:'Concept, with partners in Slidell, Louisiana',p:'A community biofuel center for the days after a hurricane, modeled on how mold stores and distributes energy.',m:['10×','400×'],cs:'storm-fuel'},
+    {g:'fn',t:'Urban Nexus',sec:'Civic',st:'Working platform',from:'fairy circles',thumb:'img/un-scan.jpg',a:img('img/un-scan.jpg','The Urban Nexus map of Albuquerque.'),b:img('img/fc-hero-aerial-namibia.jpg','Aerial view of fairy circles in the Namib Desert.'),f:'To self-organize.',o:'Fairy circles in <i>Stipagrostis</i> grasslands, Namib Desert',s:'Working platform',p:'A spatial evidence platform that organizes environmental, economic and community data for all 376 block groups in Albuquerque into one shared frame.',m:['1:1','aerial'],cs:'urban-nexus'},
+    {g:'fn',t:'LeafQuest',sec:'Education',st:'In playtests',from:'honey bees',thumb:'img/lq-sweetgum.jpg',a:img('img/lq-sweetgum.jpg','A LeafQuest sweetgum leaf card.'),b:'<video src="img/honeybee-sunflower.mp4" poster="img/honeybee-sunflower.jpg" muted loop playsinline autoplay preload="none" aria-label="A honey bee foraging on a sunflower, filmed by Nexus Lab Space."></video>',f:'Self-organize.',o:'Western honey bee, <i>Apis mellifera</i>',s:'Patent pending, two provisional applications filed',p:'An NFC nature-education game that teaches systems design and evolution through leaf shape, margin and venation.',m:['10×','field'],cs:'leafquest'},
+    {g:'fn',t:'Drone show safety',sec:'Entertainment',st:'Concept',from:'electric fish',thumb:'img/drone-sim.jpg',a:img('img/drone-sim.jpg','A drone formation simulation.'),b:'<iframe class="ms-live" data-src="./?solo=3" title="Glass knifefish jamming avoidance, the same live model as the hero" tabindex="-1" loading="lazy"></iframe>',f:'Avoid signal interference.',o:'Glass knifefish, <i>Eigenmannia virescens</i>',s:'Concept',p:'Neighboring drones that detect interference move to radio channels further apart, so links stay clear and the formation holds.',m:['10×','signal'],cs:'drone-safety'},
+    {g:'fm',t:'Microscope brushes',sec:'Arts',st:'Available now',from:'eggplant leaves',thumb:'img/leaf-subject-02-eggplant.jpg',a:img('img/leaf-subject-02-eggplant.jpg','An eggplant plant.'),b:img('img/leaf-plate-02-eggplant-stellate.jpg','Stellate trichomes on an eggplant leaf under the microscope.'),f:'Capture texture and form.',o:'Eggplant, <i>Solanum melongena</i> (stellate trichomes)',s:'On sale, 29 brushes',p:'A Procreate brush set built from leaf surfaces captured under the microscope, with custom grain images and shape stamps.',m:['1×','200×'],cs:'brushes'},
+    {g:'fm',t:'Firefly light workshop',sec:'Education',st:'New workshop',from:'fireflies',thumb:'img/firefly-workshop.svg',a:img('img/firefly-workshop.svg','An Arduino and breadboard driving three LEDs.'),b:flies(),f:'Emulate natural light patterns.',o:'Synchronous firefly, <i>Photinus carolinus</i>, and common eastern firefly, <i>Photinus pyralis</i>',s:'New workshop, booking with hosts',p:'A hands-on Arduino workshop where participants program LEDs to reproduce the flash timing of real firefly species.',m:['1×','night'],cs:'firefly-workshop'},
+    {g:'fm',t:'Plankton touch lab',sec:'Education',st:'New workshop',from:'plankton',thumb:'img/plankton-lab.svg',a:img('img/plankton-lab.svg','An Arduino with a force sensor and blue LEDs.'),b:'<div class="ms-plank" style="position:absolute;inset:0"></div>',f:'Respond to touch with light.',o:'Bioluminescent dinoflagellates, <i>Lingulodinium polyedra</i> and <i>Pyrocystis lunula</i>',s:'New workshop, booking with hosts',p:'A hands-on Arduino workshop where a touch sensor and blue LEDs flash the way bioluminescent plankton do when disturbed. Run your cursor across the dish.',m:['1×','400×'],cs:'plankton-lab'}];
   var C={fn:'#8FB0FF',fm:'#5FE08A'};
+  /* sector color for each slide's right edge */
+  var SC={Civic:'#4FD1C5',Education:'#F2C14E',Entertainment:'#FF7A9A',Arts:'#B89CFF'};
   var sw=root.querySelector('.ms-sw'), pages=root.querySelector('.ms-pages'), sub=root.querySelector('.ms-swsub'), carrier=root.querySelector('.ms-carrier');
   var scope=root.querySelector('.ms-scope'), dish=root.querySelector('.ms-dish'), l1=root.querySelector('.ms-l1'), l2=root.querySelector('.ms-l2'), mag=root.querySelector('.ms-mag'), lab=root.querySelector('.ms-lab');
   var info=root.querySelector('.ms-info'), openB=root.querySelector('.ms-open'), link=root.querySelector('.ms-link');
   var cur=0, zoomed=false, timer=null, pos=0, btns=[];
   P.forEach(function(p,i){var b=document.createElement('button');b.type='button';b.className='ms-gs';b.style.setProperty('--c',C[p.g]);b.setAttribute('aria-pressed','false');
     b.innerHTML='<span class="ms-cs"><img src="'+p.thumb+'" alt="" loading="lazy"></span><span><b>'+p.t+'</b><em>'+p.st+' · from '+p.from+'</em></span>';
+    if(p.sec){b.style.setProperty('--s',SC[p.sec]);b.classList.add('has-sec');b.insertAdjacentHTML('beforeend','<span class="ms-sec">'+p.sec+'</span>');}
     b.addEventListener('click',function(){pick(i);});root.querySelector('.ms-page[data-g="'+p.g+'"]').appendChild(b);btns.push(b);});
   function zoom(on){var p=P[cur];zoomed=on;scope.classList.toggle('zoomed',on);mag.textContent=on?p.m[1]:p.m[0];if(!on)l2.classList.remove('live');}
   function pick(i){var p=P[cur=i];clearTimeout(timer);
@@ -1972,6 +2016,7 @@ try{
     scope.classList.remove('zoomed','drawing');scope.classList.toggle('form',p.g==='fm');l1.innerHTML=p.a;l2.innerHTML=p.b;l2.classList.remove('live');mag.textContent=p.m[0];
     lab.textContent=(p.g==='fn'?'FN':'FORM')+' · '+p.t.toUpperCase();
     l2.querySelectorAll('iframe[data-src]').forEach(function(f){if(f.src)return;f.addEventListener('load',function(){try{var d=f.contentDocument,st=d.createElement('style');st.textContent='.tag,.sf-cap,.sf-flash,.control,.sf-ctl,.cur,.cur-ring{display:none!important}#hdeck .specimen{height:100vh!important;border-radius:0!important}html,body{margin:0!important;padding:0!important;overflow:hidden!important}#hdeck,#hdeck .deck-card,.hero,.wrap{padding:0!important;margin:0!important;border:0!important}';d.head.appendChild(st);}catch(e){}});f.src=f.getAttribute('data-src');});
+    l2.querySelectorAll('.ms-plank').forEach(function(f){ if(window.nexusPlank) window.nexusPlank(f,{wave:true,n:320,r:54,host:dish}); });
     l2.querySelectorAll('video').forEach(function(v){v.preload='auto';if(reduce){v.removeAttribute('autoplay');v.pause();}else{var pr=v.play();if(pr&&pr.catch)pr.catch(function(){});}});
     void scope.offsetWidth; scope.classList.add('drawing');
     info.classList.add('fade');
@@ -2034,6 +2079,7 @@ try{(function(){
     });
     if(typeof dlg.showModal==='function') dlg.showModal(); else dlg.setAttribute('open','');
     doc.querySelectorAll('.cs-brush').forEach(function(f){ if(window.nexusBrush) window.nexusBrush(f); });
+    doc.querySelectorAll('.cs-plank').forEach(function(f){ if(window.nexusPlank) window.nexusPlank(f); });
     doc.querySelectorAll('video[autoplay]').forEach(function(v){ if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){ v.removeAttribute('autoplay'); v.controls=true; return; } var pr=v.play(); if(pr&&pr.catch) pr.catch(function(){}); });
     document.documentElement.classList.add('case-open');
     history.replaceState(null,'','#case-'+key);

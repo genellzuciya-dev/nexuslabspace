@@ -3345,3 +3345,9 @@ html.solo #hdeck .hd-heads{display:none!important}
 /* hero: every slide fills the card; the video box takes whatever space the text leaves */
 /* hero: one video height for every slide, sized to the screen */ #hdeck .specimen{height:clamp(260px,calc((100vh - 111px)/.79 - 505px),575px)!important}
 #wheel .ms-layer iframe.ms-live{position:absolute;left:-6%;top:-6%;width:112%;height:112%;border:0;pointer-events:none;background:#0f2b30}
+
+/* firefly light workshop case study */
+.case-dlg .cs-fly{margin:1.4rem 0}
+.case-dlg .cs-fly figcaption{font-size:.85rem;color:#4E4E52;margin-top:.5rem}
+.case-dlg .cs-sketch em{font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;color:#8A2F5A;margin-right:.4rem}
+.case-dlg .cs-body code{font-family:'IBM Plex Mono',monospace;font-size:.88em;background:rgba(0,0,0,.06);padding:.05em .3em;border-radius:3px}

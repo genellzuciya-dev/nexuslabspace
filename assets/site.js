@@ -1606,6 +1606,36 @@ try{
 }catch(e){ if(window.console) console.warn('[nexus]',e); }
 try{
 
+try{
+/* plankton touch lab: drag across the water; strokes above a threshold make dinoflagellates flash blue (0.1-0.5 s), brighter for faster strokes */
+(function(){
+  window.nexusPlank=function(el,opts){ if(!el||el.__plank) return; el.__plank=1; opts=opts||{};
+    var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var cv=document.createElement('canvas'); cv.style.cssText='display:block;width:100%;height:100%;touch-action:none;cursor:crosshair';
+    el.appendChild(cv); var ctx=cv.getContext('2d'), W=0,H=0,dpr=Math.min(2,window.devicePixelRatio||1);
+    var N=opts.n||260, cells=[], last=null, raf=0, alive=true, t0=performance.now(), nextWave=opts.wave?1600:Infinity;
+    function size(){ W=Math.max(1,el.clientWidth); H=Math.max(1,el.clientHeight); cv.width=W*dpr; cv.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+      if(!cells.length) for(var i=0;i<N;i++) cells.push({x:Math.random(),y:Math.random(),s:.6+Math.random()*1.4,l:0,vx:(Math.random()-.5)*.00004,vy:(Math.random()-.5)*.00004}); }
+    function stir(x,y,force){ /* threshold: weak strokes stay dark */ if(force<.18) return; var R=(opts.r||46)*(.7+force*.6);
+      for(var i=0;i<cells.length;i++){ var c=cells[i], dx=c.x*W-x, dy=c.y*H-y, d=Math.sqrt(dx*dx+dy*dy); if(d<R){ var k=Math.min(1,force*(1-d/R)*1.6); if(k>c.l) c.l=k; } } }
+    function pos(e){ var r=cv.getBoundingClientRect(); return {x:(e.clientX-r.left)*W/Math.max(1,r.width),y:(e.clientY-r.top)*H/Math.max(1,r.height),t:performance.now()}; }
+    var host=opts.host||cv; host.addEventListener('pointerdown',function(e){ var p=pos(e); last=p; stir(p.x,p.y,.55); kick(); });
+    host.addEventListener('pointermove',function(e){ var p=pos(e); if(last){ var dt=Math.max(8,p.t-last.t), v=Math.hypot(p.x-last.x,p.y-last.y)/dt; stir(p.x,p.y,Math.min(1,v*.9)); kick(); } last=p; });
+    host.addEventListener('pointerleave',function(){ last=null; });
+    function draw(now){ raf=0; if(!alive) return; ctx.fillStyle='#04121f'; ctx.fillRect(0,0,W,H);
+      var busy=false;
+      if(opts.wave&&!reduce&&now-t0>nextWave){ var wx=((now-t0-nextWave)/2200)*(W+120)-60; for(var y=0;y<H;y+=18) stir(wx+Math.sin(y/40)*20,y,.5); if(wx>W+60) nextWave=now-t0+5200; busy=true; }
+      for(var i=0;i<cells.length;i++){ var c=cells[i]; c.x=(c.x+c.vx+1)%1; c.y=(c.y+c.vy+1)%1; var x=c.x*W,y=c.y*H;
+        ctx.fillStyle='rgba(120,170,200,.18)'; ctx.fillRect(x,y,c.s,c.s);
+        if(c.l>.01){ busy=true; var rr=8+c.l*22, g=ctx.createRadialGradient(x,y,0,x,y,rr); g.addColorStop(0,'rgba(170,235,255,'+c.l+')'); g.addColorStop(.35,'rgba(60,170,255,'+(c.l*.6)+')'); g.addColorStop(1,'rgba(30,120,255,0)');
+          ctx.fillStyle=g; ctx.beginPath(); ctx.arc(x,y,rr,0,6.283); ctx.fill(); c.l*=.92; } }
+      if(busy||opts.wave||cells.some(function(c){return c.vx;})) kick(); }
+    function kick(){ if(!raf&&alive) raf=requestAnimationFrame(draw); }
+    if('ResizeObserver' in window) new ResizeObserver(size).observe(el); size(); kick();
+    var mo=new MutationObserver(function(){ if(!document.contains(el)){ alive=false; mo.disconnect(); } }); mo.observe(document.body,{childList:true,subtree:true});
+  };
+})();
+}catch(e){ if(window.console) console.warn('[nexus]',e); }
 /* living network, adapted from the original Nexus Lab Space site: ink and teal lines, with neurons that fire in iridescent color */
 (function(){
   var band=document.querySelector('.hero-band'), canvas=document.getElementById('nlsCanvas');
@@ -1967,7 +1997,8 @@ try{
     {g:'fn',t:'LeafQuest',st:'In playtests',from:'honey bees',thumb:'img/lq-sweetgum.jpg',a:img('img/lq-sweetgum.jpg','A LeafQuest sweetgum leaf card.'),b:'<video src="img/honeybee-sunflower.mp4" poster="img/honeybee-sunflower.jpg" muted loop playsinline autoplay preload="none" aria-label="A honey bee foraging on a sunflower, filmed by Nexus Lab Space."></video>',f:'Self-organize.',o:'Western honey bee, <i>Apis mellifera</i>',s:'Patent pending, two provisional applications filed',p:'An NFC nature-education game that teaches systems design and evolution through leaf shape, margin and venation.',m:['10×','field'],cs:'leafquest'},
     {g:'fn',t:'Drone show safety',st:'Concept',from:'electric fish',thumb:'img/drone-sim.jpg',a:img('img/drone-sim.jpg','A drone formation simulation.'),b:'<iframe class="ms-live" data-src="./?solo=3" title="Glass knifefish jamming avoidance, the same live model as the hero" tabindex="-1" loading="lazy"></iframe>',f:'Avoid signal interference.',o:'Glass knifefish, <i>Eigenmannia virescens</i>',s:'Concept',p:'Neighboring drones that detect interference move to radio channels further apart, so links stay clear and the formation holds.',m:['10×','signal'],cs:'drone-safety'},
     {g:'fm',t:'Microscope brushes',st:'Available now',from:'eggplant leaves',thumb:'img/leaf-subject-02-eggplant.jpg',a:img('img/leaf-subject-02-eggplant.jpg','An eggplant plant.'),b:img('img/leaf-plate-02-eggplant-stellate.jpg','Stellate trichomes on an eggplant leaf under the microscope.'),f:'Capture texture and form.',o:'Eggplant, <i>Solanum melongena</i> (stellate trichomes)',s:'On sale, 29 brushes',p:'A Procreate brush set built from leaf surfaces captured under the microscope, with custom grain images and shape stamps.',m:['1×','200×'],cs:'brushes'},
-    {g:'fm',t:'Firefly light workshop',st:'New workshop',from:'fireflies',thumb:'img/firefly-workshop.svg',a:img('img/firefly-workshop.svg','An Arduino and breadboard driving three LEDs.'),b:flies(),f:'Emulate natural light patterns.',o:'Synchronous firefly, <i>Photinus carolinus</i>, and common eastern firefly, <i>Photinus pyralis</i>',s:'New workshop, booking with hosts',p:'A hands-on Arduino workshop where participants program LEDs to reproduce the flash timing of real firefly species.',m:['1×','night'],cs:'firefly-workshop'}];
+    {g:'fm',t:'Firefly light workshop',st:'New workshop',from:'fireflies',thumb:'img/firefly-workshop.svg',a:img('img/firefly-workshop.svg','An Arduino and breadboard driving three LEDs.'),b:flies(),f:'Emulate natural light patterns.',o:'Synchronous firefly, <i>Photinus carolinus</i>, and common eastern firefly, <i>Photinus pyralis</i>',s:'New workshop, booking with hosts',p:'A hands-on Arduino workshop where participants program LEDs to reproduce the flash timing of real firefly species.',m:['1×','night'],cs:'firefly-workshop'},
+    {g:'fm',t:'Plankton touch lab',st:'New workshop',from:'plankton',thumb:'img/plankton-lab.svg',a:img('img/plankton-lab.svg','An Arduino with a force sensor and blue LEDs.'),b:'<div class="ms-plank" style="position:absolute;inset:0"></div>',f:'Respond to touch with light.',o:'Bioluminescent dinoflagellates, <i>Lingulodinium polyedra</i> and <i>Pyrocystis lunula</i>',s:'New workshop, booking with hosts',p:'A hands-on Arduino workshop where a touch sensor and blue LEDs flash the way bioluminescent plankton do when disturbed. Run your cursor across the dish.',m:['1×','400×'],cs:'plankton-lab'}];
   var C={fn:'#8FB0FF',fm:'#5FE08A'};
   var sw=root.querySelector('.ms-sw'), pages=root.querySelector('.ms-pages'), sub=root.querySelector('.ms-swsub'), carrier=root.querySelector('.ms-carrier');
   var scope=root.querySelector('.ms-scope'), dish=root.querySelector('.ms-dish'), l1=root.querySelector('.ms-l1'), l2=root.querySelector('.ms-l2'), mag=root.querySelector('.ms-mag'), lab=root.querySelector('.ms-lab');
@@ -1982,6 +2013,7 @@ try{
     scope.classList.remove('zoomed','drawing');scope.classList.toggle('form',p.g==='fm');l1.innerHTML=p.a;l2.innerHTML=p.b;l2.classList.remove('live');mag.textContent=p.m[0];
     lab.textContent=(p.g==='fn'?'FN':'FORM')+' · '+p.t.toUpperCase();
     l2.querySelectorAll('iframe[data-src]').forEach(function(f){if(f.src)return;f.addEventListener('load',function(){try{var d=f.contentDocument,st=d.createElement('style');st.textContent='.tag,.sf-cap,.sf-flash,.control,.sf-ctl,.cur,.cur-ring{display:none!important}#hdeck .specimen{height:100vh!important;border-radius:0!important}html,body{margin:0!important;padding:0!important;overflow:hidden!important}#hdeck,#hdeck .deck-card,.hero,.wrap{padding:0!important;margin:0!important;border:0!important}';d.head.appendChild(st);}catch(e){}});f.src=f.getAttribute('data-src');});
+    l2.querySelectorAll('.ms-plank').forEach(function(f){ if(window.nexusPlank) window.nexusPlank(f,{wave:true,n:320,r:54,host:dish}); });
     l2.querySelectorAll('video').forEach(function(v){v.preload='auto';if(reduce){v.removeAttribute('autoplay');v.pause();}else{var pr=v.play();if(pr&&pr.catch)pr.catch(function(){});}});
     void scope.offsetWidth; scope.classList.add('drawing');
     info.classList.add('fade');
@@ -2044,6 +2076,7 @@ try{(function(){
     });
     if(typeof dlg.showModal==='function') dlg.showModal(); else dlg.setAttribute('open','');
     doc.querySelectorAll('.cs-brush').forEach(function(f){ if(window.nexusBrush) window.nexusBrush(f); });
+    doc.querySelectorAll('.cs-plank').forEach(function(f){ if(window.nexusPlank) window.nexusPlank(f); });
     doc.querySelectorAll('video[autoplay]').forEach(function(v){ if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){ v.removeAttribute('autoplay'); v.controls=true; return; } var pr=v.play(); if(pr&&pr.catch) pr.catch(function(){}); });
     document.documentElement.classList.add('case-open');
     history.replaceState(null,'','#case-'+key);

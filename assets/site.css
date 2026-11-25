@@ -3351,3 +3351,5 @@ html.solo #hdeck .hd-heads{display:none!important}
 .case-dlg .cs-fly figcaption{font-size:.85rem;color:#4E4E52;margin-top:.5rem}
 .case-dlg .cs-sketch em{font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;color:#8A2F5A;margin-right:.4rem}
 .case-dlg .cs-body code{font-family:'IBM Plex Mono',monospace;font-size:.88em;background:rgba(0,0,0,.06);padding:.05em .3em;border-radius:3px}
+
+.case-dlg .cs-plank{position:relative;height:300px;border-radius:6px;overflow:hidden}
